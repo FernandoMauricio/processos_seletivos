@@ -99,7 +99,7 @@ class ContratacaoEmAndamentoController extends Controller
      $session = Yii::$app->session;
      $connection = Yii::$app->db;
      $command = $connection->createCommand(
-     "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '5' WHERE `id` = '".$model->id."' AND `cod_unidade_solic` =" . $session['sess_codunidade']);
+     "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '5' WHERE `id` = '".$model->id."'");
     $command->execute();
 
 Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Solicitação de Processo Seletivo <strong>ENCERRADO</strong>!</strong>');
@@ -117,7 +117,7 @@ return $this->redirect(['index']);
      $session = Yii::$app->session;
      $connection = Yii::$app->db;
      $command = $connection->createCommand(
-     "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '2' WHERE `id` = '".$model->id."' AND `cod_unidade_solic` =" . $session['sess_codunidade']);
+     "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '2' WHERE `id` = '".$model->id."'");
      $command->execute();
 
 Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Solicitação de Contratação enviada <strong>PARA CORREÇÃO</strong>!</strong>');

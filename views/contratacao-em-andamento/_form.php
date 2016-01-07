@@ -28,13 +28,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'motivo')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'subistituicao')->textInput() ?>
+    <?= $form->field($model, 'substituicao')->textInput() ?>
 
     <?= $form->field($model, 'periodo')->textInput() ?>
 
     <?= $form->field($model, 'tempo_periodo')->textInput() ?>
 
     <?= $form->field($model, 'aumento_quadro')->textInput() ?>
+
+    <?= $form->field($model, 'obs_aumento')->textarea(['rows' => 3]) ?>
 
     <?= $form->field($model, 'nome_substituicao')->textInput(['maxlength' => true]) ?>
 
@@ -46,7 +48,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'fundamental_comp')->textInput() ?>
 
-    <?= $form->field($model, 'fundamento_inc')->textInput() ?>
+    <?= $form->field($model, 'fundamental_inc')->textInput() ?>
 
     <?= $form->field($model, 'medio_comp')->textInput() ?>
 

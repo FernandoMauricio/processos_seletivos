@@ -14,7 +14,7 @@ use Yii;
  * @property integer $cod_unidade_solic
  * @property integer $quant_pessoa
  * @property string $motivo
- * @property integer $subistituicao
+ * @property integer $substituicao
  * @property integer $periodo
  * @property integer $tempo_periodo
  * @property integer $aumento_quadro
@@ -22,7 +22,7 @@ use Yii;
  * @property integer $deficiencia
  * @property string $obs_deficiencia
  * @property integer $fundamental_comp
- * @property integer $fundamento_inc
+ * @property integer $fundamental_inc
  * @property integer $medio_comp
  * @property integer $medio_inc
  * @property integer $tecnico_comp
@@ -75,8 +75,8 @@ class Contratacao extends \yii\db\ActiveRecord
     {
         return [
             [['data_solicitacao', 'hora_solicitacao', 'nomesituacao'], 'safe'],
-            [['cod_colaborador', 'cod_unidade_solic', 'quant_pessoa', 'subistituicao', 'periodo', 'tempo_periodo', 'aumento_quadro', 'deficiencia', 'fundamental_comp', 'fundamento_inc', 'medio_comp', 'medio_inc', 'tecnico_comp', 'tecnico_inc', 'superior_comp', 'superior_inc', 'pos_comp', 'pos_inc', 'windows', 'word', 'excel', 'internet', 'experiencia', 'jornada_horas', 'recrutamento_id', 'selec_curriculo', 'selec_dinamica', 'selec_prova', 'selec_entrevista', 'situacao_id'], 'integer'],
-            [['motivo', 'obs_deficiencia', 'dominio_atividade', 'jornada_obs', 'principais_atividades'], 'string'],
+            [['cod_colaborador', 'cod_unidade_solic', 'quant_pessoa', 'substituicao', 'periodo', 'tempo_periodo', 'aumento_quadro', 'deficiencia', 'fundamental_comp', 'fundamental_inc', 'medio_comp', 'medio_inc', 'tecnico_comp', 'tecnico_inc', 'superior_comp', 'superior_inc', 'pos_comp', 'pos_inc', 'windows', 'word', 'excel', 'internet', 'experiencia', 'jornada_horas', 'recrutamento_id', 'selec_curriculo', 'selec_dinamica', 'selec_prova', 'selec_entrevista', 'situacao_id'], 'integer'],
+            [['motivo', 'obs_deficiencia', 'obs_aumento','dominio_atividade', 'jornada_obs', 'principais_atividades'], 'string'],
             [['recrutamento_id', 'situacao_id'], 'required'],
             [['colaborador', 'unidade', 'nome_substituicao'], 'string', 'max' => 100],
             [['data_ingresso'], 'string', 'max' => 15],
@@ -99,16 +99,17 @@ class Contratacao extends \yii\db\ActiveRecord
             'unidade' => 'Unidade',
             'quant_pessoa' => 'Quantidade de pessoas a ser contratada:',
             'motivo' => 'Motivo da contratação:',
-            'subistituicao' => 'Substituição:',
+            'substituicao' => 'Substituição:',
             'nome_substituicao' => 'Servidor a ser substituido',
             'periodo' => 'Período Indeterminado:',
             'tempo_periodo' => 'Período em meses',
             'aumento_quadro' => 'Necessidade de aumento do quadro de pessoal:',
+            'obs_aumento' => 'Justificativa em caso do aumento do quadro de pessoal:',
             'data_ingresso' => 'Data prevista do ingresso do futuro contratado(a):',
             'deficiencia' => 'Poderá ser recrutado e selecionado candidato portador de algum tipo de deficiência:',
             'obs_deficiencia' => 'Observação',
             'fundamental_comp' => 'Completo',
-            'fundamento_inc' => 'Incompleto',
+            'fundamental_inc' => 'Incompleto',
             'medio_comp' => 'Completo',
             'medio_inc' => 'Incompleto',
             'tecnico_comp' => 'Completo',

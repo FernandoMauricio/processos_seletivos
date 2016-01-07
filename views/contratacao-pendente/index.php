@@ -1,7 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
+use kartik\editable\Editable;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ContratacaoPendenteSearch */
@@ -21,10 +23,9 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
+    <?php
+
+$gridColumns = [
             'id',
             'data_solicitacao',
             'colaborador',
@@ -36,7 +37,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             // 'cod_unidade_solic',
             // 'quant_pessoa',
             // 'motivo:ntext',
-            // 'subistituicao',
+            // 'substituicao',
             // 'periodo',
             // 'tempo_periodo',
             // 'aumento_quadro',
@@ -45,7 +46,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             // 'obs_deficiencia:ntext',
             // 'data_ingresso',
             // 'fundamental_comp',
-            // 'fundamento_inc',
+            // 'fundamental_inc',
             // 'medio_comp',
             // 'medio_inc',
             // 'tecnico_comp',
@@ -94,14 +95,43 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             },
             //ENVIAR PARA CORREÇÃO
             'correcao' => function ($url, $model) {
-                return Html::a('<span class="glyphicon glyphicon-remove"></span> Enviar para Correção', $url, [
-                            'class'=>'btn btn-danger btn-xs',
+                return Html::a('<span class="glyphicon glyphicon-repeat"></span> Enviar para Correção', $url, [
+                            'class'=>'btn btn-warning btn-xs',
            
                 ]);
             },
         ],
       ],
+    ];
+ ?>
+
+    <?php Pjax::begin(); ?>
+
+    <?php 
+
+    echo GridView::widget([
+    'dataProvider'=>$dataProvider,
+    'filterModel'=>$searchModel,
+    'columns'=>$gridColumns,
+    'containerOptions'=>['style'=>'overflow: auto'], // only set when $responsive = false
+    'headerRowOptions'=>['class'=>'kartik-sheet-style'],
+    'filterRowOptions'=>['class'=>'kartik-sheet-style'],
+    'pjax'=>false, // pjax is set to always true for this demo
+    'beforeHeader'=>[
+        [
+            'columns'=>[
+                ['content'=>'Detalhes da Solicitação de Contratação', 'options'=>['colspan'=>5, 'class'=>'text-center warning']], 
+                ['content'=>'Área de Ações', 'options'=>['colspan'=>3, 'class'=>'text-center warning']], 
+            ],
+        ]
     ],
-    ]); ?>
+
+        'panel' => [
+        'type'=>GridView::TYPE_PRIMARY,
+        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem - Contratações Pendentes</h3>',
+    ],
+]);
+    ?>
+    <?php Pjax::end(); ?>
 
 </div>

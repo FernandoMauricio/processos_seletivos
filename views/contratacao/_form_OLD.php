@@ -41,7 +41,7 @@ $unidade = $session['sess_unidade'];
 
 
     <?php echo '<label class="control-label">Substituição:</label><br>'; ?> 
-    <?= $form->field($model, 'subistituicao')->radioList(array('0'=>'Não','1'=>'Sim')); ?>
+    <?= $form->field($model, 'substituicao')->radioList(array('0'=>'Não','1'=>'Sim')); ?>
     <?= $form->field($model, 'nome_substituicao')->textInput(['maxlength' => true]) ?>
 
     <br><br>
@@ -100,7 +100,7 @@ $unidade = $session['sess_unidade'];
 
     <?= $form->field($model, 'fundamental_comp')->checkbox() ?>
 
-    <?= $form->field($model, 'fundamento_inc')->checkbox() ?>
+    <?= $form->field($model, 'fundamental_inc')->checkbox() ?>
 
     <?php ActiveForm::end(); ?>
 

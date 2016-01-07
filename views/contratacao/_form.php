@@ -24,7 +24,7 @@ use app\models\Recrutamento;
 
     <?= $form->field($model, 'motivo')->textarea(['rows' => 3]) ?>
 
-    <?= $form->field($model, 'subistituicao')->radioList(array('0'=>'Não','1'=>'Sim'), ['inline'=>true]); ?>
+    <?= $form->field($model, 'substituicao')->radioList(array('0'=>'Não','1'=>'Sim'), ['inline'=>true]); ?>
 
     <?= $form->field($model, 'nome_substituicao')->textInput(['maxlength' => true]) ?>
 
@@ -33,6 +33,8 @@ use app\models\Recrutamento;
     <?= $form->field($model, 'tempo_periodo')->textInput() ?>
 
     <?= $form->field($model, 'aumento_quadro')->radioList(array('0'=>'Não','1'=>'Sim'), ['inline'=>true]); ?>
+
+    <?= $form->field($model, 'obs_aumento')->textarea(['rows' => 3]) ?>
 
         <?php
         echo $form->field($model, 'data_ingresso')->widget(DatePicker::classname(), [
@@ -55,7 +57,7 @@ use app\models\Recrutamento;
 
     <?= $form->field($model, 'fundamental_comp')->checkbox() ?>
 
-    <?= $form->field($model, 'fundamento_inc')->checkbox() ?>
+    <?= $form->field($model, 'fundamental_inc')->checkbox() ?>
 
 
 

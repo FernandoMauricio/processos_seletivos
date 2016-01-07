@@ -35,7 +35,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'motivo') ?>
 
-    <?php // echo $form->field($model, 'subistituicao') ?>
+    <?php // echo $form->field($model, 'substituicao') ?>
 
     <?php // echo $form->field($model, 'periodo') ?>
 
@@ -51,7 +51,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'fundamental_comp') ?>
 
-    <?php // echo $form->field($model, 'fundamento_inc') ?>
+    <?php // echo $form->field($model, 'fundamental_inc') ?>
 
     <?php // echo $form->field($model, 'medio_comp') ?>
 
