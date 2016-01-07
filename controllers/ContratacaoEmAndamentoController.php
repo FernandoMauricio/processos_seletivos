@@ -102,7 +102,7 @@ class ContratacaoEmAndamentoController extends Controller
      "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '5' WHERE `id` = '".$model->id."'");
     $command->execute();
 
-Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Solicitação de Processo Seletivo <strong>ENCERRADO</strong>!</strong>');
+Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> A solicitação de Processo Seletivo foi <strong>ENCERRADA</strong>!</strong>');
      
 return $this->redirect(['index']);
 
@@ -120,7 +120,7 @@ return $this->redirect(['index']);
      "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '2' WHERE `id` = '".$model->id."'");
      $command->execute();
 
-Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Solicitação de Contratação enviada <strong>PARA CORREÇÃO</strong>!</strong>');
+Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> A solicitação de Contratação foi enviada <strong>PARA CORREÇÃO</strong>!</strong>');
      
 return $this->redirect(['index']);
 
@@ -138,7 +138,7 @@ return $this->redirect(['index']);
      "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '6' WHERE `id` = '".$model->id."' AND `cod_unidade_solic` =" . $session['sess_codunidade']);
      $command->execute();
 
-Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Solicitação de Contratação enviada <strong>CANCELADA</strong>!</strong>');
+Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong>A solicitação de Contratação foi <strong>CANCELADA</strong>!</strong>');
      
 return $this->redirect(['index']);
 

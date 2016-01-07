@@ -90,7 +90,7 @@ class Contratacao extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'id' => 'Código',
             'data_solicitacao' => 'Data Solicitacao',
             'hora_solicitacao' => 'Hora Solicitacao',
             'cod_colaborador' => 'Cod. Colaborador',
@@ -139,7 +139,7 @@ class Contratacao extends \yii\db\ActiveRecord
             'selec_entrevista' => 'Entrevista',
             'selec_teste' => 'Testes Psicológicos',
             'nomesituacao' => 'Situação',
-            'situacao_id' => 'Situacao ID',
+            'situacao_id' => 'Situação',
         ];
     }
 

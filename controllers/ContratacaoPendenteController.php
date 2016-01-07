@@ -103,7 +103,7 @@ class ContratacaoPendenteController extends Controller
      "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '4' WHERE `id` = '".$model->id."'");
     $command->execute();
 
-Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Solicitação de Processo Seletivo <strong>INICIADO</strong>!</strong>');
+Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong>A solicitação de Processo Seletivo foi <strong>INICIADA</strong>!</strong>');
      
 return $this->redirect(['index']);
 
@@ -123,7 +123,7 @@ return $this->redirect(['index']);
      "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '2' WHERE `id` = '".$model->id."'");
      $command->execute();
 
-Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Solicitação de Contratação enviada <strong>PARA CORREÇÃO</strong>!</strong>');
+Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong>A solicitação de Contratação foi enviada <strong>PARA CORREÇÃO</strong>!</strong>');
      
 return $this->redirect(['index']);
 

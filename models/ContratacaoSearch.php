@@ -41,7 +41,8 @@ class ContratacaoSearch extends Contratacao
      */
     public function search($params)
     {
-        $query = Contratacao::find();
+        $query = Contratacao::find()
+        ->orderBy(['id' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

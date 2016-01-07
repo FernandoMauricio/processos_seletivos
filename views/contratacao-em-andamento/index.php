@@ -41,9 +41,14 @@ $gridColumns = [
                         ],
 
                         'id',
-                        'data_solicitacao',
+                        [
+                            'attribute' => 'data_solicitacao',
+                            'format' => ['date', 'php:d/m/Y'],
+                        ],
                         'colaborador',
+                        
                         'unidade',
+                        
                         [
                             'attribute' => 'situacao_id',
                             'value' => 'situacao.descricao',
@@ -149,7 +154,7 @@ $gridColumns = [
             ],
         ]
     ],
-
+        'hover' => true,
         'panel' => [
         'type'=>GridView::TYPE_PRIMARY,
         'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem - Contratações em Andamento</h3>',

@@ -82,7 +82,9 @@ class ContratacaoController extends Controller
             "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '3' WHERE `id` = '".$model->id."' AND `cod_unidade_solic` =" . $session['sess_codunidade']);
             $command->execute();
 
-            return $this->redirect(['view', 'id' => $model->id]);
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> A solicitação de Processo Seletivo de código <strong>' .$model->id. '</strong> foi enviada para a Gerência de Recursos Humanos!</strong>');
+
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -103,7 +105,7 @@ class ContratacaoController extends Controller
         //USUÁRIOS APENAS IRÃO EDITAR AS SOLICITAÇÕES DE CONTRATAÇÃO COM STATUS DE 'EM ELABORAÇÃO' e 'EM CORREÇÃO'
         if($model->situacao_id != 1 && $model->situacao_id != 2 ){
 
-        Yii::$app->session->setFlash('warning', '<strong>AVISO! </strong> Não é possível <strong>EDITAR</strong> a Solicitação de Contratação de código: ' . '<strong>' .$id. '</strong>' . ' pois o mesmo está com status de  ' . '<strong>' . $model->situacao->descricao . '.</strong>');
+        Yii::$app->session->setFlash('warning', '<strong>AVISO! </strong> Não é possível <strong>EDITAR</strong> a Solicitação de Contratação de código: ' . '<strong>' .$id. '</strong>' . ' pois a mesma está com status de  ' . '<strong>' . $model->situacao->descricao . '.</strong>');
 
         return $this->redirect(['index']);
         }
@@ -126,7 +128,10 @@ class ContratacaoController extends Controller
             "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '3' WHERE `id` = '".$model->id."' AND `cod_unidade_solic` =" . $session['sess_codunidade']);
             $command->execute();
 
-            return $this->redirect(['view', 'id' => $model->id]);
+
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> A solicitação de Processo Seletivo de código <strong>' .$model->id. '</strong> foi enviada para a Gerência de Recursos Humanos!</strong>');
+           
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -142,6 +147,15 @@ class ContratacaoController extends Controller
      */
     public function actionDelete($id)
     {
+        $model = $this->findModel($id);
+
+        //USUÁRIOS APENAS IRÃO EXCLUIR AS SOLICITAÇÕES DE CONTRATAÇÃO COM STATUS DE 'EM ELABORAÇÃO' e 'EM CORREÇÃO'
+        if($model->situacao_id != 1 && $model->situacao_id != 2 ){
+
+        Yii::$app->session->setFlash('danger', '<strong>ERRO! </strong> Não é possível <strong>EXCLUIR</strong> a Solicitação de Contratação de código: ' . '<strong>' .$id. '</strong>' . ' pois a mesma está com status de  ' . '<strong>' . $model->situacao->descricao . '.</strong>');
+
+        return $this->redirect(['index']);
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

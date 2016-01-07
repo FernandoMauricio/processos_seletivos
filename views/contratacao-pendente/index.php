@@ -26,10 +26,33 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
     <?php
 
 $gridColumns = [
+            
+             [
+             'class'=>'kartik\grid\ExpandRowColumn',
+             'width'=>'50px',
+             'format' => 'raw',
+             'value'=>function ($model, $key, $index, $column) {
+                 return GridView::ROW_COLLAPSED;
+             },
+             'detail'=>function ($model, $key, $index, $column) {
+                 return Yii::$app->controller->renderPartial('/contratacao/pdf_contratacao', ['model'=>$model]);
+             },
+             'headerOptions'=>['class'=>'kartik-sheet-style'], 
+             'expandOneOnly'=>true
+             ],
+
             'id',
-            'data_solicitacao',
+            [
+                'attribute' => 'data_solicitacao',
+                'format' => ['date', 'php:d/m/Y'],
+            ],
             'colaborador',
-            'unidade',
+            
+            [
+            'attribute'=>'unidade',
+            'width' => '300px',
+            ],
+            
             [
                 'attribute' => 'situacao_id',
                 'value' => 'situacao.descricao',
@@ -79,7 +102,7 @@ $gridColumns = [
 
             ['class' => 'yii\grid\ActionColumn',
             'template' => '{iniciar} {correcao}',
-            'contentOptions' => ['style' => 'width: 280px;'],
+            'contentOptions' => ['style' => 'width: 390px;'],
             'buttons' => [
 
 
@@ -125,7 +148,7 @@ $gridColumns = [
             ],
         ]
     ],
-
+        'hover' => true,
         'panel' => [
         'type'=>GridView::TYPE_PRIMARY,
         'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem - Contratações Pendentes</h3>',
