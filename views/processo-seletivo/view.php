@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'data_encer',
             'numeroEdital',
             'objetivo:ntext',
-            'status',
+            'status_id',
             'situacao_id',
             'modalidade_id',
             

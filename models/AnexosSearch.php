@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\ProcessoSeletivo;
+use app\models\Anexos;
 
 /**
- * ProcessoSeletivoSearch represents the model behind the search form about `app\models\ProcessoSeletivo`.
+ * AnexosSearch represents the model behind the search form about `app\models\Anexos`.
  */
-class ProcessoSeletivoSearch extends ProcessoSeletivo
+class AnexosSearch extends Anexos
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class ProcessoSeletivoSearch extends ProcessoSeletivo
     public function rules()
     {
         return [
-            [['id', 'status_id', 'situacao_id', 'modalidade_id'], 'integer'],
-            [['descricao', 'data', 'numeroEdital', 'objetivo', 'data_encer'], 'safe'],
+            [['id', 'processo_id'], 'integer'],
+            [['anexo'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class ProcessoSeletivoSearch extends ProcessoSeletivo
      */
     public function search($params)
     {
-        $query = ProcessoSeletivo::find();
+        $query = Anexos::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -57,16 +57,10 @@ class ProcessoSeletivoSearch extends ProcessoSeletivo
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'data' => $this->data,
-            'status_id' => $this->status_id,
-            'situacao_id' => $this->situacao_id,
-            'modalidade_id' => $this->modalidade_id,
-            'data_encer' => $this->data_encer,
+            'processo_id' => $this->processo_id,
         ]);
 
-        $query->andFilterWhere(['like', 'descricao', $this->descricao])
-            ->andFilterWhere(['like', 'numeroEdital', $this->numeroEdital])
-            ->andFilterWhere(['like', 'objetivo', $this->objetivo]);
+        $query->andFilterWhere(['like', 'anexo', $this->anexo]);
 
         return $dataProvider;
     }

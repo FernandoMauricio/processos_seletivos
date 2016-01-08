@@ -1,7 +1,10 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
+use kartik\editable\Editable;
+use yii\widgets\Pjax;
+
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProcessoSeletivoSearch */
@@ -19,24 +22,118 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Novo Processo Seletivo', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+<?php
 
-            'id',
+$gridColumns = [
+            //'id',
+            'numeroEdital',
             'descricao',
             'data',
-            'numeroEdital',
+            'data_encer',
             'objetivo:ntext',
-            // 'status',
-            // 'situacao_id',
-            // 'modalidade_id',
-            // 'data_encer',
+                        // [
+                        //     'attribute' => 'situacao_id',
+                        //     'value' => 'situacao.descricao',
+                        // ],
+                        // [
+                        //     'attribute' => 'modalidade_id',
+                        //     'value' => 'modalidade.descricao',
+                        // ],
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+                        // [
+                        //     'attribute' => 'status_id',
+                        //     'value' => 'status.descricao',
+                        // ],
+             
+
+                                ['class' => 'yii\grid\ActionColumn',
+                                'template' => '{view} {update} {edital} {anexos} {adendos} {resultados}',
+                                'contentOptions' => ['style' => 'width: 450px;'],
+                                'buttons' => [
+
+
+                                //VISUALIZAR
+                                'view' => function ($url, $model) {
+                                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span> ', $url, [
+                                                'class'=>'btn btn-primary btn-xs',
+                               
+                                    ]);
+                                },
+
+                                //EDITAR
+                                'update' => function ($url, $model) {
+                                    return Html::a('<span class="glyphicon glyphicon-pencil"></span> ', $url, [
+                                                'class'=>'btn btn-primary btn-xs',
+                               
+                                    ]);
+                                },
+
+                                //EDITAIS
+                                'edital' => function ($url, $model) {
+                                    return Html::a('<span class="glyphicon glyphicon-plus"></span> Editais', $url, [
+                                                'class'=>'btn btn-primary btn-xs',
+                               
+                                    ]);
+                                },
+
+
+                                //ANEXOS
+                                'anexos' => function ($url, $model) {
+                                    return Html::a('<span class="glyphicon glyphicon-plus"></span> Anexos', $url, [
+                                                'class'=>'btn btn-primary btn-xs',
+                                    ]);
+                                },
+
+                                //ADENDOS
+                                'adendos' => function ($url, $model) {
+                                    return Html::a('<span class="glyphicon glyphicon-plus"></span> Adendos', $url, [
+                                                'class'=>'btn btn-primary btn-xs',
+                                    ]);
+                                },
+
+                                //RESULTADOS
+                                'resultados' => function ($url, $model) {
+                                    return Html::a('<span class="glyphicon glyphicon-plus"></span> Resultados', $url, [
+                                                'class'=>'btn btn-primary btn-xs',
+                                    ]);
+                                },
+
+
+                            ],
+                            ],
+        ]; 
+
+    ?>
+
+    <?php Pjax::begin(); ?>
+
+    <?php 
+
+    echo GridView::widget([
+    'dataProvider'=>$dataProvider,
+    'filterModel'=>$searchModel,
+    'columns'=>$gridColumns,
+    'containerOptions'=>['style'=>'overflow: auto'], // only set when $responsive = false
+    'headerRowOptions'=>['class'=>'kartik-sheet-style'],
+    'filterRowOptions'=>['class'=>'kartik-sheet-style'],
+    'pjax'=>false, // pjax is set to always true for this demo
+    'beforeHeader'=>[
+        [
+            'columns'=>[
+                ['content'=>'Detalhes do Processo Seletivo', 'options'=>['colspan'=>5, 'class'=>'text-center warning']], 
+                ['content'=>'Área de Ações', 'options'=>['colspan'=>6, 'class'=>'text-center warning']], 
+            ],
+        ]
+    ],
+        'hover' => true,
+        'panel' => [
+        'type'=>GridView::TYPE_PRIMARY,
+        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem de Processos Seletivos</h3>',
+        'persistResize'=>false,
+    ],
+]);
+    ?>
+    <?php Pjax::end(); ?>
 
 </div>
+

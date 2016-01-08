@@ -12,7 +12,7 @@ use Yii;
  * @property string $data
  * @property string $numeroEdital
  * @property string $objetivo
- * @property integer $status
+ * @property integer $status_id
  * @property integer $situacao_id
  * @property integer $modalidade_id
  * @property string $data_encer
@@ -37,10 +37,10 @@ class ProcessoSeletivo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descricao', 'data', 'numeroEdital', 'objetivo', 'modalidade_id', 'data_encer','status', 'situacao_id',], 'required'],
+            [['descricao', 'data', 'numeroEdital', 'objetivo', 'modalidade_id', 'data_encer','status_id', 'situacao_id',], 'required'],
             [['data', 'data_encer'], 'safe'],
             [['objetivo'], 'string'],
-            [['status', 'situacao_id', 'modalidade_id'], 'integer'],
+            [['status_id', 'situacao_id', 'modalidade_id'], 'integer'],
             [['descricao'], 'string', 'max' => 100],
             [['numeroEdital'], 'string', 'max' => 80]
         ];
@@ -58,11 +58,35 @@ class ProcessoSeletivo extends \yii\db\ActiveRecord
             'data_encer' => 'Data de Encerramento',
             'numeroEdital' => 'Edital',
             'objetivo' => 'Objetivo',
-            'status' => 'Publicação no site:',
-            'situacao_id' => 'Situação:',
-            'modalidade_id' => 'Modalidade:',
+            'status_id' => 'Publicação no site',
+            'situacao_id' => 'Situação',
+            'modalidade_id' => 'Modalidade',
             
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAdendos()
+    {
+        return $this->hasMany(Adendos::className(), ['processo_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAnexos()
+    {
+        return $this->hasMany(Anexos::className(), ['processo_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEditals()
+    {
+        return $this->hasMany(Edital::className(), ['processo_id' => 'id']);
     }
 
     /**
@@ -80,6 +104,15 @@ class ProcessoSeletivo extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Situacao::className(), ['id' => 'situacao_id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStatus()
+    {
+        return $this->hasOne(Status::className(), ['status' => 'status_id']);
+    }
+
 
     /**
      * @return \yii\db\ActiveQuery
