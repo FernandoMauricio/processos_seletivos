@@ -110,10 +110,10 @@ $gridColumns = [
             'iniciar' => function ($url, $model) {
                 return Html::a('<span class="glyphicon glyphicon-ok"></span> Iniciar Processo', $url, [
                             'class'=>'btn btn-success btn-xs',
-                            'data' => [
-                                            'confirm' => 'Você tem CERTEZA que deseja INICIAR o processo?',
-                                            'method' => 'post',
-                                        ],
+                            // 'data' => [
+                            //                 'confirm' => 'Você tem CERTEZA que deseja INICIAR o processo?',
+                            //                 'method' => 'post',
+                            //             ],
                 ]);
             },
             //ENVIAR PARA CORREÇÃO

@@ -5,6 +5,8 @@ namespace app\controllers;
 use Yii;
 use app\models\Contratacao;
 use app\models\ContratacaoEmAndamentoSearch;
+use app\models\Emailusuario;
+use app\models\EmailusuarioSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -102,6 +104,30 @@ class ContratacaoEmAndamentoController extends Controller
      "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '5' WHERE `id` = '".$model->id."'");
     $command->execute();
 
+     $model->situacao_id;
+     if($model->situacao_id == 5){
+
+         //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO  DE CONTRATAÇÃO QUE FOI ENCERRADO
+          $sql_email = "SELECT emus_email FROM emailusuario_emus, colaborador_col, responsavelambiente_ream WHERE ream_codunidade = '".$model->cod_unidade_solic."' AND ream_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
+      
+      $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
+      foreach ($email_solicitacao as $email)
+          {
+            $email_gerente  = $email["emus_email"];
+
+                            Yii::$app->mailer->compose()
+                            ->setFrom(['sistema@am.senac.br' => 'Contratação - Senac AM'])
+                            ->setTo($email_gerente)
+                            ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
+                            ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
+                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                            ->send();
+                        } 
+
+        }
+
+ //MENSAGEM DE CONFIRMAÇÃO DA SOLICITAÇÃO DE CONTRATAÇÃO CRIADA COM SUCESSO  
+
 Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> A solicitação de Processo Seletivo foi <strong>ENCERRADA</strong>!</strong>');
      
 return $this->redirect(['index']);
@@ -120,6 +146,29 @@ return $this->redirect(['index']);
      "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '2' WHERE `id` = '".$model->id."'");
      $command->execute();
 
+     $model->situacao_id;
+     if($model->situacao_id == 2){
+
+         //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO  DE CONTRATAÇÃO QUE FOI ENVIADO PARA CORREÇÃO
+          $sql_email = "SELECT emus_email FROM emailusuario_emus, colaborador_col, responsavelambiente_ream WHERE ream_codunidade = '".$model->cod_unidade_solic."' AND ream_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
+      
+              $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
+              foreach ($email_solicitacao as $email)
+                  {
+                    $email_gerente  = $email["emus_email"];
+
+                                    Yii::$app->mailer->compose()
+                                    ->setFrom(['sistema@am.senac.br' => 'Contratação - Senac AM'])
+                                    ->setTo($email_gerente)
+                                    ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
+                                    ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
+                                    ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                                    ->send();
+                 } 
+        }
+
+ //MENSAGEM DE CONFIRMAÇÃO DA SOLICITAÇÃO DE CONTRATAÇÃO CRIADA COM SUCESSO 
+
 Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> A solicitação de Contratação foi enviada <strong>PARA CORREÇÃO</strong>!</strong>');
      
 return $this->redirect(['index']);
@@ -137,6 +186,29 @@ return $this->redirect(['index']);
      $command = $connection->createCommand(
      "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '6' WHERE `id` = '".$model->id."' AND `cod_unidade_solic` =" . $session['sess_codunidade']);
      $command->execute();
+
+     $model->situacao_id;
+     if($model->situacao_id == 6){
+
+         //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO  DE CONTRATAÇÃO QUE FOI ENVIADO PARA CORREÇÃO
+          $sql_email = "SELECT emus_email FROM emailusuario_emus, colaborador_col, responsavelambiente_ream WHERE ream_codunidade = '".$model->cod_unidade_solic."' AND ream_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
+      
+      $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
+      foreach ($email_solicitacao as $email)
+          {
+            $email_gerente  = $email["emus_email"];
+
+                            Yii::$app->mailer->compose()
+                            ->setFrom(['sistema@am.senac.br' => 'Contratação - Senac AM'])
+                            ->setTo($email_gerente)
+                            ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
+                            ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
+                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                            ->send();
+                        }
+        } 
+
+ //MENSAGEM DE CONFIRMAÇÃO DA SOLICITAÇÃO DE CONTRATAÇÃO CRIADA COM SUCESSO 
 
 Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong>A solicitação de Contratação foi <strong>CANCELADA</strong>!</strong>');
      

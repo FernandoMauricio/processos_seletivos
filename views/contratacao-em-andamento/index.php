@@ -107,10 +107,6 @@ $gridColumns = [
                         'encerrar' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-ok"></span> Encerrar', $url, [
                                         'class'=>'btn btn-success btn-xs',
-                                        'data' => [
-                                                        'confirm' => 'Você tem CERTEZA que deseja ENCERRAR o processo?',
-                                                        'method' => 'post',
-                                                    ],
                             ]);
                         },
                         //ENVIAR PARA CORREÇÃO

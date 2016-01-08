@@ -7,6 +7,8 @@ use app\models\Contratacao;
 use app\models\ContratacaoSearch;
 use app\models\SituacaoContratacao;
 use app\models\SituacaoContratacaoSearch;
+use app\models\Emailusuario;
+use app\models\EmailusuarioSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -83,6 +85,25 @@ class ContratacaoController extends Controller
             "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '3' WHERE `id` = '".$model->id."' AND `cod_unidade_solic` =" . $session['sess_codunidade']);
             $command->execute();
 
+
+         //ENVIANDO EMAIL PARA OS RESPONSÁVEL DO PROCESSO SELETIVO INFORMANDO SOBRE O RECEBIMENTO DE UMA NOVA SOLICITAÇÃO DE CONTRATAÇÃO
+          $sql_email = "SELECT emus_email FROM emailusuario_emus,colaborador_col,responsavelambiente_ream,responsaveldepartamento_rede WHERE ream_codunidade = '7' AND rede_coddepartamento = '82' AND rede_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
+      
+      $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
+      foreach ($email_solicitacao as $email)
+          {
+            $email_gerente  = $email["emus_email"];
+
+                            Yii::$app->mailer->compose()
+                            ->setFrom(['sistema@am.senac.br' => 'Contratação - Senac AM'])
+                            ->setTo($email_gerente)
+                            ->setSubject('Solicitação de Contratação - ' . $model->unidade)
+                            ->setTextBody('Existe uma solicitação de contratação de código: '.$model->id.' PENDENTE')
+                            ->setHtmlBody('<h4>Prezado(a) Senhor(a), <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> PENDENTE. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                            ->send();
+                        } 
+
+            //MENSAGEM DE CONFIRMAÇÃO DA SOLICITAÇÃO DE CONTRATAÇÃO CRIADA COM SUCESSO
             Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> A solicitação de Processo Seletivo de código <strong>' .$model->id. '</strong> foi enviada para a Gerência de Recursos Humanos!</strong>');
 
             return $this->redirect(['index']);
@@ -131,6 +152,24 @@ class ContratacaoController extends Controller
             $command->execute();
 
 
+         //ENVIANDO EMAIL PARA OS RESPONSÁVEL DO PROCESSO SELETIVO INFORMANDO SOBRE O RECEBIMENTO DE UMA NOVA SOLICITAÇÃO DE CONTRATAÇÃO
+          $sql_email = "SELECT emus_email FROM emailusuario_emus,colaborador_col,responsavelambiente_ream,responsaveldepartamento_rede WHERE ream_codunidade = '7' AND rede_coddepartamento = '82' AND rede_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
+      
+      $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
+      foreach ($email_solicitacao as $email)
+          {
+            $email_gerente  = $email["emus_email"];
+
+                            Yii::$app->mailer->compose()
+                            ->setFrom(['sistema@am.senac.br' => 'Contratação - Senac AM'])
+                            ->setTo($email_gerente)
+                            ->setSubject('Solicitação de Contratação - ' . $model->unidade)
+                            ->setTextBody('Existe uma solicitação de contratação de código: '.$model->id.' PENDENTE')
+                            ->setHtmlBody('<h4>Prezado(a) Senhor(a), <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> PENDENTE. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                            ->send();
+                        } 
+
+            //MENSAGEM DE CONFIRMAÇÃO DA SOLICITAÇÃO DE CONTRATAÇÃO CRIADA COM SUCESSO
             Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> A solicitação de Processo Seletivo de código <strong>' .$model->id. '</strong> foi enviada para a Gerência de Recursos Humanos!</strong>');
            
             return $this->redirect(['index']);
