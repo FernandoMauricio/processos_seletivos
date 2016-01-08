@@ -19,7 +19,7 @@ class ContratacaoPendenteSearch extends Contratacao
     {
         return [
             [['id', 'cod_colaborador', 'cod_unidade_solic', 'quant_pessoa', 'substituicao', 'periodo', 'tempo_periodo', 'aumento_quadro', 'deficiencia', 'fundamental_comp', 'fundamental_inc', 'medio_comp', 'medio_inc', 'tecnico_comp', 'tecnico_inc', 'superior_comp', 'superior_inc', 'pos_comp', 'pos_inc', 'windows', 'word', 'excel', 'internet', 'experiencia', 'jornada_horas', 'recrutamento_id', 'selec_curriculo', 'selec_dinamica', 'selec_prova', 'selec_entrevista', 'situacao_id'], 'integer'],
-            [['data_solicitacao', 'hora_solicitacao', 'colaborador','obs_aumento' ,'unidade', 'motivo', 'nome_substituicao', 'obs_deficiencia', 'data_ingresso', 'tecnico_area', 'superior_area', 'pos_area', 'dominio_atividade', 'experiencia_tempo', 'experiencia_atividade', 'jornada_obs', 'principais_atividades', 'selec_teste'], 'safe'],
+            [['data_solicitacao', 'hora_solicitacao', 'colaborador','cargo','obs_aumento' ,'unidade', 'motivo', 'nome_substituicao', 'obs_deficiencia', 'data_ingresso', 'tecnico_area', 'superior_area', 'pos_area', 'dominio_atividade', 'experiencia_tempo', 'experiencia_atividade', 'jornada_obs', 'principais_atividades', 'selec_teste'], 'safe'],
         ];
     }
 
@@ -61,7 +61,10 @@ class ContratacaoPendenteSearch extends Contratacao
             'data_solicitacao' => $this->data_solicitacao,
             'hora_solicitacao' => $this->hora_solicitacao,
             'cod_colaborador' => $this->cod_colaborador,
+            'colaborador' => $this->colaborador,
+            'cargo' => $this->cargo,
             'cod_unidade_solic' => $this->cod_unidade_solic,
+            'unidade' => $this->unidade,
             'quant_pessoa' => $this->quant_pessoa,
             'substituicao' => $this->substituicao,
             'periodo' => $this->periodo,
@@ -95,6 +98,7 @@ class ContratacaoPendenteSearch extends Contratacao
 
         $query->andFilterWhere(['situacao_id' => 3])
             ->andFilterWhere(['like', 'colaborador', $this->colaborador])
+            ->andFilterWhere(['like', 'cargo', $this->cargo])
             ->andFilterWhere(['like', 'unidade', $this->unidade])
             ->andFilterWhere(['like', 'motivo', $this->motivo])
             ->andFilterWhere(['like', 'obs_aumento', $this->obs_aumento])

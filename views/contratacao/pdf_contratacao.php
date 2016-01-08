@@ -16,6 +16,7 @@ $data_solicitacao      =  $model->data_solicitacao;
 $hora_solicitacao      =  $model->hora_solicitacao;
 $cod_colaborador       =  $model->cod_colaborador;
 $colaborador           =  $model->colaborador;
+$cargo                 =  $model->cargo;
 $cod_unidade_solic     =  $model->cod_unidade_solic;
 $unidade               =  $model->unidade;
 $quant_pessoa          =  $model->quant_pessoa;
@@ -80,7 +81,7 @@ $situacao_id           =  $model->situacao_id;
 <table width="100%" border="1" bordercolor="#ddd">
   <tr>
     <th align="center" width="21%" id="titulo"><div align="center"><img src="../web/css/img/logo.png" width="158" height="90" alt="logo" /></div></th>
-    <th width="79%" height="92" bgcolor="#ddd" id="titulo"><div align="center"> SOLICITAÇÃO DE CONTRATAÇÃO DE PESSOAL</div></th>
+    <th width="79%" height="92" bgcolor="#ddd" id="titulo"><div align="center"> DETALHES DA SOLICITAÇÃO DE CONTRATAÇÃO DE PESSOAL</div></th>
   </tr>
   </table>
 <table width="100%" border="1" bordercolor="#ddd">
@@ -196,7 +197,7 @@ $situacao_id           =  $model->situacao_id;
       <tr>
         <td height="45" align="center" colspan="3" id="linhas2"><p>Assinado eletrônicamente por:<br />
         <?php echo $colaborador; ?><br />
-        GERENTE<br />
+        <?php echo $cargo; ?><br />
         <?php echo date('d/m/Y', strtotime($data_solicitacao)); ?> às <?php echo date('H:i:s', strtotime($hora_solicitacao)); ?>&nbsp;&nbsp;&nbsp;<br /></p></td>
       </tr>
       <tr>

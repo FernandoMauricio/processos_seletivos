@@ -67,6 +67,7 @@ class ContratacaoController extends Controller
         $session = Yii::$app->session;
             $model->cod_colaborador     = $session['sess_codcolaborador'];
             $model->colaborador         = $session['sess_nomeusuario'];
+            $model->cargo               = $session['cargo'];
             $model->cod_unidade_solic   = $session['sess_codunidade'];
             $model->unidade             = $session['sess_unidade'];
             $model->data_solicitacao    = date('Y-m-d');
@@ -113,6 +114,7 @@ class ContratacaoController extends Controller
         $session = Yii::$app->session;
             $model->cod_colaborador     = $session['sess_codcolaborador'];
             $model->colaborador         = $session['sess_nomeusuario'];
+            $model->cargo               = $session['cargo'];
             $model->cod_unidade_solic   = $session['sess_codunidade'];
             $model->unidade             = $session['sess_unidade'];
             $model->data_solicitacao    = date('Y-m-d');

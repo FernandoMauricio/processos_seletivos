@@ -80,7 +80,7 @@ class Contratacao extends \yii\db\ActiveRecord
             [['recrutamento_id', 'situacao_id'], 'required'],
             [['colaborador', 'unidade', 'nome_substituicao'], 'string', 'max' => 100],
             [['data_ingresso'], 'string', 'max' => 15],
-            [['tecnico_area', 'superior_area', 'pos_area', 'experiencia_tempo', 'experiencia_atividade', 'selec_teste'], 'string', 'max' => 45]
+            [['tecnico_area', 'cargo','superior_area', 'pos_area', 'experiencia_tempo', 'experiencia_atividade', 'selec_teste'], 'string', 'max' => 45]
         ];
     }
 
@@ -95,6 +95,7 @@ class Contratacao extends \yii\db\ActiveRecord
             'hora_solicitacao' => 'Hora Solicitacao',
             'cod_colaborador' => 'Cod. Colaborador',
             'colaborador' => 'Solicitante',
+            'cargo' => 'Cargo',
             'cod_unidade_solic' => 'cód unidade solicitante',
             'unidade' => 'Unidade',
             'quant_pessoa' => 'Quantidade de pessoas a ser contratada:',
