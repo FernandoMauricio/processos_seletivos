@@ -47,8 +47,9 @@ AppAsset::register($this);
 
                     ['label' => 'Processos Seletivos',
                 'items' => [
-                 '<li class="dropdown-header">Área Administrativa</li>',
+                 '<li class="dropdown-header">Gerenciamento do Site</li>',
                  ['label' => 'Listagem de Candidatos', 'url' => ['/curriculos/index']],
+                 ['label' => 'Processos Seletivos', 'url' => ['/processo-seletivo/index']],
                            ],
                     ],
 
