@@ -5,10 +5,14 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Resultados */
 
-$this->title = 'Update Resultados: ' . ' ' . $model->id;
+$session = Yii::$app->session;
+$processo_id = $session['sess_processo'];
+
+$this->title = 'Atualizar Resultado';
+$this->params['breadcrumbs'][] = ['label' => 'Processos Seletivos', 'url' => ['processo-seletivo/index']];
+$this->params['breadcrumbs'][] = ['label' => $processo_id, 'url' => ['processo-seletivo/view', 'id' => $processo_id]];
 $this->params['breadcrumbs'][] = ['label' => 'Resultados', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id, 'processo_id' => $model->processo_id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="resultados-update">
 
@@ -19,3 +23,5 @@ $this->params['breadcrumbs'][] = 'Update';
     ]) ?>
 
 </div>
+
+

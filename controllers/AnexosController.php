@@ -8,6 +8,7 @@ use app\models\AnexosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * AnexosController implements the CRUD actions for Anexos model.
@@ -62,8 +63,33 @@ class AnexosController extends Controller
     {
         $model = new Anexos();
 
+        $session = Yii::$app->session;
+        $model->processo_id = $session['sess_processo'];
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+
+//INCLUSÃO DE ANEXOS
+            $model->file = UploadedFile::getInstance($model, 'file');
+
+
+                if(empty($model->file)){
+                Yii::$app->session->setFlash('danger', 'É obrigatório o envio do arquivo para inserir o Anexo! ');
+                return $this->render('create', ['model' => $model]);
+                }
+
+
+            if ($model->file && $model->validate()) {  
+            $model->anexo = 'uploads/anexos/' . $model->file->baseName . '.' . $model->file->extension;
+            $model->save();
+
+            if($model->save()){
+            $model->file->saveAs('uploads/anexos/' . $model->file->baseName . '.' . $model->file->extension);
+                
+                Yii::$app->session->setFlash('success', 'Anexo inserido com sucesso! ');
+            }
+        }
+
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -82,7 +108,29 @@ class AnexosController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+
+            Yii::$app->session->setFlash('success', 'Anexo atualizado com sucesso! ');
+
+            //INCLUSÃO DE EDITAIS
+            $model->file = UploadedFile::getInstance($model, 'file');
+            if ($model->file && $model->validate()) 
+            {  
+                $model->anexo = 'uploads/anexos/' . $model->file->baseName . '.' . $model->file->extension;
+                $model->save();
+
+                if($model->save())
+                {
+                    if (!empty($_POST)) 
+                    {
+                          $model->file->saveAs('uploads/anexos/' . $model->file->baseName . '.' . $model->file->extension);
+                    }   
+                                 
+
+                }
+
+            }  
+
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,

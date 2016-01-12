@@ -60,7 +60,9 @@ class AdendosSearch extends Adendos
             'processo_id' => $this->processo_id,
         ]);
 
-        $query->andFilterWhere(['like', 'adendos', $this->adendos]);
+        $session = Yii::$app->session;
+        $query->andFilterWhere(['processo_id' => $session['sess_processo']])
+        ->andFilterWhere(['like', 'adendos', $this->adendos]);
 
         return $dataProvider;
     }

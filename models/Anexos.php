@@ -15,6 +15,7 @@ use Yii;
  */
 class Anexos extends \yii\db\ActiveRecord
 {
+    public $file;
     /**
      * @inheritdoc
      */
@@ -29,7 +30,7 @@ class Anexos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['anexo', 'processo_id'], 'required'],
+            [['processo_id'], 'required'],
             [['processo_id'], 'integer'],
             [['anexo'], 'string', 'max' => 145]
         ];

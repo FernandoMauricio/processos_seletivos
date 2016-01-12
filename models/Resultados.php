@@ -15,6 +15,7 @@ use Yii;
  */
 class Resultados extends \yii\db\ActiveRecord
 {
+    public $file;
     /**
      * @inheritdoc
      */

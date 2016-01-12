@@ -60,7 +60,9 @@ class AnexosSearch extends Anexos
             'processo_id' => $this->processo_id,
         ]);
 
-        $query->andFilterWhere(['like', 'anexo', $this->anexo]);
+        $session = Yii::$app->session;
+        $query->andFilterWhere(['processo_id' => $session['sess_processo']])
+        ->andFilterWhere(['like', 'anexo', $this->anexo]);
 
         return $dataProvider;
     }

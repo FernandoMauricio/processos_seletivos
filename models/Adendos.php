@@ -15,6 +15,7 @@ use Yii;
  */
 class Adendos extends \yii\db\ActiveRecord
 {
+    public $file;
     /**
      * @inheritdoc
      */
@@ -29,7 +30,7 @@ class Adendos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['adendos', 'processo_id'], 'required'],
+            [['processo_id'], 'required'],
             [['processo_id'], 'integer'],
             [['adendos'], 'string', 'max' => 145]
         ];

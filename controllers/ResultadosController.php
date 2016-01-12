@@ -8,6 +8,7 @@ use app\models\ResultadosSerch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ResultadosController implements the CRUD actions for Resultados model.
@@ -44,13 +45,12 @@ class ResultadosController extends Controller
     /**
      * Displays a single Resultados model.
      * @param integer $id
-     * @param integer $processo_id
      * @return mixed
      */
-    public function actionView($id, $processo_id)
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id, $processo_id),
+            'model' => $this->findModel($id),
         ]);
     }
 
@@ -63,8 +63,33 @@ class ResultadosController extends Controller
     {
         $model = new Resultados();
 
+        $session = Yii::$app->session;
+        $model->processo_id = $session['sess_processo'];
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id, 'processo_id' => $model->processo_id]);
+
+//INCLUSÃO DE RESULTADOS
+            $model->file = UploadedFile::getInstance($model, 'file');
+
+
+                if(empty($model->file)){
+                Yii::$app->session->setFlash('danger', 'É obrigatório o envio do arquivo para inserir o Resultado! ');
+                return $this->render('create', ['model' => $model]);
+                }
+
+
+            if ($model->file && $model->validate()) {  
+            $model->resultado = 'uploads/resultados/' . $model->file->baseName . '.' . $model->file->extension;
+            $model->save();
+
+            if($model->save()){
+            $model->file->saveAs('uploads/resultados/' . $model->file->baseName . '.' . $model->file->extension);
+                
+                Yii::$app->session->setFlash('success', 'Resultado inserido com sucesso! ');
+            }
+        }
+
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -79,12 +104,32 @@ class ResultadosController extends Controller
      * @param integer $processo_id
      * @return mixed
      */
-    public function actionUpdate($id, $processo_id)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($id, $processo_id);
+        $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id, 'processo_id' => $model->processo_id]);
+
+            //INCLUSÃO DE RESULTADOS
+            $model->file = UploadedFile::getInstance($model, 'file');
+            if ($model->file && $model->validate()) 
+            {  
+                $model->resultado = 'uploads/resultados/' . $model->file->baseName . '.' . $model->file->extension;
+                $model->save();
+
+                if($model->save())
+                {
+                    if (!empty($_POST)) 
+                    {
+                          $model->file->saveAs('uploads/resultados/' . $model->file->baseName . '.' . $model->file->extension);
+                    }   
+                                 
+
+                }
+
+            }  
+
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -99,9 +144,9 @@ class ResultadosController extends Controller
      * @param integer $processo_id
      * @return mixed
      */
-    public function actionDelete($id, $processo_id)
+    public function actionDelete($id)
     {
-        $this->findModel($id, $processo_id)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
@@ -114,9 +159,9 @@ class ResultadosController extends Controller
      * @return Resultados the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id, $processo_id)
+    protected function findModel($id)
     {
-        if (($model = Resultados::findOne(['id' => $id, 'processo_id' => $processo_id])) !== null) {
+        if (($model = Resultados::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

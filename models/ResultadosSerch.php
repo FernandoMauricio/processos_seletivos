@@ -60,7 +60,9 @@ class ResultadosSerch extends Resultados
             'processo_id' => $this->processo_id,
         ]);
 
-        $query->andFilterWhere(['like', 'resultado', $this->resultado]);
+        $session = Yii::$app->session;
+        $query->andFilterWhere(['processo_id' => $session['sess_processo']])
+        ->andFilterWhere(['like', 'resultado', $this->resultado]);
 
         return $dataProvider;
     }

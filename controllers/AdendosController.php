@@ -8,6 +8,7 @@ use app\models\AdendosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * AdendosController implements the CRUD actions for Adendos model.
@@ -62,8 +63,33 @@ class AdendosController extends Controller
     {
         $model = new Adendos();
 
+        $session = Yii::$app->session;
+        $model->processo_id = $session['sess_processo'];
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+
+//INCLUSÃO DE ADENDOS
+            $model->file = UploadedFile::getInstance($model, 'file');
+
+
+                if(empty($model->file)){
+                Yii::$app->session->setFlash('danger', 'É obrigatório o envio do arquivo para inserir o Adendo! ');
+                return $this->render('create', ['model' => $model]);
+                }
+
+
+            if ($model->file && $model->validate()) {  
+            $model->adendos = 'uploads/adendos/' . $model->file->baseName . '.' . $model->file->extension;
+            $model->save();
+
+            if($model->save()){
+            $model->file->saveAs('uploads/adendos/' . $model->file->baseName . '.' . $model->file->extension);
+                
+                Yii::$app->session->setFlash('success', 'Adendo inserido com sucesso! ');
+            }
+        }
+
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -82,7 +108,28 @@ class AdendosController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            Yii::$app->session->setFlash('success', 'Adendo atualizado com sucesso! ');
+
+            //INCLUSÃO DE EDITAIS
+            $model->file = UploadedFile::getInstance($model, 'file');
+            if ($model->file && $model->validate()) 
+            {  
+                $model->adendos = 'uploads/adendos/' . $model->file->baseName . '.' . $model->file->extension;
+                $model->save();
+
+                if($model->save())
+                {
+                    if (!empty($_POST)) 
+                    {
+                          $model->file->saveAs('uploads/adendos/' . $model->file->baseName . '.' . $model->file->extension);
+                    }   
+                                 
+
+                }
+
+            }  
+
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,

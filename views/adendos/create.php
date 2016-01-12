@@ -6,7 +6,12 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Adendos */
 
-$this->title = 'Create Adendos';
+$session = Yii::$app->session;
+$processo_id = $session['sess_processo'];
+
+$this->title = 'Inserir Adendo';
+$this->params['breadcrumbs'][] = ['label' => 'Processos Seletivos', 'url' => ['processo-seletivo/index']];
+$this->params['breadcrumbs'][] = ['label' => $processo_id, 'url' => ['processo-seletivo/view', 'id' => $processo_id]];
 $this->params['breadcrumbs'][] = ['label' => 'Adendos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

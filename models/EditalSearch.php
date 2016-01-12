@@ -60,7 +60,9 @@ class EditalSearch extends Edital
             'processo_id' => $this->processo_id,
         ]);
 
-        $query->andFilterWhere(['like', 'edital', $this->edital]);
+        $session = Yii::$app->session;
+        $query->andFilterWhere(['processo_id' => $session['sess_processo']])
+        ->andFilterWhere(['like', 'edital', $this->edital]);
 
         return $dataProvider;
     }

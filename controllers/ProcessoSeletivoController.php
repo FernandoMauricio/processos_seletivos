@@ -48,7 +48,6 @@ class ProcessoSeletivoController extends Controller
     /**
      * Displays a single ProcessoSeletivo model.
      * @param integer $id
-     * @param integer $modalidade_id
      * @return mixed
      */
     public function actionView($id)
@@ -80,7 +79,6 @@ class ProcessoSeletivoController extends Controller
      * Updates an existing ProcessoSeletivo model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
-     * @param integer $modalidade_id
      * @return mixed
      */
     public function actionUpdate($id)
@@ -158,7 +156,6 @@ class ProcessoSeletivoController extends Controller
      * Deletes an existing ProcessoSeletivo model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
-     * @param integer $modalidade_id
      * @return mixed
      */
     public function actionDelete($id)
@@ -172,7 +169,6 @@ class ProcessoSeletivoController extends Controller
      * Finds the ProcessoSeletivo model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @param integer $modalidade_id
      * @return ProcessoSeletivo the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

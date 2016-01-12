@@ -15,6 +15,7 @@ use Yii;
  */
 class Edital extends \yii\db\ActiveRecord
 {
+    public $file;
     /**
      * @inheritdoc
      */
@@ -29,7 +30,7 @@ class Edital extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['edital', 'processo_id'], 'required'],
+            [['processo_id'], 'required'],
             [['processo_id'], 'integer'],
             [['edital'], 'string', 'max' => 165]
         ];
