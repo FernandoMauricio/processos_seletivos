@@ -16,13 +16,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Atualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Deletar', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
     </p>
 
     <?= DetailView::widget([
@@ -30,15 +23,36 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'descricao',
-            'data',
-            'data_encer',
+            [
+                'attribute' => 'data',
+                'format' => ['date', 'php:d/m/Y'],
+            ],
+            [
+                'attribute' => 'data_encer',
+                'format' => ['date', 'php:d/m/Y'],
+            ],
             'numeroEdital',
             'objetivo:ntext',
-            'status_id',
-            'situacao_id',
-            'modalidade_id',
-            
+            [
+            'label' => 'Situação',
+            'attribute' => 'situacao.descricao',
+            ],
+
+            [
+            'label' => 'Modalidade',
+            'attribute' => 'modalidade.descricao',
+            ],
+
+            [
+            'label' => 'Publicação no site',
+            'attribute' => 'status.descricao',
+            ],
+     
         ],
     ]) ?>
+
+        <?= $this->render('pdf', [
+        'model' => $model,
+        ]) ?>
 
 </div>
