@@ -15,6 +15,15 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="processo-seletivo-index">
 
+
+<?php
+
+//Pega as mensagens
+foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
+}
+
+?>
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -28,27 +37,23 @@ $gridColumns = [
             //'id',
             'numeroEdital',
             'descricao',
-            'data',
-            'data_encer',
             'objetivo:ntext',
-                        // [
-                        //     'attribute' => 'situacao_id',
-                        //     'value' => 'situacao.descricao',
-                        // ],
-                        // [
-                        //     'attribute' => 'modalidade_id',
-                        //     'value' => 'modalidade.descricao',
-                        // ],
 
-                        // [
-                        //     'attribute' => 'status_id',
-                        //     'value' => 'status.descricao',
-                        // ],
-             
+            // [
+            //     'attribute' => 'data',
+            //     'format' => ['date', 'php:d/m/Y'],
+            // ],
+
+
+            // [
+            //     'attribute' => 'data_encer',
+            //     'format' => ['date', 'php:d/m/Y'],
+            // ],
+
 
                                 ['class' => 'yii\grid\ActionColumn',
                                 'template' => '{view} {update} {edital} {anexos} {adendos} {resultados}',
-                                'contentOptions' => ['style' => 'width: 450px;'],
+                                'contentOptions' => ['style' => 'width: 490px;'],
                                 'buttons' => [
 
 
@@ -67,6 +72,7 @@ $gridColumns = [
                                
                                     ]);
                                 },
+
 
                                 //EDITAIS
                                 'edital' => function ($url, $model) {
@@ -120,8 +126,8 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes do Processo Seletivo', 'options'=>['colspan'=>5, 'class'=>'text-center warning']], 
-                ['content'=>'Área de Ações', 'options'=>['colspan'=>6, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes do Processo Seletivo', 'options'=>['colspan'=>3, 'class'=>'text-center warning']], 
+                ['content'=>'Área de Ações', 'options'=>['colspan'=>8, 'class'=>'text-center warning']], 
             ],
         ]
     ],

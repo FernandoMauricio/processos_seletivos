@@ -22,7 +22,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
+            'numeroEdital',
             'descricao',
+            'objetivo:ntext',
             [
                 'attribute' => 'data',
                 'format' => ['date', 'php:d/m/Y'],
@@ -31,16 +33,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'data_encer',
                 'format' => ['date', 'php:d/m/Y'],
             ],
-            'numeroEdital',
-            'objetivo:ntext',
-            [
-            'label' => 'Situação',
-            'attribute' => 'situacao.descricao',
-            ],
 
             [
             'label' => 'Modalidade',
             'attribute' => 'modalidade.descricao',
+            ],
+
+            [
+            'label' => 'Situação',
+            'attribute' => 'situacao.descricao',
             ],
 
             [

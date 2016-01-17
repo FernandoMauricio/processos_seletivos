@@ -53,6 +53,13 @@ AppAsset::register($this);
                            ],
                     ],
 
+                    ['label' => 'Administração',
+                'items' => [
+                 '<li class="dropdown-header">Administração</li>',
+                 ['label' => 'Cargos', 'url' => ['/cargos/index']],
+                           ],
+                    ],
+
                     ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
                 ],
             ]);
