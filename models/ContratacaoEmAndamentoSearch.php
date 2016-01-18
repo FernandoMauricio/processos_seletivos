@@ -96,7 +96,7 @@ class ContratacaoEmAndamentoSearch extends Contratacao
             'situacao_id' => $this->situacao_id,
         ]);
 
-        $query->andFilterWhere(['situacao_id' => 4])
+        $query->andFilterWhere(['situacao_id' => [4,7,8,9,10,11,12]])
             ->andFilterWhere(['like', 'colaborador', $this->colaborador])
             ->andFilterWhere(['like', 'cargo', $this->cargo])
             ->andFilterWhere(['like', 'unidade', $this->unidade])

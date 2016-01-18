@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Natureza;
-use app\models\NaturezaSearch;
+use app\models\CargosProcesso;
+use app\models\CargosProcessoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * NaturezaController implements the CRUD actions for Natureza model.
+ * CargosProcessoController implements the CRUD actions for CargosProcesso model.
  */
-class NaturezaController extends Controller
+class CargosProcessoController extends Controller
 {
     public function behaviors()
     {
@@ -27,12 +27,12 @@ class NaturezaController extends Controller
     }
 
     /**
-     * Lists all Natureza models.
+     * Lists all CargosProcesso models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new NaturezaSearch();
+        $searchModel = new CargosProcessoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -42,29 +42,31 @@ class NaturezaController extends Controller
     }
 
     /**
-     * Displays a single Natureza model.
-     * @param string $nat_codcontrato
-     * @param string $nat_codtipo
+     * Displays a single CargosProcesso model.
+     * @param integer $id
      * @return mixed
      */
-    public function actionView($nat_codcontrato, $nat_codtipo)
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($nat_codcontrato, $nat_codtipo),
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Natureza model.
+     * Creates a new CargosProcesso model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Natureza();
+        $model = new CargosProcesso();
+
+        $session = Yii::$app->session;
+        $model->processo_id = $session['sess_processo'];
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'nat_codcontrato' => $model->nat_codcontrato, 'nat_codtipo' => $model->nat_codtipo]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -73,18 +75,17 @@ class NaturezaController extends Controller
     }
 
     /**
-     * Updates an existing Natureza model.
+     * Updates an existing CargosProcesso model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $nat_codcontrato
-     * @param string $nat_codtipo
+     * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($nat_codcontrato, $nat_codtipo)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($nat_codcontrato, $nat_codtipo);
+        $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'nat_codcontrato' => $model->nat_codcontrato, 'nat_codtipo' => $model->nat_codtipo]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -93,30 +94,28 @@ class NaturezaController extends Controller
     }
 
     /**
-     * Deletes an existing Natureza model.
+     * Deletes an existing CargosProcesso model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $nat_codcontrato
-     * @param string $nat_codtipo
+     * @param integer $id
      * @return mixed
      */
-    public function actionDelete($nat_codcontrato, $nat_codtipo)
+    public function actionDelete($id)
     {
-        $this->findModel($nat_codcontrato, $nat_codtipo)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Natureza model based on its primary key value.
+     * Finds the CargosProcesso model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $nat_codcontrato
-     * @param string $nat_codtipo
-     * @return Natureza the loaded model
+     * @param integer $id
+     * @return CargosProcesso the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($nat_codcontrato, $nat_codtipo)
+    protected function findModel($id)
     {
-        if (($model = Natureza::findOne(['nat_codcontrato' => $nat_codcontrato, 'nat_codtipo' => $nat_codtipo])) !== null) {
+        if (($model = CargosProcesso::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
