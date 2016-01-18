@@ -9,8 +9,6 @@ use app\models\Edital;
 use app\models\Anexos;
 use app\models\Adendos;
 use app\models\Resultados;
-use app\models\Cargos;
-use app\models\CargosProcesso;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -68,17 +66,11 @@ class ProcessoSeletivoController extends Controller
     {
         $model = new ProcessoSeletivo();
 
-        $cargos = Cargos::find()->all();
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong>O Processo Seletivo foi cadastrado no site!</strong>');
-
             return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'cargos' => $cargos,
             ]);
         }
     }
@@ -93,27 +85,15 @@ class ProcessoSeletivoController extends Controller
     {
         $model = $this->findModel($id);
 
-        $cargos = Cargos::find()->all();
-
-        //Retrieve the stored checkboxes
-        $model->permissions = \yii\helpers\ArrayHelper::getColumn(
-            $model->getCargosProcesso()->asArray()->all(),
-            'cargo_id'
-        );
-
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong>O Processo Seletivo foi atualizado no site!</strong>');
-
             return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'cargos' => $cargos,
             ]);
         }
     }
+
 
 
     public function actionEdital($id) 

@@ -17,11 +17,6 @@ use kartik\datecontrol\DateControl;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php 
-$options = \yii\helpers\ArrayHelper::map($cargos, 'idcargo', 'descricao');
-echo $form->field($model, 'permissions')->checkboxList($options, ['unselect'=>NULL]);
-?>
-
     <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
 
 
@@ -80,7 +75,7 @@ echo $form->field($model, 'permissions')->checkboxList($options, ['unselect'=>NU
 
             $rows = Status::find()->all();
             $data_situacao = ArrayHelper::map($rows, 'status', 'descricao');
-            echo $form->field($model, 'status_id')->radiolist($data_situacao);
+            echo $form->field($model, 'status')->radiolist($data_situacao);
  
     ?>
 

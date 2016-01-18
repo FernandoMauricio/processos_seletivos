@@ -23,7 +23,6 @@ use Yii;
  */
 class ProcessoSeletivo extends \yii\db\ActiveRecord
 {
-    public $permissions;
     /**
      * @inheritdoc
      */
@@ -39,7 +38,7 @@ class ProcessoSeletivo extends \yii\db\ActiveRecord
     {
         return [
             [['descricao', 'data', 'numeroEdital', 'objetivo', 'modalidade_id', 'data_encer','status_id', 'situacao_id',], 'required'],
-            [['data', 'data_encer', 'permissions'], 'safe'],
+            [['data', 'data_encer'], 'safe'],
             [['objetivo'], 'string'],
             [['status_id', 'situacao_id', 'modalidade_id'], 'integer'],
             [['descricao'], 'string', 'max' => 100],
@@ -62,24 +61,8 @@ class ProcessoSeletivo extends \yii\db\ActiveRecord
             'status_id' => 'Publicação no site',
             'situacao_id' => 'Situação',
             'modalidade_id' => 'Modalidade',
-            'permissions' => 'Cargos',
             
         ];
-    }
-
-    public function getCargosProcesso() //Relation between Cargos & Processo table
-    {
-        return $this->hasMany(CargosProcesso::className(), ['processo_id' => 'id']);
-    }
-
-    public function afterSave($insert, $changedAttributes){
-        \Yii::$app->db->createCommand()->delete('cargos_processo', 'processo_id = '.(int) $this->id)->execute(); //Delete existing value
-        foreach ($this->permissions as $id) { //Write new values
-            $tc = new CargosProcesso();
-            $tc->processo_id = $this->id;
-            $tc->cargo_id = $id;
-            $tc->save();
-        }
     }
 
     /**
@@ -113,23 +96,6 @@ class ProcessoSeletivo extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Modalidade::className(), ['id' => 'modalidade_id']);
     }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCargos()
-    {
-        return $this->hasMany(Cargos::className(), ['processo_id' => 'id']);
-    }
-
-        /**
-     * @return \yii\db\ActiveQuery
-     */
-    // public function getCargosProcesso()
-    // {
-    //     return $this->hasMany(CargosProcesso::className(), ['processo_id' => 'id']);
-    // }
-
 
     /**
      * @return \yii\db\ActiveQuery
