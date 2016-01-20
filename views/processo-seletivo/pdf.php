@@ -6,6 +6,8 @@ use app\models\Adendos;
 use app\models\Anexos;
 use app\models\Edital;
 use app\models\Resultados;
+use app\models\Cargos;
+use app\models\CargosProcesso;
 use yii\helpers\BaseFileHelper;
 use yii\helpers\Url;
 
@@ -16,6 +18,7 @@ use yii\helpers\Url;
 
 //RESGATANDO AS INFORMAÇÕES DA ABERTURA DE VAGAS
 $id = $model->id;
+
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -37,6 +40,27 @@ $id = $model->id;
   <tr>
     <th height="97" id="titulo" bgcolor="#ddd" scope="col"><div align="center">DOCUMENTOS PARA DOWNLOAD</div></th>
   </tr>
+
+  <div class="panel panel-primary">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Cargos Disponíveis</div>
+
+  <!-- List group -->
+  <ul class="list-group">
+    <?php
+
+  $query_cargos = "SELECT descricao FROM cargos, cargos_processo WHERE processo_id = '".$id."' AND cargo_id = idcargo";
+  $cargo = Cargos::findBySql($query_cargos)->all(); 
+  foreach ($cargo as $cargos) {
+
+   $Cargos = $cargos["descricao"];
+
+    echo '<li class="list-group-item">'.$Cargos.'</li>' ;
+  }
+
+    ?>
+  </ul>
+</div>
   <tr>
     <td id="titulo"><p><br>LISTA DE EDITAIS</p>
       <p>
