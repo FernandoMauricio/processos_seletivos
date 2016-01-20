@@ -50,7 +50,7 @@ class ContratacaoEmAndamentoController extends Controller
         // load model like any single model validation
         if ($model->load($post)) {
             // similarly you can check if the name attribute was posted as well
-             if($posted['situacao_id'] == 8) // Análise de Curriculo
+             if($posted['situacao_id'] == 7) //Análise de Currículo
               {
                 $connection = Yii::$app->db;
                 $command = $connection->createCommand(
@@ -85,7 +85,7 @@ class ContratacaoEmAndamentoController extends Controller
                      ]);
 
 
-             }elseif($posted['situacao_id'] == 8)
+             }elseif($posted['situacao_id'] == 8) //Avaliação Escrita
               {
                 $connection = Yii::$app->db;
                 $command = $connection->createCommand(
@@ -119,7 +119,7 @@ class ContratacaoEmAndamentoController extends Controller
                          'positonX' => 'right'
                      ]);
             
-             }elseif($posted['situacao_id'] == 9)
+             }elseif($posted['situacao_id'] == 9) //Avaliação Didática
               {
                 $connection = Yii::$app->db;
                 $command = $connection->createCommand(
@@ -153,7 +153,7 @@ class ContratacaoEmAndamentoController extends Controller
                          'positonX' => 'right'
                      ]);
 
-             }elseif($posted['situacao_id'] == 10)
+             }elseif($posted['situacao_id'] == 10) //Avaliação Comportamental
               {
                 $connection = Yii::$app->db;
                 $command = $connection->createCommand(
@@ -187,43 +187,9 @@ class ContratacaoEmAndamentoController extends Controller
                          'positonX' => 'right'
                      ]);
 
-             }elseif($posted['situacao_id'] == 11)
-              {
-                $connection = Yii::$app->db;
-                $command = $connection->createCommand(
-                 "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '11' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
-                $command->execute();
+            }else{ //Entrevista
 
          //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO
-          $sql_email = "SELECT emus_email FROM emailusuario_emus, colaborador_col, responsavelambiente_ream WHERE ream_codunidade = '".$model->cod_unidade_solic."' AND ream_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
-      
-      $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
-      foreach ($email_solicitacao as $email)
-          {
-            $email_gerente  = $email["emus_email"];
-
-                            Yii::$app->mailer->compose()
-                            ->setFrom(['sistema@am.senac.br' => 'Contratação - Senac AM'])
-                            ->setTo($email_gerente)
-                            ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
-                            ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
-                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
-                            ->send();
-                        } 
-
-                Yii::$app->getSession()->setFlash('info', [
-                         'type' => 'info',
-                         'duration' => 5000,
-                         'icon' => 'glyphicon glyphicon-ok',
-                         'message' => 'A solicitação de Contratação foi alterada para ' .$model->situacao->descricao,
-                         'title' => 'Solicitação de Contratação',
-                         'positonY' => 'top',
-                         'positonX' => 'right'
-                     ]);
-
-            }else{
-
-         //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO - FORMAÇÃO PEDAGÓGICA
           $sql_email = "SELECT emus_email FROM emailusuario_emus, colaborador_col, responsavelambiente_ream WHERE ream_codunidade = '".$model->cod_unidade_solic."' AND ream_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
       
       $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
