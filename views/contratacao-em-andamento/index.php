@@ -74,7 +74,7 @@ $gridColumns = [
                             //CAIXA DE ALTERAÇÕES DA SITUAÇÃO
                             'editableOptions' => [
                                 'header' => 'Situação',
-                                'data'=>[7 => 'Análise de Currículo', 8 => 'Avaliação Escrita', 9 => 'Avaliação Didática', 10 => 'Avaliação Comportamental', 11 => 'Entrevista', 12 => 'Formação Pedagógica' ],
+                                'data'=>[7 => 'Análise de Currículo', 8 => 'Avaliação Escrita', 9 => 'Avaliação Didática', 10 => 'Avaliação Comportamental', 11 => 'Entrevista'],
                                 'inputType' => \kartik\editable\Editable::INPUT_DROPDOWN_LIST,
                             ],          
                         ],
@@ -89,9 +89,8 @@ $gridColumns = [
                         'encerrar' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-ok"></span> Encerrar', $url, [
                                         'class'=>'btn btn-success btn-xs',
-                                        //INSERIR SWEETALERT - ESTUDAR SOBRE ISSO
                                          'data' => [
-                                                   'confirm' => 'Você tem CERTEZA que deseja ENCERRAR essa Solicitação de Contratação?',
+                                                   'confirm' => 'Você tem certeza que deseja ENCERRAR essa Solicitação de Contratação?',
                                                    'method' => 'post',
                                                    ],
                             ]);
@@ -100,6 +99,10 @@ $gridColumns = [
                         'correcao' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-repeat"></span> Enviar para Correção', $url, [
                                         'class'=>'btn btn-warning btn-xs',
+                                         'data' => [
+                                                   'confirm' => 'Você tem certeza que deseja ENVIAR PARA CORREÇÃO essa Solicitação de Contratação?',
+                                                   'method' => 'post',
+                                                   ],
                        
                             ]);
                         },
@@ -108,13 +111,16 @@ $gridColumns = [
                         'cancelar' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-remove"></span> Cancelar', $url, [
                                         'class'=>'btn btn-danger btn-xs',
+                                         'data' => [
+                                                   'confirm' => 'Você tem certeza que deseja CANCELAR essa Solicitação de Contratação?',
+                                                   'method' => 'post',
+                                                   ],
                        
                             ]);
                         },
         ],
       ],
     ];
-
  ?>
 
     <?php Pjax::begin(); ?>

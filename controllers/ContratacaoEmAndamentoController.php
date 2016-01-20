@@ -50,7 +50,7 @@ class ContratacaoEmAndamentoController extends Controller
         // load model like any single model validation
         if ($model->load($post)) {
             // similarly you can check if the name attribute was posted as well
-             if($posted['situacao_id'] == 7) //Análise de Currículo
+             if($posted['situacao_id'] == 7) // ANÁLISE DE CURRICULO
               {
                 $connection = Yii::$app->db;
                 $command = $connection->createCommand(
@@ -85,7 +85,7 @@ class ContratacaoEmAndamentoController extends Controller
                      ]);
 
 
-             }elseif($posted['situacao_id'] == 8) //Avaliação Escrita
+             }elseif($posted['situacao_id'] == 8) // AVALIAÇÃO ESCRITA
               {
                 $connection = Yii::$app->db;
                 $command = $connection->createCommand(
@@ -119,7 +119,7 @@ class ContratacaoEmAndamentoController extends Controller
                          'positonX' => 'right'
                      ]);
             
-             }elseif($posted['situacao_id'] == 9) //Avaliação Didática
+             }elseif($posted['situacao_id'] == 9) // AVALIAÇÃO DIDÁTICA
               {
                 $connection = Yii::$app->db;
                 $command = $connection->createCommand(
@@ -153,7 +153,7 @@ class ContratacaoEmAndamentoController extends Controller
                          'positonX' => 'right'
                      ]);
 
-             }elseif($posted['situacao_id'] == 10) //Avaliação Comportamental
+             }elseif($posted['situacao_id'] == 10) // AVALIAÇÃO COMPORTAMENTAL
               {
                 $connection = Yii::$app->db;
                 $command = $connection->createCommand(
@@ -187,7 +187,12 @@ class ContratacaoEmAndamentoController extends Controller
                          'positonX' => 'right'
                      ]);
 
-            }else{ //Entrevista
+            }else{ // ENTREVISTA
+
+           $connection = Yii::$app->db;
+           $command = $connection->createCommand(
+           "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '11' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
+           $command->execute();    
 
          //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO
           $sql_email = "SELECT emus_email FROM emailusuario_emus, colaborador_col, responsavelambiente_ream WHERE ream_codunidade = '".$model->cod_unidade_solic."' AND ream_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
