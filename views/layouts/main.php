@@ -4,6 +4,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use kartik\nav\NavX;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -32,37 +33,41 @@ AppAsset::register($this);
                     'class' => 'navbar-inverse navbar-fixed-top',
                 ],
             ]);
-            echo Nav::widget([
-                'options' => ['class' => 'navbar-nav navbar-right'],
-                'items' => [
-                    ['label' => 'Solicitação de Contratação', 'url' => ['/contratacao/index']],
+            
+echo NavX::widget([
 
-                    ['label' => 'Controle - Contratações',
-                'items' => [
-                 '<li class="dropdown-header">Área Administrativa</li>',
-                 ['label' => 'Contratações Pendentes', 'url' => ['/contratacao-pendente/index']],
-                 ['label' => 'Contratações Em Andamento', 'url' => ['/contratacao-em-andamento/index']],
-                           ],
-                    ],
+'options' => ['class' => 'navbar-nav navbar-right'],
+                
+    'items' => [
+        ['label' => 'Solicitação de Contratação', 'url' => ['/contratacao/index']],
+        ['label' => 'Administração', 'items' => [
 
-                    ['label' => 'Processos Seletivos',
-                'items' => [
-                 '<li class="dropdown-header">Gerenciamento do Site</li>',
-                 ['label' => 'Listagem de Candidatos', 'url' => ['/curriculos/index']],
-                 ['label' => 'Processos Seletivos', 'url' => ['/processo-seletivo/index']],
-                           ],
-                    ],
+            ['label' => 'Controle - Contração', 'items' => [
+            '<li class="dropdown-header">Controle - Contração</li>',
+                ['label' => 'Contratações Pendentes', 'url' => ['/contratacao-pendente/index']],
+                ['label' => 'Contratações Em Andamento', 'url' => ['/contratacao-em-andamento/index']],
+            ]],
 
-                    ['label' => 'Administração',
-                'items' => [
-                 '<li class="dropdown-header">Administração</li>',
-                 ['label' => 'Cargos', 'url' => ['/cargos/index']],
-                           ],
-                    ],
+            '<li class="divider"></li>',
+            ['label' => 'Processos Seletivos', 'items' => [
+            '<li class="dropdown-header">Administração do site</li>',
+                ['label' => 'Processos Seletivos', 'url' => ['/processo-seletivo/index']],
+                ['label' => 'Listagem de Candidatos', 'url' => ['/curriculos/index']],
+            ]],
 
-                    ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
-                ],
-            ]);
+
+            '<li class="divider"></li>',
+            ['label' => 'Cadastros', 'items' => [
+            '<li class="dropdown-header">Cadastros</li>',
+                ['label' => 'Cargos', 'url' => ['/cargos/index']],
+            ]],
+        ]],
+
+        ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
+
+    ]
+]);
+ 
             NavBar::end();
         ?>
 
