@@ -50,7 +50,7 @@ class ContratacaoEmAndamentoController extends Controller
         // load model like any single model validation
         if ($model->load($post)) {
             // similarly you can check if the name attribute was posted as well
-             if($posted['situacao_id'] == 7)
+             if($posted['situacao_id'] == 8) // Análise de Curriculo
               {
                 $connection = Yii::$app->db;
                 $command = $connection->createCommand(
