@@ -21,25 +21,8 @@ $id = $model->id;
 
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Listagem de Anexos</title>
-<style type="text/css">
-#titulo {
-	font-size: 16px;
-	color: #F60;
-
-}
-</style>
-</head>
 
 <body>
-<table width="100%" border="1" bordercolor="#ddd">
-  <tr>
-    <th height="97" id="titulo" bgcolor="#ddd" scope="col"><div align="center">DOCUMENTOS PARA DOWNLOAD</div></th>
-  </tr>
 
   <div class="panel panel-primary">
   <!-- Default panel contents -->
@@ -61,10 +44,14 @@ $id = $model->id;
     ?>
   </ul>
 </div>
-  <tr>
-    <td id="titulo"><p><br>LISTA DE EDITAIS</p>
-      <p>
-        
+
+<div class="panel panel-primary">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Documentos para Download</div>
+  <div class="panel-body">
+    <p><strong>LISTA DE EDITAIS</strong></p>
+      <ul class="list-group">
+      <li class='list-group-item'>
     <?php
 
   $query_edital = "SELECT * FROM edital WHERE processo_id = '".$id."' ";
@@ -79,17 +66,17 @@ $id = $model->id;
           <?php echo "<div class='row'>";?>
           <?php echo '<a href="../web/uploads/editais/'.$arquivoEditals.'" target="_blank">';?>
           <?php echo "<button type='button' class='btn btn-link'></button>"?><?php echo $arquivoEditals; ?>
-          <?php echo "</div></a>";
+          <?php echo "</a></div>";
 
             }
     ?>
+    </li>
+</ul>
 
-      </p></td>
-  </tr>
 
-  <tr>
-    <td id="titulo"><p><br>LISTA DE ANEXOS</p>
-      <p>
+    <p><strong>LISTA DE ANEXOS</strong></p>
+    <ul class="list-group">
+    <li class='list-group-item'>
         
     <?php
 
@@ -109,13 +96,13 @@ $id = $model->id;
 
             }
     ?>
+    </li>
+    </ul>
+    
 
-      </p></td>
-  </tr>
-
-  <tr>
-    <td id="titulo"><p><br>LISTA DE ADENDOS</p>
-      <p>
+    <p><strong>LISTA DE ADENDOS</strong></p>
+    <ul class="list-group">
+    <li class='list-group-item'>
         
     <?php
 
@@ -136,12 +123,15 @@ $id = $model->id;
             }
     ?>
 
-      </p></td>
-  </tr>
+    </li>
+    </ul>
+    
 
-  <tr>
-    <td id="titulo"><p><br>LISTAS DE RESULTADOS</p>
-      <p>
+
+
+    <p><strong>LISTA DE RESULTADOS</strong></p>
+    <ul class="list-group">
+    <li class='list-group-item'>
         
     <?php
 
@@ -162,9 +152,16 @@ $id = $model->id;
             }
     ?>
 
-      </p></td>
-  </tr>
+        
+    </li>
+    </ul>
+    </div>
 
-</table>
-</body>
-</html>
+
+
+
+
+
+
+  </div>
+</div>
