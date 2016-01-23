@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Contratacao */
 
-$this->title = 'Atualizar Contratação: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Contratacaos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Atualizar Solicitação de Contratação: ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Solicitação de Contratação', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->id,];
+$this->params['breadcrumbs'][] = 'Atualizar';
 ?>
 <div class="contratacao-update">
 
