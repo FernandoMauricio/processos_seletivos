@@ -72,7 +72,7 @@ class ProcessoSeletivoController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong>O Processo Seletivo foi cadastrado no site!</strong>');
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong>O Processo Seletivo do edital <strong>'.$model->numeroEdital. '</strong> foi cadastrado no site!</strong>');
 
             return $this->redirect(['index']);
         } else {
@@ -104,7 +104,7 @@ class ProcessoSeletivoController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong>O Processo Seletivo foi atualizado no site!</strong>');
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong>O Processo Seletivo do edital <strong>' .$model->numeroEdital. '</strong> foi atualizado no site!</strong>');
 
             return $this->redirect(['index']);
         } else {
