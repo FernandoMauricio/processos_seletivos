@@ -93,7 +93,7 @@ class ProcessoSeletivoController extends Controller
     {
         $model = $this->findModel($id);
 
-        $cargos = Cargos::find()->all();
+        $cargos = Cargos::find()->where(['status' => 1])->all();
 
         //Retrieve the stored checkboxes
         $model->permissions = \yii\helpers\ArrayHelper::getColumn(

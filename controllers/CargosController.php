@@ -63,7 +63,10 @@ class CargosController extends Controller
         $model = new Cargos();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idcargo]);
+
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong>O Cargo foi cadastrado!</strong>');
+            
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -82,7 +85,10 @@ class CargosController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idcargo]);
+
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong>O Cargo foi atualizado!</strong>');
+
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,

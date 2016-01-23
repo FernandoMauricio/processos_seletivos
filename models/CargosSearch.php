@@ -18,7 +18,7 @@ class CargosSearch extends Cargos
     public function rules()
     {
         return [
-            [['idcargo'], 'integer'],
+            [['idcargo', 'status'], 'integer'],
             [['descricao'], 'safe'],
         ];
     }
@@ -57,6 +57,7 @@ class CargosSearch extends Cargos
 
         $query->andFilterWhere([
             'idcargo' => $this->idcargo,
+            'status' => $this->status,
         ]);
 
         $query->andFilterWhere(['like', 'descricao', $this->descricao]);

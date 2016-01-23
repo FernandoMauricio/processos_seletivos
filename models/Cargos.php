@@ -29,6 +29,7 @@ class Cargos extends \yii\db\ActiveRecord
     {
         return [
             [['descricao'], 'required'],
+            [['status'], 'integer'],
             [['descricao'], 'string', 'max' => 100]
         ];
     }
@@ -39,8 +40,9 @@ class Cargos extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idcargo' => 'Idcargo',
-            'descricao' => 'Descricao',
+            'idcargo' => 'Código',
+            'descricao' => 'Descrição',
+            'status' => 'Status',
         ];
     }
 
