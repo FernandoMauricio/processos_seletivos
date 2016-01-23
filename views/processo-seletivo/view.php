@@ -45,8 +45,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
             [
-            'label' => 'Publicação no site',
-            'attribute' => 'status.descricao',
+                'attribute'=>'status_id', 
+                'label'=>'Publicação no site?',
+                'format'=>'raw',
+                'value'=>$model->status_id ? '<span class="label label-success">Ativo</span>' : '<span class="label label-danger">Inativo</span>',
+                'valueColOptions'=>['style'=>'width:100%']
             ],
      
         ],

@@ -122,15 +122,6 @@ class ProcessoSeletivo extends \yii\db\ActiveRecord
         return $this->hasMany(Cargos::className(), ['processo_id' => 'id']);
     }
 
-        /**
-     * @return \yii\db\ActiveQuery
-     */
-    // public function getCargosProcesso()
-    // {
-    //     return $this->hasMany(CargosProcesso::className(), ['processo_id' => 'id']);
-    // }
-
-
     /**
      * @return \yii\db\ActiveQuery
      */

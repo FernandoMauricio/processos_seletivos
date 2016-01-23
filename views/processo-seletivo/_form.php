@@ -76,13 +76,8 @@ echo $form->field($model, 'permissions')->checkboxList($options, ['unselect'=>NU
 
 
 
-    <?php
+    <?= $form->field($model, 'status_id')->radioList(['1' => 'Ativo', '0' => 'Inativo']) ?>
 
-            $rows = Status::find()->all();
-            $data_situacao = ArrayHelper::map($rows, 'status', 'descricao');
-            echo $form->field($model, 'status_id')->radiolist($data_situacao);
- 
-    ?>
 
 
     <div class="form-group">

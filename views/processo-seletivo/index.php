@@ -45,10 +45,11 @@ $gridColumns = [
             // ],
 
 
-            // [
-            //     'attribute' => 'data_encer',
-            //     'format' => ['date', 'php:d/m/Y'],
-            // ],
+            [
+                'class'=>'kartik\grid\BooleanColumn',
+                'attribute'=>'status_id', 
+                'vAlign'=>'middle'
+            ], 
 
 
                                 ['class' => 'yii\grid\ActionColumn',
