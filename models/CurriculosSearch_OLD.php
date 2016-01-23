@@ -18,8 +18,8 @@ class CurriculosSearch extends Curriculos
     public function rules()
     {
         return [
-            [['id', 'edital', 'cargo', 'curriculos_endereco_id', 'curriculos_documentacao_id', 'curriculos_formacao_id'], 'integer'],
-            [['nome', 'cpf', 'datanascimento', 'sexo', 'email', 'emailAlt', 'telefone', 'telefoneAlt', 'data'], 'safe'],
+            [['cv_id'], 'integer'],
+            [['cv_numeroEdital', 'cv_cargo', 'cv_nome', 'cv_datanascimento', 'cv_email', 'cv_telefone', 'cv_resumocv', 'cv_data', 'cv_email2', 'cv_telefone2'], 'safe'],
         ];
     }
 
@@ -41,10 +41,14 @@ class CurriculosSearch extends Curriculos
      */
     public function search($params)
     {
-        $query = Curriculos::find();
+        $query = Curriculos::find()
+        ->orderBy(['cv_nome' => SORT_ASC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+            'pageSize' => 100,
+        ],
         ]);
 
         $this->load($params);
@@ -56,23 +60,19 @@ class CurriculosSearch extends Curriculos
         }
 
         $query->andFilterWhere([
-            'id' => $this->id,
-            'edital' => $this->edital,
-            'cargo' => $this->cargo,
-            'datanascimento' => $this->datanascimento,
-            'data' => $this->data,
-            'curriculos_endereco_id' => $this->curriculos_endereco_id,
-            'curriculos_documentacao_id' => $this->curriculos_documentacao_id,
-            'curriculos_formacao_id' => $this->curriculos_formacao_id,
+            'cv_id' => $this->cv_id,
+            'cv_datanascimento' => $this->cv_datanascimento,
+            'cv_data' => $this->cv_data,
         ]);
 
-        $query->andFilterWhere(['like', 'nome', $this->nome])
-            ->andFilterWhere(['like', 'cpf', $this->cpf])
-            ->andFilterWhere(['like', 'sexo', $this->sexo])
-            ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'emailAlt', $this->emailAlt])
-            ->andFilterWhere(['like', 'telefone', $this->telefone])
-            ->andFilterWhere(['like', 'telefoneAlt', $this->telefoneAlt]);
+        $query->andFilterWhere(['like', 'cv_numeroEdital', $this->cv_numeroEdital])
+            ->andFilterWhere(['like', 'cv_cargo', $this->cv_cargo])
+            ->andFilterWhere(['like', 'cv_nome', $this->cv_nome])
+            ->andFilterWhere(['like', 'cv_email', $this->cv_email])
+            ->andFilterWhere(['like', 'cv_telefone', $this->cv_telefone])
+            ->andFilterWhere(['like', 'cv_resumocv', $this->cv_resumocv])
+            ->andFilterWhere(['like', 'cv_email2', $this->cv_email2])
+            ->andFilterWhere(['like', 'cv_telefone2', $this->cv_telefone2]);
 
         return $dataProvider;
     }

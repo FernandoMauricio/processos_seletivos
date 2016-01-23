@@ -12,25 +12,33 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'cv_numeroEdital')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'edital')->textInput() ?>
 
-    <?= $form->field($model, 'cv_cargo')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'cargo')->textInput() ?>
 
-    <?= $form->field($model, 'cv_nome')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'cv_datanascimento')->textInput() ?>
+    <?= $form->field($model, 'cpf')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'cv_email')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'datanascimento')->textInput() ?>
 
-    <?= $form->field($model, 'cv_telefone')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'sexo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'cv_resumocv')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'cv_data')->textInput() ?>
+    <?= $form->field($model, 'emailAlt')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'cv_email2')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'telefone')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'cv_telefone2')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'telefoneAlt')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'data')->textInput() ?>
+
+    <?= $form->field($model, 'curriculos_endereco_id')->textInput() ?>
+
+    <?= $form->field($model, 'curriculos_documentacao_id')->textInput() ?>
+
+    <?= $form->field($model, 'curriculos_formacao_id')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

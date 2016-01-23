@@ -15,27 +15,35 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'cv_id') ?>
+    <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'cv_numeroEdital') ?>
+    <?= $form->field($model, 'edital') ?>
 
-    <?= $form->field($model, 'cv_cargo') ?>
+    <?= $form->field($model, 'cargo') ?>
 
-    <?= $form->field($model, 'cv_nome') ?>
+    <?= $form->field($model, 'nome') ?>
 
-    <?= $form->field($model, 'cv_datanascimento') ?>
+    <?= $form->field($model, 'cpf') ?>
 
-    <?php // echo $form->field($model, 'cv_email') ?>
+    <?php // echo $form->field($model, 'datanascimento') ?>
 
-    <?php // echo $form->field($model, 'cv_telefone') ?>
+    <?php // echo $form->field($model, 'sexo') ?>
 
-    <?php // echo $form->field($model, 'cv_resumocv') ?>
+    <?php // echo $form->field($model, 'email') ?>
 
-    <?php // echo $form->field($model, 'cv_data') ?>
+    <?php // echo $form->field($model, 'emailAlt') ?>
 
-    <?php // echo $form->field($model, 'cv_email2') ?>
+    <?php // echo $form->field($model, 'telefone') ?>
 
-    <?php // echo $form->field($model, 'cv_telefone2') ?>
+    <?php // echo $form->field($model, 'telefoneAlt') ?>
+
+    <?php // echo $form->field($model, 'data') ?>
+
+    <?php // echo $form->field($model, 'curriculos_endereco_id') ?>
+
+    <?php // echo $form->field($model, 'curriculos_documentacao_id') ?>
+
+    <?php // echo $form->field($model, 'curriculos_formacao_id') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

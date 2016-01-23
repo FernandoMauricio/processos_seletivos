@@ -5,19 +5,29 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "info_curriculo".
+ * This is the model class for table "curriculos".
  *
- * @property integer $cv_id
- * @property string $cv_numeroEdital
- * @property string $cv_cargo
- * @property string $cv_nome
- * @property string $cv_datanascimento
- * @property string $cv_email
- * @property string $cv_telefone
- * @property string $cv_resumocv
- * @property string $cv_data
- * @property string $cv_email2
- * @property string $cv_telefone2
+ * @property integer $id
+ * @property integer $edital
+ * @property integer $cargo
+ * @property string $nome
+ * @property string $cpf
+ * @property string $datanascimento
+ * @property string $sexo
+ * @property string $email
+ * @property string $emailAlt
+ * @property string $telefone
+ * @property string $telefoneAlt
+ * @property string $data
+ * @property integer $curriculos_endereco_id
+ * @property integer $curriculos_documentacao_id
+ * @property integer $curriculos_formacao_id
+ *
+ * @property CurriculosDocumentacao $curriculosDocumentacao
+ * @property CurriculosEndereco $curriculosEndereco
+ * @property CurriculosFormacao $curriculosFormacao
+ * @property CurriculosCurriculosComplementos[] $curriculosCurriculosComplementos
+ * @property CurriculosCurriculosEmpregos[] $curriculosCurriculosEmpregos
  */
 class Curriculos extends \yii\db\ActiveRecord
 {
@@ -26,7 +36,7 @@ class Curriculos extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'info_curriculo';
+        return 'curriculos';
     }
 
     /**
@@ -35,10 +45,11 @@ class Curriculos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cv_numeroEdital', 'cv_cargo', 'cv_nome', 'cv_email', 'cv_telefone', 'cv_resumocv', 'cv_data', 'cv_email2', 'cv_telefone2'], 'required'],
-            [['cv_numeroEdital', 'cv_cargo', 'cv_nome', 'cv_email', 'cv_resumocv', 'cv_email2'], 'string'],
-            [['cv_datanascimento', 'cv_data'], 'safe'],
-            [['cv_telefone', 'cv_telefone2'], 'string', 'max' => 20]
+            [['edital', 'cargo', 'nome', 'cpf', 'sexo', 'email', 'emailAlt', 'telefone', 'telefoneAlt', 'data', 'curriculos_endereco_id', 'curriculos_documentacao_id', 'curriculos_formacao_id'], 'required'],
+            [['edital', 'cargo', 'curriculos_endereco_id', 'curriculos_documentacao_id', 'curriculos_formacao_id'], 'integer'],
+            [['datanascimento', 'data'], 'safe'],
+            [['nome', 'email', 'emailAlt'], 'string', 'max' => 100],
+            [['cpf', 'sexo', 'telefone', 'telefoneAlt'], 'string', 'max' => 20]
         ];
     }
 
@@ -48,17 +59,61 @@ class Curriculos extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'cv_id' => 'id',
-            'cv_numeroEdital' => 'Número Edital',
-            'cv_cargo' => 'Cargo',
-            'cv_nome' => 'Nome',
-            'cv_datanascimento' => 'Data Nascimento',
-            'cv_email' => 'Email',
-            'cv_telefone' => 'Telefone',
-            'cv_resumocv' => 'Resumo Currículo',
-            'cv_data' => 'Data de cadastro',
-            'cv_email2' => 'Email Aternativo',
-            'cv_telefone2' => 'Telefone Alternativo',
+            'id' => 'ID',
+            'edital' => 'Edital',
+            'cargo' => 'Cargo',
+            'nome' => 'Nome',
+            'cpf' => 'Cpf',
+            'datanascimento' => 'Datanascimento',
+            'sexo' => 'Sexo',
+            'email' => 'Email',
+            'emailAlt' => 'Email Alt',
+            'telefone' => 'Telefone',
+            'telefoneAlt' => 'Telefone Alt',
+            'data' => 'Data',
+            'curriculos_endereco_id' => 'Curriculos Endereco ID',
+            'curriculos_documentacao_id' => 'Curriculos Documentacao ID',
+            'curriculos_formacao_id' => 'Curriculos Formacao ID',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCurriculosDocumentacao()
+    {
+        return $this->hasOne(CurriculosDocumentacao::className(), ['id' => 'curriculos_documentacao_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCurriculosEndereco()
+    {
+        return $this->hasOne(CurriculosEndereco::className(), ['id' => 'curriculos_endereco_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCurriculosFormacao()
+    {
+        return $this->hasOne(CurriculosFormacao::className(), ['id' => 'curriculos_formacao_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCurriculosCurriculosComplementos()
+    {
+        return $this->hasMany(CurriculosCurriculosComplementos::className(), ['curriculos_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCurriculosCurriculosEmpregos()
+    {
+        return $this->hasMany(CurriculosCurriculosEmpregos::className(), ['curriculos_id' => 'id']);
     }
 }

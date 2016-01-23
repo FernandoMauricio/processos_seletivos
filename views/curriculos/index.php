@@ -1,14 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-use kartik\export\ExportMenu;
-use kartik\grid\GridView;
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CurriculosSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Curriculos Cadastrados';
+$this->title = 'Curriculos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="curriculos-index">
@@ -16,56 +15,34 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-<?php
-        $gridColumns = [
+    <p>
+        <?= Html::a('Create Curriculos', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'cv_id',
-            'cv_numeroEdital:ntext',
-            'cv_cargo:ntext',
-            'cv_nome:ntext',
-            'cv_datanascimento',
-            // [
-            //     'attribute' => 'cv_datanascimento',
-            //     'format' => ['date', 'php:d/m/Y'],
-            // ],
-            // 'cv_email:ntext',
-            // 'cv_telefone',
-            // 'cv_resumocv:ntext',
-            'cv_data',
-            // [
-            //     'attribute' => 'cv_data',
-            //     'format' => ['date', 'php:d/m/Y'],
-            // ],
-            // 'cv_email2:ntext',
-            // 'cv_telefone2',
+            'id',
+            'edital',
+            'cargo',
+            'nome',
+            'cpf',
+            // 'datanascimento',
+            // 'sexo',
+            // 'email:email',
+            // 'emailAlt:email',
+            // 'telefone',
+            // 'telefoneAlt',
+            // 'data',
+            // 'curriculos_endereco_id',
+            // 'curriculos_documentacao_id',
+            // 'curriculos_formacao_id',
 
-            ['class' => 'yii\grid\ActionColumn', 'template' => '{view}'],
-        
-        ];
-
-?>
-
-    <?php echo ExportMenu::widget([
-    'dataProvider' => $dataProvider,
-    'columns' => $gridColumns,
-    'fontAwesome' => true,
-    'dropdownOptions' => [
-        'label' => 'Exportar para',
-        'class' => 'btn btn-default'
-    ],
-    'exportConfig' => [
-    ExportMenu::FORMAT_EXCEL => false,
-    ExportMenu::FORMAT_EXCEL_X  => false,
-    ExportMenu::FORMAT_PDF => false
-]
-]) . "<hr>\n".
- GridView::widget([
-    'dataProvider' => $dataProvider,
-    'filterModel' => $searchModel,
-    'columns' => $gridColumns,
-]);
-
- ?>
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
 
 </div>

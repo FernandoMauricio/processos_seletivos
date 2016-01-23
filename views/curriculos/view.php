@@ -6,51 +6,44 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Curriculos */
 
-$this->title = 'Detalhes ';
+$this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Curriculos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="curriculos-view">
 
-    <h1><?= Html::encode($this->title) . '<small>Informações do Candidato</small>'  ?></h1>
+    <h1><?= Html::encode($this->title) ?></h1>
 
-<?php
-    echo Html::a('<i class="fa glyphicon glyphicon-print"></i> Imprimir', ['/curriculos/imprimir','id' => $model->cv_id], [
-    'class'=>'btn btn-info', 
-    'target'=>'_blank',
-    'data-pjax' => 0, 
-    'data-toggle'=>'tooltip', 
-    'title'=>' Clique aqui para gerar um arquivo PDF'
-]);
+    <p>
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => 'Are you sure you want to delete this item?',
+                'method' => 'post',
+            ],
+        ]) ?>
+    </p>
 
-?>
-<p></p>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'cv_id',
-            'cv_numeroEdital:ntext',
-            'cv_cargo:ntext',
-            'cv_nome:ntext',
-            [
-                'attribute' => 'cv_datanascimento',
-                'format' => ['date', 'php:d/m/Y'],
-            ],
-            'cv_email:ntext',
-            'cv_telefone',
-            //'cv_resumocv:ntext',
-            [
-                'attribute' => 'cv_data',
-                'format' => ['date', 'php:d/m/Y'],
-            ],
-            'cv_email2:ntext',
-            'cv_telefone2',
+            'id',
+            'edital',
+            'cargo',
+            'nome',
+            'cpf',
+            'datanascimento',
+            'sexo',
+            'email:email',
+            'emailAlt:email',
+            'telefone',
+            'telefoneAlt',
+            'data',
+            'curriculos_endereco_id',
+            'curriculos_documentacao_id',
+            'curriculos_formacao_id',
         ],
     ]) ?>
-
-        <?= $this->render('/curriculos/pdf', [
-        'model' => $model,
-    ]) ?>
-
 
 </div>
