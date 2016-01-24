@@ -78,6 +78,14 @@ class CurriculosController extends Controller
         ->AndWhere('cargo_id = idcargo')
         ->all();
 
+
+        //Caso não tenha puxado nenhum edital, será redirecionado para a página de processo seletivo
+        if($model->edital == NULL){
+
+            return $this->redirect('http://localhost:8080/control_processos/');
+
+        }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
