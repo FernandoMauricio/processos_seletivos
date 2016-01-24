@@ -27,7 +27,8 @@
         "kartik-v/yii2-datecontrol": "dev-master",
         "kartik-v/yii2-editable": "*",
         "yii2mod/yii2-sweet-alert": "*",
-        "kartik-v/yii2-nav-x": "*"
+        "kartik-v/yii2-nav-x": "*",
+        "yiibr/yii2-br-validator": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

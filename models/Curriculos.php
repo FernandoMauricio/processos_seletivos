@@ -3,6 +3,10 @@
 namespace app\models;
 
 use Yii;
+use yii\base\Model;
+use yiibr\brvalidator\CpfValidator;
+use yiibr\brvalidator\CnpjValidator;
+use yiibr\brvalidator\CeiValidator;
 
 /**
  * This is the model class for table "curriculos".
@@ -28,7 +32,6 @@ use Yii;
  */
 class Curriculos extends \yii\db\ActiveRecord
 {
-    public $permissions;
     /**
      * @inheritdoc
      */
@@ -48,6 +51,8 @@ class Curriculos extends \yii\db\ActiveRecord
             [['datanascimento', 'data'], 'safe'],
             [['edital'], 'string', 'max' => 45],
             [['nome', 'email', 'emailAlt'], 'string', 'max' => 100],
+            [['email', 'emailAlt'], 'email'],
+            ['cpf', CpfValidator::className()],
             [['cpf', 'sexo', 'telefone', 'telefoneAlt'], 'string', 'max' => 20]
         ];
     }
@@ -58,17 +63,17 @@ class Curriculos extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'id' => 'Código',
             'edital' => 'Edital',
             'cargo' => 'Cargo',
             'nome' => 'Nome',
-            'cpf' => 'Cpf',
-            'datanascimento' => 'Datanascimento',
+            'cpf' => 'CPF',
+            'datanascimento' => 'Data de Nascimento',
             'sexo' => 'Sexo',
             'email' => 'Email',
-            'emailAlt' => 'Email Alt',
+            'emailAlt' => 'Email Alternativo',
             'telefone' => 'Telefone',
-            'telefoneAlt' => 'Telefone Alt',
+            'telefoneAlt' => 'Telefone Alternativo',
             'data' => 'Data',
         ];
     }

@@ -44,7 +44,7 @@ use app\models\Recrutamento;
             ]
         ]);
 
-    ?>
+        ?>
 
     <?= $form->field($model, 'deficiencia')->radioList(array('0'=>'Não','1'=>'Sim'), ['inline'=>true]); ?>
 
@@ -53,7 +53,7 @@ use app\models\Recrutamento;
 
     <center><div>--------------------------------------------------<strong style="color: #E61238"> IDENTIFICAÇÃO DO PERFIL </strong>--------------------------------------------------</center></div>
 
-    <?php echo '<label class="control-label">--- Ensino Fundamental:</label><br>'; ?> 
+    <?php echo '<label class="control-label">--- Ensino Fundamental:</label><br>'; ?>
 
     <?= $form->field($model, 'fundamental_comp')->checkbox() ?>
 
@@ -61,7 +61,7 @@ use app\models\Recrutamento;
 
 
 
-    <?php echo '<label class="control-label">--- Ensino Médio:</label><br>'; ?> 
+    <?php echo '<label class="control-label">--- Ensino Médio:</label><br>'; ?>
 
     <?= $form->field($model, 'medio_comp')->checkbox() ?>
 
@@ -69,7 +69,7 @@ use app\models\Recrutamento;
 
 
 
-    <?php echo '<label class="control-label">--- Ensino Técnico:</label><br>'; ?> 
+    <?php echo '<label class="control-label">--- Ensino Técnico:</label><br>'; ?>
 
     <?= $form->field($model, 'tecnico_comp')->checkbox() ?>
 
@@ -79,7 +79,7 @@ use app\models\Recrutamento;
 
 
 
-    <?php echo '<label class="control-label">--- Ensino Superior:</label><br>'; ?> 
+    <?php echo '<label class="control-label">--- Ensino Superior:</label><br>'; ?>
 
     <?= $form->field($model, 'superior_comp')->checkbox() ?>
 
@@ -89,7 +89,7 @@ use app\models\Recrutamento;
 
 
 
-    <?php echo '<label class="control-label">--- Pós-Graduação:</label><br>'; ?> 
+    <?php echo '<label class="control-label">--- Pós-Graduação:</label><br>'; ?>
 
     <?= $form->field($model, 'pos_comp')->checkbox() ?>
 
@@ -100,7 +100,7 @@ use app\models\Recrutamento;
     <?= $form->field($model, 'dominio_atividade')->textarea(['rows' => 3]) ?>
 
 
-    <?php echo '<label class="control-label">Domínio de informática:</label><br>'; ?> 
+    <?php echo '<label class="control-label">Domínio de informática:</label><br>'; ?>
 
     <?= $form->field($model, 'windows')->checkbox() ?>
 
@@ -128,10 +128,10 @@ use app\models\Recrutamento;
                 $data = ArrayHelper::map($rows, 'idrecrutamento', 'descricao');
                 echo $form->field($model, 'recrutamento_id')->radiolist($data, ['inline'=>true]);
 
-    ?> 
+    ?>
 
 
-    <?php echo '<label class="control-label">Métodos de seleção indicados, considerando um ou mais dos seguintes processos:</label><br>'; ?> 
+    <?php echo '<label class="control-label">Métodos de seleção indicados, considerando um ou mais dos seguintes processos:</label><br>'; ?>
 
     <?= $form->field($model, 'selec_dinamica')->checkbox() ?>
 

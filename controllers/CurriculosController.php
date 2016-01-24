@@ -69,6 +69,8 @@ class CurriculosController extends Controller
         $model->edital = $session["numeroEdital"];
         $id = $session["id"];
 
+        $model->data  = date('Y-m-d');
+
         //localizando somente os cargos que fazem parte daquele edital
         $cargos = Cargos::find()
         ->innerJoinWith('cargosProcessos')
