@@ -40,9 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'telefone',
             'telefoneAlt',
             'data',
-            'curriculos_endereco_id',
-            'curriculos_documentacao_id',
-            'curriculos_formacao_id',
         ],
     ]) ?>
 

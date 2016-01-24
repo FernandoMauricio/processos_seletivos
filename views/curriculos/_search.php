@@ -39,12 +39,6 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'data') ?>
 
-    <?php // echo $form->field($model, 'curriculos_endereco_id') ?>
-
-    <?php // echo $form->field($model, 'curriculos_documentacao_id') ?>
-
-    <?php // echo $form->field($model, 'curriculos_formacao_id') ?>
-
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>

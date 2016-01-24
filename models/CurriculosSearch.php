@@ -18,8 +18,8 @@ class CurriculosSearch extends Curriculos
     public function rules()
     {
         return [
-            [['id', 'edital', 'cargo', 'curriculos_endereco_id', 'curriculos_documentacao_id', 'curriculos_formacao_id'], 'integer'],
-            [['nome', 'cpf', 'datanascimento', 'sexo', 'email', 'emailAlt', 'telefone', 'telefoneAlt', 'data'], 'safe'],
+            [['id', 'cargo'], 'integer'],
+            [['edital', 'nome', 'cpf', 'datanascimento', 'sexo', 'email', 'emailAlt', 'telefone', 'telefoneAlt', 'data'], 'safe'],
         ];
     }
 
@@ -57,16 +57,13 @@ class CurriculosSearch extends Curriculos
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'edital' => $this->edital,
             'cargo' => $this->cargo,
             'datanascimento' => $this->datanascimento,
             'data' => $this->data,
-            'curriculos_endereco_id' => $this->curriculos_endereco_id,
-            'curriculos_documentacao_id' => $this->curriculos_documentacao_id,
-            'curriculos_formacao_id' => $this->curriculos_formacao_id,
         ]);
 
-        $query->andFilterWhere(['like', 'nome', $this->nome])
+        $query->andFilterWhere(['like', 'edital', $this->edital])
+            ->andFilterWhere(['like', 'nome', $this->nome])
             ->andFilterWhere(['like', 'cpf', $this->cpf])
             ->andFilterWhere(['like', 'sexo', $this->sexo])
             ->andFilterWhere(['like', 'email', $this->email])

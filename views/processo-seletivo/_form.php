@@ -18,9 +18,9 @@ use kartik\datecontrol\DateControl;
     <?php $form = ActiveForm::begin(); ?>
 
     <?php 
-$options = \yii\helpers\ArrayHelper::map($cargos, 'idcargo', 'descricao');
-echo $form->field($model, 'permissions')->checkboxList($options, ['unselect'=>NULL]);
-?>
+    $options = \yii\helpers\ArrayHelper::map($cargos, 'idcargo', 'descricao');
+    echo $form->field($model, 'permissions')->checkboxList($options, ['unselect'=>NULL]);
+    ?>
 
     <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
 

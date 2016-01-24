@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use Yii;
+use app\models\Cargos;
+use app\models\CargosProcesso;
 use app\models\Curriculos;
 use app\models\CurriculosSearch;
 use yii\web\Controller;
@@ -62,11 +64,24 @@ class CurriculosController extends Controller
     {
         $model = new Curriculos();
 
+        //session numero de edital e do id do processo
+        $session = Yii::$app->session;
+        $model->edital = $session["numeroEdital"];
+        $id = $session["id"];
+
+        //localizando somente os cargos que fazem parte daquele edital
+        $cargos = Cargos::find()
+        ->innerJoinWith('cargosProcessos')
+        ->where(['processo_id'=>$id])
+        ->AndWhere('cargo_id = idcargo')
+        ->all();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'cargos' => $cargos,
             ]);
         }
     }

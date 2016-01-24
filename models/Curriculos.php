@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "curriculos".
  *
  * @property integer $id
- * @property integer $edital
+ * @property string $edital
  * @property integer $cargo
  * @property string $nome
  * @property string $cpf
@@ -19,18 +19,16 @@ use Yii;
  * @property string $telefone
  * @property string $telefoneAlt
  * @property string $data
- * @property integer $curriculos_endereco_id
- * @property integer $curriculos_documentacao_id
- * @property integer $curriculos_formacao_id
  *
- * @property CurriculosDocumentacao $curriculosDocumentacao
- * @property CurriculosEndereco $curriculosEndereco
- * @property CurriculosFormacao $curriculosFormacao
  * @property CurriculosCurriculosComplementos[] $curriculosCurriculosComplementos
  * @property CurriculosCurriculosEmpregos[] $curriculosCurriculosEmpregos
+ * @property CurriculosDocumentacao[] $curriculosDocumentacaos
+ * @property CurriculosEndereco[] $curriculosEnderecos
+ * @property CurriculosFormacao[] $curriculosFormacaos
  */
 class Curriculos extends \yii\db\ActiveRecord
 {
+    public $permissions;
     /**
      * @inheritdoc
      */
@@ -45,9 +43,10 @@ class Curriculos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['edital', 'cargo', 'nome', 'cpf', 'sexo', 'email', 'emailAlt', 'telefone', 'telefoneAlt', 'data', 'curriculos_endereco_id', 'curriculos_documentacao_id', 'curriculos_formacao_id'], 'required'],
-            [['edital', 'cargo', 'curriculos_endereco_id', 'curriculos_documentacao_id', 'curriculos_formacao_id'], 'integer'],
+            [['edital', 'cargo', 'nome', 'cpf', 'datanascimento', 'sexo', 'email', 'telefone', 'data'], 'required'],
+            [['cargo'], 'integer'],
             [['datanascimento', 'data'], 'safe'],
+            [['edital'], 'string', 'max' => 45],
             [['nome', 'email', 'emailAlt'], 'string', 'max' => 100],
             [['cpf', 'sexo', 'telefone', 'telefoneAlt'], 'string', 'max' => 20]
         ];
@@ -71,35 +70,15 @@ class Curriculos extends \yii\db\ActiveRecord
             'telefone' => 'Telefone',
             'telefoneAlt' => 'Telefone Alt',
             'data' => 'Data',
-            'curriculos_endereco_id' => 'Curriculos Endereco ID',
-            'curriculos_documentacao_id' => 'Curriculos Documentacao ID',
-            'curriculos_formacao_id' => 'Curriculos Formacao ID',
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCurriculosDocumentacao()
+
+    public function getCargosProcesso() //Relation between Cargos & Processo table
     {
-        return $this->hasOne(CurriculosDocumentacao::className(), ['id' => 'curriculos_documentacao_id']);
+        return $this->hasMany(CargosProcesso::className(), ['processo_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCurriculosEndereco()
-    {
-        return $this->hasOne(CurriculosEndereco::className(), ['id' => 'curriculos_endereco_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCurriculosFormacao()
-    {
-        return $this->hasOne(CurriculosFormacao::className(), ['id' => 'curriculos_formacao_id']);
-    }
 
     /**
      * @return \yii\db\ActiveQuery
@@ -115,5 +94,29 @@ class Curriculos extends \yii\db\ActiveRecord
     public function getCurriculosCurriculosEmpregos()
     {
         return $this->hasMany(CurriculosCurriculosEmpregos::className(), ['curriculos_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCurriculosDocumentacaos()
+    {
+        return $this->hasMany(CurriculosDocumentacao::className(), ['curriculos_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCurriculosEnderecos()
+    {
+        return $this->hasMany(CurriculosEndereco::className(), ['curriculos_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCurriculosFormacaos()
+    {
+        return $this->hasMany(CurriculosFormacao::className(), ['curriculos_id' => 'id']);
     }
 }
