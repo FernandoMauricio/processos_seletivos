@@ -34,7 +34,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'nome',
             'cpf',
             'datanascimento',
-            'sexo',
+            [
+                'attribute'=>'sexo', 
+                'label'=>'Sexo',
+                'format'=>'raw',
+                'value'=>$model->sexo ? 'Masculino' : 'Feminino',
+            ],
             'email:email',
             'emailAlt:email',
             'telefone',
