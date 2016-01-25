@@ -82,7 +82,7 @@ class CurriculosController extends Controller
         //Caso não tenha puxado nenhum edital, será redirecionado para a página de processo seletivo
         if($model->edital == NULL){
 
-            return $this->redirect('http://localhost:8080/control_processos/');
+            return $this->redirect('http://localhost/control_processos/');
 
         }
 
