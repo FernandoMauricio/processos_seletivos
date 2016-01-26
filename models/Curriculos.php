@@ -47,11 +47,12 @@ class Curriculos extends \yii\db\ActiveRecord
     {
         return [
             [['edital', 'cargo', 'nome', 'cpf', 'datanascimento', 'sexo', 'email', 'telefone', 'data'], 'required'],
+            ['cpf', 'unique', 'targetAttribute' => ['edital', 'cpf', 'cargo'],'message' => '"{value} Já utilizado para o edital e cargo selecionado"'],
+            ['cpf', CpfValidator::className()],
             [['datanascimento', 'data'], 'safe'],
             [['edital'], 'string', 'max' => 45],
             [['nome', 'cargo', 'email', 'emailAlt'], 'string', 'max' => 100],
             [['email', 'emailAlt'], 'email'],
-            ['cpf', CpfValidator::className()],
             [['cpf', 'sexo', 'telefone', 'telefoneAlt'], 'string', 'max' => 20]
         ];
     }
