@@ -6,9 +6,8 @@ use kartik\builder\Form;
 use kartik\select2\Select2;
 use kartik\widgets\DatePicker;
 use yii\helpers\ArrayHelper;
-use \yii\widgets\MaskedInput;
+use yii\widgets\MaskedInput;
 use kartik\datecontrol\DateControl;
-
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Curriculos */
@@ -19,6 +18,7 @@ use kartik\datecontrol\DateControl;
 
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL]); ?>
+
 
     <?= $form->field($model, 'edital')->textInput(['readonly'=>true]) ?>
 
@@ -36,20 +36,33 @@ use kartik\datecontrol\DateControl;
 
     <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
 
+    <?php
+
+      echo  $form->field($model, "datanascimento")->widget(DateControl::classname(), [
+        'type'=>DateControl::FORMAT_DATETIME,
+        'displayFormat' => 'dd/MM/yyyy',
+        'autoWidget' => false,
+        'widgetClass' => 'yii\widgets\MaskedInput',
+        'options' => [
+           'mask' => '99/99/9999',
+           'options' => ['class'=>'form-control'],
+         ]
+    ]); 
+
+    ?>
 
     <?php
             echo Form::widget([
                 'model'=>$model,
                 'form'=>$form,
-                'columns'=>3,
+                'columns'=>2,
                 'attributes'=>[       // 2 column layout
                     'cpf'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'Informe seu CPF...']],
-                    'datanascimento' => ['type'=>Form::INPUT_WIDGET,'widgetClass'=>'\kartik\datecontrol\DateControl', 'options'=>['options'=>['options'=>['placeholder'=>'(dd/mm/yyy)']]]],
+                    //'datanascimento'=>['type'=>Form::INPUT_WIDGET, 'widgetClass' => 'yii\widgets\MaskedInput', 'options' => ['mask' => '99/99/9999']],
                     'sexo'=>['type'=>Form::INPUT_RADIO_LIST,'items'=>[true=>'Masculino', false=>'Feminino'], 'options'=>['inline'=>true]],
                             ],
             ]);
     ?>
-
 
     <?php
             echo Form::widget([
@@ -64,12 +77,12 @@ use kartik\datecontrol\DateControl;
                 ]
             ]);
     ?>
-        
+       
     <?php $form->field($model, 'cpf')->hiddenInput()->widget(\yii\widgets\MaskedInput::className(), ['mask' => '999.999.999-99']) ?>
 
-    <?php $form->field($model, 'telefone')->hiddenInput()->widget(\yii\widgets\MaskedInput::className(), ['mask' => '(99)99999-9999']) ?>
+    <?php $form->field($model, 'telefone')->hiddenInput()->widget(\yii\widgets\MaskedInput::className(), ['mask' => '(99)99999-999[9]']) ?>
 
-    <?php $form->field($model, 'telefoneAlt')->hiddenInput()->widget(\yii\widgets\MaskedInput::className(), ['mask' => '(99)99999-9999']) ?>
+    <?php $form->field($model, 'telefoneAlt')->hiddenInput()->widget(\yii\widgets\MaskedInput::className(), ['mask' => '(99)99999-999[9]']) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Enviar Currículo' : 'Enviar Currículo', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
