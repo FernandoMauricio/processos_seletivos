@@ -11,6 +11,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+
 /**
  * CurriculosController implements the CRUD actions for Curriculos model.
  */
@@ -88,13 +89,20 @@ class CurriculosController extends Controller
         ->AndWhere('cargo_id = idcargo')
         ->all();
 
-
         //Caso não tenha puxado nenhum edital, será redirecionado para a página de processo seletivo
         if($model->edital == NULL){
             return $this->redirect('http://localhost/control_processos/');
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+        //Calcular a idade do candidato
+        $datetime1 = new \DateTime($model->datanascimento, new \DateTimeZone('UTC'));
+        $datetime2 = new \DateTime();
+        $diff = $datetime1->diff($datetime2);
+        $model->idade = $diff->y;
+        $model->save();
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [

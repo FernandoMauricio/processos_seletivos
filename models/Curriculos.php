@@ -32,6 +32,7 @@ use yiibr\brvalidator\CeiValidator;
  */
 class Curriculos extends \yii\db\ActiveRecord
 {
+    public $idadeModel;
     /**
      * @inheritdoc
      */
@@ -50,7 +51,7 @@ class Curriculos extends \yii\db\ActiveRecord
             //['cpf', 'unique', 'targetAttribute' => ['edital', 'cpf', 'cargo'],'message' => '"{value} Já utilizado para o edital e cargo selecionado"'],
             ['cpf', CpfValidator::className()],
             [['idade'], 'integer'],
-            [['datanascimento', 'data'], 'safe'],
+            [['datanascimento', 'data' , 'idadeModel'], 'safe'],
             [['edital', 'numeroInscricao'], 'string', 'max' => 45],
             [['nome', 'cargo', 'email', 'emailAlt'], 'string', 'max' => 100],
             [['email', 'emailAlt'], 'email'],
