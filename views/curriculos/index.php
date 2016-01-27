@@ -27,10 +27,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'edital',
+            'numeroInscricao',
             'cargo',
             'nome',
             'cpf',
-            // 'datanascimento',
+            //'datanascimento',
+            'idade',
             // 'sexo',
             // 'email:email',
             // 'emailAlt:email',

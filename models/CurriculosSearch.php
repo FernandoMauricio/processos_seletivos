@@ -18,8 +18,8 @@ class CurriculosSearch extends Curriculos
     public function rules()
     {
         return [
-            [['id', 'cargo'], 'integer'],
-            [['edital', 'nome', 'cpf', 'datanascimento', 'sexo', 'email', 'emailAlt', 'telefone', 'telefoneAlt', 'data'], 'safe'],
+            [['id', 'cargo','idade'], 'integer'],
+            [['edital', 'nome','numeroInscricao', 'cpf', 'datanascimento', 'sexo', 'email', 'emailAlt', 'telefone', 'telefoneAlt', 'data'], 'safe'],
         ];
     }
 
@@ -41,7 +41,8 @@ class CurriculosSearch extends Curriculos
      */
     public function search($params)
     {
-        $query = Curriculos::find();
+        $query = Curriculos::find()
+        ->orderBy(['id' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -59,11 +60,13 @@ class CurriculosSearch extends Curriculos
             'id' => $this->id,
             'cargo' => $this->cargo,
             'datanascimento' => $this->datanascimento,
+            'idade' => $this->id,
             'data' => $this->data,
         ]);
 
         $query->andFilterWhere(['like', 'edital', $this->edital])
             ->andFilterWhere(['like', 'nome', $this->nome])
+            ->andFilterWhere(['like', 'numeroInscricao', $this->numeroInscricao])
             ->andFilterWhere(['like', 'cpf', $this->cpf])
             ->andFilterWhere(['like', 'sexo', $this->sexo])
             ->andFilterWhere(['like', 'email', $this->email])

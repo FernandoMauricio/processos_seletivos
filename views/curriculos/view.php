@@ -30,10 +30,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'edital',
+            'numeroInscricao',
             'cargo',
             'nome',
             'cpf',
             'datanascimento',
+            'idade',
             [
                 'attribute'=>'sexo', 
                 'label'=>'Sexo',

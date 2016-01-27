@@ -46,12 +46,14 @@ class Curriculos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['edital', 'cargo', 'nome', 'cpf', 'datanascimento', 'sexo', 'email', 'telefone', 'data'], 'required'],
+            [['edital', 'numeroInscricao','cargo', 'nome', 'cpf', 'datanascimento', 'sexo', 'email', 'telefone', 'data'], 'required'],
+            //['cpf', 'unique', 'targetAttribute' => ['edital', 'cpf', 'cargo'],'message' => '"{value} Já utilizado para o edital e cargo selecionado"'],
+            ['cpf', CpfValidator::className()],
+            [['idade'], 'integer'],
             [['datanascimento', 'data'], 'safe'],
-            [['edital'], 'string', 'max' => 45],
+            [['edital', 'numeroInscricao'], 'string', 'max' => 45],
             [['nome', 'cargo', 'email', 'emailAlt'], 'string', 'max' => 100],
             [['email', 'emailAlt'], 'email'],
-            ['cpf', CpfValidator::className()],
             [['cpf', 'sexo', 'telefone', 'telefoneAlt'], 'string', 'max' => 20]
         ];
     }
@@ -64,10 +66,12 @@ class Curriculos extends \yii\db\ActiveRecord
         return [
             'id' => 'Código',
             'edital' => 'Edital',
+            'numeroInscricao' => 'Número de Inscrição',
             'cargo' => 'Cargo',
             'nome' => 'Nome',
             'cpf' => 'CPF',
             'datanascimento' => 'Data de Nascimento',
+            'idade' => 'Idade',
             'sexo' => 'Sexo',
             'email' => 'Email',
             'emailAlt' => 'Email Alternativo',

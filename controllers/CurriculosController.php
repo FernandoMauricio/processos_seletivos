@@ -71,6 +71,16 @@ class CurriculosController extends Controller
 
         $model->data  = date('Y-m-d');
 
+        //NÚMERO DE INSCRIÇÃO 'ANO CORRENTE + 000000 + ID DO CANDIDATO'
+        $query_id = "SELECT max(id) as id FROM curriculos LIMIT 1";
+        $last_id = Curriculos::findBySql($query_id)->all(); 
+                foreach ($last_id as $value) 
+                        {
+                            $incremento = $value['id'];
+                            $incremento++;
+                         }
+        $model->numeroInscricao = date('Y') . '00000' . $incremento;
+
         //localizando somente os cargos que fazem parte daquele edital
         $cargos = Cargos::find()
         ->innerJoinWith('cargosProcessos')
@@ -81,9 +91,7 @@ class CurriculosController extends Controller
 
         //Caso não tenha puxado nenhum edital, será redirecionado para a página de processo seletivo
         if($model->edital == NULL){
-
             return $this->redirect('http://localhost/control_processos/');
-
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
