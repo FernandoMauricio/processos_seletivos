@@ -59,7 +59,6 @@ use kartik\datecontrol\DateControl;
                 'columns'=>2,
                 'attributes'=>[       // 2 column layout
                     'cpf'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'Informe seu CPF...']],
-                    //'datanascimento'=>['type'=>Form::INPUT_WIDGET, 'widgetClass' => 'yii\widgets\MaskedInput', 'options' => ['mask' => '99/99/9999']],
                     'sexo'=>['type'=>Form::INPUT_RADIO_LIST,'items'=>[true=>'Masculino', false=>'Feminino'], 'options'=>['inline'=>true]],
                             ],
             ]);

@@ -3,19 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Cargos;
-use app\models\CargosProcesso;
-use app\models\Curriculos;
-use app\models\CurriculosSearch;
+use app\models\CurriculosEndereco;
+use app\models\CurriculosEnderecoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-
 /**
- * CurriculosController implements the CRUD actions for Curriculos model.
+ * CurriculosEnderecoController implements the CRUD actions for CurriculosEndereco model.
  */
-class CurriculosController extends Controller
+class CurriculosEnderecoController extends Controller
 {
     public function behaviors()
     {
@@ -30,12 +27,12 @@ class CurriculosController extends Controller
     }
 
     /**
-     * Lists all Curriculos models.
+     * Lists all CurriculosEndereco models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new CurriculosSearch();
+        $searchModel = new CurriculosEnderecoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +42,7 @@ class CurriculosController extends Controller
     }
 
     /**
-     * Displays a single Curriculos model.
+     * Displays a single CurriculosEndereco model.
      * @param integer $id
      * @return mixed
      */
@@ -56,64 +53,38 @@ class CurriculosController extends Controller
         ]);
     }
 
+
+public function actions()
+{
+    return [
+        'addressSearch' => 'yiibr\correios\CepAction'
+    ];
+}
+
     /**
-     * Creates a new Curriculos model.
+     * Creates a new CurriculosEndereco model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
-        $model = new Curriculos();
-
-        //session numero de edital e do id do processo
-        $session = Yii::$app->session;
-        $model->edital = $session["numeroEdital"];
-        $id = $session["id"];
-
-        $model->data  = date('Y-m-d');
-
-        //NÚMERO DE INSCRIÇÃO 'ANO CORRENTE + 000000 + ID DO CANDIDATO'
-        $query_id = "SELECT max(id) as id FROM curriculos LIMIT 1";
-        $last_id = Curriculos::findBySql($query_id)->all(); 
-                foreach ($last_id as $value) 
-                        {
-                            $incremento = $value['id'];
-                            $incremento++;
-                         }
-        $model->numeroInscricao = date('Y') . '00000' . $incremento;
-
-        //localizando somente os cargos que fazem parte daquele edital
-        $cargos = Cargos::find()
-        ->innerJoinWith('cargosProcessos')
-        ->where(['processo_id'=>$id])
-        ->AndWhere('cargo_id = idcargo')
-        ->all();
-
-        //Caso não tenha puxado nenhum edital, será redirecionado para a página de processo seletivo
-        if($model->edital == NULL){
-            return $this->redirect('http://localhost/control_processos/');
-        }
+        
+        $model = new CurriculosEndereco();
+        
+        $model->curriculos_id = $id;
+         
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-        //Calcular a idade do candidato
-        $datetime1 = new \DateTime($model->datanascimento, new \DateTimeZone('UTC'));
-        $datetime2 = new \DateTime();
-        $diff = $datetime1->diff($datetime2);
-        $model->idade = $diff->y;
-        $model->save();
-
-            return $this->redirect(['/curriculos-endereco/create', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'cargos' => $cargos,
             ]);
         }
     }
 
     /**
-     * Updates an existing Curriculos model.
+     * Updates an existing CurriculosEndereco model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -132,7 +103,7 @@ class CurriculosController extends Controller
     }
 
     /**
-     * Deletes an existing Curriculos model.
+     * Deletes an existing CurriculosEndereco model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -145,15 +116,15 @@ class CurriculosController extends Controller
     }
 
     /**
-     * Finds the Curriculos model based on its primary key value.
+     * Finds the CurriculosEndereco model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Curriculos the loaded model
+     * @return CurriculosEndereco the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Curriculos::findOne($id)) !== null) {
+        if (($model = CurriculosEndereco::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
