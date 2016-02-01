@@ -27,22 +27,14 @@ use kartik\datecontrol\DateControl;
                 <h1>Cadastros de Curriculos</h1>
               </div>
     
-                <div id="rootwizard">
-                    <div class="navbar">
-                      <div class="navbar-inner">
-                        <div class="container">
+                <div id="rootwizard" class="tabbable tabs-left">
                     <ul>
                         <li><a href="#tab1" data-toggle="tab">Candidato</a></li>
                         <li><a href="#tab2" data-toggle="tab">Endereço</a></li>
-                        <li><a href="#tab3" data-toggle="tab">informações Complementares</a></li>
-                        <li><a href="#tab4" data-toggle="tab">Forth</a></li>
-                        <li><a href="#tab5" data-toggle="tab">Fifth</a></li>
-                        <li><a href="#tab6" data-toggle="tab">Sixth</a></li>
-                        <li><a href="#tab7" data-toggle="tab">Seventh</a></li>
+                        <li><a href="#tab3" data-toggle="tab">Formação Escolar</a></li>
+                        <li><a href="#tab4" data-toggle="tab">Cursos Complementares</a></li>
+                        <li><a href="#tab5" data-toggle="tab">Empregos Anteriroes</a></li>
                     </ul>
-                     </div>
-                      </div>
-                    </div>
                     <div class="tab-content">
                         <div class="tab-pane" id="tab1">
 
@@ -85,9 +77,11 @@ use kartik\datecontrol\DateControl;
                             echo Form::widget([
                                 'model'=>$model,
                                 'form'=>$form,
-                                'columns'=>2,
+                                'columns'=>4,
                                 'attributes'=>[       // 2 column layout
                                     'cpf'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'Informe seu CPF...']],
+                                    'identidade'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'Informe seu RG...']],
+                                    'orgao_exped'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'Informe o orgão expedidor...']],
                                     'sexo'=>['type'=>Form::INPUT_RADIO_LIST,'items'=>[true=>'Masculino', false=>'Feminino'], 'options'=>['inline'=>true]],
                                             ],
                             ]);
@@ -115,7 +109,6 @@ use kartik\datecontrol\DateControl;
                                        
 
                  </div>
-
 
             <!--            ENDEREÇO                -->
 
@@ -175,12 +168,6 @@ use kartik\datecontrol\DateControl;
                         <div class="tab-pane" id="tab5">
                             5
                         </div>
-                        <div class="tab-pane" id="tab6">
-                            6
-                        </div>
-                        <div class="tab-pane" id="tab7">
-                            7
-                        </div>
                         <ul class="pager wizard">
                             <li class="previous first" style="display:none;"><a href="#">First</a></li>
                             <li class="previous"><a href="#">Anterior</a></li>
@@ -195,17 +182,14 @@ use kartik\datecontrol\DateControl;
 <?php
 $script = <<< JS
 $(document).ready(function() {
-    $('#rootwizard').bootstrapWizard();
+    $('#rootwizard').bootstrapWizard({'tabClass': 'nav nav-tabs'});
 });
 JS;
 $this->registerJs($script);
 ?>
 
 
-
 <?php
-
-// $this->registerJsFile(Yii::$app->request->baseUrl.'/js/jquery-latest.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
  $this->registerJsFile(Yii::$app->request->baseUrl.'/js/bootstrap.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
  $this->registerJsFile(Yii::$app->request->baseUrl.'/js/jquery.bootstrap.wizard.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>

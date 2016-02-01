@@ -52,7 +52,7 @@ class Curriculos extends \yii\db\ActiveRecord
             ['cpf', CpfValidator::className()],
             [['idade'], 'integer'],
             [['datanascimento', 'data' , 'idadeModel'], 'safe'],
-            [['edital', 'numeroInscricao'], 'string', 'max' => 45],
+            [['edital', 'numeroInscricao', 'identidade', 'orgao_exped'], 'string', 'max' => 45],
             [['nome', 'cargo', 'email', 'emailAlt'], 'string', 'max' => 100],
             [['email', 'emailAlt'], 'email'],
             [['cpf', 'sexo', 'telefone', 'telefoneAlt'], 'string', 'max' => 20]
@@ -71,6 +71,8 @@ class Curriculos extends \yii\db\ActiveRecord
             'cargo' => 'Cargo',
             'nome' => 'Nome',
             'cpf' => 'CPF',
+            'identidade' => 'RG',
+            'orgao_exped' => 'Orgão Expedidor',
             'datanascimento' => 'Data de Nascimento',
             'idade' => 'Idade',
             'sexo' => 'Sexo',
