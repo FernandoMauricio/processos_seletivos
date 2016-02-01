@@ -19,7 +19,7 @@ class CurriculosEnderecoSearch extends CurriculosEndereco
     {
         return [
             [['id', 'curriculos_id'], 'integer'],
-            [['endereco', 'numero_end', 'complemente', 'bairro', 'cep', 'cidade', 'estado'], 'safe'],
+            [['endereco', 'numero_end', 'complemento', 'bairro', 'cep', 'cidade', 'estado'], 'safe'],
         ];
     }
 

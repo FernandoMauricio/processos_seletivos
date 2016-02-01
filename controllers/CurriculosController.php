@@ -3,13 +3,16 @@
 namespace app\controllers;
 
 use Yii;
+
 use app\models\Cargos;
 use app\models\CargosProcesso;
 use app\models\Curriculos;
 use app\models\CurriculosSearch;
+use app\models\CurriculosEndereco;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+
 
 
 /**
@@ -56,6 +59,19 @@ class CurriculosController extends Controller
         ]);
     }
 
+
+    public function actionWizard($step = null)
+    {
+        return $this->step($step);
+    }
+
+    public function actions()
+    {
+        return [
+            'addressSearch' => 'yiibr\correios\CepAction'
+        ];
+    }
+
     /**
      * Creates a new Curriculos model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -63,7 +79,11 @@ class CurriculosController extends Controller
      */
     public function actionCreate()
     {
+
+        $this->layout = 'main-curriculos';
         $model = new Curriculos();
+        $curriculosEndereco = new CurriculosEndereco();
+
 
         //session numero de edital e do id do processo
         $session = Yii::$app->session;
@@ -94,7 +114,7 @@ class CurriculosController extends Controller
             return $this->redirect('http://localhost/control_processos/');
         }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save() && $curriculosEndereco->load(Yii::$app->request->post()) && $curriculosEndereco->save()) {
 
         //Calcular a idade do candidato
         $datetime1 = new \DateTime($model->datanascimento, new \DateTimeZone('UTC'));
@@ -103,11 +123,12 @@ class CurriculosController extends Controller
         $model->idade = $diff->y;
         $model->save();
 
-            return $this->redirect(['/curriculos-endereco/create', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
                 'cargos' => $cargos,
+                'curriculosEndereco' => $curriculosEndereco,
             ]);
         }
     }
