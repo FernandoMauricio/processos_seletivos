@@ -20,6 +20,8 @@ use kartik\datecontrol\DateControl;
 <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL]); ?>
         
         <?php echo $form->errorSummary($model); ?>
+         <?php echo $form->errorSummary($curriculosEndereco); ?>
+          <?php echo $form->errorSummary($curriculosFormacao); ?>
 
 <div class="panel panel-primary">
   <div class="panel-heading">
@@ -246,18 +248,16 @@ use kartik\datecontrol\DateControl;
                         </div>
                         <div class="tab-pane" id="tab5">
                             5
+
+                            <?= Html::submitButton($model->isNewRecord ? 'Enviar Curriculo' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success btn-lg btn-block' : 'btn btn-primary btn-lg btn-block']) ?>
                         </div>
                         <ul class="pager wizard">
-                            <li class="previous first" style="display:none;"><a href="#">First</a></li>
                             <li class="previous"><a href="#">Anterior</a></li>
-                            <li class="next last" style="display:none;"><a href="#">Last</a></li>
                             <li class="next"><a href="#">Próximo</a></li>
                         </ul>
 
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>
-    
+        
+
                     </div>  
                 </div>
 

@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 
+use yii\base\Model;
 use app\models\Cargos;
 use app\models\CargosProcesso;
 use app\models\Curriculos;
@@ -105,7 +106,6 @@ class CurriculosController extends Controller
         $model->numeroInscricao = date('Y') . '00000' . $incremento;
 
         $curriculosEndereco->curriculos_id = $incremento; 
-
         $curriculosFormacao->curriculos_id = $incremento; 
 
         //localizando somente os cargos que fazem parte daquele edital
@@ -120,15 +120,21 @@ class CurriculosController extends Controller
             return $this->redirect('http://localhost/control_processos/');
         }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save() && $curriculosEndereco->load(Yii::$app->request->post()) && $curriculosEndereco->save()
-         && $curriculosFormacao->load(Yii::$app->request->post()) && $curriculosFormacao->save()) {
+        if ($model->load(Yii::$app->request->post()) && $curriculosEndereco->load(Yii::$app->request->post()) && $curriculosFormacao->load(Yii::$app->request->post()) && Model::validateMultiple([$model, $curriculosEndereco, $curriculosFormacao]) ) {
 
         //Calcular a idade do candidato
         $datetime1 = new \DateTime($model->datanascimento, new \DateTimeZone('UTC'));
         $datetime2 = new \DateTime();
         $diff = $datetime1->diff($datetime2);
         $model->idade = $diff->y;
-        $model->save();
+
+        $model->save(false); // skip validation as model is already validated
+        $curriculosEndereco->curriculos_id = $model->id; 
+        $curriculosFormacao->curriculos_id = $model->id;  
+
+        $curriculosEndereco->save(false);
+        $curriculosFormacao->save(false);
+
 
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
