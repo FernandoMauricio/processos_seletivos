@@ -17,19 +17,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'fundamental_inc') ?>
-
     <?= $form->field($model, 'fundamental_comp') ?>
-
-    <?= $form->field($model, 'medio_inc') ?>
 
     <?= $form->field($model, 'medio_comp') ?>
 
-    <?php // echo $form->field($model, 'superior_inc') ?>
+    <?= $form->field($model, 'superior_comp') ?>
 
-    <?php // echo $form->field($model, 'superior_comp') ?>
-
-    <?php // echo $form->field($model, 'superior_area') ?>
+    <?= $form->field($model, 'superior_area') ?>
 
     <?php // echo $form->field($model, 'pos') ?>
 
@@ -47,7 +41,11 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'estuda_curso') ?>
 
-    <?php // echo $form->field($model, 'estuda_turno') ?>
+    <?php // echo $form->field($model, 'estuda_turno_mat') ?>
+
+    <?php // echo $form->field($model, 'estuda_turno_vesp') ?>
+
+    <?php // echo $form->field($model, 'estuda_turno_not') ?>
 
     <?php // echo $form->field($model, 'curriculos_id') ?>
 

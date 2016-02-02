@@ -9,6 +9,7 @@ use app\models\CargosProcesso;
 use app\models\Curriculos;
 use app\models\CurriculosSearch;
 use app\models\CurriculosEndereco;
+use app\models\CurriculosFormacao;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -83,6 +84,7 @@ class CurriculosController extends Controller
         $this->layout = 'main-curriculos';
         $model = new Curriculos();
         $curriculosEndereco = new CurriculosEndereco();
+        $curriculosFormacao = new CurriculosFormacao();
 
 
         //session numero de edital e do id do processo
@@ -102,6 +104,10 @@ class CurriculosController extends Controller
                          }
         $model->numeroInscricao = date('Y') . '00000' . $incremento;
 
+        $curriculosEndereco->curriculos_id = $incremento; 
+
+        $curriculosFormacao->curriculos_id = $incremento; 
+
         //localizando somente os cargos que fazem parte daquele edital
         $cargos = Cargos::find()
         ->innerJoinWith('cargosProcessos')
@@ -114,7 +120,8 @@ class CurriculosController extends Controller
             return $this->redirect('http://localhost/control_processos/');
         }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save() && $curriculosEndereco->load(Yii::$app->request->post()) && $curriculosEndereco->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save() && $curriculosEndereco->load(Yii::$app->request->post()) && $curriculosEndereco->save()
+         && $curriculosFormacao->load(Yii::$app->request->post()) && $curriculosFormacao->save()) {
 
         //Calcular a idade do candidato
         $datetime1 = new \DateTime($model->datanascimento, new \DateTimeZone('UTC'));
@@ -129,6 +136,7 @@ class CurriculosController extends Controller
                 'model' => $model,
                 'cargos' => $cargos,
                 'curriculosEndereco' => $curriculosEndereco,
+                'curriculosFormacao' => $curriculosFormacao,
             ]);
         }
     }

@@ -18,7 +18,7 @@ class CurriculosFormacaoSearch extends CurriculosFormacao
     public function rules()
     {
         return [
-            [['id', 'fundamental_inc', 'fundamental_comp', 'medio_inc', 'medio_comp', 'superior_inc', 'superior_comp', 'pos', 'mestrado', 'doutorado', 'estuda_atualmente', 'estuda_turno', 'curriculos_id'], 'integer'],
+            [['id', 'fundamental_comp', 'medio_comp', 'superior_comp', 'pos', 'mestrado', 'doutorado', 'estuda_atualmente', 'estuda_turno_mat', 'estuda_turno_vesp', 'estuda_turno_not', 'curriculos_id'], 'integer'],
             [['superior_area', 'pos_area', 'mestrado_area', 'doutorado_area', 'estuda_curso'], 'safe'],
         ];
     }
@@ -57,17 +57,16 @@ class CurriculosFormacaoSearch extends CurriculosFormacao
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'fundamental_inc' => $this->fundamental_inc,
             'fundamental_comp' => $this->fundamental_comp,
-            'medio_inc' => $this->medio_inc,
             'medio_comp' => $this->medio_comp,
-            'superior_inc' => $this->superior_inc,
             'superior_comp' => $this->superior_comp,
             'pos' => $this->pos,
             'mestrado' => $this->mestrado,
             'doutorado' => $this->doutorado,
             'estuda_atualmente' => $this->estuda_atualmente,
-            'estuda_turno' => $this->estuda_turno,
+            'estuda_turno_mat' => $this->estuda_turno_mat,
+            'estuda_turno_vesp' => $this->estuda_turno_vesp,
+            'estuda_turno_not' => $this->estuda_turno_not,
             'curriculos_id' => $this->curriculos_id,
         ]);
 

@@ -29,11 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'fundamental_inc',
             'fundamental_comp',
-            'medio_inc',
             'medio_comp',
-            'superior_inc',
             'superior_comp',
             'superior_area',
             'pos',
@@ -44,7 +41,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'doutorado_area',
             'estuda_atualmente',
             'estuda_curso',
-            'estuda_turno',
+            'estuda_turno_mat',
+            'estuda_turno_vesp',
+            'estuda_turno_not',
             'curriculos_id',
         ],
     ]) ?>

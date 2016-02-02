@@ -11,55 +11,82 @@ use kartik\builder\Form;
 
 <div class="curriculos-formacao-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL]); ?>
 
-        <?php
-            echo Form::widget([
-                'model'=>$model,
-                'form'=>$form,
-                'columns'=>4,
-                'attributes'=>[       // 2 column layout
-                    'fundamental_inc'=>['type'=>Form::INPUT_CHECKBOX],
-                    'superior_area'=>['type'=>Form::INPUT_TEXT],
-                    'superior_comp'=>['type'=>Form::INPUT_RADIO,],
-                    'superior_inc'=>['type'=>Form::INPUT_RADIO,],
-                            ],
-            ]);
-    ?>
 
-    <?= $form->field($model, 'fundamental_inc')->textInput() ?>
+        <?= $form->field($model, 'fundamental_comp')->radioList([1 =>'Completo', 0 =>'Incompleto'], ['inline'=>true]) ?>
 
-    <?= $form->field($model, 'fundamental_comp')->textInput() ?>
+        <?= $form->field($model, 'medio_comp')->radioList([1 =>'Completo', 0 =>'Incompleto'], ['inline'=>true]) ?>
 
-    <?= $form->field($model, 'medio_inc')->textInput() ?>
+                        <?php
+                            echo Form::widget([
+                                'model'=>$model,
+                                'form'=>$form,
+                                'columns'=>4,
+                                'attributes'=>[       
+                                    'superior_comp'=>['type'=>Form::INPUT_RADIO_LIST,'items'=>[1=>'Completo', 0=>'Incompleto'], 'options'=>['inline'=>true]],
+                                    'superior_area'=>['type'=>Form::INPUT_TEXT,'options'=>['placeholder'=>'Informe a sua graduação...'],'columnOptions'=>['colspan'=>2]],
+                                            ],
+                            ]);
+                        ?>
 
-    <?= $form->field($model, 'medio_comp')->textInput() ?>
+                        <?php
+                            echo Form::widget([
+                                'model'=>$model,
+                                'form'=>$form,
+                                'columns'=>4,
+                                'attributes'=>[       
+                                    'pos'=>['type'=>Form::INPUT_RADIO_LIST,'items'=>[1=>'Completo', 0=>'Incompleto'], 'options'=>['inline'=>true]],
+                                    'pos_area'=>['type'=>Form::INPUT_TEXT,'options'=>['placeholder'=>'Informe seu curso de Pós-graduação...'],'columnOptions'=>['colspan'=>2]],
+                                    
+                                            ],
+                            ]);
+                        ?>
 
-    <?= $form->field($model, 'superior_inc')->textInput() ?>
+                        <?php
+                            echo Form::widget([
+                                'model'=>$model,
+                                'form'=>$form,
+                                'columns'=>4,
+                                'attributes'=>[       
+                                    'mestrado'=>['type'=>Form::INPUT_RADIO_LIST,'items'=>[1=>'Completo', 0=>'Incompleto'], 'options'=>['inline'=>true]],
+                                    'mestrado_area'=>['type'=>Form::INPUT_TEXT,'options'=>['placeholder'=>'Informe seu curso de mestrado...'],'columnOptions'=>['colspan'=>2]],
+                                    
+                                            ],
+                            ]);
+                        ?>
 
-    <?= $form->field($model, 'superior_comp')->textInput() ?>
+                        <?php
+                            echo Form::widget([
+                                'model'=>$model,
+                                'form'=>$form,
+                                'columns'=>4,
+                                'attributes'=>[       
+                                    'doutorado'=>['type'=>Form::INPUT_RADIO_LIST,'items'=>[1=>'Completo', 0=>'Incompleto'], 'options'=>['inline'=>true]],
+                                    'doutorado_area'=>['type'=>Form::INPUT_TEXT,'options'=>['placeholder'=>'Informe seu curso de Pós-graduação...'],'columnOptions'=>['colspan'=>2]],
+                                    
+                                            ],
+                            ]);
+                        ?>
 
-    <?= $form->field($model, 'superior_area')->textInput(['maxlength' => true]) ?>
+                        <?php
+                            echo Form::widget([
+                                'model'=>$model,
+                                'form'=>$form,
+                                'columns'=>4,
+                                'attributes'=>[       
+                                    'estuda_atualmente'=>['type'=>Form::INPUT_RADIO_LIST,'items'=>[1=>'Sim', 0=>'Não'], 'options'=>['inline'=>true]],
+                                    'estuda_curso'=>['type'=>Form::INPUT_TEXT,'options'=>['placeholder'=>'Informe seu curso...'],'columnOptions'=>['colspan'=>2]],
+                                    
+                                            ],
+                            ]);
+                        ?>
 
-    <?= $form->field($model, 'pos')->textInput() ?>
-
-    <?= $form->field($model, 'pos_area')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'mestrado')->textInput() ?>
-
-    <?= $form->field($model, 'mestrado_area')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'doutorado')->textInput() ?>
-
-    <?= $form->field($model, 'doutorado_area')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'estuda_atualmente')->textInput() ?>
-
-    <?= $form->field($model, 'estuda_curso')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'estuda_turno')->textInput() ?>
-
-    <?= $form->field($model, 'curriculos_id')->textInput() ?>
+        <?= $form->field($model, 'estuda_turno_mat')->checkbox() ?>
+        
+        <?= $form->field($model, 'estuda_turno_vesp')->checkbox() ?>
+        
+        <?= $form->field($model, 'estuda_turno_not')->checkbox() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

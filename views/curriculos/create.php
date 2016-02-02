@@ -6,6 +6,7 @@
         'model' => $model,
         'cargos' => $cargos,
         'curriculosEndereco' => $curriculosEndereco,
+        'curriculosFormacao' => $curriculosFormacao,
     ]) 
 
 ?>

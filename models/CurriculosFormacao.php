@@ -8,11 +8,8 @@ use Yii;
  * This is the model class for table "curriculos_formacao".
  *
  * @property integer $id
- * @property integer $fundamental_inc
  * @property integer $fundamental_comp
- * @property integer $medio_inc
  * @property integer $medio_comp
- * @property integer $superior_inc
  * @property integer $superior_comp
  * @property string $superior_area
  * @property integer $pos
@@ -44,7 +41,7 @@ class CurriculosFormacao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['fundamental_inc', 'fundamental_comp', 'medio_inc', 'medio_comp', 'superior_inc', 'superior_comp', 'pos', 'mestrado', 'doutorado', 'estuda_atualmente', 'estuda_turno', 'curriculos_id'], 'integer'],
+            [['fundamental_comp', 'medio_comp', 'superior_comp', 'pos', 'mestrado', 'doutorado', 'estuda_atualmente', 'estuda_turno_mat', 'estuda_turno_vesp', 'estuda_turno_not', 'curriculos_id'], 'integer'],
             [['curriculos_id'], 'required'],
             [['superior_area', 'pos_area', 'mestrado_area', 'doutorado_area'], 'string', 'max' => 45],
             [['estuda_curso'], 'string', 'max' => 100]
@@ -58,22 +55,21 @@ class CurriculosFormacao extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'fundamental_inc' => 'Fundamental Inc',
-            'fundamental_comp' => 'Fundamental Comp',
-            'medio_inc' => 'Medio Inc',
-            'medio_comp' => 'Medio Comp',
-            'superior_inc' => 'Superior Inc',
-            'superior_comp' => 'Superior Comp',
-            'superior_area' => 'Superior Area',
-            'pos' => 'Pos',
-            'pos_area' => 'Pos Area',
+            'fundamental_comp' => 'Ensino Fundamental',
+            'medio_comp' => 'Ensino Médio',
+            'superior_comp' => 'Ensino Superior',
+            'superior_area' => 'Curso Graduação',
+            'pos' => 'Pós Graduação',
+            'pos_area' => 'Curso Pós Graduação',
             'mestrado' => 'Mestrado',
-            'mestrado_area' => 'Mestrado Area',
+            'mestrado_area' => 'Curso Mestrado',
             'doutorado' => 'Doutorado',
-            'doutorado_area' => 'Doutorado Area',
+            'doutorado_area' => 'Curso Doutorado',
             'estuda_atualmente' => 'Estuda Atualmente',
+            'estuda_turno_mat' => 'Matutino',
+            'estuda_turno_vesp' => 'Vespertino',
+            'estuda_turno_not' => 'Noturno',
             'estuda_curso' => 'Estuda Curso',
-            'estuda_turno' => 'Estuda Turno',
             'curriculos_id' => 'Curriculos ID',
         ];
     }

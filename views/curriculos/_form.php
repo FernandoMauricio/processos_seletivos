@@ -21,19 +21,21 @@ use kartik\datecontrol\DateControl;
         
         <?php echo $form->errorSummary($model); ?>
 
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title"><span class="glyphicon glyphicon-book"></span> Cadastros de Curriculos</h3>
+  </div>
+  <div class="panel-body">
         <div class="span12">
             <section id="wizard">
-              <div class="page-header">
-                <h1>Cadastros de Curriculos</h1>
-              </div>
-    
+
                 <div id="rootwizard" class="tabbable tabs-left">
                     <ul>
-                        <li><a href="#tab1" data-toggle="tab">Candidato</a></li>
-                        <li><a href="#tab2" data-toggle="tab">Endereço</a></li>
-                        <li><a href="#tab3" data-toggle="tab">Formação Escolar</a></li>
-                        <li><a href="#tab4" data-toggle="tab">Cursos Complementares</a></li>
-                        <li><a href="#tab5" data-toggle="tab">Empregos Anteriroes</a></li>
+                        <li><a href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-user"></span> Candidato</a></li>
+                        <li><a href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-home"></span> Endereço</a></li>
+                        <li><a href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon glyphicon-education"></span> Formação Escolar</a></li>
+                        <li><a href="#tab4" data-toggle="tab"><span class="glyphicon glyphicon-bookmark"></span> Cursos Complementares</a></li>
+                        <li><a href="#tab5" data-toggle="tab"><span class="glyphicon glyphicon-briefcase"></span> Empregos Anteriroes</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane" id="tab1">
@@ -155,13 +157,90 @@ use kartik\datecontrol\DateControl;
                                 <?= $form->field($curriculosEndereco, 'estado')->textInput(['readonly'=>true]) ?>
                                 </div>
                             </div>
-
                     </div>
 
 
+
+                    <!--         FORMAÇÃO       -->
+
                         <div class="tab-pane" id="tab3">
-                            3
+
+        <?= $form->field($curriculosFormacao, 'fundamental_comp')->radioList([1 =>'Completo', 0 =>'Incompleto'], ['inline'=>true]) ?>
+
+        <?= $form->field($curriculosFormacao, 'medio_comp')->radioList([1 =>'Completo', 0 =>'Incompleto'], ['inline'=>true]) ?>
+
+                        <?php
+                            echo Form::widget([
+                                'model'=>$curriculosFormacao,
+                                'form'=>$form,
+                                'columns'=>4,
+                                'attributes'=>[       
+                                    'superior_comp'=>['type'=>Form::INPUT_RADIO_LIST,'items'=>[1=>'Completo', 0=>'Incompleto'], 'options'=>['inline'=>true]],
+                                    'superior_area'=>['type'=>Form::INPUT_TEXT,'options'=>['placeholder'=>'Informe a sua graduação...'],'columnOptions'=>['colspan'=>2]],
+                                            ],
+                            ]);
+                        ?>
+
+                        <?php
+                            echo Form::widget([
+                                'model'=>$curriculosFormacao,
+                                'form'=>$form,
+                                'columns'=>4,
+                                'attributes'=>[       
+                                    'pos'=>['type'=>Form::INPUT_RADIO_LIST,'items'=>[1=>'Completo', 0=>'Incompleto'], 'options'=>['inline'=>true]],
+                                    'pos_area'=>['type'=>Form::INPUT_TEXT,'options'=>['placeholder'=>'Informe seu curso de Pós-graduação...'],'columnOptions'=>['colspan'=>2]],
+                                    
+                                            ],
+                            ]);
+                        ?>
+
+                        <?php
+                            echo Form::widget([
+                                'model'=>$curriculosFormacao,
+                                'form'=>$form,
+                                'columns'=>4,
+                                'attributes'=>[       
+                                    'mestrado'=>['type'=>Form::INPUT_RADIO_LIST,'items'=>[1=>'Completo', 0=>'Incompleto'], 'options'=>['inline'=>true]],
+                                    'mestrado_area'=>['type'=>Form::INPUT_TEXT,'options'=>['placeholder'=>'Informe seu curso de mestrado...'],'columnOptions'=>['colspan'=>2]],
+                                    
+                                            ],
+                            ]);
+                        ?>
+
+                        <?php
+                            echo Form::widget([
+                                'model'=>$curriculosFormacao,
+                                'form'=>$form,
+                                'columns'=>4,
+                                'attributes'=>[       
+                                    'doutorado'=>['type'=>Form::INPUT_RADIO_LIST,'items'=>[1=>'Completo', 0=>'Incompleto'], 'options'=>['inline'=>true]],
+                                    'doutorado_area'=>['type'=>Form::INPUT_TEXT,'options'=>['placeholder'=>'Informe seu curso de Pós-graduação...'],'columnOptions'=>['colspan'=>2]],
+                                    
+                                            ],
+                            ]);
+                        ?>
+
+                        <?php
+                            echo Form::widget([
+                                'model'=>$curriculosFormacao,
+                                'form'=>$form,
+                                'columns'=>4,
+                                'attributes'=>[       
+                                    'estuda_atualmente'=>['type'=>Form::INPUT_RADIO_LIST,'items'=>[1=>'Sim', 0=>'Não'], 'options'=>['inline'=>true]],
+                                    'estuda_curso'=>['type'=>Form::INPUT_TEXT,'options'=>['placeholder'=>'Informe seu curso...'],'columnOptions'=>['colspan'=>2]],
+                                    
+                                            ],
+                            ]);
+                        ?>
+
+        <?= $form->field($curriculosFormacao, 'estuda_turno_mat')->checkbox() ?>
+        
+        <?= $form->field($curriculosFormacao, 'estuda_turno_vesp')->checkbox() ?>
+        
+        <?= $form->field($curriculosFormacao, 'estuda_turno_not')->checkbox() ?>
+
                         </div>
+
                         <div class="tab-pane" id="tab4">
                             4
                         </div>
@@ -174,11 +253,19 @@ use kartik\datecontrol\DateControl;
                             <li class="next last" style="display:none;"><a href="#">Last</a></li>
                             <li class="next"><a href="#">Próximo</a></li>
                         </ul>
+
+    <div class="form-group">
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    </div>
+    
                     </div>  
                 </div>
 
-                
+      </div>
+    </div>
 
+
+            <!--           etapas dos formularios            -->
 <?php
 $script = <<< JS
 $(document).ready(function() {
