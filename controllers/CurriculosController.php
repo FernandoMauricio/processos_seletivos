@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use Yii;
 
-use yii\base\Model;
+use app\models\Model;
 use app\models\Cargos;
 use app\models\CargosProcesso;
 use app\models\Curriculos;
@@ -12,6 +12,7 @@ use app\models\CurriculosSearch;
 use app\models\CurriculosEndereco;
 use app\models\CurriculosFormacao;
 use app\models\CurriculosComplemento;
+use app\models\CurriculosEmpregos;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -88,6 +89,7 @@ class CurriculosController extends Controller
         $curriculosEndereco = new CurriculosEndereco();
         $curriculosFormacao = new CurriculosFormacao();
         $modelsComplemento = [new CurriculosComplemento];
+        $modelsEmpregos    = [new CurriculosEmpregos];
 
 
         //session numero de edital e do id do processo
@@ -125,6 +127,8 @@ class CurriculosController extends Controller
         if ($model->load(Yii::$app->request->post()) && $curriculosEndereco->load(Yii::$app->request->post()) && $curriculosFormacao->load(Yii::$app->request->post()) && Model::validateMultiple([$model, $curriculosEndereco, $curriculosFormacao]) ) 
         {
 
+
+
         //Calcular a idade do candidato
         $datetime1 = new \DateTime($model->datanascimento, new \DateTimeZone('UTC'));
         $datetime2 = new \DateTime();
@@ -139,25 +143,41 @@ class CurriculosController extends Controller
         $curriculosEndereco->save(false);
         $curriculosFormacao->save(false);
 
-        //Inserir vários cursos complementares
-        $modelsComplemento = Model::createMultiple(CurriculosComplemento::classname());
+
+
+                    //Inserir vários cursos complementares
+                    $modelsComplemento = Model::createMultiple(CurriculosComplemento::classname());
                     Model::loadMultiple($modelsComplemento, Yii::$app->request->post());
+
+                     //Inserir vários emprgos anteriores
+                    $modelsEmpregos = Model::createMultiple(CurriculosEmpregos::classname());
+                    Model::loadMultiple($modelsEmpregos, Yii::$app->request->post());
+
 
                     // validate all models
                     $valid = $model->validate();
                     $valid = Model::validateMultiple($modelsComplemento) && $valid;
+                    $valid_empregos = Model::validateMultiple($modelsEmpregos) && $valid;
 
-                    if ($valid) {
+                    if ($valid && $valid_empregos) {
                         $transaction = \Yii::$app->db->beginTransaction();
                         try {
                             if ($flag = $model->save(false)) {
-                                foreach ($modelsComplemento as $modelComplemento) {
+                                foreach ($modelsComplemento as $modelComplemento) {//cursos complementares
                                     $modelComplemento->curriculos_id = $model->id;
                                     if (! ($flag = $modelComplemento->save(false))) {
                                         $transaction->rollBack();
                                         break;
                                     }
                                 }
+                                foreach ($modelsEmpregos as $modelEmpregos) {//empregos anteriores
+                                    $modelEmpregos->curriculos_id = $model->id;
+                                    if (! ($flag = $modelEmpregos->save(false))) {
+                                        $transaction->rollBack();
+                                        break;
+                                    }
+                                }
+
                             }
                             if ($flag) {
                                 $transaction->commit();
@@ -168,8 +188,6 @@ class CurriculosController extends Controller
                         }
                     }
 
-
-
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -177,7 +195,8 @@ class CurriculosController extends Controller
                 'cargos' => $cargos,
                 'curriculosEndereco' => $curriculosEndereco,
                 'curriculosFormacao' => $curriculosFormacao,
-                'modelsComplemento' => (empty($modelsComplemento)) ? [new CurriculosComplemento] : $modelsComplemento
+                'modelsComplemento' => (empty($modelsComplemento)) ? [new CurriculosComplemento] : $modelsComplemento,
+                'modelsEmpregos' => (empty($modelsEmpregos)) ? [new CurriculosEmpregos] : $modelsEmpregos
             ]);
         }
     }

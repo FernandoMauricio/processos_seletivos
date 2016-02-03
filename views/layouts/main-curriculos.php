@@ -27,6 +27,8 @@ AppAsset::register($this);
     <div class="wrap">
         <div class="container">
 
+        <img src="css/img/bgHeader.jpg" height="100%" width="100%">
+
             <?= $content ?>
         </div>
     </div>

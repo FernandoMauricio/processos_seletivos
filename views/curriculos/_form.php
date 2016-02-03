@@ -18,7 +18,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
 <div class="curriculos-endereco-form">
 
-<?php $form = ActiveForm::begin(['id' => 'dynamic-form','type'=>ActiveForm::TYPE_VERTICAL]); ?>
+<?php $form = ActiveForm::begin(['id' => 'dynamic-form', 'type'=>ActiveForm::TYPE_VERTICAL]); ?>
         
         <?php echo $form->errorSummary($model); ?>
 
@@ -38,11 +38,17 @@ use wbraganca\dynamicform\DynamicFormWidget;
                         <li><a href="#tab4" data-toggle="tab"><span class="glyphicon glyphicon-bookmark"></span> Cursos Complementares</a></li>
                         <li><a href="#tab5" data-toggle="tab"><span class="glyphicon glyphicon-briefcase"></span> Empregos Anteriroes</a></li>
                     </ul>
-                    <div class="tab-content">
+
+
+
+
+
+                 <div class="tab-content">
+
+                  <!--            INFORMAÇÕES DO CANDIDATO                -->
+
                         <div class="tab-pane" id="tab1">
-
-
-                <!--            INFORMAÇÕES DO CANDIDATO                -->
+               
 
                     <?= $form->field($model, 'edital')->textInput(['readonly'=>true]) ?>
 
@@ -57,7 +63,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                         ],
                                     ]);
                          ?>
-
 
                     <?= $form->field($model, 'nome')->textInput(['maxlength' => true,'placeholder' => 'Nome completo...']) ?>
 
@@ -110,8 +115,8 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
                     <?php $form->field($model, 'telefoneAlt')->hiddenInput()->widget(\yii\widgets\MaskedInput::className(), ['mask' => '(99)99999-999[9]']) ?>
                                        
-
                  </div>
+
 
             <!--            ENDEREÇO                -->
 
@@ -160,8 +165,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                 </div>
                             </div>
                     </div>
-
-
 
                     <!--         FORMAÇÃO       -->
 
@@ -246,87 +249,197 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
                     <!--        CURSOS COMPLEMENTARES      -->
 
-            <div class="tab-pane" id="tab4">
-                <div class="row">
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><h4><i class="glyphicon glyphicon-bookmark"></i> Listagem de Cursos Complementares</h4></div>
-                        <div class="panel-body">
-                             <?php DynamicFormWidget::begin([
-                                'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
-                                'widgetBody' => '.container-items', // required: css class selector
-                                'widgetItem' => '.item', // required: css class
-                                'limit' => 4, // the maximum times, an element can be cloned (default 999)
-                                'min' => 1, // 0 or 1 (default 1)
-                                'insertButton' => '.add-item', // css class
-                                'deleteButton' => '.remove-item', // css class
-                                'model' => $modelsComplemento[0],
-                                'formId' => 'dynamic-form',
-                                'formFields' => [
-                                    'cursos',
-                                    'certificado',
-                                    'curriculos_id',
-                                ],
-                            ]); ?>
-
-                            <div class="container-items"><!-- widgetContainer -->
-                            <?php foreach ($modelsComplemento as $i => $modelComplemento): ?>
-                                <div class="item panel panel-default"><!-- widgetBody -->
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title pull-left">Curso Complementar</h3>
-                                        <div class="pull-right">
-                                            <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
-                                            <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
+                        <div class="tab-pane" id="tab4">
+                            <div class="row">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading"><h4><i class="glyphicon glyphicon-bookmark"></i> Listagem de Cursos Complementares</h4></div>
                                     <div class="panel-body">
-                                    
-                                        <?php
-                                            // necessary for update action.
-                                            if (! $modelComplemento->isNewRecord) {
-                                                echo Html::activeHiddenInput($modelComplemento, "[{$i}]id");
-                                            }
-                                        ?>
+                                         <?php DynamicFormWidget::begin([
+                                            'widgetContainer' => 'dynamicform_wrapper_1', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                                            'widgetBody' => '.container-items', // required: css class selector
+                                            'widgetItem' => '.item', // required: css class
+                                            'limit' => 4, // the maximum times, an element can be cloned (default 999)
+                                            'min' => 1, // 0 or 1 (default 1)
+                                            'insertButton' => '.add-item', // css class
+                                            'deleteButton' => '.remove-item', // css class
+                                            'model' => $modelsComplemento[0],
+                                            'formId' => 'dynamic-form',
+                                            'formFields' => [
+                                                'cursos',
+                                                'certificado',
+                                                'curriculos_id',
+                                            ],
+                                        ]); ?>
 
-                                        <div class="row">
-                                            <div class="col-sm-8">
-                                                <?= $form->field($modelComplemento, "[{$i}]cursos")->textInput(['maxlength' => true]) ?>
+                                        <div class="container-items"><!-- widgetContainer -->
+                                        <?php foreach ($modelsComplemento as $i => $modelComplemento): ?>
+                                            <div class="item panel panel-default"><!-- widgetBody -->
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title pull-left">Curso Complementar</h3>
+                                                    <div class="pull-right">
+                                                        <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                                                        <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <div class="panel-body">
+                                                
+                                                    <?php
+                                                        // necessary for update action.
+                                                        if (! $modelComplemento->isNewRecord) {
+                                                            echo Html::activeHiddenInput($modelComplemento, "[{$i}]id");
+                                                        }
+                                                    ?>
+
+                                                    <div class="row">
+                                                        <div class="col-sm-8">
+                                                            <?= $form->field($modelComplemento, "[{$i}]cursos")->textInput(['maxlength' => true]) ?>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <?= $form->field($modelComplemento, "[{$i}]certificado")->radioList([1 =>'Sim', 0 =>'Não'], ['inline'=>true]) ?>
+                                                        </div>
+                                                    </div><!-- .row -->
+                                                </div>
                                             </div>
-                                            <div class="col-sm-4">
-                                                <?= $form->field($modelComplemento, "[{$i}]certificado")->radioList([1 =>'Sim', 0 =>'Não'], ['inline'=>true]) ?>
-                                            </div>
-                                        </div><!-- .row -->
+                                        <?php endforeach; ?>
+                                        </div>
+                                        <?php DynamicFormWidget::end(); ?>
                                     </div>
-                                </div>
-                            <?php endforeach; ?>
+                                    </div>
                             </div>
-                            <?php DynamicFormWidget::end(); ?>
                         </div>
-                        </div>
-                </div>
-            </div>
 
+
+                                <!--        EMPREGOS ANTERIORES      -->
 
                         <div class="tab-pane" id="tab5">
-                            5
+                                <div class="row">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><h4><i class="glyphicon glyphicon-briefcase"></i> Listagem de Empregos Anteriores</h4></div>
+                                        <div class="panel-body">
+                                             <?php DynamicFormWidget::begin([
+                                                'widgetContainer' => 'dynamicform_wrapper_2', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                                                'widgetBody' => '.container-items', // required: css class selector
+                                                'widgetItem' => '.item', // required: css class
+                                                'limit' => 4, // the maximum times, an element can be cloned (default 999)
+                                                'min' => 1, // 0 or 1 (default 1)
+                                                'insertButton' => '.add-item', // css class
+                                                'deleteButton' => '.remove-item', // css class
+                                                'model' => $modelsEmpregos[0],
+                                                'formId' => 'dynamic-form',
+                                                'formFields' => [
+                                                    'empresa',
+                                                    'cidade',
+                                                    'cargo',
+                                                    'atividades',
+                                                    'inicio',
+                                                    'termino',
+                                                    'curriculos_id',
+                                                ],
+                                            ]); ?>
 
+                                            <div class="container-items"><!-- widgetContainer -->
+                                            <?php foreach ($modelsEmpregos as $i => $modelEmpregos): ?>
+                                                <div class="item panel panel-default"><!-- widgetBody -->
+                                                    <div class="panel-heading">
+                                                        <h3 class="panel-title pull-left">Emprego Anterior</h3>
+                                                        <div class="pull-right">
+                                                            <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                                                            <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                    
+                                                        <?php
+                                                            // necessary for update action.
+                                                            if (! $modelEmpregos->isNewRecord) {
+                                                                echo Html::activeHiddenInput($modelEmpregos, "[{$i}]id");
+                                                            }
+                                                        ?>
+                                                        <div class="row">                                                         
+                                                            <div class="col-sm-8">
+                                                                <?= $form->field($modelEmpregos, "[{$i}]empresa")->textInput(['maxlength' => true]) ?>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <?= $form->field($modelEmpregos, "[{$i}]cidade")->textInput(['maxlength' => true]) ?>
+                                                            </div>
+                                                        </div><!-- .row -->
+
+                                                        <div class="row">                                                         
+                                                            <div class="col-sm-6">
+                                                                <?= $form->field($modelEmpregos, "[{$i}]cargo")->textInput(['maxlength' => true]) ?>
+                                                            </div>
+                                                            
+                                                            <div class="col-sm-2">
+                                                            <?php
+                                                            //   echo  $form->field($modelEmpregos, "inicio")->widget(DateControl::classname(), [
+                                                            //     'type'=>DateControl::FORMAT_DATETIME,
+                                                            //     'displayFormat' => 'dd/MM/yyyy',
+                                                            //     'autoWidget' => false,
+                                                            //     'widgetClass' => 'yii\widgets\MaskedInput',
+                                                            //     'options' => [
+                                                            //        'mask' => '99/99/9999',
+                                                            //        'options' => ['class'=>'form-control', 'placeholder' => 'Data de Início...'],
+                                                            //      ]
+                                                            // ]); 
+                                                            ?>
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                            <?php
+                                                            //   echo  $form->field($modelEmpregos, "termino")->widget(DateControl::classname(), [
+                                                            //     'type'=>DateControl::FORMAT_DATETIME,
+                                                            //     'displayFormat' => 'dd/MM/yyyy',
+                                                            //     'autoWidget' => false,
+                                                            //     'widgetClass' => 'yii\widgets\MaskedInput',
+                                                            //     'options' => [
+                                                            //        'mask' => '99/99/9999',
+                                                            //        'options' => ['class'=>'form-control', 'placeholder' => 'Data de Término...'],
+                                                            //      ]
+                                                            // ]); 
+                                                            ?>
+                                                            </div>
+                                                        </div><!-- .row -->
+
+                                                        <div class="row">                                                         
+                                                            <div class="col-sm-12">
+                                                                <?= $form->field($modelEmpregos, "[{$i}]atividades")->textarea(['rows'=>2]) ?>
+                                                            </div>
+                                                        </div><!-- .row -->
+
+
+                                                    </div>
+                                                </div>
+                                            <?php endforeach; ?>
+                                            </div>
+                                            <?php DynamicFormWidget::end(); ?>
+                                        </div>
+                                    </div>
+                             </div>
+
+
+                             <!-- SUBMIT PARA ENVIAR O CURRICULO SE TODOS OS CAMPOS COM VALIDAÇÕES TIVEREM SIDO PREENCHIDOS-->
                             <?= Html::submitButton($model->isNewRecord ? 'Enviar Curriculo' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success btn-lg btn-block' : 'btn btn-primary btn-lg btn-block']) ?>
                         </div>
+
+
+
+                        <!-- BOTÕES PARA NAVEGAR ENTRE OS FORMULÁRIOS-->
                         <ul class="pager wizard">
                             <li class="previous"><a href="#">Anterior</a></li>
                             <li class="next"><a href="#">Próximo</a></li>
                         </ul>
+                 </div>  
 
-        
 
-                    </div>  
                 </div>
+
 
       </div>
     </div>
 
+ <?php ActiveForm::end(); ?>
 
-  <?php ActiveForm::end(); ?>
 
             <!--          JS etapas dos formularios            -->
 <?php

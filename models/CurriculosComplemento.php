@@ -32,7 +32,6 @@ class CurriculosComplemento extends \yii\db\ActiveRecord
     {
         return [
             [['certificado', 'curriculos_id'], 'integer'],
-            [['curriculos_id'], 'required'],
             [['cursos'], 'string', 'max' => 100]
         ];
     }

@@ -6,6 +6,7 @@
         'curriculosEndereco' => $curriculosEndereco,
         'curriculosFormacao' => $curriculosFormacao,
         'modelsComplemento' => (empty($modelsComplemento)) ? [new CurriculosComplemento] : $modelsComplemento,
+        'modelsEmpregos' => (empty($modelsEmpregos)) ? [new CurriculosEmpregos] : $modelsEmpregos
     ])
 ?>
 
