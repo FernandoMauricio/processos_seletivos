@@ -126,6 +126,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                         'district' => 'curriculosendereco-bairro',
                                         'city' => 'curriculosendereco-cidade',
                                         'state' => 'curriculosendereco-estado',
+                                        'cep' => 'curriculosendereco-cep',
                                     ],
                                 ]) ?>
                                 </div>
