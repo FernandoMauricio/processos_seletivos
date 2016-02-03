@@ -8,6 +8,7 @@ use kartik\widgets\DatePicker;
 use yii\helpers\ArrayHelper;
 use yii\widgets\MaskedInput;
 use kartik\datecontrol\DateControl;
+use wbraganca\dynamicform\DynamicFormWidget;
 
  
 /* @var $this yii\web\View */
@@ -17,11 +18,9 @@ use kartik\datecontrol\DateControl;
 
 <div class="curriculos-endereco-form">
 
-<?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL]); ?>
+<?php $form = ActiveForm::begin(['id' => 'dynamic-form','type'=>ActiveForm::TYPE_VERTICAL]); ?>
         
         <?php echo $form->errorSummary($model); ?>
-         <?php echo $form->errorSummary($curriculosEndereco); ?>
-          <?php echo $form->errorSummary($curriculosFormacao); ?>
 
 <div class="panel panel-primary">
   <div class="panel-heading">
@@ -35,7 +34,7 @@ use kartik\datecontrol\DateControl;
                     <ul>
                         <li><a href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-user"></span> Candidato</a></li>
                         <li><a href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-home"></span> Endereço</a></li>
-                        <li><a href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon glyphicon-education"></span> Formação Escolar</a></li>
+                        <li><a href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-education"></span> Formação Escolar</a></li>
                         <li><a href="#tab4" data-toggle="tab"><span class="glyphicon glyphicon-bookmark"></span> Cursos Complementares</a></li>
                         <li><a href="#tab5" data-toggle="tab"><span class="glyphicon glyphicon-briefcase"></span> Empregos Anteriroes</a></li>
                     </ul>
@@ -243,9 +242,70 @@ use kartik\datecontrol\DateControl;
 
                         </div>
 
-                        <div class="tab-pane" id="tab4">
-                            4
+
+                    <!--        CURSOS COMPLEMENTARES      -->
+
+            <div class="tab-pane" id="tab4">
+                <div class="row">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h4><i class="glyphicon glyphicon-bookmark"></i> Listagem de Cursos Complementares</h4></div>
+                        <div class="panel-body">
+                             <?php DynamicFormWidget::begin([
+                                'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                                'widgetBody' => '.container-items', // required: css class selector
+                                'widgetItem' => '.item', // required: css class
+                                'limit' => 4, // the maximum times, an element can be cloned (default 999)
+                                'min' => 1, // 0 or 1 (default 1)
+                                'insertButton' => '.add-item', // css class
+                                'deleteButton' => '.remove-item', // css class
+                                'model' => $modelsComplemento[0],
+                                'formId' => 'dynamic-form',
+                                'formFields' => [
+                                    'cursos',
+                                    'certificado',
+                                    'curriculos_id',
+                                ],
+                            ]); ?>
+
+                            <div class="container-items"><!-- widgetContainer -->
+                            <?php foreach ($modelsComplemento as $i => $modelComplemento): ?>
+                                <div class="item panel panel-default"><!-- widgetBody -->
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title pull-left">Curso Complementar</h3>
+                                        <div class="pull-right">
+                                            <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                                            <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="panel-body">
+                                    
+                                        <?php
+                                            // necessary for update action.
+                                            if (! $modelComplemento->isNewRecord) {
+                                                echo Html::activeHiddenInput($modelComplemento, "[{$i}]id");
+                                            }
+                                        ?>
+
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <?= $form->field($modelComplemento, "[{$i}]cursos")->textInput(['maxlength' => true]) ?>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <?= $form->field($modelComplemento, "[{$i}]certificado")->radioList([1 =>'Sim', 0 =>'Não'], ['inline'=>true]) ?>
+                                            </div>
+                                        </div><!-- .row -->
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                            </div>
+                            <?php DynamicFormWidget::end(); ?>
                         </div>
+                        </div>
+                </div>
+            </div>
+
+
                         <div class="tab-pane" id="tab5">
                             5
 
@@ -265,12 +325,16 @@ use kartik\datecontrol\DateControl;
     </div>
 
 
-            <!--           etapas dos formularios            -->
+  <?php ActiveForm::end(); ?>
+
+            <!--          JS etapas dos formularios            -->
 <?php
 $script = <<< JS
 $(document).ready(function() {
     $('#rootwizard').bootstrapWizard({'tabClass': 'nav nav-tabs'});
 });
+
+
 JS;
 $this->registerJs($script);
 ?>

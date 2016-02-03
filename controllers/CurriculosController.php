@@ -11,6 +11,7 @@ use app\models\Curriculos;
 use app\models\CurriculosSearch;
 use app\models\CurriculosEndereco;
 use app\models\CurriculosFormacao;
+use app\models\CurriculosComplemento;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -86,6 +87,7 @@ class CurriculosController extends Controller
         $model = new Curriculos();
         $curriculosEndereco = new CurriculosEndereco();
         $curriculosFormacao = new CurriculosFormacao();
+        $modelsComplemento = [new CurriculosComplemento];
 
 
         //session numero de edital e do id do processo
@@ -120,7 +122,8 @@ class CurriculosController extends Controller
             return $this->redirect('http://localhost/control_processos/');
         }
 
-        if ($model->load(Yii::$app->request->post()) && $curriculosEndereco->load(Yii::$app->request->post()) && $curriculosFormacao->load(Yii::$app->request->post()) && Model::validateMultiple([$model, $curriculosEndereco, $curriculosFormacao]) ) {
+        if ($model->load(Yii::$app->request->post()) && $curriculosEndereco->load(Yii::$app->request->post()) && $curriculosFormacao->load(Yii::$app->request->post()) && Model::validateMultiple([$model, $curriculosEndereco, $curriculosFormacao]) ) 
+        {
 
         //Calcular a idade do candidato
         $datetime1 = new \DateTime($model->datanascimento, new \DateTimeZone('UTC'));
@@ -128,12 +131,43 @@ class CurriculosController extends Controller
         $diff = $datetime1->diff($datetime2);
         $model->idade = $diff->y;
 
+
         $model->save(false); // skip validation as model is already validated
         $curriculosEndereco->curriculos_id = $model->id; 
-        $curriculosFormacao->curriculos_id = $model->id;  
+        $curriculosFormacao->curriculos_id = $model->id; 
 
         $curriculosEndereco->save(false);
         $curriculosFormacao->save(false);
+
+        //Inserir vários cursos complementares
+        $modelsComplemento = Model::createMultiple(CurriculosComplemento::classname());
+                    Model::loadMultiple($modelsComplemento, Yii::$app->request->post());
+
+                    // validate all models
+                    $valid = $model->validate();
+                    $valid = Model::validateMultiple($modelsComplemento) && $valid;
+
+                    if ($valid) {
+                        $transaction = \Yii::$app->db->beginTransaction();
+                        try {
+                            if ($flag = $model->save(false)) {
+                                foreach ($modelsComplemento as $modelComplemento) {
+                                    $modelComplemento->curriculos_id = $model->id;
+                                    if (! ($flag = $modelComplemento->save(false))) {
+                                        $transaction->rollBack();
+                                        break;
+                                    }
+                                }
+                            }
+                            if ($flag) {
+                                $transaction->commit();
+                                return $this->redirect(['view', 'id' => $model->id]);
+                            }
+                        } catch (Exception $e) {
+                            $transaction->rollBack();
+                        }
+                    }
+
 
 
             return $this->redirect(['view', 'id' => $model->id]);
@@ -143,6 +177,7 @@ class CurriculosController extends Controller
                 'cargos' => $cargos,
                 'curriculosEndereco' => $curriculosEndereco,
                 'curriculosFormacao' => $curriculosFormacao,
+                'modelsComplemento' => (empty($modelsComplemento)) ? [new CurriculosComplemento] : $modelsComplemento
             ]);
         }
     }
