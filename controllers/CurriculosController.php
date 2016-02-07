@@ -58,8 +58,20 @@ class CurriculosController extends Controller
      */
     public function actionView($id)
     {
+
+        //busca endereço
+        $sql_endereco = 'SELECT * FROM curriculos_endereco WHERE curriculos_id ='.$id.' ';
+        $curriculosEndereco = CurriculosEndereco::findBySql($sql_endereco)->one();  
+
+        //busca formação
+        $sql_formacao = 'SELECT * FROM curriculos_formacao WHERE curriculos_id ='.$id.' ';
+        $curriculosFormacao = CurriculosFormacao::findBySql($sql_formacao)->one();  
+
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'curriculosEndereco' => $curriculosEndereco,
+            'curriculosFormacao' => $curriculosFormacao,
         ]);
     }
 
@@ -157,7 +169,9 @@ class CurriculosController extends Controller
                     // validate all models
                     $valid = $model->validate();
                     $valid = Model::validateMultiple($modelsComplemento) && $valid;
-                    $valid_empregos = Model::validateMultiple($modelsEmpregos) && $valid;
+
+                    $valid2 = $model->validate();
+                    $valid_empregos = Model::validateMultiple($modelsEmpregos) && $valid2;
 
                     if ($valid && $valid_empregos) {
                         $transaction = \Yii::$app->db->beginTransaction();

@@ -35,8 +35,9 @@ class CurriculosEmpregos extends \yii\db\ActiveRecord
     {
         return [
             [['atividades'], 'string'],
-            [['inicio', 'termino'], 'safe'],
+            //[['inicio', 'termino'], 'safe'],
             [['curriculos_id'], 'integer'],
+            [['inicio', 'termino'], 'string', 'max' => 14],
             [['empresa', 'cidade', 'cargo'], 'string', 'max' => 100]
         ];
     }
