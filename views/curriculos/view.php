@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] =  $this->title;
     ]) ?>
 </div>
 
-            <!--    INFORMÇÕES DO CANDIDATO    -->
+                    <!--    INFORMÇÕES DO CANDIDATO    -->
 
   </div>
 </div>
@@ -74,6 +74,8 @@ $this->params['breadcrumbs'][] =  $this->title;
 </div>
 
 
+                        <!--    ENDEREÇO  -->
+
 <div class="panel panel-primary">
   <div class="panel-heading">
     <h3 class="panel-title">Formação Escolar</h3>
@@ -84,7 +86,7 @@ $this->params['breadcrumbs'][] =  $this->title;
           <div class="col-md-12"><strong>Ensino Fundamental: </strong><?php echo $curriculosFormacao->fundamental_comp ? 'Completo' : 'Incompleto' ?></div>
 
           <div class="col-md-12"><strong>Ensino Médio: </strong><?php echo $curriculosFormacao->medio_comp ? 'Completo' : 'Incompleto' ?></div>
-          
+
           <div class="col-md-3"><strong>Ensino Superior: </strong><?php echo $curriculosFormacao->superior_comp ? 'Completo' : 'Incompleto' ?></div>
 
           <div class="col-md-9"><strong>Curso Graduação: </strong><?php echo $curriculosFormacao->superior_area ?></div>
@@ -98,20 +100,18 @@ $this->params['breadcrumbs'][] =  $this->title;
           <div class="col-md-3"><strong>Doutorado: </strong><?php echo $curriculosFormacao->doutorado ? 'Completo' : 'Incompleto' ?></div>
           <div class="col-md-9"><strong>Curso Doutorado: </strong><?php echo $curriculosFormacao->doutorado_area ?></div>
 
-          <div class="col-md-3"><strong>Estuda Atualmente: </strong><?php echo $curriculosFormacao->doutorado ? 'Sim' : 'Não' ?></div>
+          <div class="col-md-3"><strong>Estuda Atualmente: </strong><?php echo $curriculosFormacao->estuda_atualmente ? 'Sim' : 'Não' ?></div>
           <div class="col-md-4"><strong>Curso: </strong><?php echo $curriculosFormacao->estuda_curso ?></div>
           <div class="col-md-5"><strong>Turno: </strong>
             <?php echo $curriculosFormacao->estuda_turno_mat ? '[X] Matutino' : '[ ] Matutino' ?>
             <?php echo $curriculosFormacao->estuda_turno_vesp ? '[X] Vespertino' : '[ ] Vespertino' ?>
             <?php echo $curriculosFormacao->estuda_turno_not ? '[X] Noturno' : '[ ] Noturno' ?>
           </div>
-
-
-
   </div>
 </div>
 </div>
 
+                        <!--    CURSOS COMPLEMENTARES  -->
 
 <div class="panel panel-primary">
   <div class="panel-heading">
@@ -120,13 +120,24 @@ $this->params['breadcrumbs'][] =  $this->title;
   <div class="panel-body">
   <div class="row">
 
+<?php 
 
+foreach ($curriculosComplemento as $value) {
 
+    $curso = $value["cursos"];
+    $certificado = $value["certificado"];
+?>
+<div class="col-md-5"><strong>Curso Complementar: </strong><?php echo $curso ?></div>
+<div class="col-md-5"><strong>Tem certificado: </strong><?php echo $certificado ? 'Sim' : 'Não' ?></div>
 
-
+<?php 
+}
+?>
   </div>
 </div>
 </div>
+
+
 
 <div class="panel panel-primary">
   <div class="panel-heading">
@@ -135,7 +146,32 @@ $this->params['breadcrumbs'][] =  $this->title;
   <div class="panel-body">
   <div class="row">
 
+<?php 
 
+foreach ($curriculosEmpregos as $value) {
+
+    $empresa    = $value["empresa"];
+    $cidade     = $value["cidade"];
+    $cargo      = $value["cargo"];
+    $atividades = $value["atividades"];
+    $inicio     = $value["inicio"];
+    $termino    = $value["termino"];
+?>
+
+<div class="col-md-12"><strong>Empresa: </strong><?php echo $empresa ?></div>
+<div class="col-md-12"><strong>Cidade: </strong><?php echo $cidade ?></div>
+
+<div class="col-md-12"><strong>Cargo: </strong><?php echo $cargo ?></div>
+<div class="col-md-12"><strong>Início: </strong><?php echo $inicio ?></div>
+<div class="col-md-12"><strong>Término: </strong><?php echo $termino ?></div>
+
+<div class="col-md-12"><strong>Atividades Desenvolvidas: </strong><?php echo $atividades ?></div>
+
+
+
+<?php 
+}
+?>
 
 
 

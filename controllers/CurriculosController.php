@@ -67,11 +67,21 @@ class CurriculosController extends Controller
         $sql_formacao = 'SELECT * FROM curriculos_formacao WHERE curriculos_id ='.$id.' ';
         $curriculosFormacao = CurriculosFormacao::findBySql($sql_formacao)->one();  
 
+        //busca cursos complementares
+        $sql_complemento = 'SELECT * FROM curriculos_complemento WHERE curriculos_id ='.$id.' ';
+        $curriculosComplemento = CurriculosComplemento::findBySql($sql_complemento)->all();  
+
+        //busca empregos anteriores
+        $sql_emprego = 'SELECT * FROM curriculos_empregos WHERE curriculos_id ='.$id.' ';
+        $curriculosEmpregos = CurriculosEmpregos::findBySql($sql_emprego)->all();  
+
 
         return $this->render('view', [
             'model' => $this->findModel($id),
             'curriculosEndereco' => $curriculosEndereco,
             'curriculosFormacao' => $curriculosFormacao,
+            'curriculosComplemento' => $curriculosComplemento,
+            'curriculosEmpregos' => $curriculosEmpregos,
         ]);
     }
 
