@@ -13,6 +13,20 @@ $this->params['breadcrumbs'][] =  $this->title;
 ?>
 <div class="curriculos-view">
 
+
+    <?php
+/**
+ * THE VIEW BUTTON
+ */
+echo Html::a('<i class="fa glyphicon glyphicon-print"></i> Imprimir', ['imprimir','id' => $model->id], [
+    'class'=>'btn pull-right btn-info btn-lg', 
+    'target'=>'_blank', 
+    'data-toggle'=>'tooltip', 
+    'title'=>' Clique aqui para gerar um arquivo PDF'
+]);
+
+    ?>
+
     <h1>Número de Inscrição: <?= Html::encode($this->title) ?></h1>
 
 <div class="panel panel-primary">
@@ -143,7 +157,8 @@ foreach ($curriculosComplemento as $value) {
   <div class="panel-heading">
     <h3 class="panel-title">Empregos Anterioes</h3>
   </div>
-  <div class="panel-body">
+
+
   <div class="row">
 
 <?php 
@@ -158,23 +173,23 @@ foreach ($curriculosEmpregos as $value) {
     $termino    = $value["termino"];
 ?>
 
-<div class="col-md-12"><strong>Empresa: </strong><?php echo $empresa ?></div>
-<div class="col-md-12"><strong>Cidade: </strong><?php echo $cidade ?></div>
+    <div class="panel-body">
+                                                        
+            <div class="col-md-12"><strong>Empresa: </strong><?php echo $empresa ?></div>
+            <div class="col-md-12"><strong>Cidade: </strong><?php echo $cidade ?></div>
 
-<div class="col-md-12"><strong>Cargo: </strong><?php echo $cargo ?></div>
-<div class="col-md-12"><strong>Início: </strong><?php echo $inicio ?></div>
-<div class="col-md-12"><strong>Término: </strong><?php echo $termino ?></div>
+            <div class="col-md-12"><strong>Cargo: </strong><?php echo $cargo ?></div>
+            <div class="col-md-12"><strong>Início: </strong><?php echo $inicio ?></div>
+            <div class="col-md-12"><strong>Término: </strong><?php echo $termino ?></div>
 
-<div class="col-md-12"><strong>Atividades Desenvolvidas: </strong><?php echo $atividades ?></div>
+            <div class="col-md-12"><strong>Atividades Desenvolvidas: </strong><?php echo $atividades ?></div>
+    <hr>
+    </div>
 
-
-
+    
 <?php 
 }
 ?>
-
-
-
   </div>
 </div>
 </div>

@@ -16,6 +16,9 @@ use app\models\CurriculosEmpregos;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use kartik\mpdf\Pdf;
+
+use mPDF;
 
 
 
@@ -50,6 +53,28 @@ class CurriculosController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
+
+    public function actionImprimir($id) {
+
+            $pdf = new Pdf([
+                'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
+                'content' => $this->renderPartial('imprimir'),
+                'options' => [
+                    'title' => 'Comunicação Interna - Senac AM',
+                    //'subject' => 'Generating PDF files via yii2-mpdf extension has never been easy'
+                ],
+                'methods' => [
+                    'SetHeader' => ['PERFIL DO CANDIDATO - SENAC AM||Gerado em: ' . date("d/m/Y - H:i:s")],
+                    'SetFooter' => ['Recrutamento e Seleção - GRH||Página {PAGENO}'],
+                ]
+            ]);
+
+        return $pdf->render('imprimir', [
+            'model' => $this->findModel($id),
+
+        ]);
+        }
 
     /**
      * Displays a single Curriculos model.

@@ -3,91 +3,210 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\models\Curriculos;
-use yii\helpers\BaseFileHelper;
-use yii\helpers\Url;
+use app\models\CurriculosEndereco;
+use app\models\CurriculosFormacao;
+use app\models\CurriculosComplemento;
+use app\models\CurriculosEmpregos;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\Curriculos */
 
 $session = Yii::$app->session;
+
 $id = $_GET['id'];
 
-//RESGATANDO AS INFORMAÇÕES DO CURRICULO
+ $sql = 'SELECT * FROM curriculos WHERE id ='.$id.' ';
+        $model = Curriculos::findBySql($sql)->one(); 
 
-$sql_curriculos = "SELECT * FROM info_curriculo WHERE cv_id = ".$id."";
-  $curriculos = Curriculos::findBySql($sql_curriculos)->all(); 
-  foreach ($curriculos as $curriculo) {
-     
-     $cv_id = $curriculo["cv_id"];
-     $cv_numeroEdital = $curriculo["cv_numeroEdital"];
-     $cv_cargo = $curriculo["cv_cargo"];
-     $cv_nome = $curriculo["cv_nome"];
-     $cv_datanascimento = $curriculo["cv_datanascimento"];
-     $cv_email = $curriculo["cv_email"];
-     $cv_telefone = $curriculo["cv_telefone"];
-     $cv_resumocv = $curriculo["cv_resumocv"];
-     $cv_data = $curriculo["cv_data"];
-     $cv_email2 = $curriculo["cv_email2"];
-     $cv_telefone2 = $curriculo["cv_telefone2"];
-   }
+        //busca endereço
+        $sql_endereco = 'SELECT * FROM curriculos_endereco WHERE curriculos_id ='.$id.' ';
+        $curriculosEndereco = CurriculosEndereco::findBySql($sql_endereco)->one();  
+
+        //busca formação
+        $sql_formacao = 'SELECT * FROM curriculos_formacao WHERE curriculos_id ='.$id.' ';
+        $curriculosFormacao = CurriculosFormacao::findBySql($sql_formacao)->one();  
+
+        //busca cursos complementares
+        $sql_complemento = 'SELECT * FROM curriculos_complemento WHERE curriculos_id ='.$id.' ';
+        $curriculosComplemento = CurriculosComplemento::findBySql($sql_complemento)->all();  
+
+        //busca empregos anteriores
+        $sql_emprego = 'SELECT * FROM curriculos_empregos WHERE curriculos_id ='.$id.' ';
+        $curriculosEmpregos = CurriculosEmpregos::findBySql($sql_emprego)->all();  
 
 
+
+$this->title = $model->numeroInscricao;
+
+$this->params['breadcrumbs'][] = ['label' => 'Curriculos', 'url' => ['index']];
+$this->params['breadcrumbs'][] =  $this->title;
+?>
+<div class="curriculos-view">
+
+    <h1>Número de Inscrição: <?= Html::encode($this->title) ?></h1>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Informações do Candidato: <span class="text-uppercase"> <?= $model->nome ?></span></h3>
+  </div>
+  <div class="panel-body">
+  <div class="row">
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            'id',
+            'edital',
+            'numeroInscricao',
+            'cargo',
+            'nome',
+            'cpf',
+            'datanascimento',
+            'idade',
+            [
+                'attribute'=>'sexo', 
+                'label'=>'Sexo',
+                'format'=>'raw',
+                'value'=>$model->sexo ? 'Masculino' : 'Feminino',
+            ],
+            'email:email',
+            'emailAlt:email',
+            'telefone',
+            'telefoneAlt',
+            'data',
+        ],
+    ]) ?>
+</div>
+
+                    <!--    INFORMÇÕES DO CANDIDATO    -->
+
+  </div>
+</div>
+</div>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Endereço</h3>
+  </div>
+    <div class="panel-body">
+          <div class="row">
+
+          <div class="col-md-6"><strong>Endereço:</strong> <?php echo $curriculosEndereco->endereco ?></div>
+          <div class="col-md-2"><strong>Número:</strong> <?php echo $curriculosEndereco->numero_end ?></div>
+          <div class="col-md-4"><strong>Bairro:</strong> <?php echo $curriculosEndereco->bairro ?></div>
+          <div class="col-md-6"><strong>Complemento:</strong> <?php echo $curriculosEndereco->complemento ?></div>
+          <div class="col-md-4"><strong>Cidade:</strong> <?php echo $curriculosEndereco->cidade ?></div>
+          <div class="col-md-2"><strong>Estado:</strong> <?php echo $curriculosEndereco->estado ?></div>
+          <div class="col-md-2"><strong>CEP:</strong> <?php echo $curriculosEndereco->cep ?></div>
+
+         </div>
+
+    </div>
+</div>
+
+
+                        <!--    ENDEREÇO  -->
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Formação Escolar</h3>
+  </div>
+  <div class="panel-body">
+  <div class="row">
+
+          <div class="col-md-12"><strong>Ensino Fundamental: </strong><?php echo $curriculosFormacao->fundamental_comp ? 'Completo' : 'Incompleto' ?></div>
+
+          <div class="col-md-12"><strong>Ensino Médio: </strong><?php echo $curriculosFormacao->medio_comp ? 'Completo' : 'Incompleto' ?></div>
+
+          <div class="col-md-3"><strong>Ensino Superior: </strong><?php echo $curriculosFormacao->superior_comp ? 'Completo' : 'Incompleto' ?></div>
+
+          <div class="col-md-9"><strong>Curso Graduação: </strong><?php echo $curriculosFormacao->superior_area ?></div>
+
+          <div class="col-md-3"><strong>Pós Graduação: </strong><?php echo $curriculosFormacao->pos ? 'Completo' : 'Incompleto' ?></div>
+          <div class="col-md-9"><strong>Curso Pós-Graduação: </strong><?php echo $curriculosFormacao->pos_area ?></div>
+
+          <div class="col-md-3"><strong>Mestrado: </strong><?php echo $curriculosFormacao->mestrado ? 'Completo' : 'Incompleto' ?></div>
+          <div class="col-md-9"><strong>Curso Mestrado: </strong><?php echo $curriculosFormacao->mestrado_area ?></div>
+
+          <div class="col-md-3"><strong>Doutorado: </strong><?php echo $curriculosFormacao->doutorado ? 'Completo' : 'Incompleto' ?></div>
+          <div class="col-md-9"><strong>Curso Doutorado: </strong><?php echo $curriculosFormacao->doutorado_area ?></div>
+
+          <div class="col-md-3"><strong>Estuda Atualmente: </strong><?php echo $curriculosFormacao->estuda_atualmente ? 'Sim' : 'Não' ?></div>
+          <div class="col-md-4"><strong>Curso: </strong><?php echo $curriculosFormacao->estuda_curso ?></div>
+          <div class="col-md-5"><strong>Turno: </strong>
+            <?php echo $curriculosFormacao->estuda_turno_mat ? '[X] Matutino' : '[ ] Matutino' ?>
+            <?php echo $curriculosFormacao->estuda_turno_vesp ? '[X] Vespertino' : '[ ] Vespertino' ?>
+            <?php echo $curriculosFormacao->estuda_turno_not ? '[X] Noturno' : '[ ] Noturno' ?>
+          </div>
+  </div>
+</div>
+</div>
+
+                        <!--    CURSOS COMPLEMENTARES  -->
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Cursos Complementares</h3>
+  </div>
+  <div class="panel-body">
+  <div class="row">
+
+<?php 
+
+foreach ($curriculosComplemento as $value) {
+
+    $curso = $value["cursos"];
+    $certificado = $value["certificado"];
+?>
+<div class="col-md-5"><strong>Curso Complementar: </strong><?php echo $curso ?></div>
+<div class="col-md-5"><strong>Tem certificado: </strong><?php echo $certificado ? 'Sim' : 'Não' ?></div>
+<hr>
+<?php 
+}
+?>
+  </div>
+</div>
+</div>
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Empregos Anterioes</h3>
+  </div>
+
+
+  <div class="row">
+
+<?php 
+
+foreach ($curriculosEmpregos as $value) {
+
+    $empresa    = $value["empresa"];
+    $cidade     = $value["cidade"];
+    $cargo      = $value["cargo"];
+    $atividades = $value["atividades"];
+    $inicio     = $value["inicio"];
+    $termino    = $value["termino"];
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-</head>
-<body>
-<table width="100%" border="1">
-  <tr>
-    <th width="19%" scope="col">ID: <?php echo $cv_id; ?></th>
-    <th width="39%" scope="col">Nº Edital: <?php echo $cv_numeroEdital; ?></th>
-    <th width="42%" scope="col">Data Cadastro: <?php echo date('d/m/Y', strtotime($cv_data)); ?></th>
-  </tr>
-  <tr>
-    <td colspan="3"><strong>Cargo:</strong> <?php echo $cv_cargo; ?></td>
-  </tr>
-  <tr>
-    <td colspan="2"><strong>Nome:</strong> <?php echo $cv_nome; ?></td>
-    <td><strong>Data Nascimento:</strong> <?php echo date('d/m/Y', strtotime($cv_datanascimento)); ?></td>
-  </tr>
-  <tr>
-    <td colspan="2"><strong>Email:</strong> <?php echo $cv_email; ?></td>
-    <td><strong>Email(Alternativo):</strong> <?php echo $cv_email2; ?></td>
-  </tr>
-  <tr>
-    <td colspan="2"><strong>Telefone:</strong> <?php echo $cv_telefone; ?></td>
-    <td><strong>Telefone(Alternativo):</strong> <?php echo $cv_telefone2; ?></td>
-  </tr>
-  <tr>
-    <td colspan="3"><h3>Resumo do Currículo</h3><br>
-    <p><?php echo $cv_resumocv; ?></p></td>
-  </tr>
-</table>
+    <div class="panel-body">
+                                                        
+            <div class="col-md-12"><strong>Empresa: </strong><?php echo $empresa ?></div>
+            <div class="col-md-12"><strong>Cidade: </strong><?php echo $cidade ?></div>
 
+            <div class="col-md-12"><strong>Cargo: </strong><?php echo $cargo ?></div>
+            <div class="col-md-12"><strong>Início: </strong><?php echo $inicio ?></div>
+            <div class="col-md-12"><strong>Término: </strong><?php echo $termino ?></div>
 
-</body>
-</html>
+            <div class="col-md-12"><strong>Atividades Desenvolvidas: </strong><?php echo $atividades ?></div>
+        <hr>
+    </div>
 
+    
+<?php 
+}
+?>
+  </div>
+</div>
+</div>
 
-
-
-
-
-
-<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<met4a http-equiv="Content-Type" content="text/html; charset=utf-8" />
-</head>
-
-<body>
-<table width="100%" border="1" bordercolor="#ddd">
-  <tr>
-    <th height="92" id="titulo" bgcolor="#ddd"><div align="center"> RESUMO DO CURRÍCULO</div></th>
-  </tr>
-  <tr>
-    <td height="759" id="linhas"><p></p></td>
-  </tr>
-</table>
-</body>
-</html> -->

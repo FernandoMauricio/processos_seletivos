@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\CurriculosSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Curriculos';
+$this->title = 'Listagem de Candidatos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="curriculos-index">
@@ -15,9 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Create Curriculos', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -39,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'telefoneAlt',
             // 'data',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{view} {update}'],
         ],
     ]); ?>
 
