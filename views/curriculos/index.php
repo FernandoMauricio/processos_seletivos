@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'telefoneAlt',
             // 'data',
 
-            ['class' => 'yii\grid\ActionColumn', 'template' => '{view} {update}'],
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{view}'],
         ],
     ]); ?>
 

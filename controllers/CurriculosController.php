@@ -61,7 +61,7 @@ class CurriculosController extends Controller
                 'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
                 'content' => $this->renderPartial('imprimir'),
                 'options' => [
-                    'title' => 'Comunicação Interna - Senac AM',
+                    'title' => 'Recrutamento e Seleção - Senac AM',
                     //'subject' => 'Generating PDF files via yii2-mpdf extension has never been easy'
                 ],
                 'methods' => [
@@ -190,6 +190,27 @@ class CurriculosController extends Controller
         $curriculosEndereco->save(false);
         $curriculosFormacao->save(false);
 
+        
+
+
+        //ENVIA E-MAIL DA INSCRIÇÃO PARA O CANDIDATO
+                     Yii::$app->mailer->compose()
+                            ->setFrom(['sistema@am.senac.br' => 'Processo Seletivo - Senac AM'])
+                            ->setTo($model->email)
+                            ->setSubject('Inscrição para o Edital: ' . $model->edital)
+                            ->setTextBody('Prezado Candidato, confirmamos o envio de seu currículo para concorrer a vaga de ' .$model->cargo. ' para o Edital ' .$model->edital.' ')
+                            ->setHtmlBody("Prezado Senhor(a), <strong>".$model->nome."</strong><br><br>".
+                     "Recebemos a sua inscrição em nosso processo de seleção com sucesso para o Edital: <strong>".$model->edital." </strong>e pedimos que acompanhe em nosso site o resultado das próximas etapas.<br><br>".    
+                     
+                         "<strong><font color='red'><center>NÃO RESPONDA A ESSE E-MAIL!!!!</center></font></strong><br><br>".
+
+                     "<strong>INFORMAÇÕES GERAIS</STRONG><br><br>".
+                     "<strong>Número de Inscrição: </strong><font color='red'>".$model->numeroInscricao ."</font><br><br>".
+                     "<strong>Data do envio: </strong> ".$model->data ."<br>".
+                     "<strong>Processo Seletivo: </strong> ".$model->edital ."<br>".
+                     "<strong>Cargo: </strong> ".$model->cargo ."<br><br>")
+                            ->send();
+
 
 
                     //Inserir vários cursos complementares
@@ -237,6 +258,7 @@ class CurriculosController extends Controller
                         }
                     }
 
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -248,38 +270,6 @@ class CurriculosController extends Controller
                 'modelsEmpregos' => (empty($modelsEmpregos)) ? [new CurriculosEmpregos] : $modelsEmpregos
             ]);
         }
-    }
-
-    /**
-     * Updates an existing Curriculos model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * Deletes an existing Curriculos model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
     }
 
     /**
