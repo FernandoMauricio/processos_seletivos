@@ -46,6 +46,7 @@ echo NavX::widget([
             '<li class="dropdown-header">Controle - Contração</li>',
                 ['label' => 'Contratações Pendentes', 'url' => ['/contratacao-pendente/index']],
                 ['label' => 'Contratações Em Andamento', 'url' => ['/contratacao-em-andamento/index']],
+                ['label' => 'Contratações Encerradas', 'url' => ['/contratacao-encerrada/index']],
             ]],
 
             '<li class="divider"></li>',

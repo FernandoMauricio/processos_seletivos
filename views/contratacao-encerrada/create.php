@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Contratacao */
 
-$this->title = 'Nova Contratação';
-$this->params['breadcrumbs'][] = ['label' => 'Solicitação de Contratação', 'url' => ['index']];
+$this->title = 'Create Contratacao';
+$this->params['breadcrumbs'][] = ['label' => 'Contratacaos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="contratacao-create">

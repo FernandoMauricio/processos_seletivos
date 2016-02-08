@@ -8,9 +8,9 @@ use yii\data\ActiveDataProvider;
 use app\models\Contratacao;
 
 /**
- * ContratacaoPendenteSearch represents the model behind the search form about `app\models\Contratacao`.
+ * ContratacaoEncerradaSearch represents the model behind the search form about `app\models\Contratacao`.
  */
-class ContratacaoPendenteSearch extends Contratacao
+class ContratacaoEncerradaSearch extends Contratacao
 {
     /**
      * @inheritdoc
@@ -19,7 +19,7 @@ class ContratacaoPendenteSearch extends Contratacao
     {
         return [
             [['id', 'cod_colaborador', 'cod_unidade_solic', 'quant_pessoa', 'substituicao', 'periodo', 'tempo_periodo', 'aumento_quadro', 'deficiencia', 'fundamental_comp', 'fundamental_inc', 'medio_comp', 'medio_inc', 'tecnico_comp', 'tecnico_inc', 'superior_comp', 'superior_inc', 'pos_comp', 'pos_inc', 'windows', 'word', 'excel', 'internet', 'experiencia', 'jornada_horas', 'recrutamento_id', 'selec_curriculo', 'selec_dinamica', 'selec_prova', 'selec_entrevista'], 'integer'],
-            [['data_solicitacao', 'hora_solicitacao', 'colaborador','cargo','obs_aumento' ,'unidade', 'motivo', 'nome_substituicao', 'obs_deficiencia', 'data_ingresso', 'tecnico_area', 'superior_area', 'pos_area', 'dominio_atividade', 'experiencia_tempo', 'experiencia_atividade', 'jornada_obs', 'principais_atividades', 'selec_teste','situacao_id'], 'safe'],
+            [['data_solicitacao', 'hora_solicitacao', 'colaborador', 'cargo', 'unidade', 'motivo', 'obs_aumento', 'nome_substituicao', 'obs_deficiencia', 'data_ingresso', 'tecnico_area', 'superior_area', 'pos_area', 'dominio_atividade', 'experiencia_tempo', 'experiencia_atividade', 'jornada_obs', 'principais_atividades', 'selec_teste', 'situacao_id'], 'safe'],
         ];
     }
 
@@ -57,22 +57,19 @@ class ContratacaoPendenteSearch extends Contratacao
         }
 
         $query->joinWith(['situacao']);
-        
+
+
         $query->andFilterWhere([
             'id' => $this->id,
             'data_solicitacao' => $this->data_solicitacao,
             'hora_solicitacao' => $this->hora_solicitacao,
             'cod_colaborador' => $this->cod_colaborador,
-            'colaborador' => $this->colaborador,
-            'cargo' => $this->cargo,
             'cod_unidade_solic' => $this->cod_unidade_solic,
-            'unidade' => $this->unidade,
             'quant_pessoa' => $this->quant_pessoa,
             'substituicao' => $this->substituicao,
             'periodo' => $this->periodo,
             'tempo_periodo' => $this->tempo_periodo,
             'aumento_quadro' => $this->aumento_quadro,
-            'obs_aumento' => $this->obs_aumento,
             'deficiencia' => $this->deficiencia,
             'fundamental_comp' => $this->fundamental_comp,
             'fundamental_inc' => $this->fundamental_inc,
@@ -95,7 +92,7 @@ class ContratacaoPendenteSearch extends Contratacao
             'selec_dinamica' => $this->selec_dinamica,
             'selec_prova' => $this->selec_prova,
             'selec_entrevista' => $this->selec_entrevista,
-            'situacao_id' => 3,
+            'situacao_id' => 5,
         ]);
 
         $query->andFilterWhere(['like', 'situacao_contratacao.descricao', $this->situacao_id])

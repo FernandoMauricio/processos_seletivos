@@ -18,8 +18,8 @@ class ContratacaoEmAndamentoSearch extends Contratacao
     public function rules()
     {
         return [
-            [['id', 'cod_colaborador', 'cod_unidade_solic', 'quant_pessoa', 'substituicao', 'periodo', 'tempo_periodo', 'aumento_quadro', 'deficiencia', 'fundamental_comp', 'fundamental_inc', 'medio_comp', 'medio_inc', 'tecnico_comp', 'tecnico_inc', 'superior_comp', 'superior_inc', 'pos_comp', 'pos_inc', 'windows', 'word', 'excel', 'internet', 'experiencia', 'jornada_horas', 'recrutamento_id', 'selec_curriculo', 'selec_dinamica', 'selec_prova', 'selec_entrevista', 'situacao_id'], 'integer'],
-            [['data_solicitacao', 'hora_solicitacao', 'colaborador', 'cargo', 'unidade', 'motivo','obs_aumento' ,'nome_substituicao', 'obs_deficiencia', 'data_ingresso', 'tecnico_area', 'superior_area', 'pos_area', 'dominio_atividade', 'experiencia_tempo', 'experiencia_atividade', 'jornada_obs', 'principais_atividades', 'selec_teste'], 'safe'],
+            [['id', 'cod_colaborador', 'cod_unidade_solic', 'quant_pessoa', 'substituicao', 'periodo', 'tempo_periodo', 'aumento_quadro', 'deficiencia', 'fundamental_comp', 'fundamental_inc', 'medio_comp', 'medio_inc', 'tecnico_comp', 'tecnico_inc', 'superior_comp', 'superior_inc', 'pos_comp', 'pos_inc', 'windows', 'word', 'excel', 'internet', 'experiencia', 'jornada_horas', 'recrutamento_id', 'selec_curriculo', 'selec_dinamica', 'selec_prova', 'selec_entrevista'], 'integer'],
+            [['data_solicitacao', 'hora_solicitacao', 'colaborador', 'cargo', 'unidade', 'motivo','obs_aumento' ,'nome_substituicao', 'obs_deficiencia', 'data_ingresso', 'tecnico_area', 'superior_area', 'pos_area', 'dominio_atividade', 'experiencia_tempo', 'experiencia_atividade', 'jornada_obs', 'principais_atividades', 'selec_teste', 'situacao_id'], 'safe'],
         ];
     }
 
@@ -56,6 +56,8 @@ class ContratacaoEmAndamentoSearch extends Contratacao
             return $dataProvider;
         }
 
+        $query->joinWith(['situacao']);
+        
         $query->andFilterWhere([
             'id' => $this->id,
             'data_solicitacao' => $this->data_solicitacao,
@@ -93,10 +95,10 @@ class ContratacaoEmAndamentoSearch extends Contratacao
             'selec_dinamica' => $this->selec_dinamica,
             'selec_prova' => $this->selec_prova,
             'selec_entrevista' => $this->selec_entrevista,
-            'situacao_id' => $this->situacao_id,
+            'situacao_id' => [4,7,8,9,10,11,12],
         ]);
 
-        $query->andFilterWhere(['situacao_id' => [4,7,8,9,10,11,12]])
+        $query->andFilterWhere(['like', 'situacao_contratacao.descricao', $this->situacao_id])
             ->andFilterWhere(['like', 'colaborador', $this->colaborador])
             ->andFilterWhere(['like', 'cargo', $this->cargo])
             ->andFilterWhere(['like', 'unidade', $this->unidade])
