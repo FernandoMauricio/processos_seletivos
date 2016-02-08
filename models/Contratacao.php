@@ -75,6 +75,9 @@ class Contratacao extends \yii\db\ActiveRecord
     {
         return [
             [['data_solicitacao', 'hora_solicitacao', 'nomesituacao'], 'safe'],
+            ['tecnico_area', 'required', 'when' => function($model) { return $model->tecnico_comp == 1; }, 'enableClientValidation' => true],
+            ['superior_area', 'required', 'when' => function($model) { return $model->superior_comp == 1; }, 'enableClientValidation' => true],
+            ['pos_area', 'required', 'when' => function($model) { return $model->pos_comp == 1; }, 'enableClientValidation' => true],
             [['cod_colaborador', 'cod_unidade_solic', 'quant_pessoa', 'substituicao', 'periodo', 'tempo_periodo', 'aumento_quadro', 'deficiencia', 'fundamental_comp', 'fundamental_inc', 'medio_comp', 'medio_inc', 'tecnico_comp', 'tecnico_inc', 'superior_comp', 'superior_inc', 'pos_comp', 'pos_inc', 'windows', 'word', 'excel', 'internet', 'experiencia', 'jornada_horas', 'recrutamento_id', 'selec_curriculo', 'selec_dinamica', 'selec_prova', 'selec_entrevista', 'situacao_id'], 'integer'],
             [['motivo', 'obs_deficiencia', 'obs_aumento','dominio_atividade', 'jornada_obs', 'principais_atividades'], 'string'],
             [['recrutamento_id', 'situacao_id'], 'required'],
@@ -83,6 +86,7 @@ class Contratacao extends \yii\db\ActiveRecord
             [['tecnico_area', 'cargo','superior_area', 'pos_area', 'experiencia_tempo', 'experiencia_atividade', 'selec_teste'], 'string', 'max' => 45]
         ];
     }
+
 
     /**
      * @inheritdoc
