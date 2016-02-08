@@ -6,6 +6,7 @@ use kartik\widgets\ActiveForm;
 use yii\widgets\MaskedInput;
 use yii\helpers\ArrayHelper;
 use app\models\Recrutamento;
+use kartik\builder\Form;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Contratacao */
@@ -15,6 +16,8 @@ use app\models\Recrutamento;
 <div class="contratacao-form">
 
     <?php $form = ActiveForm::begin(); ?>
+
+    <?php echo $form->errorSummary($model); ?>   
 
     <?= $form->field($model, 'colaborador')->textInput(['readonly'=>true]) ?>
 
@@ -53,62 +56,94 @@ use app\models\Recrutamento;
 
     <center><div>--------------------------------------------------<strong style="color: #E61238"> IDENTIFICAÇÃO DO PERFIL </strong>--------------------------------------------------</center></div>
 
-    <?php echo '<label class="control-label">--- Ensino Fundamental:</label><br>'; ?>
+                            <?php
+                            echo '<label class="control-label">--- Ensino Médio:</label><br>';
+                            echo Form::widget([
+                                'model'=>$model,
+                                'form'=>$form,
+                                'columns'=>10,
+                                'attributes'=>[
+                                    'fundamental_comp'=>['type'=>Form::INPUT_CHECKBOX,'options'=>['inline'=>true]],       
+                                    'fundamental_inc'=>['type'=>Form::INPUT_CHECKBOX,'options'=>['inline'=>true]],
+                                            ],
+                            ]);
+                            ?>
 
-    <?= $form->field($model, 'fundamental_comp')->checkbox() ?>
+                            <?php
+                            echo '<label class="control-label">--- Ensino Médio:</label><br>';
+                            echo Form::widget([
+                                'model'=>$model,
+                                'form'=>$form,
+                                'columns'=>10,
+                                'attributes'=>[
+                                    'medio_comp'=>['type'=>Form::INPUT_CHECKBOX,'options'=>['inline'=>true]],       
+                                    'medio_inc'=>['type'=>Form::INPUT_CHECKBOX,'options'=>['inline'=>true]],
+                                            ],
+                            ]);
+                            ?>
 
-    <?= $form->field($model, 'fundamental_inc')->checkbox() ?>
+                            <?php
+                            echo '<label class="control-label">--- Ensino Técnico:</label><br>';
+                            echo Form::widget([
+                                'model'=>$model,
+                                'form'=>$form,
+                                'columns'=>10,
+                                'attributes'=>[
+                                    'tecnico_comp'=>['type'=>Form::INPUT_CHECKBOX,'options'=>['inline'=>true]],       
+                                    'tecnico_inc'=>['type'=>Form::INPUT_CHECKBOX,'options'=>['inline'=>true]],
+                                    'tecnico_area'=>['type'=>Form::INPUT_TEXT,'options'=>['placeholder'=>'Informe a área...'],'columnOptions'=>['colspan'=>8]],
+                                            ],
+                            ]);
+                            ?>
 
+                            <?php
+                            echo '<label class="control-label">--- Ensino Superior:</label><br>';
+                            echo Form::widget([
+                                'model'=>$model,
+                                'form'=>$form,
+                                'columns'=>10,
+                                'attributes'=>[
+                                    'superior_comp'=>['type'=>Form::INPUT_CHECKBOX,'options'=>['inline'=>true]],       
+                                    'superior_inc'=>['type'=>Form::INPUT_CHECKBOX,'options'=>['inline'=>true]],
+                                    'superior_area'=>['type'=>Form::INPUT_TEXT,'options'=>['placeholder'=>'Informe a área...'],'columnOptions'=>['colspan'=>8]],
+                                            ],
+                            ]);
+                            ?>
 
+                            <?php
+                            echo '<label class="control-label">--- Pós-Graduação:</label><br>';
+                            echo Form::widget([
+                                'model'=>$model,
+                                'form'=>$form,
+                                'columns'=>10,
+                                'attributes'=>[
+                                    'pos_comp'=>['type'=>Form::INPUT_CHECKBOX,'options'=>['inline'=>true]],       
+                                    'pos_inc'=>['type'=>Form::INPUT_CHECKBOX,'options'=>['inline'=>true]],
+                                    'pos_area'=>['type'=>Form::INPUT_TEXT,'options'=>['placeholder'=>'Informe a área...'],'columnOptions'=>['colspan'=>8]],
+                                            ],
+                            ]);
+                            ?>
 
-    <?php echo '<label class="control-label">--- Ensino Médio:</label><br>'; ?>
-
-    <?= $form->field($model, 'medio_comp')->checkbox() ?>
-
-    <?= $form->field($model, 'medio_inc')->checkbox() ?>
-
-
-
-    <?php echo '<label class="control-label">--- Ensino Técnico:</label><br>'; ?>
-
-    <?= $form->field($model, 'tecnico_comp')->checkbox() ?>
-
-    <?= $form->field($model, 'tecnico_inc')->checkbox() ?>
-
-    <?= $form->field($model, 'tecnico_area')->textInput(['maxlength' => true]) ?>
-
-
-
-    <?php echo '<label class="control-label">--- Ensino Superior:</label><br>'; ?>
-
-    <?= $form->field($model, 'superior_comp')->checkbox() ?>
-
-    <?= $form->field($model, 'superior_inc')->checkbox() ?>
-
-    <?= $form->field($model, 'superior_area')->textInput(['maxlength' => true]) ?>
-
-
-
-    <?php echo '<label class="control-label">--- Pós-Graduação:</label><br>'; ?>
-
-    <?= $form->field($model, 'pos_comp')->checkbox() ?>
-
-    <?= $form->field($model, 'pos_inc')->checkbox() ?>
-
-    <?= $form->field($model, 'pos_area')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'dominio_atividade')->textarea(['rows' => 3]) ?>
 
 
-    <?php echo '<label class="control-label">Domínio de informática:</label><br>'; ?>
+                            <?php
+                            echo '<label class="control-label">Domínio de informática:</label><br>'; 
+                            echo Form::widget([
+                                'model'=>$model,
+                                'form'=>$form,
+                                'columns'=>10,
+                                'attributes'=>[
+                                    'windows'=>['type'=>Form::INPUT_CHECKBOX,'options'=>['inline'=>true]],       
+                                    'word'=>['type'=>Form::INPUT_CHECKBOX,'options'=>['inline'=>true]],
+                                    'excel'=>['type'=>Form::INPUT_CHECKBOX,'options'=>['inline'=>true]],
+                                    'internet'=>['type'=>Form::INPUT_CHECKBOX,'options'=>['inline'=>true]],
+                                    
+                                            ],
+                            ]);
+                            ?>
 
-    <?= $form->field($model, 'windows')->checkbox() ?>
-
-    <?= $form->field($model, 'word')->checkbox() ?>
-
-    <?= $form->field($model, 'excel')->checkbox() ?>
-
-    <?= $form->field($model, 'internet')->checkbox() ?>
 
     <?= $form->field($model, 'experiencia')->radioList(array('0'=>'Não','1'=>'Sim'), ['inline'=>true]); ?>
 
@@ -131,15 +166,39 @@ use app\models\Recrutamento;
     ?>
 
 
-    <?php echo '<label class="control-label">Métodos de seleção indicados, considerando um ou mais dos seguintes processos:</label><br>'; ?>
 
-    <?= $form->field($model, 'selec_dinamica')->checkbox() ?>
+                            <?php
+                            echo '<label class="control-label">Métodos de seleção indicados, considerando um ou mais dos seguintes processos:</label><br>';
+                            echo Form::widget([
+                                'model'=>$model,
+                                'form'=>$form,
+                                'columns'=>12,
+                                'attributes'=>[
+                                    'selec_curriculo'=>['type'=>Form::INPUT_CHECKBOX,'options'=>['inline'=>true],'columnOptions'=>['colspan'=>2]],
+                                    'selec_dinamica'=>['type'=>Form::INPUT_CHECKBOX,'options'=>['inline'=>true],'columnOptions'=>['colspan'=>2]],       
+                                    'selec_prova'=>['type'=>Form::INPUT_CHECKBOX,'options'=>['inline'=>true],'columnOptions'=>['colspan'=>3]], 
+                                    'selec_entrevista'=>['type'=>Form::INPUT_CHECKBOX,'options'=>['inline'=>true],'columnOptions'=>['colspan'=>2]], 
+                                    'selec_teste'=>['type'=>Form::INPUT_CHECKBOX,'options'=>['inline'=>true],'columnOptions'=>['colspan'=>2]], 
+                                    
+                                            ],
+                            ]);
+                            ?>
 
-    <?= $form->field($model, 'selec_prova')->checkbox() ?>
+                            <?php 
+                         $options = \yii\helpers\ArrayHelper::map($sistemas, 'idsistema', 'descricao');
+                            echo Form::widget([
+                                'model'=>$model,
+                                'form'=>$form,
+                                'columns'=>12,
+                                'attributes'=>[
+                                    'permissions'=>['type'=>Form::INPUT_CHECKBOX_LIST,'items'=> $options,'options'=>['inline'=>true]], 
+                                    
+                                            ],
+                            ]);
+                            ?>
 
-    <?= $form->field($model, 'selec_entrevista')->checkbox() ?>
 
-    <?= $form->field($model, 'selec_teste')->checkbox() ?>
+
 
     <?= $form->field($model, 'nomesituacao')->textInput(['readonly'=>true]) ?>
 

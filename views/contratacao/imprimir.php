@@ -6,6 +6,8 @@ use yii\widgets\MaskedInput;
 use yii\helpers\ArrayHelper;
 use app\models\Recrutamento;
 use app\models\Contratacao;
+use app\models\Sistemas;
+use app\models\SistemasContratacao;
 
 ?>
 
@@ -74,6 +76,7 @@ $situacao_id           =  $model->situacao_id;
 
 
 <body>
+
 <table width="100%" border="1" bordercolor="#ddd">
   <tr>
     <th align="center" width="21%" id="titulo"><div align="center"><img src="../web/css/img/logo.png" width="158" height="90" alt="logo" /></div></th>
@@ -139,12 +142,13 @@ $situacao_id           =  $model->situacao_id;
   </tr>
   <tr>
     <td height="45" id="linhas">Ensino Técnico:</td>
-    <td height="45" colspan="2" id="linhas">&nbsp;(<?php if($tecnico_comp == 1) echo "X"; ?>) Completo (<?php if($tecnico_inc == 1) echo "X"; ?>) Incompleto</td>
+    <td height="45" id="linhas">&nbsp;(<?php if($tecnico_comp == 1) echo "X"; ?>) Completo (<?php if($tecnico_inc == 1) echo "X"; ?>) Incompleto</td>
+    <td height="45" id="linhas">&nbsp;Área:&nbsp;<?php echo $tecnico_area  ?></td>
   </tr>
   <tr>
     <td height="45" id="linhas">Ensino Superior:</td>
-    <td width="32%" height="45" id="linhas">&nbsp;(<?php if($superior_comp == 1) echo "X"; ?>) Completo (<?php if($superior_inc == 1) echo "X"; ?>) Incompleto</td>
-    <td width="47%" id="linhas">&nbsp;Área:&nbsp;<?php echo $superior_area  ?></td>
+    <td height="45" id="linhas">&nbsp;(<?php if($superior_comp == 1) echo "X"; ?>) Completo (<?php if($superior_inc == 1) echo "X"; ?>) Incompleto</td>
+    <td height="45" id="linhas">&nbsp;Área:&nbsp;<?php echo $superior_area  ?></td>
   </tr>
   <tr>
     <td height="45" id="linhas">Pós-Graduação</td>
@@ -190,6 +194,25 @@ $situacao_id           =  $model->situacao_id;
     <p>&nbsp;(<?php if($selec_prova == 1) echo "X"; ?>) Provas gerais ou técnicas</p>
     <p>&nbsp;(<?php if($selec_entrevista == 1) echo "X"; ?>) Entrevista</p>
     <p>&nbsp;(<?php if($selec_teste == 1) echo "X"; ?>) Testes Psicológicos</p></td>
+    </tr>
+    <tr>
+    <td height="45" id="linhas">Sistemas para cadastro de colaborador:</td>
+    <td height="45" colspan="2" id="linhas">
+   <?php
+
+  $query_sistemas = "SELECT descricao FROM sistemas, sistemas_contratacao WHERE contratacao_id = '".$id."' AND sistema_id = idsistema";
+  $sistema = Sistemas::findBySql($query_sistemas)->all(); 
+  foreach ($sistema as $sistemas) {
+
+   $Sistemas = $sistemas["descricao"];
+
+    echo $Sistemas.' / ' ;
+  }
+
+    ?>
+
+    </td>
+    </tr>
       <tr>
         <td height="45" align="center" colspan="3" id="linhas2"><p>Assinado eletrônicamente por:<br />
         <?php echo $colaborador; ?><br />

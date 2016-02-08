@@ -194,6 +194,25 @@ $situacao_id           =  $model->situacao_id;
     <p>&nbsp;(<?php if($selec_prova == 1) echo "X"; ?>) Provas gerais ou técnicas</p>
     <p>&nbsp;(<?php if($selec_entrevista == 1) echo "X"; ?>) Entrevista</p>
     <p>&nbsp;(<?php if($selec_teste == 1) echo "X"; ?>) Testes Psicológicos</p></td>
+    </tr>
+    <tr>
+    <td height="45" id="linhas">Sistemas para cadastro de colaborador:</td>
+    <td height="45" colspan="2" id="linhas">
+   <?php
+
+  $query_sistemas = "SELECT descricao FROM sistemas, sistemas_contratacao WHERE contratacao_id = '".$id."' AND sistema_id = idsistema";
+  $sistema = Sistemas::findBySql($query_sistemas)->all(); 
+  foreach ($sistema as $sistemas) {
+
+   $Sistemas = $sistemas["descricao"];
+
+    echo $Sistemas.' / ' ;
+  }
+
+    ?>
+
+    </td>
+    </tr>
       <tr>
         <td height="45" align="center" colspan="3" id="linhas2"><p>Assinado eletrônicamente por:<br />
         <?php echo $colaborador; ?><br />

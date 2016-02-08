@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use Yii;
+use app\models\Sistemas;
+use app\models\SistemasContratacao;
 use app\models\Contratacao;
 use app\models\ContratacaoSearch;
 use app\models\SituacaoContratacao;
@@ -91,6 +93,8 @@ class ContratacaoController extends Controller
     {
         $model = new Contratacao();
 
+        $sistemas = Sistemas::find()->all();
+
         $session = Yii::$app->session;
             $model->cod_colaborador     = $session['sess_codcolaborador'];
             $model->colaborador         = $session['sess_nomeusuario'];
@@ -135,6 +139,7 @@ class ContratacaoController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'sistemas' => $sistemas,
             ]);
         }
     }
@@ -148,6 +153,14 @@ class ContratacaoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+
+        $sistemas = Sistemas::find()->where(['status' => 1])->all();
+
+        //Retrieve the stored checkboxes
+        $model->permissions = \yii\helpers\ArrayHelper::getColumn(
+            $model->getSistemasContratacao()->asArray()->all(),
+            'sistema_id'
+        );
 
         //USUÁRIOS APENAS IRÃO EDITAR AS SOLICITAÇÕES DE CONTRATAÇÃO COM STATUS DE 'EM ELABORAÇÃO' e 'EM CORREÇÃO'
         if($model->situacao_id != 1 && $model->situacao_id != 2 ){
@@ -201,6 +214,7 @@ class ContratacaoController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'sistemas' => $sistemas,
             ]);
         }
     }

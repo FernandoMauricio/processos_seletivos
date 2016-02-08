@@ -59,6 +59,7 @@ use Yii;
 class Contratacao extends \yii\db\ActiveRecord
 {
     public $nomesituacao;
+    public $permissions;
 
     /**
      * @inheritdoc
@@ -74,7 +75,7 @@ class Contratacao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['data_solicitacao', 'hora_solicitacao', 'nomesituacao'], 'safe'],
+            [['data_solicitacao', 'hora_solicitacao', 'nomesituacao', 'permissions'], 'safe'],
             ['tecnico_area', 'required', 'when' => function($model) { return $model->tecnico_comp == 1; }, 'enableClientValidation' => true],
             ['superior_area', 'required', 'when' => function($model) { return $model->superior_comp == 1; }, 'enableClientValidation' => true],
             ['pos_area', 'required', 'when' => function($model) { return $model->pos_comp == 1; }, 'enableClientValidation' => true],
@@ -145,8 +146,26 @@ class Contratacao extends \yii\db\ActiveRecord
             'selec_teste' => 'Testes Psicológicos',
             'nomesituacao' => 'Situação',
             'situacao_id' => 'Situação',
+            'permissions' => 'Criação de contas para:'
         ];
     }
+
+
+    public function getSistemasContratacao() //Relation between Cargos & Processo table
+    {
+        return $this->hasMany(SistemasContratacao::className(), ['contratacao_id' => 'id']);
+    }
+
+    public function afterSave($insert, $changedAttributes){
+        \Yii::$app->db->createCommand()->delete('sistemas_contratacao', 'contratacao_id = '.(int) $this->id)->execute(); //Delete existing value
+        foreach ($this->permissions as $id) { //Write new values
+            $tc = new SistemasContratacao();
+            $tc->contratacao_id = $this->id;
+            $tc->sistema_id = $id;
+            $tc->save();
+        }
+    }
+
 
     /**
      * @return \yii\db\ActiveQuery
