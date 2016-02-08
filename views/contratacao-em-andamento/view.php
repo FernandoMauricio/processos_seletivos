@@ -7,77 +7,28 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Contratacao */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Contratacaos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Contratações em Andamento', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="contratacao-view">
 
+    <?php
+/**
+ * THE VIEW BUTTON
+ */
+echo Html::a('<i class="fa glyphicon glyphicon-print"></i> Imprimir', ['imprimir','id' => $model->id], [
+    'class'=>'btn pull-right btn-info btn-lg', 
+    'target'=>'_blank', 
+    'data-toggle'=>'tooltip', 
+    'title'=>' Clique aqui para gerar um arquivo PDF'
+]);
+
+    ?>
+    
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
-    <?= DetailView::widget([
+    <?= $this->render('imprimir', [
         'model' => $model,
-        'attributes' => [
-            'id',
-            'data_solicitacao',
-            'hora_solicitacao',
-            'cod_colaborador',
-            'colaborador',
-            'cod_unidade_solic',
-            'unidade',
-            'quant_pessoa',
-            'motivo:ntext',
-            'substituicao',
-            'periodo',
-            'tempo_periodo',
-            'aumento_quadro',
-            'obs_aumento',
-            'nome_substituicao',
-            'deficiencia',
-            'obs_deficiencia:ntext',
-            'data_ingresso',
-            'fundamental_comp',
-            'fundamental_inc',
-            'medio_comp',
-            'medio_inc',
-            'tecnico_comp',
-            'tecnico_inc',
-            'tecnico_area',
-            'superior_comp',
-            'superior_inc',
-            'superior_area',
-            'pos_comp',
-            'pos_inc',
-            'pos_area',
-            'dominio_atividade:ntext',
-            'windows',
-            'word',
-            'excel',
-            'internet',
-            'experiencia',
-            'experiencia_tempo',
-            'experiencia_atividade',
-            'jornada_horas',
-            'jornada_obs:ntext',
-            'principais_atividades:ntext',
-            'recrutamento_id',
-            'selec_curriculo',
-            'selec_dinamica',
-            'selec_prova',
-            'selec_entrevista',
-            'selec_teste',
-            'situacao_id',
-        ],
     ]) ?>
 
 </div>

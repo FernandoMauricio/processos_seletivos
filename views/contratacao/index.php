@@ -106,7 +106,7 @@ $gridColumns = [
                         // 'selec_teste',
                         // 
 
-                        ['class' => 'yii\grid\ActionColumn','template' => '{update} {delete}'],
+                        ['class' => 'yii\grid\ActionColumn','template' => '{view} {update} {delete}'],
     ]; ?>
 
     <?php Pjax::begin(); ?>

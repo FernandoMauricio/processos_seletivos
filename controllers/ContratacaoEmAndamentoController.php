@@ -10,7 +10,9 @@ use app\models\EmailusuarioSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use kartik\mpdf\Pdf;
 
+use mPDF;
 /**
  * ContratacaoEmAndamentoController implements the CRUD actions for Contratacao model.
  */
@@ -28,6 +30,28 @@ class ContratacaoEmAndamentoController extends Controller
         ];
     }
 
+
+    public function actionImprimir($id) {
+
+            $pdf = new Pdf([
+                'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
+                'content' => $this->renderPartial('imprimir'),
+                'options' => [
+                    'title' => 'Recrutamento e Seleção - Senac AM',
+                    //'subject' => 'Generating PDF files via yii2-mpdf extension has never been easy'
+                ],
+                'methods' => [
+                    'SetHeader' => ['SOLICITAÇÃO DE CONTRATAÇÃO - SENAC AM||Gerado em: ' . date("d/m/Y - H:i:s")],
+                    'SetFooter' => ['Recrutamento e Seleção - GRH||Página {PAGENO}'],
+                ]
+            ]);
+
+        return $pdf->render('imprimir', [
+            'model' => $this->findModel($id),
+
+        ]);
+        }
+        
     /**
      * Lists all Contratacao models.
      * @return mixed

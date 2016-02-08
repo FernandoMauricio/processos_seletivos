@@ -101,10 +101,17 @@ $gridColumns = [
             // 'situacao_id',
 
             ['class' => 'yii\grid\ActionColumn',
-            'template' => '{iniciar} {correcao}',
-            'contentOptions' => ['style' => 'width: 390px;'],
+            'template' => '{view} {iniciar} {correcao}',
+            'contentOptions' => ['style' => 'width: 450px;'],
             'buttons' => [
 
+            //VISUALIZAR
+            'view' => function ($url, $model) {
+                return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Visualizar', $url, [
+                            'class'=>'btn btn-primary btn-xs',
+           
+                ]);
+            },
 
             //INICIAR PROCESSO SOLETIVO
             'iniciar' => function ($url, $model) {

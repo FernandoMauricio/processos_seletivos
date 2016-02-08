@@ -12,6 +12,9 @@ use app\models\EmailusuarioSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use kartik\mpdf\Pdf;
+
+use mPDF;
 
 /**
  * ContratacaoController implements the CRUD actions for Contratacao model.
@@ -44,6 +47,28 @@ class ContratacaoController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
+    public function actionImprimir($id) {
+
+            $pdf = new Pdf([
+                'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
+                'content' => $this->renderPartial('imprimir'),
+                'options' => [
+                    'title' => 'Recrutamento e Seleção - Senac AM',
+                    //'subject' => 'Generating PDF files via yii2-mpdf extension has never been easy'
+                ],
+                'methods' => [
+                    'SetHeader' => ['SOLICITAÇÃO DE CONTRATAÇÃO - SENAC AM||Gerado em: ' . date("d/m/Y - H:i:s")],
+                    'SetFooter' => ['Recrutamento e Seleção - GRH||Página {PAGENO}'],
+                ]
+            ]);
+
+        return $pdf->render('imprimir', [
+            'model' => $this->findModel($id),
+
+        ]);
+        }
+
 
     /**
      * Displays a single Contratacao model.
@@ -198,6 +223,10 @@ class ContratacaoController extends Controller
         return $this->redirect(['index']);
         }
         $this->findModel($id)->delete();
+
+        //MENSAGEM DE EXCLUSÃO DA SOLICITAÇÃO DE CONTRATAÇÃO CRIADA COM SUCESSO
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> A solicitação de Processo Seletivo de código <strong>' .$model->id. '</strong> foi EXCLUÍDA!</strong>');
+
 
         return $this->redirect(['index']);
     }

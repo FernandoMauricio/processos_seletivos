@@ -80,10 +80,17 @@ $gridColumns = [
                         ],
 
                         ['class' => 'yii\grid\ActionColumn',
-                        'template' => '{encerrar} {correcao} {cancelar}',
-                        'contentOptions' => ['style' => 'width: 380px;'],
+                        'template' => '{view} {encerrar} {correcao} {cancelar}',
+                        'contentOptions' => ['style' => 'width: 450px;'],
                         'buttons' => [
 
+                        //VISUALIZAR
+                        'view' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Visualizar', $url, [
+                                        'class'=>'btn btn-primary btn-xs',
+                       
+                            ]);
+                        },
 
                         //ENCERRAR PROCESSO SOLETIVO
                         'encerrar' => function ($url, $model) {
