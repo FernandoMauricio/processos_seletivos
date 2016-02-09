@@ -48,6 +48,7 @@ class CurriculosComplementoController extends Controller
      */
     public function actionView($id)
     {
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -60,6 +61,7 @@ class CurriculosComplementoController extends Controller
      */
     public function actionCreate()
     {
+
         $model = new CurriculosComplemento();
         $modelsComplemento = [new CurriculosComplemento];
 

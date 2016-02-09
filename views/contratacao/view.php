@@ -9,6 +9,7 @@ use app\models\Recrutamento;
 use app\models\Contratacao;
 use yii\widgets\DetailView;
 
+
 /* @var $this yii\web\View */
 /* @var $model app\models\Contratacao */
 

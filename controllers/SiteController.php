@@ -50,15 +50,12 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $session = Yii::$app->session;
-        $codunidade   = $session['sess_codunidade'];
-
-if($codunidade == 7){
-
-        return $this->render('index');
-    }else{
-        $this->layout = 'main-acesso-negado';
-        return $this->render('acesso_negado');
+        if (!isset($session['sess_codusuario']) && !isset($session['sess_codcolaborador']) && !isset($session['sess_codunidade']) && !isset($session['sess_nomeusuario']) && !isset($session['sess_coddepartamento']) && !isset($session['sess_codcargo']) && !isset($session['sess_cargo']) && !isset($session['sess_setor']) && !isset($session['sess_unidade']) && !isset($session['sess_responsavelsetor'])) 
+        {
+           return $this->redirect('http://portalsenac.am.senac.br');
         }
+        
+        return $this->render('index');
     }
 
     public function actionLogin()
