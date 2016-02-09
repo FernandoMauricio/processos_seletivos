@@ -54,7 +54,15 @@ class SiteController extends Controller
         {
            return $this->redirect('http://portalsenac.am.senac.br');
         }
-        
+
+    //VERIFICA SE O COLABORADOR É GERENTE PARA REALIZAR A SOLICITAÇÃO
+    if($session['sess_responsavelsetor'] == 0 && $session['sess_coddepartamento'] != 82){
+
+        $this->layout = 'main-acesso-negado';
+        return $this->render('/site/acesso_negado');
+
+    }else
+
         return $this->render('index');
     }
 

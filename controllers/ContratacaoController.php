@@ -47,6 +47,14 @@ class ContratacaoController extends Controller
            return $this->redirect('http://portalsenac.am.senac.br');
         }
 
+    //VERIFICA SE O COLABORADOR É GERENTE OU SE FAZ PARTE DA EQUIPE DE SELEÇÃO PARA REALIZAR A SOLICITAÇÃO
+    if($session['sess_responsavelsetor'] == 0 && $session['sess_coddepartamento'] != 82){
+
+        $this->layout = 'main-acesso-negado';
+        return $this->render('/site/acesso_negado');
+
+    }else
+
         $searchModel = new ContratacaoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -91,6 +99,14 @@ class ContratacaoController extends Controller
            return $this->redirect('http://portalsenac.am.senac.br');
         }
 
+    //VERIFICA SE O COLABORADOR FAZ É GERENTE PARA REALIZAR A SOLICITAÇÃO
+    if($session['sess_responsavelsetor'] == 0 && $session['sess_coddepartamento'] != 82){
+
+        $this->layout = 'main-acesso-negado';
+        return $this->render('/site/acesso_negado');
+
+    }else
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -108,6 +124,14 @@ class ContratacaoController extends Controller
         {
            return $this->redirect('http://portalsenac.am.senac.br');
         }
+
+    //VERIFICA SE O COLABORADOR É GERENTE OU SE FAZ PARTE DA EQUIPE DE SELEÇÃO PARA REALIZAR A SOLICITAÇÃO
+    if($session['sess_responsavelsetor'] == 0 && $session['sess_coddepartamento'] != 82){
+
+        $this->layout = 'main-acesso-negado';
+        return $this->render('/site/acesso_negado');
+
+    }else
 
         $model = new Contratacao();
 
@@ -176,6 +200,14 @@ class ContratacaoController extends Controller
            return $this->redirect('http://portalsenac.am.senac.br');
         }
 
+    //VERIFICA SE O COLABORADOR É GERENTE OU SE FAZ PARTE DA EQUIPE DE SELEÇÃO PARA REALIZAR A SOLICITAÇÃO
+    if($session['sess_responsavelsetor'] == 0 && $session['sess_coddepartamento'] != 82){
+
+        $this->layout = 'main-acesso-negado';
+        return $this->render('/site/acesso_negado');
+
+    }else
+    
         $model = $this->findModel($id);
 
         $sistemas = Sistemas::find()->where(['status' => 1])->all();

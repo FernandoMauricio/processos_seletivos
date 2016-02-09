@@ -180,7 +180,7 @@ class ProcessoSeletivoController extends Controller
         $session = Yii::$app->session;
         $session->set('sess_processo', $model->id);
 
-        return $this->redirect('http://localhost/contratacao/web/index.php?r=edital/index', [
+        return $this->redirect(Yii::$app->request->BaseUrl . '/index.php?r=edital/index', [
              'model' => $model,
          ]);
     }
@@ -193,7 +193,7 @@ class ProcessoSeletivoController extends Controller
         $session = Yii::$app->session;
         $session->set('sess_processo', $model->id);
 
-        return $this->redirect('http://localhost/contratacao/web/index.php?r=anexos/index', [
+        return $this->redirect(Yii::$app->request->BaseUrl . '/index.php?r=anexos/index', [
              'model' => $model,
          ]);
     }
@@ -206,7 +206,7 @@ class ProcessoSeletivoController extends Controller
         $session = Yii::$app->session;
         $session->set('sess_processo', $model->id);
 
-        return $this->redirect('http://localhost/contratacao/web/index.php?r=adendos/index', [
+        return $this->redirect(Yii::$app->request->BaseUrl . '/index.php?r=adendos/index', [
              'model' => $model,
          ]);
     }
@@ -219,7 +219,7 @@ class ProcessoSeletivoController extends Controller
         $session = Yii::$app->session;
         $session->set('sess_processo', $model->id);
 
-        return $this->redirect('http://localhost/contratacao/web/index.php?r=resultados/index', [
+        return $this->redirect(Yii::$app->request->BaseUrl . '/index.php?r=resultados/index', [
              'model' => $model,
          ]);
     }
