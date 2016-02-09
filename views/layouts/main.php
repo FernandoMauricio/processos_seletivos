@@ -37,6 +37,9 @@ AppAsset::register($this);
             
 
 
+if($session['sess_codunidade'] == 7 && $session['sess_coddepartamento'] == 82 ){  //TEM QUE SER DO GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
+
+
 echo NavX::widget([
 
 'options' => ['class' => 'navbar-nav navbar-right'],
@@ -73,59 +76,20 @@ echo NavX::widget([
     ]
 ]); 
 
-// if($session['sess_codunidade'] == 7 AND $session['sess_coddepartamento'] == 82 ){  //TEM QUE SER DO GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
+}else
+//OUTROS USUÁRIOS
 
+echo NavX::widget([
 
-// echo NavX::widget([
-
-// 'options' => ['class' => 'navbar-nav navbar-right'],
+'options' => ['class' => 'navbar-nav navbar-right'],
                 
-//     'items' => [
-//         ['label' => 'Solicitação de Contratação', 'url' => ['/contratacao/index']],
-//         ['label' => 'Administração', 'items' => [
-
-//             ['label' => 'Controle - Contração', 'items' => [
-//             '<li class="dropdown-header">Controle - Contração</li>',
-//                 ['label' => 'Contratações Pendentes', 'url' => ['/contratacao-pendente/index']],
-//                 ['label' => 'Contratações Em Andamento', 'url' => ['/contratacao-em-andamento/index']],
-//                 ['label' => 'Contratações Encerradas', 'url' => ['/contratacao-encerrada/index']],
-//             ]],
-
-//             '<li class="divider"></li>',
-//             ['label' => 'Processos Seletivos', 'items' => [
-//             '<li class="dropdown-header">Administração do site</li>',
-//                 ['label' => 'Processos Seletivos', 'url' => ['/processo-seletivo/index']],
-//                 ['label' => 'Listagem de Candidatos', 'url' => ['/curriculos/index']],
-//             ]],
-
-
-//             '<li class="divider"></li>',
-//             ['label' => 'Configuração', 'items' => [
-//             '<li class="dropdown-header">Cadastros</li>',
-//                 ['label' => 'Cargos', 'url' => ['/cargos/index']],
-//                 ['label' => 'Sistemas', 'url' => ['/sistemas/index']],
-//             ]],
-//         ]],
-
-//         ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
-
-//     ]
-// ]); 
-
-// }else
-// //OUTROS USUÁRIOS
-
-// echo NavX::widget([
-
-// 'options' => ['class' => 'navbar-nav navbar-right'],
-                
-//     'items' => [
-//         ['label' => 'Solicitação de Contratação', 'url' => ['/contratacao/index']],
+    'items' => [
+        ['label' => 'Solicitação de Contratação', 'url' => ['/contratacao/index']],
         
-//         ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
+        ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
 
-//     ]
-// ]); 
+    ]
+]); 
 
 
 NavBar::end();

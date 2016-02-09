@@ -38,6 +38,14 @@ class CargosController extends Controller
            return $this->redirect('http://portalsenac.am.senac.br');
         }
 
+    //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
+    if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
+
+        $this->layout = 'main-acesso-negado';
+        return $this->render('/site/acesso_negado');
+
+    }else
+
         $searchModel = new CargosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -60,6 +68,14 @@ class CargosController extends Controller
            return $this->redirect('http://portalsenac.am.senac.br');
         }
 
+            //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
+    if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
+
+        $this->layout = 'main-acesso-negado';
+        return $this->render('/site/acesso_negado');
+
+    }else
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -77,6 +93,14 @@ class CargosController extends Controller
         {
            return $this->redirect('http://portalsenac.am.senac.br');
         }
+
+    //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
+    if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
+
+        $this->layout = 'main-acesso-negado';
+        return $this->render('/site/acesso_negado');
+
+    }else
 
         $model = new Cargos();
 
@@ -105,7 +129,15 @@ class CargosController extends Controller
         {
            return $this->redirect('http://portalsenac.am.senac.br');
         }
-        
+
+    //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
+    if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
+
+        $this->layout = 'main-acesso-negado';
+        return $this->render('/site/acesso_negado');
+
+    }else 
+    
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
