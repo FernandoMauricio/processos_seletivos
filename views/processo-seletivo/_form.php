@@ -22,8 +22,11 @@ use kartik\datecontrol\DateControl;
     echo $form->field($model, 'permissions')->checkboxList($options, ['unselect'=>NULL]);
     ?>
 
+    <?= $form->field($model, 'numeroEdital')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'objetivo')->textarea(['rows' => 6]) ?>
 
     <?php
 
@@ -51,11 +54,6 @@ use kartik\datecontrol\DateControl;
                 ]
             ]);
     ?>
-
-    <?= $form->field($model, 'numeroEdital')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'objetivo')->textarea(['rows' => 6]) ?>
-
 
     <?php
 

@@ -38,8 +38,8 @@ class ProcessoSeletivo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descricao', 'data', 'numeroEdital', 'objetivo', 'modalidade_id', 'data_encer','status_id', 'situacao_id',], 'required'],
-            [['data', 'data_encer', 'permissions'], 'safe'],
+            [['descricao', 'permissions', 'data', 'numeroEdital', 'objetivo', 'modalidade_id', 'data_encer','status_id', 'situacao_id',], 'required'],
+            [['data', 'data_encer'], 'safe'],
             [['objetivo'], 'string'],
             [['status_id', 'situacao_id', 'modalidade_id'], 'integer'],
             [['descricao'], 'string', 'max' => 100],
