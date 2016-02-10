@@ -373,7 +373,7 @@ class ContratacaoEmAndamentoController extends Controller
      "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '5' WHERE `id` = '".$model->id."'");
     $command->execute();
 
-     $model->situacao_id;
+     $model->situacao_id = 5;
      if($model->situacao_id == 5){
 
          //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO  DE CONTRATAÇÃO QUE FOI ENCERRADO
@@ -422,7 +422,7 @@ return $this->redirect(['index']);
      "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '2' WHERE `id` = '".$model->id."'");
      $command->execute();
 
-     $model->situacao_id;
+     $model->situacao_id = 2;
      if($model->situacao_id == 2){
 
          //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO  DE CONTRATAÇÃO QUE FOI ENVIADO PARA CORREÇÃO
@@ -470,7 +470,7 @@ return $this->redirect(['index']);
      "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '6' WHERE `id` = '".$model->id."'");
      $command->execute();
 
-     $model->situacao_id;
+     $model->situacao_id = 6;
      if($model->situacao_id == 6){
 
          //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO  DE CONTRATAÇÃO QUE FOI ENVIADO PARA CORREÇÃO

@@ -185,7 +185,7 @@ class ContratacaoPendenteController extends Controller
      "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '4' WHERE `id` = '".$model->id."'");
     $command->execute();
 
-     $model->situacao_id;
+     $model->situacao_id = 4;
      if($model->situacao_id == 4){
 
          //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO  DE CONTRATAÇÃO QUE FOI INICIADO
@@ -228,7 +228,7 @@ return $this->redirect(['index']);
      "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '2' WHERE `id` = '".$model->id."'");
      $command->execute();
 
-     $model->situacao_id;
+     $model->situacao_id = 2;
      if($model->situacao_id == 2){
 
          //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO  DE CONTRATAÇÃO QUE FOI ENVIADO PARA CORREÇÃO

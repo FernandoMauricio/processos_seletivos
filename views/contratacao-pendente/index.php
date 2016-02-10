@@ -117,16 +117,20 @@ $gridColumns = [
             'iniciar' => function ($url, $model) {
                 return Html::a('<span class="glyphicon glyphicon-ok"></span> Iniciar Processo', $url, [
                             'class'=>'btn btn-success btn-xs',
-                            // 'data' => [
-                            //                 'confirm' => 'Você tem CERTEZA que deseja INICIAR o processo?',
-                            //                 'method' => 'post',
-                            //             ],
+                            'data' => [
+                                            'confirm' => 'Você tem CERTEZA que deseja INICIAR o processo?',
+                                            'method' => 'post',
+                                        ],
                 ]);
             },
             //ENVIAR PARA CORREÇÃO
             'correcao' => function ($url, $model) {
                 return Html::a('<span class="glyphicon glyphicon-repeat"></span> Enviar para Correção', $url, [
                             'class'=>'btn btn-warning btn-xs',
+                             'data' => [
+                                        'confirm' => 'Você tem certeza que deseja ENVIAR PARA CORREÇÃO essa Solicitação de Contratação?',
+                                        'method' => 'post',
+                                       ],
            
                 ]);
             },
