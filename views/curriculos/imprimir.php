@@ -60,7 +60,10 @@ $this->params['breadcrumbs'][] =  $this->title;
             'cargo',
             'nome',
             'cpf',
-            'datanascimento',
+            [
+                'attribute' => 'datanascimento',
+                'format' => ['date', 'php:d/m/Y'],
+            ],
             'idade',
             [
                 'attribute'=>'sexo', 
@@ -72,7 +75,10 @@ $this->params['breadcrumbs'][] =  $this->title;
             'emailAlt:email',
             'telefone',
             'telefoneAlt',
-            'data',
+            [
+                'attribute' => 'data',
+                'format' => ['date', 'php:d/m/Y'],
+            ],
         ],
     ]) ?>
 </div>

@@ -80,7 +80,7 @@ class Curriculos extends \yii\db\ActiveRecord
             'emailAlt' => 'Email Alternativo',
             'telefone' => 'Telefone',
             'telefoneAlt' => 'Telefone Alternativo',
-            'data' => 'Data',
+            'data' => 'Data da Inscrição',
         ];
     }
 

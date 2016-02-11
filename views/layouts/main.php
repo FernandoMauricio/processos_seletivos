@@ -28,7 +28,8 @@ AppAsset::register($this);
         <?php
         $session = Yii::$app->session;
             NavBar::begin([
-                'brandLabel' => 'Processo Seletivo - Senac AM',
+                //'brandLabel' => 'Processo Seletivo - Senac AM',
+                'brandLabel' => '<img src="css/img/logo_senac_topo.png"/>',
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
                     'class' => 'navbar-inverse navbar-fixed-top',

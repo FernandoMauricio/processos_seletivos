@@ -44,7 +44,10 @@ echo Html::a('<i class="fa glyphicon glyphicon-print"></i> Imprimir', ['imprimir
             'cargo',
             'nome',
             'cpf',
-            'datanascimento',
+            [
+                'attribute' => 'datanascimento',
+                'format' => ['date', 'php:d/m/Y'],
+            ],
             'idade',
             [
                 'attribute'=>'sexo', 
@@ -56,7 +59,10 @@ echo Html::a('<i class="fa glyphicon glyphicon-print"></i> Imprimir', ['imprimir
             'emailAlt:email',
             'telefone',
             'telefoneAlt',
-            'data',
+            [
+                'attribute' => 'data',
+                'format' => ['date', 'php:d/m/Y'],
+            ],
         ],
     ]) ?>
 </div>
