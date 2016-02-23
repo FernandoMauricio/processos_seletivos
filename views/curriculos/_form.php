@@ -39,10 +39,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
                         <li><a href="#tab5" data-toggle="tab"><span class="glyphicon glyphicon-briefcase"></span> Empregos Anteriroes</a></li>
                     </ul>
 
-
-
-
-
                  <div class="tab-content">
 
                   <!--            INFORMAÇÕES DO CANDIDATO                -->

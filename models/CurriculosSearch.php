@@ -18,7 +18,7 @@ class CurriculosSearch extends Curriculos
     public function rules()
     {
         return [
-            [['id','idade'], 'integer'],
+            [['id','idade', 'classificado'], 'integer'],
             [['edital', 'nome','numeroInscricao', 'cargo', 'cpf', 'datanascimento', 'sexo', 'email', 'emailAlt', 'telefone', 'telefoneAlt', 'data'], 'safe'],
         ];
     }
@@ -61,6 +61,7 @@ class CurriculosSearch extends Curriculos
             'datanascimento' => $this->datanascimento,
             'idade' => $this->idade,
             'data' => $this->data,
+            'classificado' => $this->classificado,
         ]);
 
         $query->andFilterWhere(['like', 'edital', $this->edital])

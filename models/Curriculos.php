@@ -51,7 +51,7 @@ class Curriculos extends \yii\db\ActiveRecord
             //['cpf', 'unique', 'targetAttribute' => ['edital', 'cpf', 'cargo'],'message' => '"{value} Já utilizado para o edital e cargo selecionado"'],
             ['cpf', CpfValidator::className()],
             [['idade'], 'integer'],
-            [['datanascimento', 'data' , 'idadeModel'], 'safe'],
+            [['datanascimento', 'data' , 'idadeModel', 'classificado'], 'safe'],
             [['edital', 'numeroInscricao', 'identidade', 'orgao_exped'], 'string', 'max' => 45],
             [['nome', 'cargo', 'email', 'emailAlt'], 'string', 'max' => 100],
             [['email', 'emailAlt'], 'email'],
@@ -81,9 +81,9 @@ class Curriculos extends \yii\db\ActiveRecord
             'telefone' => 'Telefone',
             'telefoneAlt' => 'Telefone Alternativo',
             'data' => 'Data da Inscrição',
+            'classificado' => 'Situação',
         ];
     }
-
 
     public function getCargosProcesso() //Relation between Cargos & Processo table
     {
