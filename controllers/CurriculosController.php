@@ -297,15 +297,14 @@ class CurriculosController extends Controller
             ]);
         }
     }
-
+    
 
         public function actionClassificar($id)
     {
 
      $model = $this->findModel($id);
 
-     //envia para correção a contratação que está em recebido pelo GRH
-     $session = Yii::$app->session;
+     //Classifica o candidato
      $connection = Yii::$app->db;
      $command = $connection->createCommand(
      "UPDATE `processos_db`.`curriculos` SET `classificado` = '1' WHERE `id` = '".$model->id."'");
@@ -320,8 +319,7 @@ return $this->redirect(['index']);
 
      $model = $this->findModel($id);
 
-     //envia para correção a contratação que está em recebido pelo GRH
-     $session = Yii::$app->session;
+     //Desclassifica o candidato
      $connection = Yii::$app->db;
      $command = $connection->createCommand(
      "UPDATE `processos_db`.`curriculos` SET `classificado` = '0' WHERE `id` = '".$model->id."'");

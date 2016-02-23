@@ -79,6 +79,13 @@ $this->params['breadcrumbs'][] =  $this->title;
                 'attribute' => 'data',
                 'format' => ['date', 'php:d/m/Y'],
             ],
+            [
+                'attribute'=>'classificado', 
+                'label'=>'Situação do Candidato',
+                'format'=>'raw',
+                'value'=>$model->classificado ? '<span class="label label-success">Classificado</span>' : '<span class="label label-danger">Desclassificado</span>',
+                'valueColOptions'=>['style'=>'width:100%']
+            ],
         ],
     ]) ?>
 </div>
