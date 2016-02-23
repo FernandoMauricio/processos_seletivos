@@ -298,6 +298,39 @@ class CurriculosController extends Controller
         }
     }
 
+
+        public function actionClassificar($id)
+    {
+
+     $model = $this->findModel($id);
+
+     //envia para correção a contratação que está em recebido pelo GRH
+     $session = Yii::$app->session;
+     $connection = Yii::$app->db;
+     $command = $connection->createCommand(
+     "UPDATE `processos_db`.`curriculos` SET `classificado` = '1' WHERE `id` = '".$model->id."'");
+     $command->execute();
+     
+return $this->redirect(['index']);
+
+    }
+
+        public function actionDesclassificar($id)
+    {
+
+     $model = $this->findModel($id);
+
+     //envia para correção a contratação que está em recebido pelo GRH
+     $session = Yii::$app->session;
+     $connection = Yii::$app->db;
+     $command = $connection->createCommand(
+     "UPDATE `processos_db`.`curriculos` SET `classificado` = '0' WHERE `id` = '".$model->id."'");
+     $command->execute();
+     
+return $this->redirect(['index']);
+
+    }
+
     /**
      * Finds the Curriculos model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

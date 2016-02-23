@@ -29,29 +29,56 @@ $gridColumns = [
             'cargo',
             'nome',
             'cpf',
-            //'datanascimento',
             'idade',
             [
                 'class'=>'kartik\grid\BooleanColumnCurriculos',
                 'attribute'=>'classificado',
                 'vAlign'=>'middle'
             ], 
+ 
 
-// [
-//     'attribute' => 'classificado',
-//     'format' => 'raw',
-//     'value' => function ($model, $index, $widget) {
-//         return Html::checkbox('classificado[]', $model->classificado, ['value' => $index]);
-//     },
-// ],
-            // 'sexo',
-            // 'email:email',
-            // 'emailAlt:email',
-            // 'telefone',
-            // 'telefoneAlt',
-            // 'data',
+            ['class' => 'yii\grid\ActionColumn',
+                        'template' => '{view} {classificar} {desclassificar}',
+                        'contentOptions' => ['style' => 'width: 160px;'],
+                        'buttons' => [
 
-            ['class' => 'yii\grid\ActionColumn', 'template' => '{view}'],
+                        //VISUALIZAR
+                        'view' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span> ', $url, [
+                                        'class'=>'btn btn-primary btn-xs',
+                                        'title' => Yii::t('app', 'Visualizar candidato'),
+                       
+                            ]);
+                        },
+
+                        //CLASSIFICAR CANDIDATO
+                        'classificar' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-ok"></span> ', $url, [
+                                        'class'=>'btn btn-success btn-xs',
+                                        'title' => Yii::t('app', 'Classificar candidato'),
+                                         'data' => [
+                                                   //'confirm' => 'Você tem certeza que deseja ENCERRAR essa Solicitação de Contratação?',
+                                                   'method' => 'post',
+
+                                                   ],
+                            ]);
+                        },
+                        
+                        //DESCLASSIFICAR CANDIDATO
+                        'desclassificar' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-remove"></span> ', $url, [
+                                        'class'=>'btn btn-danger btn-xs',
+                                        'title' => Yii::t('app', 'Desclassificar candidato'),
+                                         'data' => [
+                                                   //'confirm' => 'Você tem certeza que deseja ENVIAR PARA CORREÇÃO essa Solicitação de Contratação?',
+                                                   'method' => 'post',
+                                                   ],
+                       
+                            ]);
+                        },
+
+        ],
+      ],
     ]; 
 ?>
 
