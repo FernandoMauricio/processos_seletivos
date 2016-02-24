@@ -165,6 +165,11 @@ class CurriculosController extends Controller
         $modelsEmpregos    = [new CurriculosEmpregos];
 
 
+if (isset($_COOKIE['PHPSESSID']) && !empty($_COOKIE['PHPSESSID'])) session_id($_COOKIE['PHPSESSID']);
+
+session_start();
+
+
         //session numero de edital e do id do processo
         $session = Yii::$app->session;
         $model->edital = $session["numeroEdital"];
@@ -193,9 +198,9 @@ class CurriculosController extends Controller
         ->all();
 
         //Caso não tenha puxado nenhum edital, será redirecionado para a página de processo seletivo
-        if($model->edital == NULL){
-            return $this->redirect('http://localhost/control_processos/');
-        }
+        // if($model->edital == NULL){
+        //     return $this->redirect('http://www.am.senac.br/trabsenac_teste.php');
+        // }
 
         if ($model->load(Yii::$app->request->post()) && $curriculosEndereco->load(Yii::$app->request->post()) && $curriculosFormacao->load(Yii::$app->request->post()) && Model::validateMultiple([$model, $curriculosEndereco, $curriculosFormacao]) ) 
         {
@@ -307,7 +312,7 @@ class CurriculosController extends Controller
      //Classifica o candidato
      $connection = Yii::$app->db;
      $command = $connection->createCommand(
-     "UPDATE `processos_db`.`curriculos` SET `classificado` = '1' WHERE `id` = '".$model->id."'");
+     "UPDATE `processos_db_teste`.`curriculos` SET `classificado` = '1' WHERE `id` = '".$model->id."'");
      $command->execute();
      
 return $this->redirect(['index']);
@@ -322,7 +327,7 @@ return $this->redirect(['index']);
      //Desclassifica o candidato
      $connection = Yii::$app->db;
      $command = $connection->createCommand(
-     "UPDATE `processos_db`.`curriculos` SET `classificado` = '0' WHERE `id` = '".$model->id."'");
+     "UPDATE `processos_db_teste`.`curriculos` SET `classificado` = '0' WHERE `id` = '".$model->id."'");
      $command->execute();
      
 return $this->redirect(['index']);
