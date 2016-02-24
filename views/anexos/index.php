@@ -41,7 +41,7 @@ echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
                          'label'=>'Arquivos',
                          'format'=>'raw',
                          'value' => function($model, $key, $index){
-                             $url = "http://localhost/contratacao/web/" . $model->anexo;
+                             $url = Yii::$app->request->baseUrl . "/" . $model->anexo;
                              return Html::a($model->anexo, $url, ['target'=> '_blank']); 
                          }
             ],

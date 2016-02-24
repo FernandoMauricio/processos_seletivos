@@ -42,7 +42,7 @@ echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
                          'label'=>'Arquivos',
                          'format'=>'raw',
                          'value' => function($model, $key, $index){
-                             $url = "http://localhost/contratacao/web/" . $model->edital;
+                             $url = Yii::$app->request->baseUrl . "/" . $model->edital;
                              return Html::a($model->edital, $url, ['target'=> '_blank']); 
                          }
             ],
