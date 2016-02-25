@@ -153,7 +153,7 @@ class ContratacaoController extends Controller
             //Quando a solicitação é enviada, atualiza a solicitação para RECEBIDO PELO GRH.
             $connection = Yii::$app->db;
             $command = $connection->createCommand(
-            "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '3' WHERE `id` = '".$model->id."' AND `cod_unidade_solic` =" . $session['sess_codunidade']);
+            "UPDATE `processos_db_teste`.`contratacao` SET `situacao_id` = '3' WHERE `id` = '".$model->id."' AND `cod_unidade_solic` =" . $session['sess_codunidade']);
             $command->execute();
 
 
@@ -166,7 +166,7 @@ class ContratacaoController extends Controller
             $email_gerente  = $email["emus_email"];
 
                             Yii::$app->mailer->compose()
-                            ->setFrom(['sistema@am.senac.br' => 'Contratação - Senac AM'])
+                            ->setFrom(['contratacao@am.senac.br' => 'Contratação - Senac AM'])
                             ->setTo($email_gerente)
                             ->setSubject('Solicitação de Contratação - ' . $model->unidade)
                             ->setTextBody('Existe uma solicitação de contratação de código: '.$model->id.' PENDENTE')
@@ -242,7 +242,7 @@ class ContratacaoController extends Controller
             //Quando a solicitação é enviada, atualiza a solicitação para RECEBIDO PELO GRH.
             $connection = Yii::$app->db;
             $command = $connection->createCommand(
-            "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '3' WHERE `id` = '".$model->id."' AND `cod_unidade_solic` =" . $session['sess_codunidade']);
+            "UPDATE `processos_db_teste`.`contratacao` SET `situacao_id` = '3' WHERE `id` = '".$model->id."' AND `cod_unidade_solic` =" . $session['sess_codunidade']);
             $command->execute();
 
 
@@ -255,7 +255,7 @@ class ContratacaoController extends Controller
             $email_gerente  = $email["emus_email"];
 
                             Yii::$app->mailer->compose()
-                            ->setFrom(['sistema@am.senac.br' => 'Contratação - Senac AM'])
+                            ->setFrom(['contratacao@am.senac.br' => 'Contratação - Senac AM'])
                             ->setTo($email_gerente)
                             ->setSubject('Solicitação de Contratação - ' . $model->unidade)
                             ->setTextBody('Existe uma solicitação de contratação de código: '.$model->id.' PENDENTE')

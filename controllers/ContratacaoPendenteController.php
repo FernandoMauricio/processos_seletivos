@@ -182,7 +182,7 @@ class ContratacaoPendenteController extends Controller
      $session = Yii::$app->session;
      $connection = Yii::$app->db;
      $command = $connection->createCommand(
-     "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '4' WHERE `id` = '".$model->id."'");
+     "UPDATE `processos_db_teste`.`contratacao` SET `situacao_id` = '4' WHERE `id` = '".$model->id."'");
     $command->execute();
 
      $model->situacao_id = 4;
@@ -197,7 +197,7 @@ class ContratacaoPendenteController extends Controller
             $email_gerente  = $email["emus_email"];
 
                             Yii::$app->mailer->compose()
-                            ->setFrom(['sistema@am.senac.br' => 'Contratação - Senac AM'])
+                            ->setFrom(['contratacao@am.senac.br' => 'Contratação - Senac AM'])
                             ->setTo($email_gerente)
                             ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
                             ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
@@ -225,7 +225,7 @@ return $this->redirect(['index']);
      $session = Yii::$app->session;
      $connection = Yii::$app->db;
      $command = $connection->createCommand(
-     "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '2' WHERE `id` = '".$model->id."'");
+     "UPDATE `processos_db_teste`.`contratacao` SET `situacao_id` = '2' WHERE `id` = '".$model->id."'");
      $command->execute();
 
      $model->situacao_id = 2;
@@ -240,7 +240,7 @@ return $this->redirect(['index']);
                     $email_gerente  = $email["emus_email"];
 
                                     Yii::$app->mailer->compose()
-                                    ->setFrom(['sistema@am.senac.br' => 'Contratação - Senac AM'])
+                                    ->setFrom(['contratacao@am.senac.br' => 'Contratação - Senac AM'])
                                     ->setTo($email_gerente)
                                     ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
                                     ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')

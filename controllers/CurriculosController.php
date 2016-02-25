@@ -226,7 +226,7 @@ session_start();
 
         //ENVIA E-MAIL DA INSCRIÇÃO PARA O CANDIDATO
                      Yii::$app->mailer->compose()
-                            ->setFrom(['sistema@am.senac.br' => 'Processo Seletivo - Senac AM'])
+                            ->setFrom(['contratacao@am.senac.br' => 'Processo Seletivo - Senac AM'])
                             ->setTo($model->email)
                             ->setSubject('Inscrição para o Edital: ' . $model->edital)
                             ->setTextBody('Prezado Candidato, confirmamos o envio de seu currículo para concorrer a vaga de ' .$model->cargo. ' para o Edital ' .$model->edital.' ')
@@ -290,7 +290,7 @@ session_start();
                     }
 
 
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect('http://www.am.senac.br/trabsenac_success.php');
         } else {
             return $this->render('create', [
                 'model' => $model,

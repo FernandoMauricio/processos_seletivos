@@ -92,7 +92,7 @@ class ContratacaoEmAndamentoController extends Controller
               {
                 $connection = Yii::$app->db;
                 $command = $connection->createCommand(
-                 "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '7' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
+                 "UPDATE `processos_db_teste`.`contratacao` SET `situacao_id` = '7' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
                 $command->execute();
 
          //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO
@@ -104,7 +104,7 @@ class ContratacaoEmAndamentoController extends Controller
             $email_gerente  = $email["emus_email"];
 
                             Yii::$app->mailer->compose()
-                            ->setFrom(['sistema@am.senac.br' => 'Contratação - Senac AM'])
+                            ->setFrom(['contratacao@am.senac.br' => 'Contratação - Senac AM'])
                             ->setTo($email_gerente)
                             ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
                             ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
@@ -127,7 +127,7 @@ class ContratacaoEmAndamentoController extends Controller
               {
                 $connection = Yii::$app->db;
                 $command = $connection->createCommand(
-                 "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '8' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
+                 "UPDATE `processos_db_teste`.`contratacao` SET `situacao_id` = '8' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
                 $command->execute();
 
          //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO
@@ -139,7 +139,7 @@ class ContratacaoEmAndamentoController extends Controller
             $email_gerente  = $email["emus_email"];
 
                             Yii::$app->mailer->compose()
-                            ->setFrom(['sistema@am.senac.br' => 'Contratação - Senac AM'])
+                            ->setFrom(['contratacao@am.senac.br' => 'Contratação - Senac AM'])
                             ->setTo($email_gerente)
                             ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
                             ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
@@ -161,7 +161,7 @@ class ContratacaoEmAndamentoController extends Controller
               {
                 $connection = Yii::$app->db;
                 $command = $connection->createCommand(
-                 "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '9' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
+                 "UPDATE `processos_db_teste`.`contratacao` SET `situacao_id` = '9' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
                 $command->execute();
 
          //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO
@@ -173,7 +173,7 @@ class ContratacaoEmAndamentoController extends Controller
             $email_gerente  = $email["emus_email"];
 
                             Yii::$app->mailer->compose()
-                            ->setFrom(['sistema@am.senac.br' => 'Contratação - Senac AM'])
+                            ->setFrom(['contratacao@am.senac.br' => 'Contratação - Senac AM'])
                             ->setTo($email_gerente)
                             ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
                             ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
@@ -195,7 +195,7 @@ class ContratacaoEmAndamentoController extends Controller
               {
                 $connection = Yii::$app->db;
                 $command = $connection->createCommand(
-                 "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '10' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
+                 "UPDATE `processos_db_teste`.`contratacao` SET `situacao_id` = '10' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
                 $command->execute();
 
          //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO
@@ -207,7 +207,7 @@ class ContratacaoEmAndamentoController extends Controller
             $email_gerente  = $email["emus_email"];
 
                             Yii::$app->mailer->compose()
-                            ->setFrom(['sistema@am.senac.br' => 'Contratação - Senac AM'])
+                            ->setFrom(['contratacao@am.senac.br' => 'Contratação - Senac AM'])
                             ->setTo($email_gerente)
                             ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
                             ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
@@ -229,7 +229,7 @@ class ContratacaoEmAndamentoController extends Controller
 
            $connection = Yii::$app->db;
            $command = $connection->createCommand(
-           "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '11' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
+           "UPDATE `processos_db_teste`.`contratacao` SET `situacao_id` = '11' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
            $command->execute();    
 
          //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO
@@ -241,7 +241,7 @@ class ContratacaoEmAndamentoController extends Controller
             $email_gerente  = $email["emus_email"];
 
                             Yii::$app->mailer->compose()
-                            ->setFrom(['sistema@am.senac.br' => 'Contratação - Senac AM'])
+                            ->setFrom(['contratacao@am.senac.br' => 'Contratação - Senac AM'])
                             ->setTo($email_gerente)
                             ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
                             ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
@@ -370,7 +370,7 @@ class ContratacaoEmAndamentoController extends Controller
      $session = Yii::$app->session;
      $connection = Yii::$app->db;
      $command = $connection->createCommand(
-     "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '5' WHERE `id` = '".$model->id."'");
+     "UPDATE `processos_db_teste`.`contratacao` SET `situacao_id` = '5' WHERE `id` = '".$model->id."'");
     $command->execute();
 
      $model->situacao_id = 5;
@@ -385,7 +385,7 @@ class ContratacaoEmAndamentoController extends Controller
             $email_gerente  = $email["emus_email"];
 
                             Yii::$app->mailer->compose()
-                            ->setFrom(['sistema@am.senac.br' => 'Contratação - Senac AM'])
+                            ->setFrom(['contratacao@am.senac.br' => 'Contratação - Senac AM'])
                             ->setTo($email_gerente)
                             ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
                             ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
@@ -419,7 +419,7 @@ return $this->redirect(['index']);
      $session = Yii::$app->session;
      $connection = Yii::$app->db;
      $command = $connection->createCommand(
-     "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '2' WHERE `id` = '".$model->id."'");
+     "UPDATE `processos_db_teste`.`contratacao` SET `situacao_id` = '2' WHERE `id` = '".$model->id."'");
      $command->execute();
 
      $model->situacao_id = 2;
@@ -434,7 +434,7 @@ return $this->redirect(['index']);
                     $email_gerente  = $email["emus_email"];
 
                                     Yii::$app->mailer->compose()
-                                    ->setFrom(['sistema@am.senac.br' => 'Contratação - Senac AM'])
+                                    ->setFrom(['contratacao@am.senac.br' => 'Contratação - Senac AM'])
                                     ->setTo($email_gerente)
                                     ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
                                     ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
@@ -467,7 +467,7 @@ return $this->redirect(['index']);
      $session = Yii::$app->session;
      $connection = Yii::$app->db;
      $command = $connection->createCommand(
-     "UPDATE `processos_db`.`contratacao` SET `situacao_id` = '6' WHERE `id` = '".$model->id."'");
+     "UPDATE `processos_db_teste`.`contratacao` SET `situacao_id` = '6' WHERE `id` = '".$model->id."'");
      $command->execute();
 
      $model->situacao_id = 6;
@@ -482,7 +482,7 @@ return $this->redirect(['index']);
             $email_gerente  = $email["emus_email"];
 
                             Yii::$app->mailer->compose()
-                            ->setFrom(['sistema@am.senac.br' => 'Contratação - Senac AM'])
+                            ->setFrom(['contratacao@am.senac.br' => 'Contratação - Senac AM'])
                             ->setTo($email_gerente)
                             ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
                             ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
