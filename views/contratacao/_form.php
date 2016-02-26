@@ -27,13 +27,31 @@ use kartik\builder\Form;
 
     <?= $form->field($model, 'motivo')->textarea(['rows' => 3]) ?>
 
-    <?= $form->field($model, 'substituicao')->radioList(array('0'=>'Não','1'=>'Sim'), ['inline'=>true]); ?>
+                                <?php
+                            echo Form::widget([
+                                'model'=>$model,
+                                'form'=>$form,
+                                'columns'=>12,
+                                'attributes'=>[
+                                    'substituicao'=>['type'=>Form::INPUT_RADIO_LIST, 'items' => ['0'=>'Não','1'=>'Sim'],'options'=>['inline'=>true],'columnOptions'=>['colspan'=>2]],       
+                                    'nome_substituicao'=>['type'=>Form::INPUT_TEXT,  'options'=>['placeholder'=>'Informe o nome do servidor...'],'columnOptions'=>['colspan'=>4]],
+                                            ],
+                            ]);
+                            ?>
 
-    <?= $form->field($model, 'nome_substituicao')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'periodo')->radioList(array('0'=>'Não','1'=>'Sim'), ['inline'=>true]); ?>
+                                <?php
+                            echo Form::widget([
+                                'model'=>$model,
+                                'form'=>$form,
+                                'columns'=>12,
+                                'attributes'=>[
+                                    'periodo'=>['type'=>Form::INPUT_RADIO_LIST, 'items' => ['0'=>'Não','1'=>'Sim'],'options'=>['inline'=>true],'columnOptions'=>['colspan'=>2]],       
+                                    'tempo_periodo'=>['type'=>Form::INPUT_TEXT,  'options'=>['placeholder'=>'Informe o período em meses...'],'columnOptions'=>['colspan'=>4]],
+                                            ],
+                            ]);
+                            ?>
 
-    <?= $form->field($model, 'tempo_periodo')->textInput() ?>
 
     <?= $form->field($model, 'aumento_quadro')->radioList(array('0'=>'Não','1'=>'Sim'), ['inline'=>true]); ?>
 
@@ -57,7 +75,7 @@ use kartik\builder\Form;
     <center><div>--------------------------------------------------<strong style="color: #E61238"> IDENTIFICAÇÃO DO PERFIL </strong>--------------------------------------------------</center></div>
 
                             <?php
-                            echo '<label class="control-label">--- Ensino Médio:</label><br>';
+                            echo '<label class="control-label">--- Ensino Fundamental:</label><br>';
                             echo Form::widget([
                                 'model'=>$model,
                                 'form'=>$form,
@@ -145,11 +163,20 @@ use kartik\builder\Form;
                             ?>
 
 
-    <?= $form->field($model, 'experiencia')->radioList(array('0'=>'Não','1'=>'Sim'), ['inline'=>true]); ?>
 
-    <?= $form->field($model, 'experiencia_tempo')->textInput(['maxlength' => true]) ?>
+                            <?php
+                            echo Form::widget([
+                                'model'=>$model,
+                                'form'=>$form,
+                                'columns'=>12,
+                                'attributes'=>[
+                                    'experiencia'=>['type'=>Form::INPUT_RADIO_LIST, 'items' => ['0'=>'Não','1'=>'Sim'],'options'=>['inline'=>true],'columnOptions'=>['colspan'=>3]],       
+                                    'experiencia_tempo'=>['type'=>Form::INPUT_TEXT,  'options'=>['placeholder'=>'Informe o tempo...'],'columnOptions'=>['colspan'=>4]],
+                                    'experiencia_atividade'=>['type'=>Form::INPUT_TEXT,'options'=>['placeholder'=>'Informe a atividade...'],'columnOptions'=>['colspan'=>4]],
+                                            ],
+                            ]);
+                            ?>
 
-    <?= $form->field($model, 'experiencia_atividade')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'jornada_horas')->radioList(array('0'=>'Não','1'=>'Sim'), ['inline'=>true]); ?>
 

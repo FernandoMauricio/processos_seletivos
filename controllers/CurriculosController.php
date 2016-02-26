@@ -175,7 +175,7 @@ session_start();
         $model->edital = $session["numeroEdital"];
         $id = $session["id"];
 
-        $model->data  = date('Y-m-d');
+        $model->data  = date('Y-m-d H:i:s');
 
         //NÚMERO DE INSCRIÇÃO 'ANO CORRENTE + 000000 + ID DO CANDIDATO'
         $query_id = "SELECT max(id) as id FROM curriculos LIMIT 1";
@@ -282,7 +282,7 @@ session_start();
                             }
                             if ($flag) {
                                 $transaction->commit();
-                                return $this->redirect(['view', 'id' => $model->id]);
+                                return $this->redirect('http://www.am.senac.br/trabsenac_success.php');
                             }
                         } catch (Exception $e) {
                             $transaction->rollBack();

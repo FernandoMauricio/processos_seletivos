@@ -9,6 +9,19 @@ use kartik\builder\Form;
 
         <?= $form->field($curriculosFormacao, 'medio_comp')->radioList([1 =>'Completo', 0 =>'Incompleto'], ['inline'=>true]) ?>
 
+
+                        <?php
+                            echo Form::widget([
+                                'model'=>$curriculosFormacao,
+                                'form'=>$form,
+                                'columns'=>4,
+                                'attributes'=>[       
+                                    'tecnico'=>['type'=>Form::INPUT_RADIO_LIST,'items'=>[1=>'Completo', 0=>'Incompleto'], 'options'=>['inline'=>true]],
+                                    'tecnico_area'=>['type'=>Form::INPUT_TEXT,'options'=>['placeholder'=>'Informe o seu curso técnico...'],'columnOptions'=>['colspan'=>2]],
+                                            ],
+                            ]);
+                        ?>
+
                         <?php
                             echo Form::widget([
                                 'model'=>$curriculosFormacao,

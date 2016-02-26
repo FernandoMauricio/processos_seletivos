@@ -197,7 +197,7 @@ $situacao_id           =  $model->situacao_id;
         <?php echo date('d/m/Y', strtotime($data_solicitacao)); ?> às <?php echo date('H:i:s', strtotime($hora_solicitacao)); ?>&nbsp;&nbsp;&nbsp;<br /></p></td>
       </tr>
       <tr>
-        <td height="45" align="center" colspan="3" id="linhas2">Obs.: Este instrumento atende as exigências contidas na Resolução nº 875/2008, de 01/07/2009, do CN do Senac.</td>
+        <td height="45" align="center" colspan="3" id="linhas2">Obs.: Este instrumento atende as exigências contidas na Resolução nº 1.018/2015 do CN do Senac.</td>
       </tr>
       </table>
 </body>
