@@ -13,24 +13,16 @@ use yii\helpers\Url;
 $session = Yii::$app->session;
 $id_contratacao = $session['sess_contratacao'];
 
-$this->title = 'Histórico de Justificativas  ';
+$this->title = 'Justificativas  ';
 $this->params['breadcrumbs'][] = ['label' => 'Contratações em Andamento', 'url' => ['contratacao-em-andamento/index']];
 $this->params['breadcrumbs'][] = ['label' => $id_contratacao, 'url' => ['contratacao-em-andamento/view', 'id' => $id_contratacao]];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 
-
-<?php
-foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
-echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
-}
-?>
-
-
 <div class="contratacao-justificativas-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->title) ."<small>Solicitação de Contratação: ".$id_contratacao. "</small>" ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -52,14 +44,11 @@ echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             'descricao',
             'usuario',
-
-            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 
