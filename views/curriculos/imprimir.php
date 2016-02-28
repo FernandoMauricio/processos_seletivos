@@ -58,7 +58,7 @@ $this->params['breadcrumbs'][] =  $this->title;
             'edital',
             'numeroInscricao',
             'cargo',
-            'cidade_selecionada'
+            'cidade_selecionada',
             'nome',
             'cpf',
             [
@@ -78,7 +78,7 @@ $this->params['breadcrumbs'][] =  $this->title;
             'telefoneAlt',
             [
                 'attribute' => 'data',
-                'format' => ['date', 'php:d/m/Y'],
+                'format' => ['date', 'php:d/m/Y H:i:s'],
             ],
             [
                 'attribute'=>'classificado', 
