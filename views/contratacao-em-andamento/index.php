@@ -104,7 +104,7 @@ $gridColumns = [
                         },
                         //ENVIAR PARA CORREÇÃO
                         'correcao' => function ($url, $model) {
-                            return Html::a('<span class="glyphicon glyphicon-repeat"></span> Enviar para Correção', $url, [
+                            return Html::a('<span class="glyphicon glyphicon-repeat"></span> Para Correção', $url, [
                                         'class'=>'btn btn-warning btn-xs',
                                          'data' => [
                                                    'confirm' => 'Você tem certeza que deseja ENVIAR PARA CORREÇÃO essa Solicitação de Contratação?',
