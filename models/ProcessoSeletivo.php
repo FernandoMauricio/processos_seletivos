@@ -24,6 +24,7 @@ use Yii;
 class ProcessoSeletivo extends \yii\db\ActiveRecord
 {
     public $permissions;
+    public $permissions_cidades;
     /**
      * @inheritdoc
      */
@@ -38,7 +39,7 @@ class ProcessoSeletivo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descricao', 'permissions', 'data', 'numeroEdital', 'objetivo', 'modalidade_id', 'data_encer','status_id', 'situacao_id',], 'required'],
+            [['descricao', 'permissions','permissions_cidades', 'data', 'numeroEdital', 'objetivo', 'modalidade_id', 'data_encer','status_id', 'situacao_id',], 'required'],
             [['data', 'data_encer'], 'safe'],
             [['objetivo'], 'string'],
             [['status_id', 'situacao_id', 'modalidade_id'], 'integer'],
@@ -62,7 +63,8 @@ class ProcessoSeletivo extends \yii\db\ActiveRecord
             'status_id' => 'Publicação no site',
             'situacao_id' => 'Situação',
             'modalidade_id' => 'Modalidade',
-            'permissions' => 'Cargos',
+            'permissions' => 'Cargos disponíveis para este edital:',
+            'permissions_cidades' => 'Cidades disponíveis para este edital:',
             
         ];
     }
@@ -72,12 +74,28 @@ class ProcessoSeletivo extends \yii\db\ActiveRecord
         return $this->hasMany(CargosProcesso::className(), ['processo_id' => 'id']);
     }
 
+    public function getCidadesProcesso() //Relation between Cidades & Processo table
+    {
+        return $this->hasMany(CidadesProcesso::className(), ['processo_id' => 'id']);
+    }
+
+
+
     public function afterSave($insert, $changedAttributes){
+        //Cargos
         \Yii::$app->db->createCommand()->delete('cargos_processo', 'processo_id = '.(int) $this->id)->execute(); //Delete existing value
         foreach ($this->permissions as $id) { //Write new values
             $tc = new CargosProcesso();
             $tc->processo_id = $this->id;
             $tc->cargo_id = $id;
+            $tc->save();
+        }
+        //Cidades
+        \Yii::$app->db->createCommand()->delete('cidades_processo', 'processo_id = '.(int) $this->id)->execute(); //Delete existing value
+        foreach ($this->permissions_cidades as $id) { //Write new values
+            $tc = new CidadesProcesso();
+            $tc->processo_id = $this->id;
+            $tc->cidade_id = $id;
             $tc->save();
         }
     }

@@ -17,11 +17,6 @@ use kartik\datecontrol\DateControl;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php 
-    $options = \yii\helpers\ArrayHelper::map($cargos, 'idcargo', 'descricao');
-    echo $form->field($model, 'permissions')->checkboxList($options, ['unselect'=>NULL]);
-    ?>
-
     <?= $form->field($model, 'numeroEdital')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
@@ -75,6 +70,18 @@ use kartik\datecontrol\DateControl;
 
 
     <?= $form->field($model, 'status_id')->radioList(['1' => 'Ativo', '0' => 'Inativo']) ?>
+
+
+    <?php 
+    $options = \yii\helpers\ArrayHelper::map($cargos, 'idcargo', 'descricao');
+    echo $form->field($model, 'permissions')->checkboxList($options, ['unselect'=>NULL]);
+    ?>
+
+
+    <?php 
+    $options_cidades = \yii\helpers\ArrayHelper::map($cidades, 'idcidade', 'descricao');
+    echo $form->field($model, 'permissions_cidades')->checkboxList($options_cidades, ['unselect'=>NULL]);
+    ?>
 
 
 

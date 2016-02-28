@@ -8,6 +8,8 @@ use app\models\Edital;
 use app\models\Resultados;
 use app\models\Cargos;
 use app\models\CargosProcesso;
+use app\models\Cidades;
+use app\models\CidadesProcesso;
 use yii\helpers\BaseFileHelper;
 use yii\helpers\Url;
 
@@ -39,6 +41,28 @@ $id = $model->id;
    $Cargos = $cargos["descricao"];
 
     echo '<li class="list-group-item">'.$Cargos.'</li>' ;
+  }
+
+    ?>
+  </ul>
+</div>
+
+
+  <div class="panel panel-primary">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Cidades Disponíveis</div>
+
+  <!-- List group -->
+  <ul class="list-group">
+    <?php
+
+  $query_cidades = "SELECT descricao FROM cidades, cidades_processo WHERE processo_id = '".$id."' AND cidade_id = idcidade";
+  $cidade = Cidades::findBySql($query_cidades)->all(); 
+  foreach ($cidade as $cidades) {
+
+   $Cidades = $cidades["descricao"];
+
+    echo '<li class="list-group-item">'.$Cidades.'</li>' ;
   }
 
     ?>

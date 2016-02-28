@@ -11,6 +11,8 @@ use app\models\Adendos;
 use app\models\Resultados;
 use app\models\Cargos;
 use app\models\CargosProcesso;
+use app\models\Cidades;
+use app\models\CidadesProcesso;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -112,6 +114,8 @@ class ProcessoSeletivoController extends Controller
 
         $cargos = Cargos::find()->all();
 
+        $cidades = Cidades::find()->all();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
             Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong>O Processo Seletivo do edital <strong>'.$model->numeroEdital. '</strong> foi cadastrado no site!</strong>');
@@ -121,6 +125,7 @@ class ProcessoSeletivoController extends Controller
             return $this->render('create', [
                 'model' => $model,
                 'cargos' => $cargos,
+                'cidades' => $cidades,
             ]);
         }
     }
@@ -149,13 +154,23 @@ class ProcessoSeletivoController extends Controller
     
         $model = $this->findModel($id);
 
+        //CARGOS
         $cargos = Cargos::find()->where(['status' => 1])->all();
-
         //Retrieve the stored checkboxes
         $model->permissions = \yii\helpers\ArrayHelper::getColumn(
             $model->getCargosProcesso()->asArray()->all(),
             'cargo_id'
         );
+
+
+        //CIDADES
+        $cidades = Cidades::find()->where(['status' => 1])->all();
+        //Retrieve the stored checkboxes
+        $model->permissions_cidades = \yii\helpers\ArrayHelper::getColumn(
+            $model->getCidadesProcesso()->asArray()->all(),
+            'cidade_id'
+        );
+
 
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -167,6 +182,7 @@ class ProcessoSeletivoController extends Controller
             return $this->render('update', [
                 'model' => $model,
                 'cargos' => $cargos,
+                'cidades' => $cidades,
             ]);
         }
     }
