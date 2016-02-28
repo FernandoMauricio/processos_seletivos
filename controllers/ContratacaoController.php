@@ -275,6 +275,23 @@ class ContratacaoController extends Controller
         }
     }
 
+
+
+
+    public function actionObservacoes($id) 
+    {
+
+
+        $model = Contratacao::findOne($id);
+        $session = Yii::$app->session;
+        $session->set('sess_contratacao', $model->id);
+
+        return $this->redirect(Yii::$app->request->BaseUrl . '/index.php?r=contratacao-justificativas-pendentes%2Fobservacoes', [
+             'model' => $model,
+         ]);
+    }
+
+
     /**
      * Deletes an existing Contratacao model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

@@ -13,7 +13,7 @@ use yii\helpers\Url;
 $session = Yii::$app->session;
 $id_contratacao = $session['sess_contratacao'];
 
-$this->title = 'Justificativas  ';
+$this->title = 'Justificativas para Correção  ';
 $this->params['breadcrumbs'][] = ['label' => 'Contratações Pendentes', 'url' => ['contratacao-pendente/index']];
 $this->params['breadcrumbs'][] = ['label' => $id_contratacao, 'url' => ['contratacao-pendente/view', 'id' => $id_contratacao]];
 $this->params['breadcrumbs'][] = $this->title;

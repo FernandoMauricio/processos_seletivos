@@ -65,7 +65,20 @@ $gridColumns = [
                             'value' => 'situacao.descricao',
                         ],
 
-                        ['class' => 'yii\grid\ActionColumn','template' => '{view} {update} {delete}'],
+
+                        ['class' => 'yii\grid\ActionColumn',
+                        'template' => ' {observacoes} {view} {update} {delete}',
+                        'buttons' => [
+
+                        //ENVIAR PARA CORREÇÃO E INSERIR JUSTIIFCATIVA
+                        'observacoes' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-info-sign"></span>', $url, [
+                                'title' => Yii::t('app', 'Observações'),
+                                   ]);
+                                },
+
+        ],
+      ],
     ]; ?>
 
     <?php Pjax::begin(); ?>

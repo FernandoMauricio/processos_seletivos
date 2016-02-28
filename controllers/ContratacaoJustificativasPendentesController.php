@@ -44,6 +44,18 @@ class ContratacaoJustificativasPendentesController extends Controller
         ]);
     }
 
+
+    public function actionObservacoes()
+    {
+        $searchModel = new ContratacaoJustificativasSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('observacoes', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Displays a single ContratacaoJustificativas model.
      * @param integer $id

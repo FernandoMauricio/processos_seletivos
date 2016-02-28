@@ -41,7 +41,8 @@ class ContratacaoJustificativasSearch extends ContratacaoJustificativas
      */
     public function search($params)
     {
-        $query = ContratacaoJustificativas::find();
+        $query = ContratacaoJustificativas::find()
+        ->orderBy(['id' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
