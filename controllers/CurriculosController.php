@@ -7,6 +7,8 @@ use Yii;
 use app\models\Model;
 use app\models\Cargos;
 use app\models\CargosProcesso;
+use app\models\Cidades;
+use app\models\CidadesProcesso;
 use app\models\Curriculos;
 use app\models\CurriculosSearch;
 use app\models\CurriculosEndereco;
@@ -190,11 +192,18 @@ session_start();
         $curriculosEndereco->curriculos_id = $incremento; 
         $curriculosFormacao->curriculos_id = $incremento; 
 
-        //localizando somente os cargos que fazem parte daquele edital
+        //localizando somente os cargos que fazem parte do edital selecionado
         $cargos = Cargos::find()
         ->innerJoinWith('cargosProcessos')
         ->where(['processo_id'=>$id])
         ->AndWhere('cargo_id = idcargo')
+        ->all();
+
+        //localizando somente as cidades que fazem parte do edital selecionado
+        $cidades = Cidades::find()
+        ->innerJoinWith('cidadesProcesso')
+        ->where(['processo_id'=>$id])
+        ->AndWhere('cidade_id = idcidade')
         ->all();
 
         //Caso não tenha puxado nenhum edital, será redirecionado para a página de processo seletivo
@@ -295,6 +304,7 @@ session_start();
             return $this->render('create', [
                 'model' => $model,
                 'cargos' => $cargos,
+                'cidades' => $cidades,
                 'curriculosEndereco' => $curriculosEndereco,
                 'curriculosFormacao' => $curriculosFormacao,
                 'modelsComplemento' => (empty($modelsComplemento)) ? [new CurriculosComplemento] : $modelsComplemento,

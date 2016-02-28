@@ -58,6 +58,7 @@ $this->params['breadcrumbs'][] =  $this->title;
             'edital',
             'numeroInscricao',
             'cargo',
+            'cidade_selecionada'
             'nome',
             'cpf',
             [

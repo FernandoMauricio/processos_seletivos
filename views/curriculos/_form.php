@@ -49,6 +49,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                         'form' => $form,
                         'model' => $model,
                         'cargos' => $cargos,
+                        'cidades' => $cidades,
                     ])
                     ?>
                  </div>

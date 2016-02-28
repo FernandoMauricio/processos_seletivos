@@ -47,13 +47,13 @@ class Curriculos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['edital', 'numeroInscricao','cargo', 'nome', 'cpf', 'datanascimento', 'sexo', 'email', 'telefone', 'data'], 'required'],
-            ['cpf', 'unique', 'targetAttribute' => ['edital', 'cpf', 'cargo'],'message' => '"{value} Já utilizado para o edital e cargo selecionado"'],
+            [['edital', 'numeroInscricao','cargo', 'cidade_selecionada', 'nome', 'cpf', 'datanascimento', 'sexo', 'email', 'telefone', 'data'], 'required'],
+            ['cpf', 'unique', 'targetAttribute' => ['edital', 'cpf', 'cargo', 'cidade_selecionada'],'message' => '"{value} Já utilizado para o edital, cidade e cargo selecionado"'],
             ['cpf', CpfValidator::className()],
             [['idade'], 'integer'],
             [['datanascimento', 'data' , 'idadeModel', 'classificado'], 'safe'],
             [['edital', 'numeroInscricao', 'identidade', 'orgao_exped'], 'string', 'max' => 45],
-            [['nome', 'cargo', 'email', 'emailAlt'], 'string', 'max' => 100],
+            [['nome', 'cargo', 'cidade_selecionada', 'email', 'emailAlt'], 'string', 'max' => 100],
             [['email', 'emailAlt'], 'email'],
             [['cpf', 'sexo', 'telefone', 'telefoneAlt'], 'string', 'max' => 20]
         ];
@@ -69,6 +69,7 @@ class Curriculos extends \yii\db\ActiveRecord
             'edital' => 'Edital',
             'numeroInscricao' => 'Número de Inscrição',
             'cargo' => 'Cargo',
+            'cidade_selecionada' => 'Cidade',
             'nome' => 'Nome',
             'cpf' => 'CPF',
             'identidade' => 'RG',
@@ -88,6 +89,12 @@ class Curriculos extends \yii\db\ActiveRecord
     public function getCargosProcesso() //Relation between Cargos & Processo table
     {
         return $this->hasMany(CargosProcesso::className(), ['processo_id' => 'id']);
+    }
+
+
+    public function getCidadesProcesso() //Relation between Cargos & Processo table
+    {
+        return $this->hasMany(CidadesProcesso::className(), ['processo_id' => 'id']);
     }
 
 

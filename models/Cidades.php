@@ -50,7 +50,7 @@ class Cidades extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCidadesProcessos()
+    public function getCidadesProcesso()
     {
         return $this->hasMany(CidadesProcesso::className(), ['cidade_id' => 'idcidade']);
     }

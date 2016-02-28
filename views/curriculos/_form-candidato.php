@@ -11,7 +11,6 @@ use kartik\datecontrol\DateControl;
 
                     <?= $form->field($model, 'edital')->textInput(['readonly'=>true]) ?>
 
-
                         <?php
                                     $data_cargos = ArrayHelper::map($cargos, 'descricao', 'descricao');
                                     echo $form->field($model, 'cargo')->widget(Select2::classname(), [
@@ -22,6 +21,19 @@ use kartik\datecontrol\DateControl;
                                         ],
                                     ]);
                          ?>
+
+
+                        <?php
+                                    $data_cidades = ArrayHelper::map($cidades, 'descricao', 'descricao');
+                                    echo $form->field($model, 'cidade_selecionada')->widget(Select2::classname(), [
+                                        'data' => array_merge(["" => ""], $data_cidades),
+                                        'options' => ['placeholder' => 'Selecione a cidade...'],
+                                        'pluginOptions' => [
+                                            'allowClear' => true
+                                        ],
+                                    ]);
+                         ?>
+
 
                     <?= $form->field($model, 'nome')->textInput(['maxlength' => true,'placeholder' => 'Nome completo...']) ?>
 
