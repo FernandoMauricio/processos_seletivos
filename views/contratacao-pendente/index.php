@@ -12,12 +12,27 @@ use yii\widgets\Pjax;
 $this->title = 'Contratações Pendentes';
 $this->params['breadcrumbs'][] = $this->title;
 
-//Pega as mensagens
-foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
-echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
-}
+//Get all flash messages and loop through them
+foreach (Yii::$app->session->getAllFlashes() as $message):; ?>
+            <?php
+            echo \kartik\widgets\Growl::widget([
+                'type' => (!empty($message['type'])) ? $message['type'] : 'danger',
+                'title' => (!empty($message['title'])) ? Html::encode($message['title']) : '',
+                'icon' => (!empty($message['icon'])) ? $message['icon'] : 'fa fa-info',
+                'body' => (!empty($message['message'])) ? Html::encode($message['message']) : '',
+                'showSeparator' => true,
+                'delay' => 1, //This delay is how long before the message shows
+                'pluginOptions' => [
+                    'delay' => (!empty($message['duration'])) ? $message['duration'] : 3000, //This delay is how long the message shows for
+                    'placement' => [
+                        'from' => (!empty($message['positonY'])) ? $message['positonY'] : '',
+                        'align' => (!empty($message['positonX'])) ? $message['positonX'] : '',
+                    ]
+                ]
+            ]);
+            ?>
+        <?php endforeach; ?>
 
-?>
 <div class="contratacao-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -57,48 +72,6 @@ $gridColumns = [
                 'attribute' => 'situacao_id',
                 'value' => 'situacao.descricao',
             ],
-            // 'cod_unidade_solic',
-            // 'quant_pessoa',
-            // 'motivo:ntext',
-            // 'substituicao',
-            // 'periodo',
-            // 'tempo_periodo',
-            // 'aumento_quadro',
-            // 'nome_substituicao',
-            // 'deficiencia',
-            // 'obs_deficiencia:ntext',
-            // 'data_ingresso',
-            // 'fundamental_comp',
-            // 'fundamental_inc',
-            // 'medio_comp',
-            // 'medio_inc',
-            // 'tecnico_comp',
-            // 'tecnico_inc',
-            // 'tecnico_area',
-            // 'superior_comp',
-            // 'superior_inc',
-            // 'superior_area',
-            // 'pos_comp',
-            // 'pos_inc',
-            // 'pos_area',
-            // 'dominio_atividade:ntext',
-            // 'windows',
-            // 'word',
-            // 'excel',
-            // 'internet',
-            // 'experiencia',
-            // 'experiencia_tempo',
-            // 'experiencia_atividade',
-            // 'jornada_horas',
-            // 'jornada_obs:ntext',
-            // 'principais_atividades:ntext',
-            // 'recrutamento_id',
-            // 'selec_curriculo',
-            // 'selec_dinamica',
-            // 'selec_prova',
-            // 'selec_entrevista',
-            // 'selec_teste',
-            // 'situacao_id',
 
             ['class' => 'yii\grid\ActionColumn',
             'template' => '{view} {iniciar} {correcao}',
@@ -123,17 +96,13 @@ $gridColumns = [
                                         ],
                 ]);
             },
-            //ENVIAR PARA CORREÇÃO
+            
+            //ENVIAR PARA CORREÇÃO E INSERIR JUSTIIFCATIVA
             'correcao' => function ($url, $model) {
                 return Html::a('<span class="glyphicon glyphicon-repeat"></span> Para Correção', $url, [
                             'class'=>'btn btn-warning btn-xs',
-                             'data' => [
-                                        'confirm' => 'Você tem certeza que deseja ENVIAR PARA CORREÇÃO essa Solicitação de Contratação?',
-                                        'method' => 'post',
-                                       ],
-           
                 ]);
-            },
+           },
         ],
       ],
     ];

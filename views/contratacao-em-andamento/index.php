@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use kartik\grid\GridView;
 use kartik\editable\Editable;
 use yii\widgets\Pjax;
+use yii\bootstrap\Modal;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ContratacaoEmAndamentoSearch */
@@ -33,6 +35,7 @@ foreach (Yii::$app->session->getAllFlashes() as $message):; ?>
             ]);
             ?>
         <?php endforeach; ?>
+
 
 <div class="contratacao-index">
 
@@ -102,17 +105,14 @@ $gridColumns = [
                                                    ],
                             ]);
                         },
-                        //ENVIAR PARA CORREÇÃO
+
+                        //ENVIAR PARA CORREÇÃO E INSERIR JUSTIIFCATIVA
                         'correcao' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-repeat"></span> Para Correção', $url, [
-                                        'class'=>'btn btn-warning btn-xs',
-                                         'data' => [
-                                                   'confirm' => 'Você tem certeza que deseja ENVIAR PARA CORREÇÃO essa Solicitação de Contratação?',
-                                                   'method' => 'post',
-                                                   ],
-                       
-                            ]);
-                        },
+                                         'class'=>'btn btn-warning btn-xs',
+                                   ]);
+                                },
+
 
                         //CANCELAR
                         'cancelar' => function ($url, $model) {

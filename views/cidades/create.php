@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Cidades */
 
-$this->title = 'Create Cidades';
+$this->title = 'Criar Cidade';
 $this->params['breadcrumbs'][] = ['label' => 'Cidades', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
