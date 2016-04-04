@@ -133,7 +133,7 @@ class Contratacao extends \yii\db\ActiveRecord
             'excel' => 'Excel',
             'internet' => 'Internet',
             'experiencia' => 'Grau de experiência comprovada:',
-            'experiencia_tempo' => 'Tempo',
+            'experiencia_tempo' => 'Tempo de experiência',
             'experiencia_atividade' => 'Atividade',
             'jornada_horas' => 'Disponibilidade para jornada de 8 horas de segunda-feira a sexta-feira:',
             'jornada_obs' => 'Observação',
@@ -146,7 +146,7 @@ class Contratacao extends \yii\db\ActiveRecord
             'selec_teste' => 'Testes Psicológicos',
             'nomesituacao' => 'Situação',
             'situacao_id' => 'Situação',
-            'permissions' => 'Criação de contas para:'
+            'permissions' => 'Criação de contas para:',
         ];
     }
 
@@ -166,7 +166,6 @@ class Contratacao extends \yii\db\ActiveRecord
         }
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -181,5 +180,13 @@ class Contratacao extends \yii\db\ActiveRecord
     public function getSituacao()
     {
         return $this->hasOne(SituacaoContratacao::className(), ['cod_situacao' => 'situacao_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getContratacaoJustificativas()
+    {
+        return $this->hasMany(ContratacaoJustificativas::className(), ['id_contratacao' => 'id']);
     }
 }

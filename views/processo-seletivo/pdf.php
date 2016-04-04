@@ -8,6 +8,8 @@ use app\models\Edital;
 use app\models\Resultados;
 use app\models\Cargos;
 use app\models\CargosProcesso;
+use app\models\Cidades;
+use app\models\CidadesProcesso;
 use yii\helpers\BaseFileHelper;
 use yii\helpers\Url;
 

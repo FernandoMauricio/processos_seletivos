@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Contratacao;
+use app\models\ContratacaoJustificativas;
 use app\models\ContratacaoEmAndamentoSearch;
 use app\models\Emailusuario;
 use app\models\EmailusuarioSearch;
@@ -88,11 +89,11 @@ class ContratacaoEmAndamentoController extends Controller
         // load model like any single model validation
         if ($model->load($post)) {
             // similarly you can check if the name attribute was posted as well
-             if($posted['situacao_id'] == 7) // ANÁLISE DE CURRICULO
+             if($posted['situacao_id'] == 7) // PEDIDO RECEBIDO
               {
                 $connection = Yii::$app->db;
                 $command = $connection->createCommand(
-                 "UPDATE `processos_db_teste`.`contratacao` SET `situacao_id` = '7' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
+                 "UPDATE `db_processos`.`contratacao` SET `situacao_id` = '7' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
                 $command->execute();
 
          //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO
@@ -123,11 +124,11 @@ class ContratacaoEmAndamentoController extends Controller
                      ]);
 
 
-             }elseif($posted['situacao_id'] == 8) // AVALIAÇÃO ESCRITA
+             }elseif($posted['situacao_id'] == 8) // AGUARDANDO AUTORIZAÇÃO DE CUSTO
               {
                 $connection = Yii::$app->db;
                 $command = $connection->createCommand(
-                 "UPDATE `processos_db_teste`.`contratacao` SET `situacao_id` = '8' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
+                 "UPDATE `db_processos`.`contratacao` SET `situacao_id` = '8' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
                 $command->execute();
 
          //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO
@@ -157,11 +158,11 @@ class ContratacaoEmAndamentoController extends Controller
                          'positonX' => 'right'
                      ]);
             
-             }elseif($posted['situacao_id'] == 9) // AVALIAÇÃO DIDÁTICA
+             }elseif($posted['situacao_id'] == 9) // ELABORAÇÃO DE EDITAL
               {
                 $connection = Yii::$app->db;
                 $command = $connection->createCommand(
-                 "UPDATE `processos_db_teste`.`contratacao` SET `situacao_id` = '9' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
+                 "UPDATE `db_processos`.`contratacao` SET `situacao_id` = '9' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
                 $command->execute();
 
          //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO
@@ -191,11 +192,11 @@ class ContratacaoEmAndamentoController extends Controller
                          'positonX' => 'right'
                      ]);
 
-             }elseif($posted['situacao_id'] == 10) // AVALIAÇÃO COMPORTAMENTAL
+             }elseif($posted['situacao_id'] == 10) // PERÍODO DE INSCRIÇÃO
               {
                 $connection = Yii::$app->db;
                 $command = $connection->createCommand(
-                 "UPDATE `processos_db_teste`.`contratacao` SET `situacao_id` = '10' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
+                 "UPDATE `db_processos`.`contratacao` SET `situacao_id` = '10' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
                 $command->execute();
 
          //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO
@@ -225,11 +226,215 @@ class ContratacaoEmAndamentoController extends Controller
                          'positonX' => 'right'
                      ]);
 
-            }else{ // ENTREVISTA
+            }elseif($posted['situacao_id'] == 11) // ANÁLISE DE CURRICULO
+              {
+                $connection = Yii::$app->db;
+                $command = $connection->createCommand(
+                 "UPDATE `db_processos`.`contratacao` SET `situacao_id` = '11' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
+                $command->execute();
+
+         //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO
+          $sql_email = "SELECT emus_email FROM emailusuario_emus, colaborador_col, responsavelambiente_ream WHERE ream_codunidade = '".$model->cod_unidade_solic."' AND ream_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
+      
+      $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
+      foreach ($email_solicitacao as $email)
+          {
+            $email_gerente  = $email["emus_email"];
+
+                            Yii::$app->mailer->compose()
+                            ->setFrom(['contratacao@am.senac.br' => 'Contratação - Senac AM'])
+                            ->setTo($email_gerente)
+                            ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
+                            ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
+                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                            ->send();
+                        } 
+
+                Yii::$app->getSession()->setFlash('info', [
+                         'type' => 'info',
+                         'duration' => 5000,
+                         'icon' => 'glyphicon glyphicon-ok',
+                         'message' => 'A solicitação de Contratação foi alterada para ' .$model->situacao->descricao,
+                         'title' => 'Solicitação de Contratação',
+                         'positonY' => 'top',
+                         'positonX' => 'right'
+                     ]);
+
+            }elseif($posted['situacao_id'] == 12) // AVALIAÇÃO ESCRITA
+              {
+                $connection = Yii::$app->db;
+                $command = $connection->createCommand(
+                 "UPDATE `db_processos`.`contratacao` SET `situacao_id` = '12' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
+                $command->execute();
+
+         //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO
+          $sql_email = "SELECT emus_email FROM emailusuario_emus, colaborador_col, responsavelambiente_ream WHERE ream_codunidade = '".$model->cod_unidade_solic."' AND ream_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
+      
+      $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
+      foreach ($email_solicitacao as $email)
+          {
+            $email_gerente  = $email["emus_email"];
+
+                            Yii::$app->mailer->compose()
+                            ->setFrom(['contratacao@am.senac.br' => 'Contratação - Senac AM'])
+                            ->setTo($email_gerente)
+                            ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
+                            ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
+                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                            ->send();
+                        } 
+
+                Yii::$app->getSession()->setFlash('info', [
+                         'type' => 'info',
+                         'duration' => 5000,
+                         'icon' => 'glyphicon glyphicon-ok',
+                         'message' => 'A solicitação de Contratação foi alterada para ' .$model->situacao->descricao,
+                         'title' => 'Solicitação de Contratação',
+                         'positonY' => 'top',
+                         'positonX' => 'right'
+                     ]);
+
+            }elseif($posted['situacao_id'] == 13) // AVALIAÇÃO COMPORTAMENTAL
+              {
+                $connection = Yii::$app->db;
+                $command = $connection->createCommand(
+                 "UPDATE `db_processos`.`contratacao` SET `situacao_id` = '13' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
+                $command->execute();
+
+         //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO
+          $sql_email = "SELECT emus_email FROM emailusuario_emus, colaborador_col, responsavelambiente_ream WHERE ream_codunidade = '".$model->cod_unidade_solic."' AND ream_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
+      
+      $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
+      foreach ($email_solicitacao as $email)
+          {
+            $email_gerente  = $email["emus_email"];
+
+                            Yii::$app->mailer->compose()
+                            ->setFrom(['contratacao@am.senac.br' => 'Contratação - Senac AM'])
+                            ->setTo($email_gerente)
+                            ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
+                            ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
+                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                            ->send();
+                        } 
+
+                Yii::$app->getSession()->setFlash('info', [
+                         'type' => 'info',
+                         'duration' => 5000,
+                         'icon' => 'glyphicon glyphicon-ok',
+                         'message' => 'A solicitação de Contratação foi alterada para ' .$model->situacao->descricao,
+                         'title' => 'Solicitação de Contratação',
+                         'positonY' => 'top',
+                         'positonX' => 'right'
+                     ]);
+
+            }elseif($posted['situacao_id'] == 14) // AVALIAÇÃO DIDÁTICA
+              {
+                $connection = Yii::$app->db;
+                $command = $connection->createCommand(
+                 "UPDATE `db_processos`.`contratacao` SET `situacao_id` = '14' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
+                $command->execute();
+
+         //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO
+          $sql_email = "SELECT emus_email FROM emailusuario_emus, colaborador_col, responsavelambiente_ream WHERE ream_codunidade = '".$model->cod_unidade_solic."' AND ream_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
+      
+      $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
+      foreach ($email_solicitacao as $email)
+          {
+            $email_gerente  = $email["emus_email"];
+
+                            Yii::$app->mailer->compose()
+                            ->setFrom(['contratacao@am.senac.br' => 'Contratação - Senac AM'])
+                            ->setTo($email_gerente)
+                            ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
+                            ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
+                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                            ->send();
+                        } 
+
+                Yii::$app->getSession()->setFlash('info', [
+                         'type' => 'info',
+                         'duration' => 5000,
+                         'icon' => 'glyphicon glyphicon-ok',
+                         'message' => 'A solicitação de Contratação foi alterada para ' .$model->situacao->descricao,
+                         'title' => 'Solicitação de Contratação',
+                         'positonY' => 'top',
+                         'positonX' => 'right'
+                     ]);
+
+            }elseif($posted['situacao_id'] == 15) // ENTREVISTA
+              {
+                $connection = Yii::$app->db;
+                $command = $connection->createCommand(
+                 "UPDATE `db_processos`.`contratacao` SET `situacao_id` = '15' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
+                $command->execute();
+
+         //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO
+          $sql_email = "SELECT emus_email FROM emailusuario_emus, colaborador_col, responsavelambiente_ream WHERE ream_codunidade = '".$model->cod_unidade_solic."' AND ream_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
+      
+      $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
+      foreach ($email_solicitacao as $email)
+          {
+            $email_gerente  = $email["emus_email"];
+
+                            Yii::$app->mailer->compose()
+                            ->setFrom(['contratacao@am.senac.br' => 'Contratação - Senac AM'])
+                            ->setTo($email_gerente)
+                            ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
+                            ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
+                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                            ->send();
+                        } 
+
+                Yii::$app->getSession()->setFlash('info', [
+                         'type' => 'info',
+                         'duration' => 5000,
+                         'icon' => 'glyphicon glyphicon-ok',
+                         'message' => 'A solicitação de Contratação foi alterada para ' .$model->situacao->descricao,
+                         'title' => 'Solicitação de Contratação',
+                         'positonY' => 'top',
+                         'positonX' => 'right'
+                     ]);
+
+            }elseif($posted['situacao_id'] == 16) // HOMOLOGAÇÃO
+              {
+                $connection = Yii::$app->db;
+                $command = $connection->createCommand(
+                 "UPDATE `db_processos`.`contratacao` SET `situacao_id` = '16' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
+                $command->execute();
+
+         //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO
+          $sql_email = "SELECT emus_email FROM emailusuario_emus, colaborador_col, responsavelambiente_ream WHERE ream_codunidade = '".$model->cod_unidade_solic."' AND ream_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
+      
+      $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
+      foreach ($email_solicitacao as $email)
+          {
+            $email_gerente  = $email["emus_email"];
+
+                            Yii::$app->mailer->compose()
+                            ->setFrom(['contratacao@am.senac.br' => 'Contratação - Senac AM'])
+                            ->setTo($email_gerente)
+                            ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
+                            ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
+                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                            ->send();
+                        } 
+
+                Yii::$app->getSession()->setFlash('info', [
+                         'type' => 'info',
+                         'duration' => 5000,
+                         'icon' => 'glyphicon glyphicon-ok',
+                         'message' => 'A solicitação de Contratação foi alterada para ' .$model->situacao->descricao,
+                         'title' => 'Solicitação de Contratação',
+                         'positonY' => 'top',
+                         'positonX' => 'right'
+                     ]);
+
+            }else{ // PEDIDO DE CONTRATAÇÃO
 
            $connection = Yii::$app->db;
            $command = $connection->createCommand(
-           "UPDATE `processos_db_teste`.`contratacao` SET `situacao_id` = '11' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
+           "UPDATE `db_processos`.`contratacao` SET `situacao_id` = '17' WHERE `contratacao`.`id` =" . $_POST['editableKey']);
            $command->execute();    
 
          //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO
@@ -370,7 +575,7 @@ class ContratacaoEmAndamentoController extends Controller
      $session = Yii::$app->session;
      $connection = Yii::$app->db;
      $command = $connection->createCommand(
-     "UPDATE `processos_db_teste`.`contratacao` SET `situacao_id` = '5' WHERE `id` = '".$model->id."'");
+     "UPDATE `db_processos`.`contratacao` SET `situacao_id` = '5' WHERE `id` = '".$model->id."'");
     $command->execute();
 
      $model->situacao_id = 5;
@@ -410,53 +615,20 @@ return $this->redirect(['index']);
 
     }
 
-    public function actionCorrecao($id)
+    public function actionCorrecao($id) 
     {
 
-     $model = $this->findModel($id);
 
-     //envia para correção a contratação que está em recebido pelo GRH
-     $session = Yii::$app->session;
-     $connection = Yii::$app->db;
-     $command = $connection->createCommand(
-     "UPDATE `processos_db_teste`.`contratacao` SET `situacao_id` = '2' WHERE `id` = '".$model->id."'");
-     $command->execute();
+        $model = Contratacao::findOne($id);
+        $session = Yii::$app->session;
+        $session->set('sess_contratacao', $model->id);
 
-     $model->situacao_id = 2;
-     if($model->situacao_id == 2){
-
-         //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO  DE CONTRATAÇÃO QUE FOI ENVIADO PARA CORREÇÃO
-          $sql_email = "SELECT emus_email FROM emailusuario_emus, colaborador_col, responsavelambiente_ream WHERE ream_codunidade = '".$model->cod_unidade_solic."' AND ream_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
-      
-              $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
-              foreach ($email_solicitacao as $email)
-                  {
-                    $email_gerente  = $email["emus_email"];
-
-                                    Yii::$app->mailer->compose()
-                                    ->setFrom(['contratacao@am.senac.br' => 'Contratação - Senac AM'])
-                                    ->setTo($email_gerente)
-                                    ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
-                                    ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
-                                    ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
-                                    ->send();
-                 } 
-        }
-
-         //MENSAGEM DE CONFIRMAÇÃO DA SOLICITAÇÃO DE CONTRATAÇÃO ENVIADA PARA CORRECAO  
-                Yii::$app->getSession()->setFlash('success', [
-                         'type' => 'success',
-                         'duration' => 5000,
-                         'icon' => 'glyphicon glyphicon-ok',
-                         'message' => 'A solicitação de Contratação foi ENVIADA PARA CORREÇÃO',
-                         'title' => 'Solicitação de Contratação',
-                         'positonY' => 'top',
-                         'positonX' => 'right'
-                     ]);
-
-return $this->redirect(['index']);
-
+        return $this->redirect(Yii::$app->request->BaseUrl . '/index.php?r=contratacao-justificativas/index', [
+             'model' => $model,
+         ]);
     }
+
+
 
     public function actionCancelar($id)
     {
@@ -467,7 +639,7 @@ return $this->redirect(['index']);
      $session = Yii::$app->session;
      $connection = Yii::$app->db;
      $command = $connection->createCommand(
-     "UPDATE `processos_db_teste`.`contratacao` SET `situacao_id` = '6' WHERE `id` = '".$model->id."'");
+     "UPDATE `db_processos`.`contratacao` SET `situacao_id` = '6' WHERE `id` = '".$model->id."'");
      $command->execute();
 
      $model->situacao_id = 6;

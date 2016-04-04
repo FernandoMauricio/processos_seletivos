@@ -2,7 +2,8 @@
 
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
-use yii\widgets\ActiveForm;
+// use yii\widgets\ActiveForm;
+use \kartik\form\ActiveForm;
 use app\models\Situacao;
 use app\models\Modalidade;
 use app\models\Status;
@@ -16,11 +17,6 @@ use kartik\datecontrol\DateControl;
 <div class="processo-seletivo-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?php 
-    $options = \yii\helpers\ArrayHelper::map($cargos, 'idcargo', 'descricao');
-    echo $form->field($model, 'permissions')->checkboxList($options, ['unselect'=>NULL]);
-    ?>
 
     <?= $form->field($model, 'numeroEdital')->textInput(['maxlength' => true]) ?>
 
@@ -76,6 +72,11 @@ use kartik\datecontrol\DateControl;
 
     <?= $form->field($model, 'status_id')->radioList(['1' => 'Ativo', '0' => 'Inativo']) ?>
 
+
+    <?php 
+    $options = \yii\helpers\ArrayHelper::map($cargos, 'idcargo', 'descricao');
+    echo $form->field($model, 'permissions')->checkboxList($options, ['unselect'=>NULL]);
+    ?>
 
 
     <div class="form-group">

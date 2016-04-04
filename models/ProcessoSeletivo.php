@@ -62,7 +62,7 @@ class ProcessoSeletivo extends \yii\db\ActiveRecord
             'status_id' => 'Publicação no site',
             'situacao_id' => 'Situação',
             'modalidade_id' => 'Modalidade',
-            'permissions' => 'Cargos',
+            'permissions' => 'Cargos disponíveis para este edital:',
             
         ];
     }
@@ -72,7 +72,9 @@ class ProcessoSeletivo extends \yii\db\ActiveRecord
         return $this->hasMany(CargosProcesso::className(), ['processo_id' => 'id']);
     }
 
+
     public function afterSave($insert, $changedAttributes){
+        //Cargos
         \Yii::$app->db->createCommand()->delete('cargos_processo', 'processo_id = '.(int) $this->id)->execute(); //Delete existing value
         foreach ($this->permissions as $id) { //Write new values
             $tc = new CargosProcesso();

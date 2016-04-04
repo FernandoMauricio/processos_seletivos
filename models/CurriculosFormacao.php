@@ -41,9 +41,9 @@ class CurriculosFormacao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['fundamental_comp', 'medio_comp', 'superior_comp', 'tecnico', 'tecnico_area', 'pos', 'mestrado', 'doutorado', 'estuda_atualmente', 'estuda_turno_mat', 'estuda_turno_vesp', 'estuda_turno_not', 'curriculos_id'], 'integer'],
+            [['fundamental_comp', 'medio_comp', 'superior_comp', 'tecnico', 'pos', 'mestrado', 'doutorado', 'estuda_atualmente', 'estuda_turno_mat', 'estuda_turno_vesp', 'estuda_turno_not', 'curriculos_id'], 'integer'],
             [['curriculos_id'], 'required'],
-            [['superior_area', 'pos_area', 'mestrado_area', 'doutorado_area'], 'string', 'max' => 45],
+            [['tecnico_area','superior_area', 'pos_area', 'mestrado_area', 'doutorado_area'], 'string', 'max' => 45],
             [['estuda_curso'], 'string', 'max' => 100]
         ];
     }

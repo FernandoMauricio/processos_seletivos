@@ -53,7 +53,7 @@ class CurriculosEndereco extends \yii\db\ActiveRecord
             'id' => 'ID',
             'cep' => 'Cep',
             'endereco' => 'Endereco',
-            'numero_end' => 'Numero End',
+            'numero_end' => 'Número',
             'complemento' => 'Complemento',
             'bairro' => 'Bairro',
             'cidade' => 'Cidade',

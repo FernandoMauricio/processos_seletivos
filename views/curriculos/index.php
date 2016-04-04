@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use kartik\grid\GridView;
 use kartik\editable\Editable;
 use yii\widgets\Pjax;
+use kartik\export\ExportMenu;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CurriculosSearch */
@@ -24,22 +25,48 @@ $this->params['breadcrumbs'][] = $this->title;
 $gridColumns = [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'edital',
-            'numeroInscricao',
+            [
+            'attribute'=>'edital',
+            'options' => ['width' => '20px'],
+            ],
+
+            [
+            'attribute'=>'numeroInscricao',
+            'options' => ['width' => '20px'],
+            ],
+
             'cargo',
             'nome',
-            'cpf',
-            'idade',
+
+            [
+            'attribute'=>'cpf',
+            'options' => ['width' => '140px'],
+            ],
+
+            [
+            'attribute'=>'idade',
+            'options' => ['width' => '20px'],
+            ],
+
+            [
+            'attribute'=>'email',
+            'options' => ['width' => '20px'],
+            ],
+
+            [
+            'attribute'=>'telefone',
+            'options' => ['width' => '20px'],
+            ],
+
             [
                 'class'=>'kartik\grid\BooleanColumnCurriculos',
                 'attribute'=>'classificado',
-                'vAlign'=>'middle'
+                'vAlign'=>'middle',
             ], 
  
-
             ['class' => 'yii\grid\ActionColumn',
                         'template' => '{view} {classificar} {desclassificar}',
-                        'contentOptions' => ['style' => 'width: 160px;'],
+                        'contentOptions' => ['style' => 'width: 200px;'],
                         'buttons' => [
 
                         //VISUALIZAR
@@ -80,13 +107,12 @@ $gridColumns = [
         ],
       ],
     ]; 
-?>
 
+?>
 
 <?php Pjax::begin(); ?>
 
     <?php 
-
     echo GridView::widget([
     'dataProvider'=>$dataProvider,
     'filterModel'=>$searchModel,
@@ -95,10 +121,26 @@ $gridColumns = [
     'headerRowOptions'=>['class'=>'kartik-sheet-style'],
     'filterRowOptions'=>['class'=>'kartik-sheet-style'],
     'pjax'=>false, // pjax is set to always true for this demo
+    'export'=>[
+            'showConfirmAlert'=>false,
+            'target'=>GridView::TARGET_BLANK,
+            'autoXlFormat'=>true,
+        ],
+
+ 'exportConfig' => [
+        kartik\export\ExportMenu::EXCEL => true,
+        kartik\export\ExportMenu::PDF => true,
+    ],  
+
+'toolbar' => [
+        '{toggleData}',
+        '{export}',
+    ],
+
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes de Curriculos Cadastrados', 'options'=>['colspan'=>9, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes de Curriculos Cadastrados', 'options'=>['colspan'=>12, 'class'=>'text-center warning']], 
             ],
         ]
     ],
@@ -111,6 +153,9 @@ $gridColumns = [
 ]);
     ?>
     <?php Pjax::end(); ?>
+
+
+
 
 </div>
 

@@ -46,7 +46,6 @@ echo NavX::widget([
 'options' => ['class' => 'navbar-nav navbar-right'],
                 
     'items' => [
-        ['label' => 'Solicitação de Contratação', 'url' => ['/contratacao/index']],
         ['label' => 'Administração', 'items' => [
 
             ['label' => 'Controle - Contração', 'items' => [
@@ -68,9 +67,12 @@ echo NavX::widget([
             ['label' => 'Configuração', 'items' => [
             '<li class="dropdown-header">Cadastros</li>',
                 ['label' => 'Cargos', 'url' => ['/cargos/index']],
+                ['label' => 'Cidades', 'url' => ['/cidades/index']],
                 ['label' => 'Sistemas', 'url' => ['/sistemas/index']],
+
             ]],
         ]],
+        ['label' => 'Solicitação de Contratação', 'url' => ['/contratacao/index']],
 
         ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
 

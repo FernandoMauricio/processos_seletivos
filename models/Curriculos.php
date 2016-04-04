@@ -33,6 +33,7 @@ use yiibr\brvalidator\CeiValidator;
 class Curriculos extends \yii\db\ActiveRecord
 {
     public $idadeModel;
+    public $termoAceite;
     /**
      * @inheritdoc
      */
@@ -47,7 +48,7 @@ class Curriculos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['edital', 'numeroInscricao','cargo', 'nome', 'cpf', 'datanascimento', 'sexo', 'email', 'telefone', 'data'], 'required'],
+            [['edital', 'numeroInscricao','cargo', 'nome', 'cpf', 'datanascimento', 'sexo', 'email', 'telefone', 'data', 'termoAceite'], 'required'],
             ['cpf', 'unique', 'targetAttribute' => ['edital', 'cpf', 'cargo'],'message' => '"{value} Já utilizado para o edital e cargo selecionado"'],
             ['cpf', CpfValidator::className()],
             [['idade'], 'integer'],
@@ -67,7 +68,7 @@ class Curriculos extends \yii\db\ActiveRecord
         return [
             'id' => 'Código',
             'edital' => 'Edital',
-            'numeroInscricao' => 'Número de Inscrição',
+            'numeroInscricao' => 'Inscrição',
             'cargo' => 'Cargo',
             'nome' => 'Nome',
             'cpf' => 'CPF',
@@ -80,8 +81,9 @@ class Curriculos extends \yii\db\ActiveRecord
             'emailAlt' => 'Email Alternativo',
             'telefone' => 'Telefone',
             'telefoneAlt' => 'Telefone Alternativo',
-            'data' => 'Data da Inscrição',
+            'data' => 'Data/Hora da Inscrição',
             'classificado' => 'Situação',
+            'termoAceite' => 'Termo de aceite',
         ];
     }
 

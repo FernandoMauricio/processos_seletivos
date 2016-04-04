@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Sistemas */
+/* @var $model app\models\ContratacaoJustificativas */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Sistemas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Contratacao Justificativas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="sistemas-view">
+<div class="contratacao-justificativas-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Atualizar', ['update', 'idsistema' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Deletar', ['delete', 'idsistema' => $model->id], [
+        <?= Html::a('Atualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Deletar', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -28,9 +28,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'idsistema',
+            'id',
             'descricao',
-            'status',
+            'usuario',
+            'id_contratacao',
         ],
     ]) ?>
 

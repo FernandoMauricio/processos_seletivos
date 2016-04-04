@@ -104,8 +104,11 @@ use wbraganca\dynamicform\DynamicFormWidget;
                              </div>
 
 
+ <?php echo $form->field($model, 'termoAceite[]')->checkboxList([ 1 => 'Li o Edital e concordo em participar do processo de seleção desta instituição de acordo com o que foi estabelecido e proposto pelo mesmo.']); ?>
+
+
                              <!-- SUBMIT PARA ENVIAR O CURRICULO SE TODOS OS CAMPOS COM VALIDAÇÕES TIVEREM SIDO PREENCHIDOS-->
-                            <?= Html::submitButton($model->isNewRecord ? 'Enviar Curriculo' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success btn-lg btn-block' : 'btn btn-primary btn-lg btn-block']) ?>
+                            <?= Html::submitButton($model->isNewRecord ? 'Finalizar Cadastro de Currículo' : 'Finalizar Cadastro de Currículo', ['class' => $model->isNewRecord ? 'btn btn-success btn-lg btn-block' : 'btn btn-primary btn-lg btn-block']) ?>
                         </div>
 
 

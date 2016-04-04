@@ -140,11 +140,11 @@ class ContratacaoController extends Controller
         $session = Yii::$app->session;
             $model->cod_colaborador     = $session['sess_codcolaborador'];
             $model->colaborador         = $session['sess_nomeusuario'];
-            $model->cargo               = $session['cargo'];
+            $model->cargo               = $session['sess_cargo'];
             $model->cod_unidade_solic   = $session['sess_codunidade'];
             $model->unidade             = $session['sess_unidade'];
             $model->data_solicitacao    = date('Y-m-d');
-            $model->hora_solicitacao    = date('h:m:s');
+            $model->hora_solicitacao    = date('H:i:s');
             $model->nomesituacao        = 'Em Elaboração';
             $model->situacao_id         = '1';
 
@@ -153,7 +153,7 @@ class ContratacaoController extends Controller
             //Quando a solicitação é enviada, atualiza a solicitação para RECEBIDO PELO GRH.
             $connection = Yii::$app->db;
             $command = $connection->createCommand(
-            "UPDATE `processos_db_teste`.`contratacao` SET `situacao_id` = '3' WHERE `id` = '".$model->id."' AND `cod_unidade_solic` =" . $session['sess_codunidade']);
+            "UPDATE `db_processos`.`contratacao` SET `situacao_id` = '3' WHERE `id` = '".$model->id."' AND `cod_unidade_solic` =" . $session['sess_codunidade']);
             $command->execute();
 
 
@@ -229,11 +229,11 @@ class ContratacaoController extends Controller
         $session = Yii::$app->session;
             $model->cod_colaborador     = $session['sess_codcolaborador'];
             $model->colaborador         = $session['sess_nomeusuario'];
-            $model->cargo               = $session['cargo'];
+            $model->cargo               = $session['sess_cargo'];
             $model->cod_unidade_solic   = $session['sess_codunidade'];
             $model->unidade             = $session['sess_unidade'];
             $model->data_solicitacao    = date('Y-m-d');
-            $model->hora_solicitacao    = date('h:m:s');
+            $model->hora_solicitacao    = date('H:i:s');
             $model->nomesituacao        = $model->situacao->descricao;
             
 
@@ -242,7 +242,7 @@ class ContratacaoController extends Controller
             //Quando a solicitação é enviada, atualiza a solicitação para RECEBIDO PELO GRH.
             $connection = Yii::$app->db;
             $command = $connection->createCommand(
-            "UPDATE `processos_db_teste`.`contratacao` SET `situacao_id` = '3' WHERE `id` = '".$model->id."' AND `cod_unidade_solic` =" . $session['sess_codunidade']);
+            "UPDATE `db_processos`.`contratacao` SET `situacao_id` = '3' WHERE `id` = '".$model->id."' AND `cod_unidade_solic` =" . $session['sess_codunidade']);
             $command->execute();
 
 
@@ -274,6 +274,23 @@ class ContratacaoController extends Controller
             ]);
         }
     }
+
+
+
+
+    public function actionObservacoes($id) 
+    {
+
+
+        $model = Contratacao::findOne($id);
+        $session = Yii::$app->session;
+        $session->set('sess_contratacao', $model->id);
+
+        return $this->redirect(Yii::$app->request->BaseUrl . '/index.php?r=contratacao-justificativas-pendentes%2Fobservacoes', [
+             'model' => $model,
+         ]);
+    }
+
 
     /**
      * Deletes an existing Contratacao model.

@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use kartik\grid\GridView;
 use kartik\editable\Editable;
 use yii\widgets\Pjax;
+use yii\bootstrap\Modal;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ContratacaoEmAndamentoSearch */
@@ -33,6 +35,7 @@ foreach (Yii::$app->session->getAllFlashes() as $message):; ?>
             ]);
             ?>
         <?php endforeach; ?>
+
 
 <div class="contratacao-index">
 
@@ -74,7 +77,19 @@ $gridColumns = [
                             //CAIXA DE ALTERAÇÕES DA SITUAÇÃO
                             'editableOptions' => [
                                 'header' => 'Situação',
-                                'data'=>[7 => 'Análise de Currículo', 8 => 'Avaliação Escrita', 9 => 'Avaliação Didática', 10 => 'Avaliação Comportamental', 11 => 'Entrevista'],
+                                'data'=>[
+                                            7 => 'Pedido Recebido', 
+                                            8 => 'Aguardando Autorização de Custo', 
+                                            9 => 'Elaboração de Edital', 
+                                            10 => 'Período de Inscrição', 
+                                            11 => 'Análise de Currículo',
+                                            12 => 'Avaliação Escrita', 
+                                            13 => 'Avaliação Comportamental', 
+                                            14 => 'Avaliação Didática', 
+                                            15 => 'Entrevista', 
+                                            16 => 'Homologação',
+                                            17 => 'Pedido de Contratação',
+                                        ],
                                 'inputType' => \kartik\editable\Editable::INPUT_DROPDOWN_LIST,
                             ],          
                         ],
@@ -102,17 +117,14 @@ $gridColumns = [
                                                    ],
                             ]);
                         },
-                        //ENVIAR PARA CORREÇÃO
+
+                        //ENVIAR PARA CORREÇÃO E INSERIR JUSTIIFCATIVA
                         'correcao' => function ($url, $model) {
-                            return Html::a('<span class="glyphicon glyphicon-repeat"></span> Enviar para Correção', $url, [
-                                        'class'=>'btn btn-warning btn-xs',
-                                         'data' => [
-                                                   'confirm' => 'Você tem certeza que deseja ENVIAR PARA CORREÇÃO essa Solicitação de Contratação?',
-                                                   'method' => 'post',
-                                                   ],
-                       
-                            ]);
-                        },
+                            return Html::a('<span class="glyphicon glyphicon-repeat"></span> Para Correção', $url, [
+                                         'class'=>'btn btn-warning btn-xs',
+                                   ]);
+                                },
+
 
                         //CANCELAR
                         'cancelar' => function ($url, $model) {

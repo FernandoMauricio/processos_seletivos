@@ -77,7 +77,7 @@ $this->params['breadcrumbs'][] =  $this->title;
             'telefoneAlt',
             [
                 'attribute' => 'data',
-                'format' => ['date', 'php:d/m/Y'],
+                'format' => ['date', 'php:d/m/Y H:i:s'],
             ],
             [
                 'attribute'=>'classificado', 

@@ -149,14 +149,13 @@ class ProcessoSeletivoController extends Controller
     
         $model = $this->findModel($id);
 
+        //CARGOS
         $cargos = Cargos::find()->where(['status' => 1])->all();
-
         //Retrieve the stored checkboxes
         $model->permissions = \yii\helpers\ArrayHelper::getColumn(
             $model->getCargosProcesso()->asArray()->all(),
             'cargo_id'
         );
-
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 

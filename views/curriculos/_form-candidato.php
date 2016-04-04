@@ -11,7 +11,6 @@ use kartik\datecontrol\DateControl;
 
                     <?= $form->field($model, 'edital')->textInput(['readonly'=>true]) ?>
 
-
                         <?php
                                     $data_cargos = ArrayHelper::map($cargos, 'descricao', 'descricao');
                                     echo $form->field($model, 'cargo')->widget(Select2::classname(), [
@@ -22,6 +21,7 @@ use kartik\datecontrol\DateControl;
                                         ],
                                     ]);
                          ?>
+
 
                     <?= $form->field($model, 'nome')->textInput(['maxlength' => true,'placeholder' => 'Nome completo...']) ?>
 

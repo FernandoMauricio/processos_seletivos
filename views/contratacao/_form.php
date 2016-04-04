@@ -171,7 +171,7 @@ use kartik\builder\Form;
                                 'columns'=>12,
                                 'attributes'=>[
                                     'experiencia'=>['type'=>Form::INPUT_RADIO_LIST, 'items' => ['0'=>'Não','1'=>'Sim'],'options'=>['inline'=>true],'columnOptions'=>['colspan'=>3]],       
-                                    'experiencia_tempo'=>['type'=>Form::INPUT_TEXT,  'options'=>['placeholder'=>'Informe o tempo...'],'columnOptions'=>['colspan'=>4]],
+                                    'experiencia_tempo'=>['type'=>Form::INPUT_TEXT,  'options'=>['placeholder'=>'Informe o tempo de experiência...'],'columnOptions'=>['colspan'=>4]],
                                     'experiencia_atividade'=>['type'=>Form::INPUT_TEXT,'options'=>['placeholder'=>'Informe a atividade...'],'columnOptions'=>['colspan'=>4]],
                                             ],
                             ]);

@@ -190,7 +190,7 @@ session_start();
         $curriculosEndereco->curriculos_id = $incremento; 
         $curriculosFormacao->curriculos_id = $incremento; 
 
-        //localizando somente os cargos que fazem parte daquele edital
+        //localizando somente os cargos que fazem parte do edital selecionado
         $cargos = Cargos::find()
         ->innerJoinWith('cargosProcessos')
         ->where(['processo_id'=>$id])
@@ -312,7 +312,7 @@ session_start();
      //Classifica o candidato
      $connection = Yii::$app->db;
      $command = $connection->createCommand(
-     "UPDATE `processos_db_teste`.`curriculos` SET `classificado` = '1' WHERE `id` = '".$model->id."'");
+     "UPDATE `db_processos`.`curriculos` SET `classificado` = '1' WHERE `id` = '".$model->id."'");
      $command->execute();
      
 return $this->redirect(['index']);
@@ -327,7 +327,7 @@ return $this->redirect(['index']);
      //Desclassifica o candidato
      $connection = Yii::$app->db;
      $command = $connection->createCommand(
-     "UPDATE `processos_db_teste`.`curriculos` SET `classificado` = '0' WHERE `id` = '".$model->id."'");
+     "UPDATE `db_processos`.`curriculos` SET `classificado` = '0' WHERE `id` = '".$model->id."'");
      $command->execute();
      
 return $this->redirect(['index']);
