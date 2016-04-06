@@ -95,7 +95,7 @@ class ContratacaoEmAndamentoSearch extends Contratacao
             'selec_dinamica' => $this->selec_dinamica,
             'selec_prova' => $this->selec_prova,
             'selec_entrevista' => $this->selec_entrevista,
-            'situacao_id' => [4,7,8,9,10,11,12],
+            'situacao_id' => [4,7,8,9,10,11,12,13,14,15,16,17],
         ]);
 
         $query->andFilterWhere(['like', 'situacao_contratacao.descricao', $this->situacao_id])
