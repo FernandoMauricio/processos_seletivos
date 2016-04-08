@@ -6,6 +6,9 @@ use yii\widgets\MaskedInput;
 use yii\helpers\ArrayHelper;
 use app\models\Recrutamento;
 use app\models\Contratacao;
+use app\models\Sistemas;
+use app\models\SistemasContratacao;
+
 
 ?>
 
@@ -109,6 +112,14 @@ $situacao_id           =  $model->situacao_id;
     <td height="45" id="linhas">Nome do servidor a ser substituído:</td>
     <td height="45" colspan="2" id="linhas">&nbsp;<?php echo $nome_substituicao ?></td>
   </tr>
+    <tr>
+    <td height="45" id="linhas">Período Indeterminado::</td>
+    <td height="45" colspan="2" id="linhas">&nbsp;(<?php if($periodo == 1) echo "X"; ?>) Sim (<?php if($periodo == 0) echo "X"; ?>) Não</td>
+  </tr>
+  <tr>
+    <td height="45" id="linhas">Período em meses:</td>
+    <td height="45" colspan="2" id="linhas">&nbsp;<?php echo $tempo_periodo ?></td>
+  </tr>
   <tr>
     <td height="45" id="linhas">Necessidade de aumento do quadro e pessoal:</td>
     <td height="45" colspan="2" id="linhas">&nbsp;(<?php if($aumento_quadro == 1) echo "X"; ?>) Sim (<?php if($aumento_quadro == 0) echo "X"; ?>) Não</td>
@@ -190,7 +201,26 @@ $situacao_id           =  $model->situacao_id;
     <p>&nbsp;(<?php if($selec_prova == 1) echo "X"; ?>) Provas gerais ou técnicas</p>
     <p>&nbsp;(<?php if($selec_entrevista == 1) echo "X"; ?>) Entrevista</p>
     <p>&nbsp;(<?php if($selec_teste == 1) echo "X"; ?>) Testes Psicológicos</p></td>
-      <tr>
+    </tr>
+    <tr>
+    <td height="45" id="linhas">Sistemas para cadastro de colaborador:</td>
+    <td height="45" colspan="2" id="linhas">
+   <?php
+
+  $query_sistemas = "SELECT descricao FROM sistemas, sistemas_contratacao WHERE contratacao_id = '".$id."' AND sistema_id = idsistema";
+  $sistema = Sistemas::findBySql($query_sistemas)->all(); 
+  foreach ($sistema as $sistemas) {
+
+   $Sistemas = $sistemas["descricao"];
+
+    echo $Sistemas.' / ' ;
+  }
+
+    ?>
+
+    </td>
+    </tr>
+    <tr>
         <td height="45" align="center" colspan="3" id="linhas2"><p>Assinado eletrônicamente por:<br />
         <?php echo $colaborador; ?><br />
         <?php echo $cargo; ?><br />

@@ -199,7 +199,7 @@ session_start();
 
         //Caso não tenha puxado nenhum edital, será redirecionado para a página de processo seletivo
         if($model->edital == NULL){
-            return $this->redirect('http://www.am.senac.br/trabsenac_teste.php');
+            return $this->redirect('http://www.am.senac.br/trabsenac.php');
         }
 
         if ($model->load(Yii::$app->request->post()) && $curriculosEndereco->load(Yii::$app->request->post()) && $curriculosFormacao->load(Yii::$app->request->post()) && Model::validateMultiple([$model, $curriculosEndereco, $curriculosFormacao]) ) 

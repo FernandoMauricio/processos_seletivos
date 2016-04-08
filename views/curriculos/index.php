@@ -66,7 +66,7 @@ $gridColumns = [
  
             ['class' => 'yii\grid\ActionColumn',
                         'template' => '{view} {classificar} {desclassificar}',
-                        'contentOptions' => ['style' => 'width: 200px;'],
+                        'contentOptions' => ['style' => 'width: 240px;'],
                         'buttons' => [
 
                         //VISUALIZAR

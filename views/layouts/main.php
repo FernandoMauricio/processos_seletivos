@@ -67,7 +67,6 @@ echo NavX::widget([
             ['label' => 'Configuração', 'items' => [
             '<li class="dropdown-header">Cadastros</li>',
                 ['label' => 'Cargos', 'url' => ['/cargos/index']],
-                ['label' => 'Cidades', 'url' => ['/cidades/index']],
                 ['label' => 'Sistemas', 'url' => ['/sistemas/index']],
 
             ]],

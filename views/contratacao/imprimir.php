@@ -79,7 +79,7 @@ $situacao_id           =  $model->situacao_id;
 
 <table width="100%" border="1" bordercolor="#ddd">
   <tr>
-    <th align="center" width="21%" id="titulo"><div align="center"><img src="../web/css/img/logo.png" width="158" height="90" alt="logo" /></div></th>
+    <th align="center" width="21%" id="titulo"><div align="center"><img src="../web/css/img/logo.png" width="180" height="75" alt="logo" /></div></th> <!-- width="158" height="90" -->
     <th width="79%" height="92" bgcolor="#ddd" id="titulo"><div align="center"> DETALHES DA SOLICITAÇÃO DE CONTRATAÇÃO DE PESSOAL</div></th>
   </tr>
   </table>
@@ -111,6 +111,14 @@ $situacao_id           =  $model->situacao_id;
   <tr>
     <td height="45" id="linhas">Nome do servidor a ser substituído:</td>
     <td height="45" colspan="2" id="linhas">&nbsp;<?php echo $nome_substituicao ?></td>
+  </tr>
+    <tr>
+    <td height="45" id="linhas">Período Indeterminado::</td>
+    <td height="45" colspan="2" id="linhas">&nbsp;(<?php if($periodo == 1) echo "X"; ?>) Sim (<?php if($periodo == 0) echo "X"; ?>) Não</td>
+  </tr>
+  <tr>
+    <td height="45" id="linhas">Período em meses:</td>
+    <td height="45" colspan="2" id="linhas">&nbsp;<?php echo $tempo_periodo ?></td>
   </tr>
   <tr>
     <td height="45" id="linhas">Necessidade de aumento do quadro e pessoal:</td>
