@@ -61,7 +61,7 @@ echo Html::a('<i class="fa glyphicon glyphicon-print"></i> Imprimir', ['imprimir
             'telefoneAlt',
             [
                 'attribute' => 'data',
-                'format'=>['datetime', 'php:d/m/Y H:i:s'],
+                 'value' => date("d/m/Y H:i:s",  strtotime($model->data)),
             ],
             [
                 'attribute'=>'classificado', 
