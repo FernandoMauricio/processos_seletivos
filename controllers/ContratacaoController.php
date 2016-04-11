@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use Yii;
+use app\models\ContratacaoJustificativas;
 use app\models\Sistemas;
 use app\models\SistemasContratacao;
 use app\models\Contratacao;
@@ -309,6 +310,36 @@ class ContratacaoController extends Controller
 
         return $this->redirect(['index']);
         }
+
+         //BUSCA NO BANCO SE EXISTE JUSTIFICATIVAS PARA A SOLICITAÇÃO
+         $checarJustificativa = ContratacaoJustificativas::find()->where(['id_contratacao' => $_GET])->all();
+         foreach ($checarJustificativa as $value) {
+                $justificativa = $value["id_contratacao"];
+
+        //Caso tenha justificativa será excluida.
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "DELETE FROM `contratacao_justificativas` WHERE `contratacao_justificativas`.`id_contratacao`= '".$justificativa."'");
+        $command->execute();
+
+         }
+
+         //BUSCA NO BANCO SE EXISTE SISTEMAS CADASTRADOS PARA A SOLICITAÇÃO
+         $checarSistema = SistemasContratacao::find()->where(['contratacao_id' => $_GET])->all();
+         foreach ($checarSistema as $value) {
+                $sistema = $value["contratacao_id"];
+
+        //Caso tenha justificativa será excluida.
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "DELETE FROM `sistemas_contratacao` WHERE `sistemas_contratacao`.`contratacao_id`= '".$sistema."'");
+        $command->execute();
+
+         }
+
+         //Executa a exclusão da solicitação de transporte
+        $model = $this->findModel($id);
+
         $this->findModel($id)->delete();
 
         //MENSAGEM DE EXCLUSÃO DA SOLICITAÇÃO DE CONTRATAÇÃO CRIADA COM SUCESSO
