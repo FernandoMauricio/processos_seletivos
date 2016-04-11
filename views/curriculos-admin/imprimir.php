@@ -1,11 +1,40 @@
 <?php
 
 use yii\helpers\Html;
-//use yii\widgets\DetailView;
-use kartik\detail\DetailView;
+use yii\widgets\DetailView;
+use app\models\Curriculos;
+use app\models\CurriculosEndereco;
+use app\models\CurriculosFormacao;
+use app\models\CurriculosComplemento;
+use app\models\CurriculosEmpregos;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Curriculos */
+
+$session = Yii::$app->session;
+
+$id = $_GET['id'];
+
+ $sql = 'SELECT * FROM curriculos WHERE id ='.$id.' ';
+        $model = Curriculos::findBySql($sql)->one(); 
+
+        //busca endereço
+        $sql_endereco = 'SELECT * FROM curriculos_endereco WHERE curriculos_id ='.$id.' ';
+        $curriculosEndereco = CurriculosEndereco::findBySql($sql_endereco)->one();  
+
+        //busca formação
+        $sql_formacao = 'SELECT * FROM curriculos_formacao WHERE curriculos_id ='.$id.' ';
+        $curriculosFormacao = CurriculosFormacao::findBySql($sql_formacao)->one();  
+
+        //busca cursos complementares
+        $sql_complemento = 'SELECT * FROM curriculos_complemento WHERE curriculos_id ='.$id.' ';
+        $curriculosComplemento = CurriculosComplemento::findBySql($sql_complemento)->all();  
+
+        //busca empregos anteriores
+        $sql_emprego = 'SELECT * FROM curriculos_empregos WHERE curriculos_id ='.$id.' ';
+        $curriculosEmpregos = CurriculosEmpregos::findBySql($sql_emprego)->all();  
+
+
 
 $this->title = $model->numeroInscricao;
 
@@ -14,138 +43,51 @@ $this->params['breadcrumbs'][] =  $this->title;
 ?>
 <div class="curriculos-view">
 
-
-    <?php
-/**
- * THE VIEW BUTTON
- */
-echo Html::a('<i class="fa glyphicon glyphicon-print"></i> Imprimir', ['imprimir','id' => $model->id], [
-    'class'=>'btn pull-right btn-info btn-lg', 
-    'target'=>'_blank', 
-    'data-toggle'=>'tooltip', 
-    'title'=>' Clique aqui para gerar um arquivo PDF'
-]);
-
-    ?>
-
     <h1>Número de Inscrição: <?= Html::encode($this->title) ?></h1>
 
 <div class="panel panel-primary">
   <div class="panel-heading">
-    <h3 class="panel-title"><span class="text-uppercase"> <?= $model->nome ?></span></h3>
+    <h3 class="panel-title">Informações do Candidato: <span class="text-uppercase"> <?= $model->nome ?></span></h3>
   </div>
   <div class="panel-body">
   <div class="row">
-
-
-<?php
-        $attributes = [
-            [
-            'attribute' => 'id',
-            'displayOnly'=>true,
-            ],
-            [
-            'attribute' => 'edital',
-            'displayOnly'=>true,
-            ],
-            [
-            'attribute' => 'numeroInscricao',
-            'displayOnly'=>true,
-            ],
-            [
-            'attribute' => 'cargo',
-            'displayOnly'=>true,
-            ],
-            [
-            'attribute' => 'nome',
-            'displayOnly'=>true,
-            ],
-            [
-            'attribute' => 'cpf',
-            'displayOnly'=>true,
-            ],
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            'id',
+            'edital',
+            'numeroInscricao',
+            'cargo',
+            'nome',
+            'cpf',
             [
                 'attribute' => 'datanascimento',
                 'format' => ['date', 'php:d/m/Y'],
-                'displayOnly'=>true,
             ],
-            [
-            'attribute' => 'idade',
-            'displayOnly'=>true,
-            ],
+            'idade',
             [
                 'attribute'=>'sexo', 
                 'label'=>'Sexo',
                 'format'=>'raw',
                 'value'=>$model->sexo ? 'Masculino' : 'Feminino',
-                'displayOnly'=>true,
             ],
-            [
-            'attribute' => 'email',
-            'displayOnly'=>true,
-            ],
-            [
-            'attribute' => 'emailAlt',
-            'displayOnly'=>true,
-            ],
-            [
-            'attribute' => 'telefone',
-            'displayOnly'=>true,
-            ],
-            [
-            'attribute' => 'telefoneAlt',
-            'displayOnly'=>true,
-            ],
-
+            'email:email',
+            'emailAlt:email',
+            'telefone',
+            'telefoneAlt',
             [
                 'attribute' => 'data',
-                'format'=>['datetime', 'php:d/m/Y H:i:s'],
-                'displayOnly'=>true,
+                'format' => ['date', 'php:d/m/Y H:i:s'],
             ],
-            // [
-            //     'attribute'=>'classificado', 
-            //     'label'=>'Situação do Candidato',
-            //     'format'=>'raw',
-            //     'value'=>$model->classificado ? '<span class="label label-success">Classificado</span>' : '<span class="label label-danger">Desclassificado</span>',
-            //     'valueColOptions'=>['style'=>'width:100%']
-            // ],
-
-  [
-        'attribute'=>'classificado', 
-        'label'=>'Situação do Candidato',
-        'format'=>'raw',
-        'value'=>$model->classificado ? 
-            '<span class="label label-success">Classificado</span>' : 
-            '<span class="label label-danger">Desclassificado</span>',
-        'type'=>DetailView::INPUT_SWITCH,
-        'widgetOptions'=>[
-            'pluginOptions'=>[
-                'onText'=>'Classificado',
-                'offText'=>'Desclassificado',
-            ]
-        ]
-    ],
-
-        ]
-?>
-
-<?php
-
-echo DetailView::widget([
-    'model'=>$model,
-    'attributes'=>$attributes,
-    'condensed'=>true,
-    'buttons1' => '{update}', 
-    'hover'=>true,
-    'mode'=>DetailView::MODE_VIEW,
-    'panel'=>[
-          'heading'=>'Informações do Candidato: ',
-          'type'=>DetailView::TYPE_INFO,
-      ],
-]);
-
-
-?>
+            [
+                'attribute'=>'classificado', 
+                'label'=>'Situação do Candidato',
+                'format'=>'raw',
+                'value'=>$model->classificado ? '<span class="label label-success">Classificado</span>' : '<span class="label label-danger">Desclassificado</span>',
+                'valueColOptions'=>['style'=>'width:100%']
+            ],
+        ],
+    ]) ?>
 </div>
 
                     <!--    INFORMÇÕES DO CANDIDATO    -->
@@ -230,7 +172,7 @@ foreach ($curriculosComplemento as $value) {
 ?>
 <div class="col-md-5"><strong>Curso Complementar: </strong><?php echo $curso ?></div>
 <div class="col-md-5"><strong>Tem certificado: </strong><?php echo $certificado ? 'Sim' : 'Não' ?></div>
-
+<hr>
 <?php 
 }
 ?>
@@ -270,7 +212,7 @@ foreach ($curriculosEmpregos as $value) {
             <div class="col-md-12"><strong>Término: </strong><?php echo $termino ?></div>
 
             <div class="col-md-12"><strong>Atividades Desenvolvidas: </strong><?php echo $atividades ?></div>
-    <hr>
+        <hr>
     </div>
 
     

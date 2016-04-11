@@ -7,7 +7,7 @@ use Yii;
 use app\models\Model;
 use app\models\Cargos;
 use app\models\CargosProcesso;
-use app\models\Curriculos;
+use app\models\CurriculosAdmin;
 use app\models\CurriculosSearch;
 use app\models\CurriculosEndereco;
 use app\models\CurriculosFormacao;
@@ -25,7 +25,7 @@ use mPDF;
 /**
  * CurriculosController implements the CRUD actions for Curriculos model.
  */
-class CurriculosController extends Controller
+class CurriculosAdminController extends Controller
 {
     public function behaviors()
     {
@@ -351,7 +351,7 @@ return $this->redirect(['index']);
      */
     protected function findModel($id)
     {
-        if (($model = Curriculos::findOne($id)) !== null) {
+        if (($model = CurriculosAdmin::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
