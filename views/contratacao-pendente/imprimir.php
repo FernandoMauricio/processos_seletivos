@@ -190,10 +190,7 @@ $situacao_id           =  $model->situacao_id;
   <tr>
     <td height="45" id="linhas">Principais atividades a serem desenvolvidas pelo servidor a ser contratado:</td>
     <td height="45" colspan="2" id="linhas">&nbsp;<?php echo $principais_atividades; ?></td>
-      <tr>
-    <td height="45" id="linhas">Método de recrutamento indicado:</td>
-    <td height="45" colspan="2" id="linhas">&nbsp;(<?php if($metodo_recrutamento == 1) echo "X"; ?>) Interno (<?php if($metodo_recrutamento == 2) echo "X"; ?>) Externo (<?php if($metodo_recrutamento == 3) echo "X"; ?>) Misto</td>
-  </tr>
+
   <tr>
     <td height="45" id="linhas">Métodos de seleção indicados, considerando um ou mais dos seguintes processos:</td>
     <td height="45" colspan="2" id="linhas"><p>&nbsp;(<?php if($selec_curriculo == 1) echo "X"; ?>) Análise de Currículo</p>
