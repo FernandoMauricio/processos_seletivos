@@ -29,7 +29,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                 <div class="panel-heading">
                                                     <h3 class="panel-title pull-left">Curso Complementar</h3>
                                                     <div class="pull-right">
-                                                        <button type="button" class="add-complemento btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                                                        <button type="button" class="add-complemento btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i> Adicione curso</button>
                                                         <button type="button" class="remove-complemento btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
                                                     </div>
                                                     <div class="clearfix"></div>

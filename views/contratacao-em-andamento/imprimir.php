@@ -149,7 +149,8 @@ $situacao_id           =  $model->situacao_id;
   </tr>
   <tr>
     <td height="45" id="linhas">Ensino Técnico:</td>
-    <td height="45" colspan="2" id="linhas">&nbsp;(<?php if($tecnico_comp == 1) echo "X"; ?>) Completo (<?php if($tecnico_inc == 1) echo "X"; ?>) Incompleto</td>
+    <td width="32%" height="45" id="linhas">&nbsp;(<?php if($tecnico_comp == 1) echo "X"; ?>) Completo (<?php if($tecnico_inc == 1) echo "X"; ?>) Incompleto</td>
+    <td width="47%" id="linhas">&nbsp;Área:&nbsp;<?php echo $tecnico_area  ?></td>
   </tr>
   <tr>
     <td height="45" id="linhas">Ensino Superior:</td>

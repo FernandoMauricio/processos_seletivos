@@ -17,7 +17,7 @@
                                 </div>
 
                                 <div class="col-sm-6">
-                                <?= $form->field($curriculosEndereco, 'endereco')->textInput(['readonly'=>true]) ?>
+                                <?= $form->field($curriculosEndereco, 'endereco')->textInput(['placeholder'=>'Endereço']) ?>
                                 </div>
 
                                 <div class="col-sm-2">
@@ -25,7 +25,7 @@
                                 </div>
 
                                 <div class="col-sm-4">
-                                <?= $form->field($curriculosEndereco, 'bairro')->textInput(['readonly'=>true]) ?>
+                                <?= $form->field($curriculosEndereco, 'bairro')->textInput(['placeholder'=>'Bairro']) ?>
                                 </div>
 
                             </div>

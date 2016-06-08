@@ -34,7 +34,7 @@ use yii\widgets\MaskedInput;
                                                     <div class="panel-heading">
                                                         <h3 class="panel-title pull-left">Emprego Anterior</h3>
                                                         <div class="pull-right">
-                                                            <button type="button" title="Adicione mais empregos anteriores!" class="add-emprego btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i>Adicione emprego</button>
+                                                            <button type="button" title="Adicione mais empregos anteriores!" class="add-emprego btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i> Adicione emprego</button>
                                                             <button type="button" class="remove-emprego btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
                                                         </div>
                                                         <div class="clearfix"></div>

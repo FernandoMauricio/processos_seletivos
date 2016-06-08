@@ -189,12 +189,11 @@ echo DetailView::widget([
           <div class="col-md-12"><strong>Ensino Médio: </strong><?php echo $curriculosFormacao->medio_comp ? 'Completo' : 'Incompleto' ?></div>
 
           <div class="col-md-3"><strong>Ensino Técnico: </strong><?php echo $curriculosFormacao->tecnico ? 'Completo' : 'Incompleto' ?></div>
-
           <div class="col-md-9"><strong>Curso Técnico: </strong><?php echo $curriculosFormacao->tecnico_area ?></div>
 
           <div class="col-md-3"><strong>Ensino Superior: </strong><?php echo $curriculosFormacao->superior_comp ? 'Completo' : 'Incompleto' ?></div>
+          <div class="col-md-9"><strong>Curso Superior: </strong><?php echo $curriculosFormacao->superior_area ?></div>
 
-          <div class="col-md-9"><strong>Curso Graduação: </strong><?php echo $curriculosFormacao->superior_area ?></div>
 
           <div class="col-md-3"><strong>Pós Graduação: </strong><?php echo $curriculosFormacao->pos ? 'Completo' : 'Incompleto' ?></div>
           <div class="col-md-9"><strong>Curso Pós-Graduação: </strong><?php echo $curriculosFormacao->pos_area ?></div>
