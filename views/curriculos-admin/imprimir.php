@@ -86,7 +86,7 @@ $this->params['breadcrumbs'][] =  $this->title;
      </tr> 
 
     <tr>
-        <td colspan="12"><strong>Data/Hora da Inscrição: </strong> <?php echo $model->data; ?></td>
+        <td colspan="12"><strong>Data/Hora da Inscrição: </strong> <?php echo date('d/m/Y H:i:s', strtotime($model->data)); ?></td>
      </tr> 
 
     </tbody>
