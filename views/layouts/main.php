@@ -108,6 +108,7 @@ NavBar::end();
     <footer class="footer">
         <div class="container">
             <p class="pull-left">&copy; Gerência de Informática Corporativa <?= date('Y') ?></p>
+            <p class="pull-right">Versão 1.1</p>
         </div>
     </footer>
 
