@@ -61,6 +61,17 @@ echo Html::a('<i class="fa glyphicon glyphicon-print"></i> Imprimir', ['imprimir
             'displayOnly'=>true,
             ],
             [
+            'attribute' => 'deficiencia',
+            'label'=>'Pessoa com Deficiência?',
+            'format'=>'raw',
+            'value'=>$model->deficiencia_cid ? 'Sim' : 'Não',
+            'displayOnly'=>true,
+            ],
+            [
+            'attribute'=>'deficiencia_cid', 
+            'displayOnly'=>true,
+            ],
+            [
             'attribute' => 'cpf',
             'displayOnly'=>true,
             ],

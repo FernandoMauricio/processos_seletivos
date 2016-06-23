@@ -68,6 +68,11 @@ $this->params['breadcrumbs'][] =  $this->title;
         <td colspan="12"><strong>Nome: </strong> <?php echo $model->nome; ?></td>
      </tr> 
 
+    <tr>
+        <td colspan="2"><strong>Pessoa com Deficiência? </strong> <?php echo $model->deficiencia ? '<span class="label label-success">Sim</span>' : '<span class="label label-danger">Não</span>' ?></td>
+        <td colspan="6"><strong>Se sim, especificar CID: </strong> <?php echo $model->deficiencia_cid; ?></td>
+     </tr> 
+
      <tr>
         <td colspan="2"><strong>Cargo: </strong> <?php echo $model->cargo; ?></td>
         <td colspan="2"><strong>CPF: </strong> <?php echo $model->cpf; ?></td>

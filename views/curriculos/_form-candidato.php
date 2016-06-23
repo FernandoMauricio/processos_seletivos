@@ -11,19 +11,29 @@ use kartik\datecontrol\DateControl;
 
                     <?= $form->field($model, 'edital')->textInput(['readonly'=>true]) ?>
 
-                        <?php
-                                    $data_cargos = ArrayHelper::map($cargos, 'descricao', 'descricao');
-                                    echo $form->field($model, 'cargo')->widget(Select2::classname(), [
-                                        'data' => array_merge(["" => ""], $data_cargos),
-                                        'options' => ['placeholder' => 'Selecione o cargo...'],
-                                        'pluginOptions' => [
-                                            'allowClear' => true
-                                        ],
-                                    ]);
-                         ?>
+                    <?php
+                            echo Form::widget([
+                                'model'=>$model,
+                                'form'=>$form,
+                                'columns'=>5,
+                                'attributes'=>[  
+                                    'nome'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'Nome completo...'],'columnOptions'=>['colspan'=>3]],
+                                    'deficiencia'=>['type'=>Form::INPUT_RADIO_LIST,'items'=>[true=>'Sim', false=>'Não'],'options'=>['inline'=>true]],
+                                    'deficiencia_cid'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'Informe o CID...'], 'columnOptions'=>['colspan'=>2]],     
+                                            ],
+                            ]);
+                    ?>
 
-
-                    <?= $form->field($model, 'nome')->textInput(['maxlength' => true,'placeholder' => 'Nome completo...']) ?>
+                    <?php
+                                $data_cargos = ArrayHelper::map($cargos, 'descricao', 'descricao');
+                                echo $form->field($model, 'cargo')->widget(Select2::classname(), [
+                                    'data' => array_merge(["" => ""], $data_cargos),
+                                    'options' => ['placeholder' => 'Selecione o cargo...'],
+                                    'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                                ]);
+                     ?>
 
                     <?php
 
@@ -40,12 +50,14 @@ use kartik\datecontrol\DateControl;
 
                     ?>
 
+
+
                     <?php
                             echo Form::widget([
                                 'model'=>$model,
                                 'form'=>$form,
                                 'columns'=>4,
-                                'attributes'=>[       // 2 column layout
+                                'attributes'=>[
                                     'cpf'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'Informe seu CPF...']],
                                     'identidade'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'Informe seu RG...']],
                                     'orgao_exped'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'Informe o orgão expedidor...']],
@@ -59,7 +71,7 @@ use kartik\datecontrol\DateControl;
                                 'model'=>$model,
                                 'form'=>$form,
                                 'columns'=>4,
-                                'attributes'=>[       // 2 column layout
+                                'attributes'=>[
                                     'email'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'Informe seu e-mail...']],
                                     'emailAlt'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'Informe seu e-mail alternativo...']],
                                     'telefone'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'Informe seu telefone...']],

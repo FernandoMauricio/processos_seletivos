@@ -51,12 +51,13 @@ class Curriculos extends \yii\db\ActiveRecord
             [['edital', 'numeroInscricao','cargo', 'nome', 'cpf', 'datanascimento', 'sexo', 'email', 'telefone', 'data', 'termoAceite'], 'required'],
             ['cpf', 'unique', 'targetAttribute' => ['edital', 'cpf', 'cargo'],'message' => '"{value} Já utilizado para o edital e cargo selecionado"'],
             ['cpf', CpfValidator::className()],
-            [['idade'], 'integer'],
+            [['idade', 'deficiencia'], 'integer'],
             [['datanascimento', 'data' , 'idadeModel', 'classificado'], 'safe'],
             [['edital', 'numeroInscricao', 'identidade', 'orgao_exped'], 'string', 'max' => 45],
             [['nome', 'cargo', 'email', 'emailAlt'], 'string', 'max' => 100],
             [['email', 'emailAlt'], 'email'],
-            [['cpf', 'sexo', 'telefone', 'telefoneAlt'], 'string', 'max' => 20]
+            [['cpf', 'sexo', 'telefone', 'telefoneAlt'], 'string', 'max' => 20],
+            [['deficiencia_cid'], 'string', 'max' => 10]
         ];
     }
 
@@ -84,6 +85,8 @@ class Curriculos extends \yii\db\ActiveRecord
             'data' => 'Data/Hora da Inscrição',
             'classificado' => 'Situação',
             'termoAceite' => 'Termo de aceite',
+            'deficiencia' => 'Pessoa com Deficiência?',
+            'deficiencia_cid' => 'Se sim, especificar CID',
         ];
     }
 
