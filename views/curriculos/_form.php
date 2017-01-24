@@ -104,7 +104,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                              </div>
 
 
- <?php echo $form->field($model, 'termoAceite[]')->checkboxList([ 1 => 'Li o Edital e concordo em participar do processo de seleção desta instituição de acordo com o que foi estabelecido e proposto pelo mesmo.']); ?>
+ <?php echo $form->field($model, 'termoAceite[]')->checkboxList([ 1 => 'Li o Documento de Abertura e concordo em participar do processo de seleção desta instituição de acordo com o que foi estabelecido e proposto pelo mesmo.']); ?>
 
 
                              <!-- SUBMIT PARA ENVIAR O CURRICULO SE TODOS OS CAMPOS COM VALIDAÇÕES TIVEREM SIDO PREENCHIDOS-->

@@ -37,10 +37,10 @@
                                 </div>
 
                                 <div class="col-sm-4">
-                                <?= $form->field($curriculosEndereco, 'cidade')->textInput(['readonly'=>true]) ?>
+                                <?= $form->field($curriculosEndereco, 'cidade')->textInput(['placeholder'=>'Cidade']) ?>
                                 </div>
 
                                 <div class="col-sm-2">
-                                <?= $form->field($curriculosEndereco, 'estado')->textInput(['readonly'=>true]) ?>
+                                <?= $form->field($curriculosEndereco, 'estado')->textInput(['placeholder'=>'Estado']) ?>
                                 </div>
                             </div>

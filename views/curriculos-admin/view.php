@@ -61,6 +61,13 @@ echo Html::a('<i class="fa glyphicon glyphicon-print"></i> Imprimir', ['imprimir
             'displayOnly'=>true,
             ],
             [
+                'attribute'=>'curriculo_lattes', 
+                'label'=>'Link Lattes',
+                'format'=>'raw',
+                'value'=>Html::a($model->curriculo_lattes, $model->curriculo_lattes, ['class'=>'kv-author-link']),
+                'displayOnly'=>true,
+            ],
+            [
             'attribute' => 'deficiencia',
             'label'=>'Pessoa com Deficiência?',
             'format'=>'raw',

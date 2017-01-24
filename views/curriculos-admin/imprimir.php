@@ -69,6 +69,10 @@ $this->params['breadcrumbs'][] =  $this->title;
      </tr> 
 
     <tr>
+        <td colspan="12"><strong>Link Lattes: </strong> <?php echo $model->curriculo_lattes; ?></td>
+     </tr> 
+
+    <tr>
         <td colspan="2"><strong>Pessoa com Deficiência? </strong> <?php echo $model->deficiencia ? '<span class="label label-success">Sim</span>' : '<span class="label label-danger">Não</span>' ?></td>
         <td colspan="6"><strong>Se sim, especificar CID: </strong> <?php echo $model->deficiencia_cid; ?></td>
      </tr> 

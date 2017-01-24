@@ -49,12 +49,13 @@ class Curriculos extends \yii\db\ActiveRecord
     {
         return [
             [['edital', 'numeroInscricao','cargo', 'nome', 'cpf', 'datanascimento', 'sexo', 'email', 'telefone', 'data', 'termoAceite'], 'required'],
-            ['cpf', 'unique', 'targetAttribute' => ['edital', 'cpf', 'cargo'],'message' => '"{value} Já utilizado para o edital e cargo selecionado"'],
+            //['cpf', 'unique', 'targetAttribute' => ['edital', 'cpf', 'cargo'],'message' => '"{value} Já utilizado para o edital e cargo selecionado"'],
             ['cpf', CpfValidator::className()],
             [['idade', 'deficiencia'], 'integer'],
             [['datanascimento', 'data' , 'idadeModel', 'classificado'], 'safe'],
             [['edital', 'numeroInscricao', 'identidade', 'orgao_exped'], 'string', 'max' => 45],
             [['nome', 'cargo', 'email', 'emailAlt'], 'string', 'max' => 100],
+            [['curriculo_lattes'], 'string', 'max' => 255],
             [['email', 'emailAlt'], 'email'],
             [['cpf', 'sexo', 'telefone', 'telefoneAlt'], 'string', 'max' => 20],
             [['deficiencia_cid'], 'string', 'max' => 10]
@@ -87,6 +88,7 @@ class Curriculos extends \yii\db\ActiveRecord
             'termoAceite' => 'Termo de aceite',
             'deficiencia' => 'Pessoa com Deficiência?',
             'deficiencia_cid' => 'Se sim, especificar CID',
+            'curriculo_lattes' => 'Informe o link do seu Curríuclo Lattes',
         ];
     }
 

@@ -35,6 +35,8 @@ use kartik\datecontrol\DateControl;
                                 ]);
                      ?>
 
+                     <?php //echo $form->field($model, 'curriculo_lattes')->textInput(['maxlength' => true]) ?>
+
                     <?php
 
                       echo  $form->field($model, "datanascimento")->widget(DateControl::classname(), [
