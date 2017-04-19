@@ -108,7 +108,12 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
 
                              <!-- SUBMIT PARA ENVIAR O CURRICULO SE TODOS OS CAMPOS COM VALIDAÇÕES TIVEREM SIDO PREENCHIDOS-->
-                            <?= Html::submitButton($model->isNewRecord ? 'Finalizar Cadastro de Currículo' : 'Finalizar Cadastro de Currículo', ['class' => $model->isNewRecord ? 'btn btn-success btn-lg btn-block' : 'btn btn-primary btn-lg btn-block']) ?>
+                            <?= Html::submitButton('Finalizar Cadastro de Currículo', ['class' => 'btn btn-success btn-lg btn-block',
+                            'data' => [
+                            'confirm' => 'Você tem certeza que deseja enviar seu currículo?',
+                            'method' => 'post'
+                            ],
+                        ]) ?>
                         </div>
 
 

@@ -45,6 +45,8 @@ class CurriculosAdminController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = 'main-admin-curriculos';
+
         $session = Yii::$app->session;
         if (!isset($session['sess_codusuario']) && !isset($session['sess_codcolaborador']) && !isset($session['sess_codunidade']) && !isset($session['sess_nomeusuario']) && !isset($session['sess_coddepartamento']) && !isset($session['sess_codcargo']) && !isset($session['sess_cargo']) && !isset($session['sess_setor']) && !isset($session['sess_unidade']) && !isset($session['sess_responsavelsetor'])) 
         {
@@ -60,6 +62,8 @@ class CurriculosAdminController extends Controller
     }else
         $searchModel = new CurriculosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $session['query'] = $_SERVER['QUERY_STRING'];
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -315,7 +319,11 @@ session_start();
         public function actionClassificar($id)
     {
 
+     $session = Yii::$app->session;
      $model = $this->findModel($id);
+
+        $searchModel = new CurriculosSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
      //Classifica o candidato
      $connection = Yii::$app->db;
@@ -323,13 +331,16 @@ session_start();
      "UPDATE `db_processos`.`curriculos` SET `classificado` = '1' WHERE `id` = '".$model->id."'");
      $command->execute();
      
-return $this->redirect(['index']);
+      Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong>  O Candidato <strong> '.$model->nome.' </strong> foi Aprovado!</strong>');
+
+return $this->redirect(Yii::$app->request->baseUrl. '/index.php?' . $session['query']);
 
     }
 
         public function actionDesclassificar($id)
     {
 
+     $session = Yii::$app->session;
      $model = $this->findModel($id);
 
      //Desclassifica o candidato
@@ -337,8 +348,10 @@ return $this->redirect(['index']);
      $command = $connection->createCommand(
      "UPDATE `db_processos`.`curriculos` SET `classificado` = '0' WHERE `id` = '".$model->id."'");
      $command->execute();
+
+     Yii::$app->session->setFlash('danger', '<strong>SUCESSO!</strong>  O Candidato <strong> '.$model->nome.' </strong> foi Reprovado!</strong>');
      
-return $this->redirect(['index']);
+return $this->redirect(Yii::$app->request->baseUrl. '/index.php?' . $session['query']);
 
     }
 

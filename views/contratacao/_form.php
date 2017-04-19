@@ -224,9 +224,6 @@ use kartik\builder\Form;
                             ]);
                             ?>
 
-
-
-
     <?= $form->field($model, 'nomesituacao')->textInput(['readonly'=>true]) ?>
 
     <?= $form->field($model, 'situacao_id')->hiddenInput()->label(false) ?>

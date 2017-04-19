@@ -10,15 +10,23 @@ use kartik\export\ExportMenu;
 /* @var $searchModel app\models\CurriculosSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
+
 $this->title = 'Listagem de Candidatos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="curriculos-index">
 
+<?php
+
+//Pega as mensagens
+foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
+}
+
+
+?>
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-
 
 <?php
 
@@ -35,8 +43,15 @@ $gridColumns = [
             'options' => ['width' => '20px'],
             ],
 
-            'cargo',
-            'nome',
+            [
+            'attribute'=>'cargo',
+            'options' => ['width' => '300px'],
+            ],
+
+            [
+            'attribute'=>'nome',
+            'options' => ['width' => '300px'],
+            ],
 
             [
             'attribute'=>'cpf',
@@ -45,17 +60,17 @@ $gridColumns = [
 
             [
             'attribute'=>'idade',
-            'options' => ['width' => '20px'],
+            'options' => ['width' => '50px'],
             ],
 
             [
             'attribute'=>'email',
-            'options' => ['width' => '20px'],
+            'options' => ['width' => '300px'],
             ],
 
             [
             'attribute'=>'telefone',
-            'options' => ['width' => '20px'],
+            'options' => ['width' => '300px'],
             ],
 
             [

@@ -49,7 +49,7 @@ class Curriculos extends \yii\db\ActiveRecord
     {
         return [
             [['edital', 'numeroInscricao','cargo', 'nome', 'cpf', 'datanascimento', 'sexo', 'email', 'telefone', 'data', 'termoAceite'], 'required'],
-            //['cpf', 'unique', 'targetAttribute' => ['edital', 'cpf', 'cargo'],'message' => '"{value} Já utilizado para o edital e cargo selecionado"'],
+            ['cpf', 'unique', 'targetAttribute' => ['edital', 'cpf', 'cargo'],'message' => '"{value} Já utilizado para o edital e cargo selecionado"'],
             ['cpf', CpfValidator::className()],
             [['idade', 'deficiencia'], 'integer'],
             [['datanascimento', 'data' , 'idadeModel', 'classificado'], 'safe'],
@@ -69,7 +69,7 @@ class Curriculos extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'Código',
-            'edital' => 'Edital',
+            'edital' => 'Documento de Abertura',
             'numeroInscricao' => 'Inscrição',
             'cargo' => 'Cargo',
             'nome' => 'Nome',
