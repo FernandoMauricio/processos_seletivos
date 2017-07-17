@@ -34,6 +34,7 @@ class CurriculosAdmin extends \yii\db\ActiveRecord
 {
     public $idadeModel;
     public $termoAceite;
+    public $sexoLabel;
     /**
      * @inheritdoc
      */
@@ -52,7 +53,7 @@ class CurriculosAdmin extends \yii\db\ActiveRecord
             // ['cpf', 'unique', 'targetAttribute' => ['edital', 'cpf', 'cargo'],'message' => '"{value} Já utilizado para o edital e cargo selecionado"'],
             // ['cpf', CpfValidator::className()],
             [['idade', 'deficiencia'], 'integer'],
-            [['datanascimento', 'data' , 'idadeModel', 'classificado'], 'safe'],
+            [['datanascimento', 'data' , 'idadeModel', 'classificado', 'sexoLabel'], 'safe'],
             [['edital', 'numeroInscricao', 'identidade', 'orgao_exped'], 'string', 'max' => 45],
             [['nome', 'cargo', 'email', 'emailAlt'], 'string', 'max' => 100],
             [['email', 'emailAlt'], 'email'],
@@ -78,6 +79,7 @@ class CurriculosAdmin extends \yii\db\ActiveRecord
             'datanascimento' => 'Data de Nascimento',
             'idade' => 'Idade',
             'sexo' => 'Sexo',
+            'sexoLabel' => 'Sexo',
             'email' => 'Email',
             'emailAlt' => 'Email Alternativo',
             'telefone' => 'Telefone',

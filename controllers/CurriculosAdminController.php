@@ -62,6 +62,7 @@ class CurriculosAdminController extends Controller
     }else
         $searchModel = new CurriculosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->sort = ['defaultOrder' => ['id'=>SORT_DESC]];
 
         $session['query'] = $_SERVER['QUERY_STRING'];
 

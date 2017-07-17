@@ -41,8 +41,7 @@ class CurriculosSearch extends Curriculos
      */
     public function search($params)
     {
-        $query = Curriculos::find()
-        ->orderBy(['id' => SORT_DESC]);
+        $query = Curriculos::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
