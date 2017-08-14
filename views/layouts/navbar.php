@@ -41,6 +41,7 @@ echo NavX::widget([
             '<li class="dropdown-header">Administração do site</li>',
                 ['label' => 'Processos Seletivos', 'url' => ['/processo-seletivo/index']],
                 ['label' => 'Listagem de Candidatos', 'url' => ['/curriculos-admin/index']],
+                ['label' => 'Banco de Curriculos', 'url' => ['/curriculos-admin/banco-de-curriculos']],
             ]],
 
 

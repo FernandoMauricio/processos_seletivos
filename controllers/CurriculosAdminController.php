@@ -6,6 +6,7 @@ use Yii;
 
 use app\models\Model;
 use app\models\Cargos;
+use app\models\ProcessoSeletivo;
 use app\models\CargosProcesso;
 use app\models\CurriculosAdmin;
 use app\models\CurriculosSearch;
@@ -13,6 +14,7 @@ use app\models\CurriculosEndereco;
 use app\models\CurriculosFormacao;
 use app\models\CurriculosComplemento;
 use app\models\CurriculosEmpregos;
+use app\models\BancoDeCurriculosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -67,6 +69,36 @@ class CurriculosAdminController extends Controller
         $session['query'] = $_SERVER['QUERY_STRING'];
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionBancoDeCurriculos()
+    {
+        $this->layout = 'main-admin-curriculos';
+
+        $session = Yii::$app->session;
+        if (!isset($session['sess_codusuario']) && !isset($session['sess_codcolaborador']) && !isset($session['sess_codunidade']) && !isset($session['sess_nomeusuario']) && !isset($session['sess_coddepartamento']) && !isset($session['sess_codcargo']) && !isset($session['sess_cargo']) && !isset($session['sess_setor']) && !isset($session['sess_unidade']) && !isset($session['sess_responsavelsetor'])) 
+        {
+           return $this->redirect('http://portalsenac.am.senac.br');
+        }
+
+    //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
+    if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
+
+        $this->layout = 'main-acesso-negado';
+        return $this->render('/site/acesso_negado');
+
+    }else
+        $searchModel = new BancoDeCurriculosSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->sort = ['defaultOrder' => ['id'=>SORT_DESC]];
+
+
+        $session['query'] = $_SERVER['QUERY_STRING'];
+
+        return $this->render('banco-de-curriculos', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -317,14 +349,72 @@ session_start();
     }
     
 
-        public function actionClassificar($id)
+    public function actionAguardandoEnvioGerenciaImediata($id)
     {
 
      $session = Yii::$app->session;
      $model = $this->findModel($id);
 
-        $searchModel = new CurriculosSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+     $connection = Yii::$app->db;
+     $command = $connection->createCommand(
+     "UPDATE `db_processos`.`curriculos` SET `classificado` = '3' WHERE `id` = '".$model->id."'");
+     $command->execute();
+
+     $countCurriculos = CurriculosAdmin::find()->where(['classificado' => 3, 'edital' => $model->edital])->count();
+
+     //Informação do Curriculo aguardando envio para gêrencia
+     Yii::$app->session->setFlash('success', 'SUCESSO! Curriculo de <strong>' .$model->nome.'</strong> está aguardando envio para Gerência Imediata!</strong>');
+
+     //Informação do quantitativo de curriculos já aprovados para envio para gerencia
+     Yii::$app->session->setFlash('info', 'SUCESSO! <strong>' .$countCurriculos.' Curriculos</strong> Pré-Selecionados do edital <strong>'.$model->edital.'</strong> aguardando envio para Gerência Imediata!</strong>');
+
+    return $this->redirect(Yii::$app->request->baseUrl. '/index.php?' . $session['query']);
+
+    }   
+
+
+    public function actionPreSelecionados()
+    {
+        $model = new CurriculosAdmin();
+        $processo = ProcessoSeletivo::find()->where(['situacao_id' => 2])->all();
+
+        if ($model->load(Yii::$app->request->post())) {
+
+        //Realiza a Contagem dos Curriculos pré-selecionados pelo GGP
+        $countCurriculos = 0;
+        $countCurriculos = CurriculosAdmin::find()->where(['classificado' => 3, 'edital' => $model->edital])->count();
+
+         //Altera a situação de todos curriculos que foram pré-selecionado pelo GGP
+        if($countCurriculos != 0){
+                Yii::$app->db->createCommand()
+                    ->update('curriculos', [
+                             'classificado' => 4, //Enviado para Gerência Imediata
+                             ], [//------WHERE
+                             'classificado' => 3,  //Aguardando envio para Gerência Imediata
+                             'edital' => $model->edital,
+                             ]) 
+                    ->execute();
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Total de '.$countCurriculos.' Curriculos</strong> enviados para Análise da Gerência Imediata!</strong>');
+        }else{
+            Yii::$app->session->setFlash('warning', '<strong>AVISO! </strong> Não existem Curriculos do edital <strong>'.$model->edital.'</strong> a serem enviados para Análise da Gerência Imediata!</strong>');
+        }
+
+        return $this->redirect(['/curriculos-admin/index']);
+
+        }else{
+            return $this->renderAjax('pre-selecionados', [
+                'model' => $model,
+                'processo'=> $processo,
+            ]);
+        }
+    }
+
+    public function actionClassificar($id)
+    {
+
+     $session = Yii::$app->session;
+     $model = $this->findModel($id);
 
      //Classifica o candidato
      $connection = Yii::$app->db;
@@ -334,11 +424,11 @@ session_start();
      
       Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong>  O Candidato <strong> '.$model->nome.' </strong> foi Aprovado!</strong>');
 
-return $this->redirect(Yii::$app->request->baseUrl. '/index.php?' . $session['query']);
+    return $this->redirect(Yii::$app->request->baseUrl. '/index.php?' . $session['query']);
 
     }
 
-        public function actionDesclassificar($id)
+    public function actionDesclassificar($id)
     {
 
      $session = Yii::$app->session;
@@ -352,7 +442,7 @@ return $this->redirect(Yii::$app->request->baseUrl. '/index.php?' . $session['qu
 
      Yii::$app->session->setFlash('danger', '<strong>SUCESSO!</strong>  O Candidato <strong> '.$model->nome.' </strong> foi Reprovado!</strong>');
      
-return $this->redirect(Yii::$app->request->baseUrl. '/index.php?' . $session['query']);
+    return $this->redirect(Yii::$app->request->baseUrl. '/index.php?' . $session['query']);
 
     }
 

@@ -59,6 +59,7 @@ class CurriculosAdmin extends \yii\db\ActiveRecord
             [['email', 'emailAlt'], 'email'],
             [['cpf', 'sexo', 'telefone', 'telefoneAlt'], 'string', 'max' => 20],
             [['deficiencia_cid'], 'string', 'max' => 10],
+            [['classificado'], 'exist', 'skipOnError' => true, 'targetClass' => SituacaoCandidato::className(), 'targetAttribute' => ['classificado' => 'sitcan_id']],
         ];
     }
 
@@ -97,6 +98,14 @@ class CurriculosAdmin extends \yii\db\ActiveRecord
         return $this->hasMany(CargosProcesso::className(), ['processo_id' => 'id']);
     }
 
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSituacaoCandidato()
+    {
+        return $this->hasOne(SituacaoCandidato::className(), ['sitcan_id' => 'classificado']);
+    }
 
     /**
      * @return \yii\db\ActiveQuery

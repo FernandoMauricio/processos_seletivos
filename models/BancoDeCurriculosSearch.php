@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Curriculos;
+use app\models\BancoDeCurriculos;
 
 /**
  * CurriculosSearch represents the model behind the search form about `app\models\Curriculos`.
  */
-class CurriculosSearch extends Curriculos
+class BancoDeCurriculosSearch extends Curriculos
 {
     /**
      * @inheritdoc
@@ -47,8 +47,6 @@ class CurriculosSearch extends Curriculos
             'query' => $query,
         ]);
 
-        $query->joinWith('processoSeletivo');
-
         $this->load($params);
 
         if (!$this->validate()) {
@@ -63,7 +61,6 @@ class CurriculosSearch extends Curriculos
             'idade' => $this->idade,
             'data' => $this->data,
             'classificado' => $this->classificado,
-            'processo.situacao_id' => [1,2] , //Processo Seletivos que estão "EM PROCESSO"
         ]);
 
         $query->andFilterWhere(['like', 'edital', $this->edital])

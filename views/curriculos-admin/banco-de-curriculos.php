@@ -14,10 +14,9 @@ use yii\helpers\Url;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 
-$this->title = 'Listagem de Candidatos';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Banco de Curriculos';
 ?>
-<div class="curriculos-index">
+<div class="curriculos-admin-index">
 
 <?php
 
@@ -29,27 +28,13 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
 ?>
     <h1><?= Html::encode($this->title) ?></h1>
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::button('Enviar Pré-Selecionados', ['value'=> Url::to('index.php?r=curriculos-admin/pre-selecionados'), 'class' => 'btn btn-success', 'id'=>'modalButton']) ?>
-    </p>
-
-    <?php
-        Modal::begin([
-            'header' => '<h4>Defina o edital a ser enviado os Curriculos Pré-Selecionados:</h4>',
-            'id' => 'modal',
-            'size' => 'modal-lg',
-            ]);
-
-        echo "<div id='modalContent'></div>";
-
-        Modal::end();
-    ?>
 
 <?php
 
 $gridColumns = [
+
             [
                 'class'=>'kartik\grid\ExpandRowColumn',
                 'width'=>'50px',
@@ -122,60 +107,12 @@ $gridColumns = [
                                                 }
                                             },
             ],
-
-            // [
-            //     'class'=>'kartik\grid\BooleanColumnCurriculos',
-            //     'attribute'=>'classificado',
-            //     'vAlign'=>'middle',
-            // ], 
  
             [
                 'attribute' => 'classificado',
                 'value' => 'situacaoCandidato.sitcan_descricao'
             ],
 
-            ['class' => 'yii\grid\ActionColumn',
-                        'template' => '{view} {aguardando-envio-gerencia-imediata} {desclassificar}',
-                        'contentOptions' => ['style' => 'width: 240px;'],
-                        'buttons' => [
-
-                        //VISUALIZAR
-                        'view' => function ($url, $model) {
-                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span> ', $url, [
-                                        'class'=>'btn btn-primary btn-xs',
-                                        'title' => Yii::t('app', 'Visualizar candidato'),
-                       
-                            ]);
-                        },
-
-                        //CLASSIFICAR CANDIDATO
-                        'aguardando-envio-gerencia-imediata' => function ($url, $model) {
-                            return Html::a('<span class="glyphicon glyphicon-ok"></span> ', $url, [
-                                        'class'=>'btn btn-success btn-xs',
-                                        'title' => Yii::t('app', 'Aguardando Envio Gerência Imediata'),
-                                         'data' => [
-                                                   //'confirm' => 'Você tem certeza que deseja ENCERRAR essa Solicitação de Contratação?',
-                                                   'method' => 'post',
-
-                                                   ],
-                            ]);
-                        },
-                        
-                        //DESCLASSIFICAR CANDIDATO
-                        'desclassificar' => function ($url, $model) {
-                            return Html::a('<span class="glyphicon glyphicon-remove"></span> ', $url, [
-                                        'class'=>'btn btn-danger btn-xs',
-                                        'title' => Yii::t('app', 'Desclassificar candidato'),
-                                         'data' => [
-                                                   //'confirm' => 'Você tem certeza que deseja ENVIAR PARA CORREÇÃO essa Solicitação de Contratação?',
-                                                   'method' => 'post',
-                                                   ],
-                       
-                            ]);
-                        },
-
-        ],
-      ],
     ]; 
 
 ?>
@@ -191,19 +128,6 @@ $gridColumns = [
     'headerRowOptions'=>['class'=>'kartik-sheet-style'],
     'filterRowOptions'=>['class'=>'kartik-sheet-style'],
     'pjax'=>false, // pjax is set to always true for this demo
-    'rowOptions' =>function($model){
-                if($model->classificado == '0') //Desclassificado
-                {
-                    return['class'=>'danger'];                        
-                }elseif ($model->classificado == '1') {//Classificado
-                    return['class'=>'success']; 
-                }elseif ($model->classificado == '2') {//Pré-Selecionado pela Gerência Imediata
-                    return['class'=>'info']; 
-                }elseif ($model->classificado == '3') {//Aguardando Envio para Gerência Imediata
-                    return['class'=>'warning']; 
-                }
-
-    },
     'export'=>[
             'showConfirmAlert'=>false,
             'target'=>GridView::TARGET_BLANK,
@@ -230,7 +154,7 @@ $gridColumns = [
         'hover' => true,
         'panel' => [
         'type'=>GridView::TYPE_PRIMARY,
-        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem de Curriculos</h3>',
+        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem do Banco de Curriculos</h3>',
         'persistResize'=>false,
     ],
 ]);

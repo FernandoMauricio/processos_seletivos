@@ -24,8 +24,8 @@ use yiibr\brvalidator\CeiValidator;
  * @property string $telefoneAlt
  * @property string $data
  *
- * @property CurriculosCurriculosComplementos[] $curriculosCurriculosComplementos
- * @property CurriculosCurriculosEmpregos[] $curriculosCurriculosEmpregos
+ * @property CurriculosComplementos[] $CurriculosComplementos
+ * @property CurriculosEmpregos[] $CurriculosEmpregos
  * @property CurriculosDocumentacao[] $curriculosDocumentacaos
  * @property CurriculosEndereco[] $curriculosEnderecos
  * @property CurriculosFormacao[] $curriculosFormacaos
@@ -58,7 +58,8 @@ class Curriculos extends \yii\db\ActiveRecord
             [['curriculo_lattes'], 'string', 'max' => 255],
             [['email', 'emailAlt'], 'email'],
             [['cpf', 'sexo', 'telefone', 'telefoneAlt'], 'string', 'max' => 20],
-            [['deficiencia_cid'], 'string', 'max' => 10]
+            [['deficiencia_cid'], 'string', 'max' => 10],
+            [['classificado'], 'exist', 'skipOnError' => true, 'targetClass' => SituacaoCandidato::className(), 'targetAttribute' => ['classificado' => 'sitcan_id']],
         ];
     }
 
@@ -92,26 +93,35 @@ class Curriculos extends \yii\db\ActiveRecord
         ];
     }
 
+
     public function getCargosProcesso() //Relation between Cargos & Processo table
     {
         return $this->hasMany(CargosProcesso::className(), ['processo_id' => 'id']);
     }
 
 
-    /**
+   /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCurriculosCurriculosComplementos()
+    public function getSituacaoCandidato()
     {
-        return $this->hasMany(CurriculosCurriculosComplementos::className(), ['curriculos_id' => 'id']);
+        return $this->hasOne(SituacaoCandidato::className(), ['sitcan_id' => 'classificado']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCurriculosCurriculosEmpregos()
+    public function getCurriculosComplementos()
     {
-        return $this->hasMany(CurriculosCurriculosEmpregos::className(), ['curriculos_id' => 'id']);
+        return $this->hasMany(CurriculosComplementos::className(), ['curriculos_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCurriculosEmpregos()
+    {
+        return $this->hasMany(CurriculosEmpregos::className(), ['curriculos_id' => 'id']);
     }
 
     /**
@@ -137,4 +147,14 @@ class Curriculos extends \yii\db\ActiveRecord
     {
         return $this->hasMany(CurriculosFormacao::className(), ['curriculos_id' => 'id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProcessoSeletivo()
+    {
+        return $this->hasOne(ProcessoSeletivo::className(), ['numeroEdital' => 'edital']);
+    }
+
+
 }
