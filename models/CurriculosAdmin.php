@@ -167,4 +167,13 @@ class CurriculosAdmin extends \yii\db\ActiveRecord
     {
         return $this->hasMany(CurriculosFormacao::className(), ['curriculos_id' => 'id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProcessoSeletivo()
+    {
+        return $this->hasOne(ProcessoSeletivo::className(), ['numeroEdital' => 'edital']);
+    }
+    
 }

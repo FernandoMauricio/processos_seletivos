@@ -52,7 +52,7 @@ class CargosProcesso extends \yii\db\ActiveRecord
     public static function getCargosProcessoSubCat($cat_id) {
 
         $sql = 'SELECT
-                    `cargos_processo`.`id` AS id,
+                    `cargos_processo`.`cargo_id` AS id,
                     `cargos`.`descricao` AS name
                FROM 
                    `cargos`

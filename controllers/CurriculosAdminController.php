@@ -21,6 +21,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use kartik\mpdf\Pdf;
 use yii\helpers\Json;
+use yii\db\Query;
 
 use mPDF;
 
@@ -401,9 +402,12 @@ session_start();
 
         //Realiza a Contagem dos Curriculos pré-selecionados pelo GGP
         $countCurriculos = 0;
-        $countCurriculos = CurriculosAdmin::find()->where(['classificado' => 3, 'edital' => $model->edital])->count();
+        //Busca o número do edital(númeroEdital) pelo código do processo(id)
+        $numeroEdital = (new Query())->select('numeroEdital')->from('processo')->where(['id' => $model->edital]);
+        $descricaoCargo = (new Query())->select('descricao')->from('cargos')->where(['idcargo' => $model->cargo]);
+        $countCurriculos = CurriculosAdmin::find()->where(['classificado' => 3, 'edital' => $numeroEdital, 'cargo' => $descricaoCargo])->count();
 
-         //Altera a situação de todos curriculos que foram pré-selecionado pelo GGP
+         //Altera a situação de todos curriculos que foram pré-selecionados pelo GGP
         if($countCurriculos != 0){
                 Yii::$app->db->createCommand()
                     ->update('curriculos', [
@@ -413,13 +417,15 @@ session_start();
                              'dataaprovador_ggp' => date("Y-m-d H:i:s"),
                              ], [//------WHERE
                              'classificado' => 3,  //Aguardando envio para Gerência Imediata
-                             'edital'       => $model->edital,
+                             'edital'       => $numeroEdital,
+                             'cargo'        => $descricaoCargo,
                              ]) 
                     ->execute();
 
         Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Total de '.$countCurriculos.' Curriculos</strong> enviados para Análise da Gerência Imediata!</strong>');
+
         }else{
-            Yii::$app->session->setFlash('warning', '<strong>AVISO! </strong> Não existem Curriculos do edital <strong>'.$model->edital.'</strong> a serem enviados para Análise da Gerência Imediata!</strong>');
+            Yii::$app->session->setFlash('warning', '<strong>AVISO! </strong> Não existem Curriculos para o edital a serem enviados para Análise da Gerência Imediata!</strong>');
         }
 
         return $this->redirect(['/curriculos-admin/index']);
