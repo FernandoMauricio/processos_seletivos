@@ -6,6 +6,7 @@ use Yii;
 
 use app\models\Model;
 use app\models\Cargos;
+use app\models\Unidades;
 use app\models\ProcessoSeletivo;
 use app\models\CargosProcesso;
 use app\models\CurriculosAdmin;
@@ -19,6 +20,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use kartik\mpdf\Pdf;
+use yii\helpers\Json;
 
 use mPDF;
 
@@ -355,7 +357,6 @@ session_start();
      $session = Yii::$app->session;
      $model = $this->findModel($id);
 
-
      $connection = Yii::$app->db;
      $command = $connection->createCommand(
      "UPDATE `db_processos`.`curriculos` SET `classificado` = '3' WHERE `id` = '".$model->id."'");
@@ -373,11 +374,28 @@ session_start();
 
     }   
 
+    //Localiza os cargos vinculado ao Processo Seletivo
+    public function actionCargosProcesso() {
+                $out = [];
+                if (isset($_POST['depdrop_parents'])) {
+                    $parents = $_POST['depdrop_parents'];
+                    if ($parents != null) {
+                        $cat_id = $parents[0];
+                        $out = CargosProcesso::getCargosProcessoSubCat($cat_id);
+                        echo Json::encode(['output'=>$out, 'selected'=>'']);
+                        return;
+                    }
+                }
+                echo Json::encode(['output'=>'', 'selected'=>'']);
+    }
 
     public function actionPreSelecionados()
     {
+        $session = Yii::$app->session;
+
         $model = new CurriculosAdmin();
         $processo = ProcessoSeletivo::find()->where(['situacao_id' => 2])->all();
+        $unidades = Unidades::find()->where(['uni_codsituacao' => 1])->all();
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -389,12 +407,16 @@ session_start();
         if($countCurriculos != 0){
                 Yii::$app->db->createCommand()
                     ->update('curriculos', [
-                             'classificado' => 4, //Enviado para Gerência Imediata
+                             'classificado'      => 4, //Enviado para Gerência Imediata
+                             'unidade_aprovador' => $model->unidade_aprovador,
+                             'aprovador_ggp'     => $session['sess_nomeusuario'],
+                             'dataaprovador_ggp' => date("Y-m-d H:i:s"),
                              ], [//------WHERE
                              'classificado' => 3,  //Aguardando envio para Gerência Imediata
-                             'edital' => $model->edital,
+                             'edital'       => $model->edital,
                              ]) 
                     ->execute();
+
         Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Total de '.$countCurriculos.' Curriculos</strong> enviados para Análise da Gerência Imediata!</strong>');
         }else{
             Yii::$app->session->setFlash('warning', '<strong>AVISO! </strong> Não existem Curriculos do edital <strong>'.$model->edital.'</strong> a serem enviados para Análise da Gerência Imediata!</strong>');
@@ -405,7 +427,8 @@ session_start();
         }else{
             return $this->renderAjax('pre-selecionados', [
                 'model' => $model,
-                'processo'=> $processo,
+                'processo' => $processo,
+                'unidades' => $unidades,
             ]);
         }
     }

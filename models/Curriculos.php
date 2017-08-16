@@ -13,20 +13,33 @@ use yiibr\brvalidator\CeiValidator;
  *
  * @property integer $id
  * @property string $edital
- * @property integer $cargo
+ * @property string $numeroInscricao
+ * @property string $cargo
  * @property string $nome
  * @property string $cpf
+ * @property string $identidade
+ * @property string $orgao_exped
  * @property string $datanascimento
+ * @property integer $deficiencia
+ * @property string $deficiencia_cid
+ * @property integer $idade
  * @property string $sexo
  * @property string $email
  * @property string $emailAlt
  * @property string $telefone
  * @property string $telefoneAlt
  * @property string $data
+ * @property integer $classificado
+ * @property string $curriculo_lattes
+ * @property integer $unidade_aprovador
+ * @property string $aprovador_ggp
+ * @property string $dataaprovador_ggp
+ * @property string $aprovador_solicitante
+ * @property string $dataaprovador_solicitante
  *
- * @property CurriculosComplementos[] $CurriculosComplementos
- * @property CurriculosEmpregos[] $CurriculosEmpregos
- * @property CurriculosDocumentacao[] $curriculosDocumentacaos
+ * @property SituacaoCandidato $classificado0
+ * @property CurriculosComplemento[] $curriculosComplementos
+ * @property CurriculosEmpregos[] $curriculosEmpregos
  * @property CurriculosEndereco[] $curriculosEnderecos
  * @property CurriculosFormacao[] $curriculosFormacaos
  */
@@ -51,10 +64,10 @@ class Curriculos extends \yii\db\ActiveRecord
             [['edital', 'numeroInscricao','cargo', 'nome', 'cpf', 'datanascimento', 'sexo', 'email', 'telefone', 'data', 'termoAceite'], 'required'],
             ['cpf', 'unique', 'targetAttribute' => ['edital', 'cpf', 'cargo'],'message' => '"{value} Já utilizado para o edital e cargo selecionado"'],
             ['cpf', CpfValidator::className()],
-            [['idade', 'deficiencia'], 'integer'],
-            [['datanascimento', 'data' , 'idadeModel', 'classificado'], 'safe'],
+            [['idade', 'deficiencia', 'unidade_aprovador'], 'integer'],
+            [['datanascimento', 'data', 'idadeModel', 'classificado', 'dataaprovador_ggp', 'dataaprovador_solicitante'], 'safe'],
             [['edital', 'numeroInscricao', 'identidade', 'orgao_exped'], 'string', 'max' => 45],
-            [['nome', 'cargo', 'email', 'emailAlt'], 'string', 'max' => 100],
+            [['nome', 'cargo', 'email', 'emailAlt', 'aprovador_ggp', 'aprovador_solicitante'], 'string', 'max' => 100],
             [['curriculo_lattes'], 'string', 'max' => 255],
             [['email', 'emailAlt'], 'email'],
             [['cpf', 'sexo', 'telefone', 'telefoneAlt'], 'string', 'max' => 20],
@@ -90,17 +103,24 @@ class Curriculos extends \yii\db\ActiveRecord
             'deficiencia' => 'Pessoa com Deficiência?',
             'deficiencia_cid' => 'Se sim, especificar CID',
             'curriculo_lattes' => 'Informe o link do seu Curríuclo Lattes',
+            'unidade_aprovador' => 'Solicitante Aprovador',
+            'aprovador_ggp' => 'Aprovador Ggp',
+            'dataaprovador_ggp' => 'Dataaprovador Ggp',
+            'aprovador_solicitante' => 'Aprovador Solicitante',
+            'dataaprovador_solicitante' => 'Dataaprovador Solicitante',
         ];
     }
 
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getCargosProcesso() //Relation between Cargos & Processo table
     {
         return $this->hasMany(CargosProcesso::className(), ['processo_id' => 'id']);
     }
 
-
-   /**
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getSituacaoCandidato()
