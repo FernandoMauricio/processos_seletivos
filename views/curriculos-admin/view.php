@@ -244,7 +244,7 @@ echo DetailView::widget([
 
 <?php 
 
-foreach ($curriculosComplemento as $value) {
+foreach ($curriculosComplementos as $value) {
 
     $curso = $value["cursos"];
     $certificado = $value["certificado"];

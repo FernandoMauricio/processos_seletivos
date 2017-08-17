@@ -198,9 +198,11 @@ $gridColumns = [
                 }elseif ($model->classificado == '1') {//Classificado
                     return['class'=>'success']; 
                 }elseif ($model->classificado == '2') {//Pré-Selecionado pela Gerência Imediata
-                    return['class'=>'info']; 
+                    return['class'=>'success']; 
                 }elseif ($model->classificado == '3') {//Aguardando Envio para Gerência Imediata
                     return['class'=>'warning']; 
+                }elseif ($model->classificado == '4') {//Enviado para Gerência imediata
+                    return['class'=>'info']; 
                 }
 
     },

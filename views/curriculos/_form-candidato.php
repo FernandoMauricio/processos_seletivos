@@ -8,7 +8,6 @@ use kartik\select2\Select2;
 use kartik\datecontrol\DateControl;
 
 ?>
-
                     <?= $form->field($model, 'edital')->textInput(['readonly'=>true]) ?>
 
                     <?php
@@ -35,24 +34,11 @@ use kartik\datecontrol\DateControl;
                                 ]);
                      ?>
 
-                     <?php //echo $form->field($model, 'curriculo_lattes')->textInput(['maxlength' => true]) ?>
+                    <?php //echo $form->field($model, 'curriculo_lattes')->textInput(['maxlength' => true]) ?>
 
-                    <?php
-
-                      echo  $form->field($model, "datanascimento")->widget(DateControl::classname(), [
-                        'type'=>DateControl::FORMAT_DATETIME,
-                        'displayFormat' => 'dd/MM/yyyy',
-                        'autoWidget' => false,
-                        'widgetClass' => 'yii\widgets\MaskedInput',
-                        'options' => [
-                           'mask' => '99/99/9999',
-                           'options' => ['class'=>'form-control', 'placeholder' => 'Data nascimento...'],
-                         ]
-                    ]); 
-
-                    ?>
-
-
+                    <?= $form->field($model, 'datanascimento')->widget(\yii\widgets\MaskedInput::className(), [
+                        'mask' => '99/99/9999',
+                    ]) ?>
 
                     <?php
                             echo Form::widget([
@@ -87,3 +73,4 @@ use kartik\datecontrol\DateControl;
                     <?php $form->field($model, 'telefone')->hiddenInput()->widget(\yii\widgets\MaskedInput::className(), ['mask' => '(99)99999-999[9]']) ?>
 
                     <?php $form->field($model, 'telefoneAlt')->hiddenInput()->widget(\yii\widgets\MaskedInput::className(), ['mask' => '(99)99999-999[9]']) ?>
+                    

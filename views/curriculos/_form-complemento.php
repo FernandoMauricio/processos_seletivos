@@ -14,7 +14,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                             'min' => 1, // 0 or 1 (default 1)
                                             'insertButton' => '.add-complemento', // css class
                                             'deleteButton' => '.remove-complemento', // css class
-                                            'model' => $modelsComplemento[0],
+                                            'model' => $modelsComplementos[0],
                                             'formId' => 'dynamic-form',
                                             'formFields' => [
                                                 'cursos',
@@ -24,7 +24,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                         ]); ?>
 
                                         <div class="container-complementos"><!-- widgetContainer -->
-                                        <?php foreach ($modelsComplemento as $i => $modelComplemento): ?>
+                                        <?php foreach ($modelsComplementos as $i => $modelComplemento): ?>
                                             <div class="complemento panel panel-default"><!-- widgetBody -->
                                                 <div class="panel-heading">
                                                     <h3 class="panel-title pull-left">Curso Complementar</h3>

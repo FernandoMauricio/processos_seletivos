@@ -84,7 +84,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                      <?php
                      echo $this->render('_form-complemento', [
                         'form' => $form,
-                        'modelsComplemento' => $modelsComplemento,
+                        'modelsComplementos' => $modelsComplementos,
                         ])
                         ?>
                             </div>

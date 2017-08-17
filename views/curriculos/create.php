@@ -5,7 +5,7 @@
         'cargos' => $cargos,
         'curriculosEndereco' => $curriculosEndereco,
         'curriculosFormacao' => $curriculosFormacao,
-        'modelsComplemento' => (empty($modelsComplemento)) ? [new CurriculosComplemento] : $modelsComplemento,
+        'modelsComplementos' => (empty($modelsComplementos)) ? [new CurriculosComplementos] : $modelsComplementos,
         'modelsEmpregos' => (empty($modelsEmpregos)) ? [new CurriculosEmpregos] : $modelsEmpregos
     ])
 ?>

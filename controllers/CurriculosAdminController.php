@@ -13,7 +13,7 @@ use app\models\CurriculosAdmin;
 use app\models\CurriculosSearch;
 use app\models\CurriculosEndereco;
 use app\models\CurriculosFormacao;
-use app\models\CurriculosComplemento;
+use app\models\CurriculosComplementos;
 use app\models\CurriculosEmpregos;
 use app\models\BancoDeCurriculosSearch;
 use yii\web\Controller;
@@ -161,7 +161,7 @@ class CurriculosAdminController extends Controller
 
         //busca cursos complementares
         $sql_complemento = 'SELECT * FROM curriculos_complemento WHERE curriculos_id ='.$id.' ';
-        $curriculosComplemento = CurriculosComplemento::findBySql($sql_complemento)->all();  
+        $curriculosComplementos = CurriculosComplementos::findBySql($sql_complemento)->all();  
 
         //busca empregos anteriores
         $sql_emprego = 'SELECT * FROM curriculos_empregos WHERE curriculos_id ='.$id.' ';
@@ -178,7 +178,7 @@ class CurriculosAdminController extends Controller
                     'model' => $this->findModel($id),
                     'curriculosEndereco' => $curriculosEndereco,
                     'curriculosFormacao' => $curriculosFormacao,
-                    'curriculosComplemento' => $curriculosComplemento,
+                    'curriculosComplementos' => $curriculosComplementos,
                     'curriculosEmpregos' => $curriculosEmpregos,
                 ]);
             }
@@ -209,7 +209,7 @@ class CurriculosAdminController extends Controller
         $model = new Curriculos();
         $curriculosEndereco = new CurriculosEndereco();
         $curriculosFormacao = new CurriculosFormacao();
-        $modelsComplemento = [new CurriculosComplemento];
+        $modelsComplemento = [new CurriculosComplementos];
         $modelsEmpregos    = [new CurriculosEmpregos];
 
 
@@ -293,7 +293,7 @@ session_start();
 
 
                     //Inserir vários cursos complementares
-                    $modelsComplemento = Model::createMultiple(CurriculosComplemento::classname());
+                    $modelsComplemento = Model::createMultiple(CurriculosComplementos::classname());
                     Model::loadMultiple($modelsComplemento, Yii::$app->request->post());
 
                      //Inserir vários emprgos anteriores
@@ -345,7 +345,7 @@ session_start();
                 'cargos' => $cargos,
                 'curriculosEndereco' => $curriculosEndereco,
                 'curriculosFormacao' => $curriculosFormacao,
-                'modelsComplemento' => (empty($modelsComplemento)) ? [new CurriculosComplemento] : $modelsComplemento,
+                'modelsComplemento' => (empty($modelsComplemento)) ? [new CurriculosComplementos] : $modelsComplemento,
                 'modelsEmpregos' => (empty($modelsEmpregos)) ? [new CurriculosEmpregos] : $modelsEmpregos
             ]);
         }

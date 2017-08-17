@@ -11,7 +11,7 @@ use app\models\Curriculos;
 use app\models\CurriculosSearch;
 use app\models\CurriculosEndereco;
 use app\models\CurriculosFormacao;
-use app\models\CurriculosComplemento;
+use app\models\CurriculosComplementos;
 use app\models\CurriculosEmpregos;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -67,84 +67,6 @@ class CurriculosController extends Controller
         ]);
     }
 
-
-    public function actionImprimir($id) {
-
-            $pdf = new Pdf([
-                'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
-                'content' => $this->renderPartial('imprimir'),
-                'options' => [
-                    'title' => 'Recrutamento e Seleção - Senac AM',
-                    //'subject' => 'Generating PDF files via yii2-mpdf extension has never been easy'
-                ],
-                'methods' => [
-                    'SetHeader' => ['PERFIL DO CANDIDATO - SENAC AM||Gerado em: ' . date("d/m/Y - H:i:s")],
-                    'SetFooter' => ['Recrutamento e Seleção - GRH||Página {PAGENO}'],
-                ]
-            ]);
-
-        return $pdf->render('imprimir', [
-            'model' => $this->findModel($id),
-
-        ]);
-        }
-
-    /**
-     * Displays a single Curriculos model.
-     * @param integer $id
-     * @return mixed
-     */
-
-    public function actionView($id)
-    {
-        $session = Yii::$app->session;
-        if (!isset($session['sess_codusuario']) && !isset($session['sess_codcolaborador']) && !isset($session['sess_codunidade']) && !isset($session['sess_nomeusuario']) && !isset($session['sess_coddepartamento']) && !isset($session['sess_codcargo']) && !isset($session['sess_cargo']) && !isset($session['sess_setor']) && !isset($session['sess_unidade']) && !isset($session['sess_responsavelsetor'])) 
-        {
-           return $this->redirect('http://portalsenac.am.senac.br');
-        }
-
-    //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
-    if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
-
-        $this->layout = 'main-acesso-negado';
-        return $this->render('/site/acesso_negado');
-
-    }else
-
-        //busca endereço
-        $sql_endereco = 'SELECT * FROM curriculos_endereco WHERE curriculos_id ='.$id.' ';
-        $curriculosEndereco = CurriculosEndereco::findBySql($sql_endereco)->one();  
-
-        //busca formação
-        $sql_formacao = 'SELECT * FROM curriculos_formacao WHERE curriculos_id ='.$id.' ';
-        $curriculosFormacao = CurriculosFormacao::findBySql($sql_formacao)->one();  
-
-        //busca cursos complementares
-        $sql_complemento = 'SELECT * FROM curriculos_complemento WHERE curriculos_id ='.$id.' ';
-        $curriculosComplemento = CurriculosComplemento::findBySql($sql_complemento)->all();  
-
-        //busca empregos anteriores
-        $sql_emprego = 'SELECT * FROM curriculos_empregos WHERE curriculos_id ='.$id.' ';
-        $curriculosEmpregos = CurriculosEmpregos::findBySql($sql_emprego)->all();  
-
-
-        $model = $this->findModel($id);
-         
-                if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id]);
-                } else {
-
-                return $this->render('view', [
-                    'model' => $this->findModel($id),
-                    'curriculosEndereco' => $curriculosEndereco,
-                    'curriculosFormacao' => $curriculosFormacao,
-                    'curriculosComplemento' => $curriculosComplemento,
-                    'curriculosEmpregos' => $curriculosEmpregos,
-                ]);
-            }
-
-        }
-
     public function actionWizard($step = null)
     {
         return $this->step($step);
@@ -170,7 +92,7 @@ class CurriculosController extends Controller
         $model = new Curriculos();
         $curriculosEndereco = new CurriculosEndereco();
         $curriculosFormacao = new CurriculosFormacao();
-        $modelsComplemento = [new CurriculosComplemento];
+        $modelsComplementos = [new CurriculosComplementos];
         $modelsEmpregos    = [new CurriculosEmpregos];
 
         if (isset($_COOKIE['PHPSESSID']) && !empty($_COOKIE['PHPSESSID'])) session_id($_COOKIE['PHPSESSID']);
@@ -180,6 +102,7 @@ class CurriculosController extends Controller
         //session numero de edital e do id do processo
         $session = Yii::$app->session;
         $model->edital = $session["numeroEdital"];
+        $model->classificado = 5; //Em análise pelo GGP
         $id = $session["id"];
 
         $model->data  = date('Y-m-d H:i:s');
@@ -212,8 +135,6 @@ class CurriculosController extends Controller
         if ($model->load(Yii::$app->request->post()) && $curriculosEndereco->load(Yii::$app->request->post()) && $curriculosFormacao->load(Yii::$app->request->post()) && Model::validateMultiple([$model, $curriculosEndereco, $curriculosFormacao]) ) 
         {
 
-
-
         //Calcular a idade do candidato
         $datetime1 = new \DateTime($model->datanascimento, new \DateTimeZone('UTC'));
         $datetime2 = new \DateTime();
@@ -227,9 +148,6 @@ class CurriculosController extends Controller
 
         $curriculosEndereco->save(false);
         $curriculosFormacao->save(false);
-
-        
-
 
         //ENVIA E-MAIL DA INSCRIÇÃO PARA O CANDIDATO
                      Yii::$app->mailer->compose()
@@ -249,11 +167,9 @@ class CurriculosController extends Controller
                      "<strong>Cargo: </strong> ".$model->cargo ."<br><br>")
                             ->send();
 
-
-
                     //Inserir vários cursos complementares
-                    $modelsComplemento = Model::createMultiple(CurriculosComplemento::classname());
-                    Model::loadMultiple($modelsComplemento, Yii::$app->request->post());
+                    $modelsComplementos = Model::createMultiple(CurriculosComplementos::classname());
+                    Model::loadMultiple($modelsComplementos, Yii::$app->request->post());
 
                      //Inserir vários emprgos anteriores
                     $modelsEmpregos = Model::createMultiple(CurriculosEmpregos::classname());
@@ -262,7 +178,7 @@ class CurriculosController extends Controller
 
                     // validate all models
                     $valid = $model->validate();
-                    $valid = Model::validateMultiple($modelsComplemento) && $valid;
+                    $valid = Model::validateMultiple($modelsComplementos) && $valid;
 
                     $valid2 = $model->validate();
                     $valid_empregos = Model::validateMultiple($modelsEmpregos) && $valid2;
@@ -271,7 +187,7 @@ class CurriculosController extends Controller
                         $transaction = \Yii::$app->db->beginTransaction();
                         try {
                             if ($flag = $model->save(false)) {
-                                foreach ($modelsComplemento as $modelComplemento) {//cursos complementares
+                                foreach ($modelsComplementos as $modelComplemento) {//cursos complementares
                                     $modelComplemento->curriculos_id = $model->id;
                                     if (! ($flag = $modelComplemento->save(false))) {
                                         $transaction->rollBack();
@@ -304,43 +220,12 @@ class CurriculosController extends Controller
                 'cargos' => $cargos,
                 'curriculosEndereco' => $curriculosEndereco,
                 'curriculosFormacao' => $curriculosFormacao,
-                'modelsComplemento' => (empty($modelsComplemento)) ? [new CurriculosComplemento] : $modelsComplemento,
+                'modelsComplementos' => (empty($modelsComplementos)) ? [new CurriculosComplementos] : $modelsComplementos,
                 'modelsEmpregos' => (empty($modelsEmpregos)) ? [new CurriculosEmpregos] : $modelsEmpregos
             ]);
         }
     }
     
-
-        public function actionClassificar($id)
-    {
-
-     $model = $this->findModel($id);
-
-     //Classifica o candidato
-     $connection = Yii::$app->db;
-     $command = $connection->createCommand(
-     "UPDATE `db_processos`.`curriculos` SET `classificado` = '1' WHERE `id` = '".$model->id."'");
-     $command->execute();
-     
-return $this->redirect(['index']);
-
-    }
-
-        public function actionDesclassificar($id)
-    {
-
-     $model = $this->findModel($id);
-
-     //Desclassifica o candidato
-     $connection = Yii::$app->db;
-     $command = $connection->createCommand(
-     "UPDATE `db_processos`.`curriculos` SET `classificado` = '0' WHERE `id` = '".$model->id."'");
-     $command->execute();
-     
-return $this->redirect(['index']);
-
-    }
-
     /**
      * Finds the Curriculos model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
