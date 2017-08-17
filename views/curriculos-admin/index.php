@@ -123,21 +123,26 @@ $gridColumns = [
                                             },
             ],
 
-            // [
-            //     'class'=>'kartik\grid\BooleanColumnCurriculos',
-            //     'attribute'=>'classificado',
-            //     'vAlign'=>'middle',
-            // ], 
- 
             [
                 'attribute' => 'classificado',
                 'value' => 'situacaoCandidato.sitcan_descricao'
             ],
 
             ['class' => 'yii\grid\ActionColumn',
-                        'template' => '{view} {aguardando-envio-gerencia-imediata} {desclassificar}',
-                        'contentOptions' => ['style' => 'width: 240px;'],
+                        'template' => '{imprimir} {aguardando-envio-gerencia-imediata} {desclassificar}',
+                        'contentOptions' => ['style' => 'width: 7%;'],
                         'buttons' => [
+
+                        //IMPRIMIR
+                        'imprimir' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-print"></span> ', $url, [
+                                        'target'=>'_blank', 
+                                        'data-pjax'=>"0",
+                                        'class'=>'btn btn-info btn-xs',
+                                        'title' => Yii::t('app', 'Imprimir'),
+                       
+                            ]);
+                        },
 
                         //VISUALIZAR
                         'view' => function ($url, $model) {
@@ -154,7 +159,6 @@ $gridColumns = [
                                         'class'=>'btn btn-success btn-xs',
                                         'title' => Yii::t('app', 'Aguardando Envio Gerência Imediata'),
                                          'data' => [
-                                                   //'confirm' => 'Você tem certeza que deseja ENCERRAR essa Solicitação de Contratação?',
                                                    'method' => 'post',
 
                                                    ],
@@ -226,6 +230,7 @@ $gridColumns = [
         [
             'columns'=>[
                 ['content'=>'Detalhes de Curriculos Cadastrados', 'options'=>['colspan'=>13, 'class'=>'text-center warning']], 
+                ['content'=>'Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']],
             ],
         ]
     ],

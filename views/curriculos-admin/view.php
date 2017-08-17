@@ -201,7 +201,6 @@ $this->params['breadcrumbs'][] =  $this->title;
         'attributes'=> $attributes,
     ]);
 ?>
-
                         <!--    ENDEREÇO  -->
 
   <table class="table table-condensed table-hover">
@@ -227,8 +226,7 @@ $this->params['breadcrumbs'][] =  $this->title;
           <td><?= $curriculosEndereco->cep; ?></td>
     </tbody>
   </table>
-
-                        <!--    CURSOS COMPLEMENTARES  -->
+                        <!--   FORMAÇÃO ESCOLAR  -->
 
   <table class="table table-condensed table-hover">
     <thead>
@@ -288,12 +286,11 @@ $this->params['breadcrumbs'][] =  $this->title;
             <td><?= $curriculosFormacao->estuda_curso ? 'Sim' : 'Não'; ?></td>
             <td></td>
             <td><?php echo $curriculosFormacao->estuda_turno_mat ? '[X] Matutino' : '' ?>
-              <?php echo $curriculosFormacao->estuda_turno_vesp ? '[X] Vespertino' : '' ?>
-              <?php echo $curriculosFormacao->estuda_turno_not ? '[X] Noturno' : '' ?>
+                <?php echo $curriculosFormacao->estuda_turno_vesp ? '[X] Vespertino' : '' ?>
+                <?php echo $curriculosFormacao->estuda_turno_not ? '[X] Noturno' : '' ?>
           </tr>
       </tbody>
   </table>
-
                         <!--    CURSOS COMPLEMENTARES  -->
 
   <table class="table table-condensed table-hover">
@@ -311,8 +308,8 @@ $this->params['breadcrumbs'][] =  $this->title;
     <?php endforeach; ?>
     </tbody>
   </table>
-
-
+                        <!--    EMPREGOS ANTERIORES  -->
+                        
   <table class="table table-condensed table-hover">
     <thead>
     <tr class="info"><th colspan="13">SEÇÃO 5: Empregos Anteriores</th></tr>
@@ -338,7 +335,6 @@ $this->params['breadcrumbs'][] =  $this->title;
     <?php endforeach; ?>
     </tbody>
   </table>
-
                         <!--   APROVAÇÕES  -->
 
   <table class="table table-condensed table-hover">

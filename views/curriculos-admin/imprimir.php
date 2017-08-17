@@ -1,251 +1,368 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
-use app\models\Curriculos;
-use app\models\CurriculosEndereco;
-use app\models\CurriculosFormacao;
-use app\models\CurriculosComplemento;
-use app\models\CurriculosEmpregos;
+//use yii\widgets\DetailView;
+use kartik\detail\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Curriculos */
-
-$session = Yii::$app->session;
-
-$id = $_GET['id'];
-
- $sql = 'SELECT * FROM curriculos WHERE id ='.$id.' ';
-        $model = Curriculos::findBySql($sql)->one(); 
-
-        //busca endereço
-        $sql_endereco = 'SELECT * FROM curriculos_endereco WHERE curriculos_id ='.$id.' ';
-        $curriculosEndereco = CurriculosEndereco::findBySql($sql_endereco)->one();  
-
-        //busca formação
-        $sql_formacao = 'SELECT * FROM curriculos_formacao WHERE curriculos_id ='.$id.' ';
-        $curriculosFormacao = CurriculosFormacao::findBySql($sql_formacao)->one();  
-
-        //busca cursos complementares
-        $sql_complemento = 'SELECT * FROM curriculos_complemento WHERE curriculos_id ='.$id.' ';
-        $curriculosComplemento = CurriculosComplemento::findBySql($sql_complemento)->all();  
-
-        //busca empregos anteriores
-        $sql_emprego = 'SELECT * FROM curriculos_empregos WHERE curriculos_id ='.$id.' ';
-        $curriculosEmpregos = CurriculosEmpregos::findBySql($sql_emprego)->all();  
-
-
-
 $this->title = $model->numeroInscricao;
-
-$this->params['breadcrumbs'][] = ['label' => 'Curriculos', 'url' => ['index']];
-$this->params['breadcrumbs'][] =  $this->title;
 ?>
-<div class="curriculos-view">
+
+    <h1>Número de Inscrição: <?= Html::encode($this->title) ?></h1>
 
 <div class="panel panel-primary">
   <div class="panel-heading">
-    <h3 class="panel-title">Ficha do Candidato: <span class="text-uppercase"> <?= $model->nome ?></span></h3>
+    <h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Ficha de Inscrição: <span class="text-uppercase"> <?= $model->nome ?></span></h3>
   </div>
 
-      <div class="panel-body">
-          <div class="row">
+  <div class="panel-body">
+    <div class="row">
 
-                              <!--    INFORMÇÕES DO CANDIDATO    -->
+      <?php
+        $attributes = [
+            [
+              'group'=>true,
+              'label'=>'SEÇÃO 1: Informações Pessoais',
+              'rowOptions'=>['class'=>'info']
+            ],
 
-  <table class="table table-condensed table-hover">
-    <thead>
-    <tr class="info"><th colspan="12">Informações</th></tr>
-    </thead>
-    <tr>
-        <td colspan="1"><strong>Código: </strong><?php echo $model->id; ?></td>
-        <td colspan="1"><strong>Edital: </strong><?php echo $model->edital; ?></td> 
-        <td colspan="2"><strong>Inscrição: </strong> <?php echo $model->numeroInscricao; ?></td>
-        <td colspan="3"><strong>Situação: </strong> <?php echo $model->classificado ? '<span class="label label-success">Classificado</span>' : '<span class="label label-danger">Desclassificado</span>' ?></td>
-    </tr> 
-<tbody>
-    <tr>
-        <td colspan="12"><strong>Nome: </strong> <?php echo $model->nome; ?></td>
-     </tr> 
+            [
+              'columns' => [
+                        [
+                        'attribute' => 'id',
+                        'displayOnly'=>true,
+                        'labelColOptions'=>['style'=>'width:0%'],
+                        ],
 
-    <tr>
-        <td colspan="12"><strong>Link Lattes: </strong> <?php echo $model->curriculo_lattes; ?></td>
-     </tr> 
+                        [
+                        'attribute' => 'edital',
+                        'displayOnly'=>true,
+                        'labelColOptions'=>['style'=>'width:0%'],
+                        ],
 
-    <tr>
-        <td colspan="2"><strong>Pessoa com Deficiência? </strong> <?php echo $model->deficiencia ? '<span class="label label-success">Sim</span>' : '<span class="label label-danger">Não</span>' ?></td>
-        <td colspan="6"><strong>Se sim, especificar CID: </strong> <?php echo $model->deficiencia_cid; ?></td>
-     </tr> 
+                        [
+                        'attribute' => 'numeroInscricao',
+                        'displayOnly'=>true,
+                        'labelColOptions'=>['style'=>'width:0%'],
+                        ],
 
-     <tr>
-        <td colspan="2"><strong>Cargo: </strong> <?php echo $model->cargo; ?></td>
-        <td colspan="2"><strong>CPF: </strong> <?php echo $model->cpf; ?></td>
-        <td colspan="1"><strong>Idade: </strong> <?php echo $model->idade; ?></td>
-        <td colspan="2"><strong>Sexo: </strong> <?php echo $model->sexo ? 'Masculino' : 'Feminino' ?></td>
-     </tr> 
+                        [
+                        'attribute' => 'cargo',
+                        'displayOnly'=>true,
+                        'labelColOptions'=>['style'=>'width:0%'],
+                        ],
 
-     <tr>
-        <td colspan="2"><strong>Email: </strong> <?php echo $model->email; ?></td>
-        <td colspan="6"><strong>Email Alternativo: </strong> <?php echo $model->emailAlt; ?></td>
-     </tr> 
+                    ],
+            ],
 
-     <tr>
-        <td colspan="2"><strong>Telefone: </strong> <?php echo $model->telefone; ?></td>
-        <td colspan="6"><strong>Telefone Alternativo: </strong> <?php echo $model->telefoneAlt; ?></td>
-     </tr> 
+            [
+              'columns' => [
+                        [
+                        'attribute' => 'nome',
+                        'displayOnly'=>true,
+                        'labelColOptions'=>['style'=>'width:0%'],
+                        ],
 
-    <tr>
-        <td colspan="12"><strong>Data/Hora da Inscrição: </strong> <?php echo date('d/m/Y H:i:s', strtotime($model->data)); ?></td>
-     </tr> 
+                        [
+                        'attribute' => 'idade',
+                        'displayOnly'=>true,
+                        'labelColOptions'=>['style'=>'width:0%'],
+                        ],
 
-    </tbody>
- </table>
+                        [
+                            'attribute' => 'datanascimento',
+                            'format' => ['date', 'php:d/m/Y'],
+                            'displayOnly'=>true,
+                            'labelColOptions'=>['style'=>'width:0%'],
+                        ],
+                        
+                        [
+                            'attribute'=>'sexo', 
+                            'label'=>'Sexo',
+                            'format'=>'raw',
+                            'value'=>$model->sexo ? 'Masculino' : 'Feminino',
+                            'displayOnly'=>true,
+                        ],
+                    ],
+            ],
 
+            [
+              'columns' => [
+                        [
+                        'attribute' => 'cpf',
+                        'displayOnly'=>true,
+                        ],
+                        [
+                        'attribute' => 'identidade',
+                        'displayOnly'=>true,
+                        ],
+                        [
+                        'attribute' => 'orgao_exped',
+                        'displayOnly'=>true,
+                        ],
+                    ],
+            ],
 
+            [
+              'columns' => [
+
+                        [
+                        'attribute' => 'email',
+                        'displayOnly'=>true,
+                        ],
+
+                        [
+                        'attribute' => 'emailAlt',
+                        'displayOnly'=>true,
+                        ],
+                    ],
+            ],
+
+            [
+              'columns' => [
+                        [
+                        'attribute' => 'telefone',
+                        'displayOnly'=>true,
+                        ],
+
+                        [
+                        'attribute' => 'telefoneAlt',
+                        'displayOnly'=>true,
+                        ],
+                    ],
+            ],
+
+            [
+              'columns' => [
+                        [
+                        'attribute' => 'classificado',
+                        'value' => $model->situacaoCandidato->sitcan_descricao,
+                        'displayOnly'=>true,
+                        ],
+
+                        [
+                            'attribute' => 'data',
+                            'format'=>['datetime', 'php:d/m/Y H:i:s'],
+                            'displayOnly'=>true,
+                        ],
+                    ],
+            ],
+
+            [
+              'columns' => [
+                        [
+                            'attribute'=>'curriculo_lattes', 
+                            'label'=>'Link Lattes',
+                            'format'=>'raw',
+                            'value'=>Html::a($model->curriculo_lattes, $model->curriculo_lattes, ['class'=>'kv-author-link']),
+                            'displayOnly'=>true,
+                        ],
+                    ],
+            ],
+
+            [
+              'columns' => [
+
+                        [
+                        'attribute' => 'deficiencia',
+                        'label'=>'Pessoa com Deficiência?',
+                        'format'=>'raw',
+                        'value'=>$model->deficiencia_cid ? 'Sim' : 'Não',
+                        'displayOnly'=>true,
+                        ],
+
+                        [
+                        'attribute'=>'deficiencia_cid', 
+                        'displayOnly'=>true,
+                        ],
+                    ],
+            ],
+        ];
+
+    echo DetailView::widget([
+        'model'=>$model,
+        'condensed'=>true,
+        'hover'=>true,
+        'mode'=>DetailView::MODE_VIEW,
+        'attributes'=> $attributes,
+    ]);
+?>
                         <!--    ENDEREÇO  -->
 
-
   <table class="table table-condensed table-hover">
     <thead>
-    <tr class="info"><th colspan="12">Endereço</th></tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td colspan="5"><strong>Endereço:</strong> <?php echo $curriculosEndereco->endereco ?></td>
-            <td colspan="2"><strong>Número:</strong> <?php echo $curriculosEndereco->numero_end ?></td>
-            <td colspan="2"><strong>Bairro:</strong> <?php echo $curriculosEndereco->bairro ?></td>
-        </tr>
-
-        <tr>
-            
-            <td colspan="2"><strong>Complemento:</strong> <?php echo $curriculosEndereco->complemento ?></td>
-            <td colspan="2"><strong>Cidade:</strong> <?php echo $curriculosEndereco->cidade ?></td>
-            <td colspan="2"><strong>Estado:</strong> <?php echo $curriculosEndereco->estado ?></td>
-            <td colspan="2"><strong>CEP:</strong> <?php echo $curriculosEndereco->cep ?></td>
-        </tr>
-    </tbody>
-  </table>
-
-                        <!--    FORMAÇÃO ESCOLAR  -->
-
-  <table class="table table-condensed table-hover">
-    <thead>
-    <tr class="info"><th colspan="12">Formação Escolar</th></tr>
-    </thead>
-    <tbody>
-        <tr>
-
-          <td colspan="12"><strong>Ensino Fundamental: </strong><?php echo $curriculosFormacao->fundamental_comp ? 'Completo' : 'Incompleto' ?></td>
-
-        <tr>
-          <td colspan="12"><strong>Ensino Médio: </strong><?php echo $curriculosFormacao->medio_comp ? 'Completo' : 'Incompleto' ?></td>
-        </tr>
-
-        <tr>
-          <td colspan="3"><strong>Ensino Técnico: </strong><?php echo $curriculosFormacao->tecnico ? 'Completo' : 'Incompleto' ?></td>
-          <td colspan="9"><strong>Curso Técnico: </strong><?php echo $curriculosFormacao->tecnico_area ?></td>
-        </tr>
-
-        <tr>
-          <td colspan="3"><strong>Ensino Superior: </strong><?php echo $curriculosFormacao->superior_comp ? 'Completo' : 'Incompleto' ?></td>
-          <td colspan="9"><strong>Curso Graduação: </strong><?php echo $curriculosFormacao->superior_area ?></td>
-        </tr>
-
-        <tr>
-          <td colspan="3"><strong>Pós Graduação: </strong><?php echo $curriculosFormacao->pos ? 'Completo' : 'Incompleto' ?></td>
-          <td colspan="9"><strong>Curso Pós-Graduação: </strong><?php echo $curriculosFormacao->pos_area ?></td>
-        </tr>
-
-        <tr>
-          <td colspan="3"><strong>Mestrado: </strong><?php echo $curriculosFormacao->mestrado ? 'Completo' : 'Incompleto' ?></td>
-          <td colspan="9"><strong>Curso Mestrado: </strong><?php echo $curriculosFormacao->mestrado_area ?></td>
-        </tr>
-
-        <tr>
-          <td colspan="3"><strong>Doutorado: </strong><?php echo $curriculosFormacao->doutorado ? 'Completo' : 'Incompleto' ?></td>
-          <td colspan="9"><strong>Curso Doutorado: </strong><?php echo $curriculosFormacao->doutorado_area ?></td>
-        </tr>
-
-        <tr>
-          <td colspan="1"><strong>Estuda Atualmente: </strong><?php echo $curriculosFormacao->estuda_atualmente ? 'Sim' : 'Não' ?></td>
-          <td colspan="2"><strong>Curso: </strong><?php echo $curriculosFormacao->estuda_curso ?></td>
-          <td colspan="8"><strong>Turno: </strong>
-            <?php echo $curriculosFormacao->estuda_turno_mat ? '[X] Matutino' : '[ ] Matutino' ?>
-            <?php echo $curriculosFormacao->estuda_turno_vesp ? '[X] Vespertino' : '[ ] Vespertino' ?>
-            <?php echo $curriculosFormacao->estuda_turno_not ? '[X] Noturno' : '[ ] Noturno' ?> </td>
-        </tr>
+    <tr class="info"><th colspan="12">SEÇÃO 2: Endereço</th></tr>
+      <tr>
+        <th>Endereço</th>
+        <th>Número</th>
+        <th>Bairro</th>
+        <th>Complemento</th>
+        <th>Cidade</th>
+        <th>Estado</th>
+        <th>CEP</th>
       </tr>
+    </thead>
+    <tbody>
+          <td><?= $curriculosEndereco->endereco; ?></td>
+          <td><?= $curriculosEndereco->numero_end; ?></td>
+          <td><?= $curriculosEndereco->bairro; ?></td>
+          <td><?= $curriculosEndereco->complemento; ?></td>
+          <td><?= $curriculosEndereco->cidade; ?></td>
+          <td><?= $curriculosEndereco->estado; ?></td>
+          <td><?= $curriculosEndereco->cep; ?></td>
     </tbody>
   </table>
+                        <!--   FORMAÇÃO ESCOLAR  -->
 
+  <table class="table table-condensed table-hover">
+    <thead>
+    <tr class="info"><th colspan="13">SEÇÃO 3: Formação Escolar</th></tr>
+      <tr>
+        <th>Nível Escolar</th>
+        <th>Situação</th>
+        <th>Área</th>
+        <th>Turno</th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr>
+            <td>Ensino Fundamental</td>
+            <td><?= $curriculosFormacao->fundamental_comp ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Ensino Médio</td>
+            <td><?= $curriculosFormacao->medio_comp ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Ensino Técnico</td>
+            <td><?= $curriculosFormacao->tecnico ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
+            <td><?= $curriculosFormacao->tecnico_area; ?></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Ensino Superior</td>
+            <td><?= $curriculosFormacao->superior_comp ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
+            <td><?= $curriculosFormacao->superior_area; ?></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Pós-Graduação</td>
+            <td><?= $curriculosFormacao->pos ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
+            <td><?= $curriculosFormacao->pos_area; ?></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Mestrado</td>
+            <td><?= $curriculosFormacao->mestrado ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
+            <td><?= $curriculosFormacao->mestrado_area; ?></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Doutorado</td>
+            <td><?= $curriculosFormacao->doutorado ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
+            <td><?= $curriculosFormacao->doutorado_area; ?></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Estuda Atualmente?</td>
+            <td><?= $curriculosFormacao->estuda_curso ? 'Sim' : 'Não'; ?></td>
+            <td></td>
+            <td><?php echo $curriculosFormacao->estuda_turno_mat ? '[X] Matutino' : '' ?>
+                <?php echo $curriculosFormacao->estuda_turno_vesp ? '[X] Vespertino' : '' ?>
+                <?php echo $curriculosFormacao->estuda_turno_not ? '[X] Noturno' : '' ?>
+          </tr>
+      </tbody>
+  </table>
                         <!--    CURSOS COMPLEMENTARES  -->
 
   <table class="table table-condensed table-hover">
     <thead>
-    <tr class="info"><th colspan="12">Cursos Complementares</th></tr>
-    </thead>
-
-          <?php 
-          foreach ($curriculosComplemento as $value) {
-
-              $curso = $value["cursos"];
-              $certificado = $value["certificado"];
-          ?>
-    <tbody>
-        <tr>
-          <td colspan="1"><strong>Curso Complementar: </strong><?php echo $curso ?></td>
-          <td colspan="6"><strong>Tem certificado: </strong><?php echo $certificado ? 'Sim' : 'Não' ?></td>
+    <tr class="info"><th colspan="13">SEÇÃO 4: Cursos Complementares</th></tr>
+      <tr>
+        <th>Curso Complementar</th>
+        <th>Tem Certificado?</th>
       </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($curriculosComplementos as $curriculosComplemento): ?>
+       <td><?= $curriculosComplemento->cursos ?></td>
+       <td><?= $curriculosComplemento->certificado ? 'Sim' : 'Não'; ?></td>
+    <?php endforeach; ?>
     </tbody>
-          <?php 
-          }
-          ?>
-
   </table>
-
                         <!--    EMPREGOS ANTERIORES  -->
+                        
+  <table class="table table-condensed table-hover">
+    <thead>
+    <tr class="info"><th colspan="13">SEÇÃO 5: Empregos Anteriores</th></tr>
+      <tr>
+        <th>Empresa</th>
+        <th>Cidade</th>
+        <th>Cargo</th>
+        <th>Início</th>
+        <th>Término</th>
+        <th>Atividades Desenvolvidas</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <?php foreach ($curriculosEmpregos as $curriculosEmprego): ?>
+       <td><?= $curriculosEmprego->empresa; ?></td>
+       <td><?= $curriculosEmprego->cidade; ?></td>
+       <td><?= $curriculosEmprego->cargo; ?></td>
+       <td><?= $curriculosEmprego->inicio; ?></td>
+       <td><?= $curriculosEmprego->termino; ?></td>
+       <td><?= $curriculosEmprego->atividades; ?></td>
+    </tr>
+    <?php endforeach; ?>
+    </tbody>
+  </table>
+                        <!--   APROVAÇÕES  -->
 
   <table class="table table-condensed table-hover">
     <thead>
-    <tr class="info"><th colspan="12">Empregos Anterioes</th></tr>
+    <tr class="info"><th colspan="12">SEÇÃO 6: Aprovações</th></tr>
+        <th>Responsável Aprovação</th>
+        <th>Data/Hora Aprovação</th>
     </thead>
-
-
-        <?php 
-
-        foreach ($curriculosEmpregos as $value) {
-
-            $empresa    = $value["empresa"];
-            $cidade     = $value["cidade"];
-            $cargo      = $value["cargo"];
-            $atividades = $value["atividades"];
-            $inicio     = $value["inicio"];
-            $termino    = $value["termino"];
-        ?>
-       <tbody>
-        <tr>                                            
-                  <td colspan="6"><strong>Empresa: </strong><?php echo $empresa ?></td>
-                  <td colspan="3"><strong>Cidade: </strong><?php echo $cidade ?></td>
-                </tr>
-                <tr>
-                  <td colspan="5"><strong>Cargo: </strong><?php echo $cargo ?></td>
-                  <td colspan="2"><strong>Início: </strong><?php echo $inicio ?></td>
-                  <td colspan="2"><strong>Término: </strong><?php echo $termino ?></td>
-                </tr>
-                <tr>
-                  <td colspan="12"><strong>Atividades Desenvolvidas: </strong><?php echo $atividades ?></td>
-                </tr>
-                <hr>
+    <tbody>
+        <tr>
+          <td><?= $model->aprovador_ggp; ?></td>
+          <td><?= $model->dataaprovador_ggp != NULL ? date('d/m/Y H:i:s', strtotime($model->dataaprovador_ggp)) : ''; ?></td>
         </tr>
-      </tbody>
-        <?php 
-        }
-        ?>
+        <tr>
+          <td><?= $model->aprovador_solicitante; ?></td>
+          <td><?= $model->dataaprovador_solicitante != NULL ? date('d/m/Y H:i:s', strtotime($model->dataaprovador_solicitante)) : ''; ?></td>
+        </tr>
+    </tbody>
+  </table><br>
 
-
-
+  <table class="table table-condensed table-hover">
+    <thead>
+    <tr class="info"><th colspan="12">SEÇÃO 7: Termos de Aceite</th></tr>
+    </thead>
   </table>
 
-   </div>
- </div>
+  <P style="text-align: center;"><b>DECLARAÇÃO</b></P>
+  <p style="margin: 0px 30px 10px"><i class="glyphicon glyphicon-ok"></i> Li o Documento de Abertura e concordo em participar do processo de seleção desta instituição de acordo com o que foi estabelecido e proposto pelo mesmo.</p>
+
+  <p style="margin: 0px 30px 10px"><i class="glyphicon glyphicon-ok"></i> Declaro para os devidos fins, que <?= $model->parentesco ? '<span style="color:#27cc27"><b>SIM</b></span>' : '<span style="color:#ff2b2b"><b>NÃO</b></span>'; ?> tenho parentes que sejam servidores do SESC ou do SENAC, que sejam membros, efetivos ou suplentes, dos Conselhos Nacional, Fiscal e do Conselho Regional neste Estado, bem como que sejam dirigentes de entidades sindicais ou civis, do comércio, patronais ou de empregados.</p>
+
+  <p style="margin: 0px 30px 10px"><i class="glyphicon glyphicon-ok"></i> Declaro que todas as informações contidas nesse formulário e no meu currículo constituem a expressão da verdade, e sobre as quais assumo total responsabilidade. Ficando V.S.ª autorizada a efetuar qualquer confirmação que achar necessária, e que a inexatidão das informações ou irregularidades nos documentos, verificadas a qualquer tempo, acarretará a nulidade da Contratação, com todas as suas decorrências, sem prejuízo das demais medidas de ordem administrativa, civil ou criminal.</p><br><br>
+
+
+  <table width="100%" border="0">
+          <tr><td align="right" style="padding-right: 40px;">______________________________________</td></tr>
+          <tr><td align="right" style="padding-right: 40px;"><?= $model->nome ?></td></tr>
+          <tr><td align="right" style="padding-right: 40px;"><?= $model->cpf ?></td></tr>
+  </table>
+
+     </div>
+    </div>
+  </div>
 </div>

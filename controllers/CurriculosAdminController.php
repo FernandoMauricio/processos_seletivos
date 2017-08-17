@@ -110,24 +110,72 @@ class CurriculosAdminController extends Controller
 
     public function actionImprimir($id) {
 
-            $pdf = new Pdf([
-                'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
-                'content' => $this->renderPartial('imprimir'),
-                'options' => [
-                    'title' => 'Recrutamento e Seleção - Senac AM',
-                    //'subject' => 'Generating PDF files via yii2-mpdf extension has never been easy'
-                ],
-                'methods' => [
-                    'SetHeader' => ['PERFIL DO CANDIDATO - SENAC AM||Gerado em: ' . date("d/m/Y - H:i:s")],
-                    'SetFooter' => ['Recrutamento e Seleção - GRH||Página {PAGENO}'],
-                ]
-            ]);
-
-        return $pdf->render('imprimir', [
-            'model' => $this->findModel($id),
-
-        ]);
+    {
+        $session = Yii::$app->session;
+        if (!isset($session['sess_codusuario']) && !isset($session['sess_codcolaborador']) && !isset($session['sess_codunidade']) && !isset($session['sess_nomeusuario']) && !isset($session['sess_coddepartamento']) && !isset($session['sess_codcargo']) && !isset($session['sess_cargo']) && !isset($session['sess_setor']) && !isset($session['sess_unidade']) && !isset($session['sess_responsavelsetor'])) 
+        {
+           return $this->redirect('http://portalsenac.am.senac.br');
         }
+
+    //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
+    if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
+
+        $this->layout = 'main-acesso-negado';
+        return $this->render('/site/acesso_negado');
+
+    }else
+        $this->layout = 'main-imprimir-curriculos';
+        //busca endereço
+        $sql_endereco = 'SELECT * FROM curriculos_endereco WHERE curriculos_id ='.$id.' ';
+        $curriculosEndereco = CurriculosEndereco::findBySql($sql_endereco)->one();  
+
+        //busca formação
+        $sql_formacao = 'SELECT * FROM curriculos_formacao WHERE curriculos_id ='.$id.' ';
+        $curriculosFormacao = CurriculosFormacao::findBySql($sql_formacao)->one();  
+
+        //busca cursos complementares
+        $sql_complemento = 'SELECT * FROM curriculos_complemento WHERE curriculos_id ='.$id.' ';
+        $curriculosComplementos = CurriculosComplementos::findBySql($sql_complemento)->all();  
+
+        //busca empregos anteriores
+        $sql_emprego = 'SELECT * FROM curriculos_empregos WHERE curriculos_id ='.$id.' ';
+        $curriculosEmpregos = CurriculosEmpregos::findBySql($sql_emprego)->all();  
+
+
+        $model = $this->findModel($id);
+         
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                    return $this->redirect(['imprimir', 'id' => $model->id]);
+                } else {
+
+                return $this->render('imprimir', [
+                    'model' => $this->findModel($id),
+                    'curriculosEndereco' => $curriculosEndereco,
+                    'curriculosFormacao' => $curriculosFormacao,
+                    'curriculosComplementos' => $curriculosComplementos,
+                    'curriculosEmpregos' => $curriculosEmpregos,
+                ]);
+            }
+        }
+
+        //     $pdf = new Pdf([
+        //         'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
+        //         'content' => $this->renderPartial('imprimir'),
+        //         'options' => [
+        //             'title' => 'Recrutamento e Seleção - Senac AM',
+        //             //'subject' => 'Generating PDF files via yii2-mpdf extension has never been easy'
+        //         ],
+        //         'methods' => [
+        //             'SetHeader' => ['PERFIL DO CANDIDATO - SENAC AM||Gerado em: ' . date("d/m/Y - H:i:s")],
+        //             'SetFooter' => ['Recrutamento e Seleção - GRH||Página {PAGENO}'],
+        //         ]
+        //     ]);
+
+        // return $pdf->render('imprimir', [
+        //     'model' => $this->findModel($id),
+
+        // ]);
+    }
 
     /**
      * Displays a single Curriculos model.
