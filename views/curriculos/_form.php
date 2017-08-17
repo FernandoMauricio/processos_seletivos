@@ -103,8 +103,21 @@ use wbraganca\dynamicform\DynamicFormWidget;
                         ?>
                              </div>
 
+<P style="text-align: center;"><b>DECLARAÇÃO</b></P>
 
- <?php echo $form->field($model, 'termoAceite[]')->checkboxList([ 1 => 'Li o Documento de Abertura e concordo em participar do processo de seleção desta instituição de acordo com o que foi estabelecido e proposto pelo mesmo.']); ?>
+  <?= $form->field($model, 'termoAceite[]')->checkboxList([ 1 => 'Li o Documento de Abertura e concordo em participar do processo de seleção desta instituição de acordo com o que foi estabelecido e proposto pelo mesmo.'])->label(false); ?>
+
+<div class="row">
+    <div class="col-md-2">
+  <?= $form->field($model, 'parentesco')->radiolist(['1' => 'Sim', '0' => 'Não'], ['inline'=>true])->label(false); ?>
+    </div>
+
+    <div class="col-md-10">
+    <p>Declaro para os devidos fins, que ______ tenho parentes que sejam servidores do SESC ou do SENAC, que sejam membros, efetivos ou suplentes, dos Conselhos Nacional, Fiscal e do Conselho Regional neste Estado, bem como que sejam dirigentes de entidades sindicais ou civis, do comércio, patronais ou de empregados</p>
+    </div>
+</div>
+
+   <?= $form->field($model, 'termoAceite2[]')->checkboxList([ 1 => 'Declaro que todas as informações contidas nesse formulário e no meu currículo constituem a expressão da verdade, e sobre as quais assumo total responsabilidade. Ficando V.S.ª autorizada a efetuar qualquer confirmação que achar necessária, e que a inexatidão das informações ou irregularidades nos documentos, verificadas a qualquer tempo, acarretará a nulidade da Contratação, com todas as suas decorrências, sem prejuízo das demais medidas de ordem administrativa, civil ou criminal.'])->label(false); ?>
 
 
                              <!-- SUBMIT PARA ENVIAR O CURRICULO SE TODOS OS CAMPOS COM VALIDAÇÕES TIVEREM SIDO PREENCHIDOS-->
@@ -115,8 +128,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
                             ],
                         ]) ?>
                         </div>
-
-
 
                         <!-- BOTÕES PARA NAVEGAR ENTRE OS FORMULÁRIOS-->
                         <ul class="pager wizard">

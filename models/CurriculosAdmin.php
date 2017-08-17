@@ -65,7 +65,7 @@ class CurriculosAdmin extends \yii\db\ActiveRecord
             // [['edital', 'numeroInscricao','cargo', 'nome', 'cpf', 'datanascimento', 'sexo', 'email', 'telefone', 'data', 'termoAceite'], 'required'],
             // ['cpf', 'unique', 'targetAttribute' => ['edital', 'cpf', 'cargo'],'message' => '"{value} Já utilizado para o edital e cargo selecionado"'],
             // ['cpf', CpfValidator::className()],
-            [['idade', 'deficiencia', 'unidade_aprovador'], 'integer'],
+            [['idade', 'deficiencia', 'unidade_aprovador', 'parentesco'], 'integer'],
             [['datanascimento', 'data', 'idadeModel', 'classificado', 'sexoLabel', 'dataaprovador_ggp', 'dataaprovador_solicitante'], 'safe'],
             [['edital', 'numeroInscricao', 'identidade', 'orgao_exped'], 'string', 'max' => 45],
             [['nome', 'cargo', 'email', 'emailAlt', 'aprovador_ggp', 'aprovador_solicitante'], 'string', 'max' => 100],
@@ -108,6 +108,7 @@ class CurriculosAdmin extends \yii\db\ActiveRecord
             'dataaprovador_ggp' => 'Dataaprovador Ggp',
             'aprovador_solicitante' => 'Aprovador Solicitante',
             'dataaprovador_solicitante' => 'Dataaprovador Solicitante',
+            'parentesco' => 'declaro',
         ];
     }
     

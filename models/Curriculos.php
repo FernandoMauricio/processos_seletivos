@@ -47,6 +47,7 @@ class Curriculos extends \yii\db\ActiveRecord
 {
     public $idadeModel;
     public $termoAceite;
+    public $termoAceite2;
     /**
      * @inheritdoc
      */
@@ -61,10 +62,10 @@ class Curriculos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['edital', 'numeroInscricao','cargo', 'nome', 'cpf', 'datanascimento', 'sexo', 'email', 'telefone', 'data', 'termoAceite'], 'required'],
+            [['edital', 'numeroInscricao','cargo', 'nome', 'cpf', 'datanascimento', 'sexo', 'email', 'telefone', 'data', 'termoAceite', 'parentesco', 'termoAceite2'], 'required'],
             ['cpf', 'unique', 'targetAttribute' => ['edital', 'cpf', 'cargo'],'message' => '"{value} Já utilizado para o edital e cargo selecionado"'],
             ['cpf', CpfValidator::className()],
-            [['idade', 'deficiencia', 'unidade_aprovador'], 'integer'],
+            [['idade', 'deficiencia', 'unidade_aprovador', 'parentesco'], 'integer'],
             [['datanascimento', 'data', 'idadeModel', 'classificado', 'dataaprovador_ggp', 'dataaprovador_solicitante'], 'safe'],
             [['edital', 'numeroInscricao', 'identidade', 'orgao_exped'], 'string', 'max' => 45],
             [['nome', 'cargo', 'email', 'emailAlt', 'aprovador_ggp', 'aprovador_solicitante'], 'string', 'max' => 100],
@@ -99,7 +100,6 @@ class Curriculos extends \yii\db\ActiveRecord
             'telefoneAlt' => 'Telefone Alternativo',
             'data' => 'Data/Hora da Inscrição',
             'classificado' => 'Situação',
-            'termoAceite' => 'Termo de aceite',
             'deficiencia' => 'Pessoa com Deficiência?',
             'deficiencia_cid' => 'Se sim, especificar CID',
             'curriculo_lattes' => 'Informe o link do seu Curríuclo Lattes',
@@ -108,6 +108,9 @@ class Curriculos extends \yii\db\ActiveRecord
             'dataaprovador_ggp' => 'Dataaprovador Ggp',
             'aprovador_solicitante' => 'Aprovador Solicitante',
             'dataaprovador_solicitante' => 'Dataaprovador Solicitante',
+            'termoAceite' => 'Declaração 1',
+            'parentesco' => 'Declaração 2',
+            'termoAceite2' => 'Declaração 3',
         ];
     }
 
