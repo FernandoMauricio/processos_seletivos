@@ -443,7 +443,7 @@ session_start();
         $session = Yii::$app->session;
 
         $model = new CurriculosAdmin();
-        $processo = ProcessoSeletivo::find()->where(['situacao_id' => 2])->all();
+        $processo = ProcessoSeletivo::find()->where(['situacao_id' => 1])->orWhere(['situacao_id' => 2])->all();
         $unidades = Unidades::find()->where(['uni_codsituacao' => 1])->all();
 
         if ($model->load(Yii::$app->request->post())) {

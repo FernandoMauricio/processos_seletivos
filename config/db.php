@@ -2,8 +2,8 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=processos_db',
-    'username' => 'processos',
-    'password' => '12345',
+    'dsn' => 'mysql:host=localhost;dbname=db_processos',
+    'username' => 'root',
+    'password' => '',
     'charset' => 'utf8',
 ];

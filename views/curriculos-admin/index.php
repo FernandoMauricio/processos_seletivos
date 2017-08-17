@@ -13,7 +13,6 @@ use yii\helpers\Url;
 /* @var $searchModel app\models\CurriculosSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-
 $this->title = 'Listagem de Candidatos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
