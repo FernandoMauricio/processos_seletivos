@@ -9,6 +9,8 @@ use yii\helpers\ArrayHelper;
 use yii\bootstrap\Modal;
 use yii\helpers\Url;
 
+use app\models\SituacaoCandidato;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CurriculosSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -24,7 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
 foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
 echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 }
-
 
 ?>
     <h1><?= Html::encode($this->title) ?></h1>
@@ -123,8 +124,17 @@ $gridColumns = [
             ],
 
             [
-                'attribute' => 'classificado',
-                'value' => 'situacaoCandidato.sitcan_descricao'
+            'attribute'=>'classificado', 
+            'width'=>'310px',
+            'value'=>function ($model, $key, $index, $widget) { 
+                return $model->situacaoCandidato->sitcan_descricao;
+            },
+            'filterType'=>GridView::FILTER_SELECT2,
+            'filter'=>ArrayHelper::map(SituacaoCandidato::find()->orderBy('sitcan_descricao')->asArray()->all(), 'sitcan_id', 'sitcan_descricao'), 
+            'filterWidgetOptions'=>[
+                'pluginOptions'=>['allowClear'=>true],
+            ],
+                'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
             ],
 
             ['class' => 'yii\grid\ActionColumn',
@@ -177,8 +187,8 @@ $gridColumns = [
                             ]);
                         },
 
-        ],
-      ],
+            ],
+       ],
     ]; 
 
 ?>
