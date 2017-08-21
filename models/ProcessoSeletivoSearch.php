@@ -18,8 +18,8 @@ class ProcessoSeletivoSearch extends ProcessoSeletivo
     public function rules()
     {
         return [
-            [['id', 'status_id', 'situacao_id', 'modalidade_id'], 'integer'],
-            [['descricao', 'data', 'numeroEdital', 'objetivo', 'data_encer'], 'safe'],
+            [['id', 'status_id', 'modalidade_id'], 'integer'],
+            [['descricao', 'data', 'numeroEdital', 'objetivo', 'data_encer', 'situacao_id'], 'safe'],
         ];
     }
 
@@ -48,6 +48,8 @@ class ProcessoSeletivoSearch extends ProcessoSeletivo
             'query' => $query,
         ]);
 
+        $query->joinWith(['situacao']);
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -60,14 +62,15 @@ class ProcessoSeletivoSearch extends ProcessoSeletivo
             'id' => $this->id,
             'data' => $this->data,
             'status_id' => $this->status_id,
-            'situacao_id' => $this->situacao_id,
+            //'situacao_id' => $this->situacao_id,
             'modalidade_id' => $this->modalidade_id,
             'data_encer' => $this->data_encer,
         ]);
 
         $query->andFilterWhere(['like', 'descricao', $this->descricao])
             ->andFilterWhere(['like', 'numeroEdital', $this->numeroEdital])
-            ->andFilterWhere(['like', 'objetivo', $this->objetivo]);
+            ->andFilterWhere(['like', 'situacao.descricao', $this->situacao_id])
+            ->andFilterWhere(['like', 'descricao', $this->descricao]);
 
         return $dataProvider;
     }

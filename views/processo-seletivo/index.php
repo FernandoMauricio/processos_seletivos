@@ -4,6 +4,9 @@ use yii\helpers\Html;
 use kartik\grid\GridView;
 use kartik\editable\Editable;
 use yii\widgets\Pjax;
+use yii\helpers\ArrayHelper;
+
+use app\models\Situacao;
 
 
 /* @var $this yii\web\View */
@@ -34,27 +37,35 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 <?php
 
 $gridColumns = [
-            //'id',
+
             'numeroEdital',
             'descricao',
             'objetivo:ntext',
 
-            // [
-            //     'attribute' => 'data',
-            //     'format' => ['date', 'php:d/m/Y'],
-            // ],
-
+            [
+                'attribute'=>'situacao_id', 
+                'width'=>'310px',
+                'value'=>function ($model, $key, $index, $widget) { 
+                    return $model->situacao->descricao;
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>ArrayHelper::map(Situacao::find()->orderBy('descricao')->asArray()->all(), 'descricao', 'descricao'), 
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                    'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
+            ],
 
             [
                 'class'=>'kartik\grid\BooleanColumn',
-                'attribute'=>'status_id', 
+                'attribute'=>'status_id',
                 'vAlign'=>'middle'
             ], 
 
 
                                 ['class' => 'yii\grid\ActionColumn',
                                 'template' => '{view} {update} {edital} {anexos} {adendos} {resultados}',
-                                'contentOptions' => ['style' => 'width: 490px;'],
+                                'contentOptions' => ['style' => 'width: 40%'],
                                 'buttons' => [
 
 

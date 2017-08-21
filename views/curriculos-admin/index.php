@@ -117,17 +117,17 @@ $gridColumns = [
             ],
 
             [
-            'attribute'=>'classificado', 
-            'width'=>'310px',
-            'value'=>function ($model, $key, $index, $widget) { 
-                return $model->situacaoCandidato->sitcan_descricao;
-            },
-            'filterType'=>GridView::FILTER_SELECT2,
-            'filter'=>ArrayHelper::map(SituacaoCandidato::find()->orderBy('sitcan_descricao')->asArray()->all(), 'sitcan_id', 'sitcan_descricao'), 
-            'filterWidgetOptions'=>[
-                'pluginOptions'=>['allowClear'=>true],
-            ],
-                'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
+                'attribute'=>'classificado', 
+                'width'=>'310px',
+                'value'=>function ($model, $key, $index, $widget) { 
+                    return $model->situacaoCandidato->sitcan_descricao;
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>ArrayHelper::map(SituacaoCandidato::find()->orderBy('sitcan_descricao')->asArray()->all(), 'sitcan_id', 'sitcan_descricao'), 
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                    'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
             ],
 
             ['class' => 'yii\grid\ActionColumn',
