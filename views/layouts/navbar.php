@@ -47,6 +47,7 @@ echo NavX::widget([
             ['label' => 'Curriculos', 'items' => [
             '<li class="dropdown-header">Administração dos Curriculos</li>',
                 ['label' => 'Listagem de Candidatos', 'url' => ['/curriculos-admin/index']],
+                ['label' => 'Análise de Curriculos (Administrador)', 'url' => ['/curriculos-admin/analise-gerencial-administrador']],
                 ['label' => 'Banco de Curriculos', 'url' => ['/curriculos-admin/banco-de-curriculos']],
             ]],
 

@@ -60,14 +60,16 @@ $gridColumns = [
                         ],
 
                         'id',
+
                         [
                             'attribute' => 'data_solicitacao',
                             'format' => ['date', 'php:d/m/Y'],
                         ],
+
                         'colaborador',
-                        
                         'unidade',
-                      [
+                        
+                        [
                             'class' => 'kartik\grid\EditableColumn',
                             'attribute' => 'situacao_id',
                             'value' => 'situacao.descricao',  

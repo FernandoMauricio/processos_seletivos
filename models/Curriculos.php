@@ -179,5 +179,9 @@ class Curriculos extends \yii\db\ActiveRecord
         return $this->hasOne(ProcessoSeletivo::className(), ['numeroEdital' => 'edital']);
     }
 
+    public function getUnidades()
+    {
+        return $this->hasOne(Unidades::className(), ['uni_codunidade' => 'unidade_aprovador']);
+    }
 
 }
