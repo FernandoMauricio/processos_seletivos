@@ -16,6 +16,7 @@ use app\models\CurriculosFormacao;
 use app\models\CurriculosComplementos;
 use app\models\CurriculosEmpregos;
 use app\models\BancoDeCurriculosSearch;
+use app\models\AnaliseGerencialSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -107,6 +108,28 @@ class CurriculosAdminController extends Controller
         ]);
     }
 
+
+    public function actionAnaliseGerencial()
+    {
+        $this->layout = 'main-admin-curriculos';
+
+        $session = Yii::$app->session;
+        if (!isset($session['sess_codusuario']) && !isset($session['sess_codcolaborador']) && !isset($session['sess_codunidade']) && !isset($session['sess_nomeusuario']) && !isset($session['sess_coddepartamento']) && !isset($session['sess_codcargo']) && !isset($session['sess_cargo']) && !isset($session['sess_setor']) && !isset($session['sess_unidade']) && !isset($session['sess_responsavelsetor'])) 
+        {
+           return $this->redirect('http://portalsenac.am.senac.br');
+        }
+
+        $searchModel = new AnaliseGerencialSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->sort = ['defaultOrder' => ['id'=>SORT_DESC]];
+
+        $session['query'] = $_SERVER['QUERY_STRING'];
+
+        return $this->render('listar-analise-gerencial', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
     public function actionImprimir($id) {
 
@@ -301,8 +324,6 @@ session_start();
         if ($model->load(Yii::$app->request->post()) && $curriculosEndereco->load(Yii::$app->request->post()) && $curriculosFormacao->load(Yii::$app->request->post()) && Model::validateMultiple([$model, $curriculosEndereco, $curriculosFormacao]) ) 
         {
 
-
-
         //Calcular a idade do candidato
         $datetime1 = new \DateTime($model->datanascimento, new \DateTimeZone('UTC'));
         $datetime2 = new \DateTime();
@@ -316,9 +337,6 @@ session_start();
 
         $curriculosEndereco->save(false);
         $curriculosFormacao->save(false);
-
-        
-
 
         //ENVIA E-MAIL DA INSCRIÇÃO PARA O CANDIDATO
                      Yii::$app->mailer->compose()
@@ -462,7 +480,8 @@ session_start();
                              'classificado'      => 4, //Enviado para Gerência Imediata
                              'unidade_aprovador' => $model->unidade_aprovador,
                              'aprovador_ggp'     => $session['sess_nomeusuario'],
-                             'dataaprovador_ggp' => date("Y-m-d H:i:s"),
+                             'dataaprovador_ggp' => date('Y-m-d H:i:s'),
+                             'situacao_ggp'      => 1, //Classificado pelo GGP
                              ], [//------WHERE
                              'classificado' => 3,  //Aguardando envio para Gerência Imediata
                              'edital'       => $numeroEdital,
@@ -496,10 +515,10 @@ session_start();
      //Classifica o candidato
      $connection = Yii::$app->db;
      $command = $connection->createCommand(
-     "UPDATE `db_processos`.`curriculos` SET `classificado` = '1' WHERE `id` = '".$model->id."'");
+     "UPDATE `db_processos`.`curriculos` SET `classificado` = '1', `aprovador_solicitante` = '".$session['sess_nomeusuario']."', `dataaprovador_solicitante` = ".date('"Y-m-d H:i:s"').", `situacao_aprovadorsolicitante` = '1' WHERE `id` = '".$model->id."'");
      $command->execute();
      
-      Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong>  O Candidato <strong> '.$model->nome.' </strong> foi Aprovado!</strong>');
+      Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Candidato(a) <strong> '.$model->nome.' </strong> foi Classificado!</strong>');
 
     return $this->redirect(Yii::$app->request->baseUrl. '/index.php?' . $session['query']);
 
@@ -514,10 +533,28 @@ session_start();
      //Desclassifica o candidato
      $connection = Yii::$app->db;
      $command = $connection->createCommand(
-     "UPDATE `db_processos`.`curriculos` SET `classificado` = '0' WHERE `id` = '".$model->id."'");
+     "UPDATE `db_processos`.`curriculos` SET `classificado` = '0', `aprovador_solicitante` = '".$session['sess_nomeusuario']."', `dataaprovador_solicitante` = ".date('"Y-m-d H:i:s"').", `situacao_aprovadorsolicitante` = '0' WHERE `id` = '".$model->id."'");
      $command->execute();
 
-     Yii::$app->session->setFlash('danger', '<strong>SUCESSO!</strong>  O Candidato <strong> '.$model->nome.' </strong> foi Reprovado!</strong>');
+     Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Candidato(a) <strong> '.$model->nome.' </strong> foi Desclassificado!</strong>');
+     
+    return $this->redirect(Yii::$app->request->baseUrl. '/index.php?' . $session['query']);
+
+    }
+
+    public function actionDesclassificarggp($id)
+    {
+
+     $session = Yii::$app->session;
+     $model = $this->findModel($id);
+
+     //Desclassifica o candidato
+     $connection = Yii::$app->db;
+     $command = $connection->createCommand(
+     "UPDATE `db_processos`.`curriculos` SET `classificado` = '0', `aprovador_ggp` = '".$session['sess_nomeusuario']."', `dataaprovador_ggp` = ".date('"Y-m-d H:i:s"').", `situacao_ggp` = '0' WHERE `id` = '".$model->id."'");
+     $command->execute();
+
+     Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Candidato(a) <strong> '.$model->nome.' </strong> foi Desclassificado!</strong>');
      
     return $this->redirect(Yii::$app->request->baseUrl. '/index.php?' . $session['query']);
 

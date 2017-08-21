@@ -326,18 +326,29 @@ $this->title = $model->numeroInscricao;
 
   <table class="table table-condensed table-hover">
     <thead>
-    <tr class="info"><th colspan="12">SEÇÃO 6: Aprovações</th></tr>
-        <th>Responsável Aprovação</th>
-        <th>Data/Hora Aprovação</th>
+    <tr class="info"><th colspan="12">SEÇÃO 6: Aprovações/Reprovações</th></tr>
+        <th>Responsável</th>
+        <th>Data/Hora</th>
+        <th>Situação</th>
     </thead>
     <tbody>
         <tr>
           <td><?= $model->aprovador_ggp; ?></td>
           <td><?= $model->dataaprovador_ggp != NULL ? date('d/m/Y H:i:s', strtotime($model->dataaprovador_ggp)) : ''; ?></td>
+          <td>
+            <?php if(isset($model->situacao_ggp)) { ?>
+              <?= $model->situacao_ggp == 1 ? '<span style="color:#27cc27"><b>Classificado</b></span>' : '<span style="color:#ff2b2b"><b>Desclassificado</b></span>'; ?>
+            <?php } ?>
+          </td>
         </tr>
         <tr>
           <td><?= $model->aprovador_solicitante; ?></td>
           <td><?= $model->dataaprovador_solicitante != NULL ? date('d/m/Y H:i:s', strtotime($model->dataaprovador_solicitante)) : ''; ?></td>
+          <td>
+            <?php if(isset($model->situacao_aprovadorsolicitante)) { ?>
+              <?= $model->situacao_aprovadorsolicitante  == 1 ? '<span style="color:#27cc27"><b>Classificado</b></span>' : '<span style="color:#ff2b2b"><b>Desclassificado</b></span>'; ?>
+            <?php } ?>
+          </td>
         </tr>
     </tbody>
   </table><br>

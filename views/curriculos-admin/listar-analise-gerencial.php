@@ -9,47 +9,28 @@ use yii\helpers\ArrayHelper;
 use yii\bootstrap\Modal;
 use yii\helpers\Url;
 
-use app\models\SituacaoCandidato;
-
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CurriculosSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Listagem de Candidatos';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Análise de Curriculos';
 ?>
-<div class="curriculos-index">
+<div class="curriculos-admin-index">
 
 <?php
-
 //Pega as mensagens
 foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
 echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 }
-
 ?>
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->title). '<small> Gerência Solicitante </small>' ?></h1>
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::button('Enviar Pré-Selecionados', ['value'=> Url::to('index.php?r=curriculos-admin/pre-selecionados'), 'class' => 'btn btn-success', 'id'=>'modalButton']) ?>
-    </p>
-
-    <?php
-        Modal::begin([
-            'header' => '<h4>Defina o edital a ser enviado os Curriculos Pré-Selecionados:</h4>',
-            'id' => 'modal',
-            'size' => 'modal-lg',
-            ]);
-
-        echo "<div id='modalContent'></div>";
-
-        Modal::end();
-    ?>
 
 <?php
 
 $gridColumns = [
+
             [
                 'class'=>'kartik\grid\ExpandRowColumn',
                 'width'=>'50px',
@@ -113,25 +94,15 @@ $gridColumns = [
 
             [
                 'attribute' => 'sexo',
-                 'value' => function ($data) { return $data->sexo == 0 ? 'Feminino' : 'Masculino'; },
+                'value' => function ($data) { return $data->sexo == 0 ? 'Feminino' : 'Masculino'; },
             ],
-
+ 
             [
-            'attribute'=>'classificado', 
-            'width'=>'310px',
-            'value'=>function ($model, $key, $index, $widget) { 
-                return $model->situacaoCandidato->sitcan_descricao;
-            },
-            'filterType'=>GridView::FILTER_SELECT2,
-            'filter'=>ArrayHelper::map(SituacaoCandidato::find()->orderBy('sitcan_descricao')->asArray()->all(), 'sitcan_id', 'sitcan_descricao'), 
-            'filterWidgetOptions'=>[
-                'pluginOptions'=>['allowClear'=>true],
+                'attribute' => 'classificado',
+                'value' => 'situacaoCandidato.sitcan_descricao'
             ],
-                'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
-            ],
-
             ['class' => 'yii\grid\ActionColumn',
-                        'template' => '{imprimir} {aguardando-envio-gerencia-imediata} {desclassificarggp}',
+                        'template' => '{imprimir} {classificar} {desclassificar}',
                         'contentOptions' => ['style' => 'width: 7%;'],
                         'buttons' => [
 
@@ -146,53 +117,34 @@ $gridColumns = [
                             ]);
                         },
 
-                        //VISUALIZAR
-                        'view' => function ($url, $model) {
-                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span> ', $url, [
-                                        'class'=>'btn btn-primary btn-xs',
-                                        'title' => Yii::t('app', 'Visualizar candidato'),
-                       
-                            ]);
-                        },
-
                         //CLASSIFICAR CANDIDATO
-                        'aguardando-envio-gerencia-imediata' => function ($url, $model) {
+                        'classificar' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-ok"></span> ', $url, [
                                         'class'=>'btn btn-success btn-xs',
-                                        'title' => Yii::t('app', 'Pré-Selecionar Candidato'),
+                                        'title' => Yii::t('app', 'Classificar Candidato'),
                                          'data' => [
+                                                   'confirm' => 'Você tem certeza que deseja <b style="color: green;">CLASSIFICAR</b> esse candidato?',
                                                    'method' => 'post',
                                                    ],
                             ]);
                         },
                         
-                        //DESCLASSIFICAR CANDIDATO COMO GGP
-                        'desclassificarggp' => function ($url, $model) {
+                        //DESCLASSIFICAR CANDIDATO
+                        'desclassificar' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-remove"></span> ', $url, [
                                         'class'=>'btn btn-danger btn-xs',
-                                        'title' => Yii::t('app', 'Desclassificar Candidato'),
+                                        'title' => Yii::t('app', 'Desclassificar candidato'),
                                          'data' => [
-                                                   //'confirm' => 'Você tem certeza que deseja <b style="color: red;">DESCLASSIFICAR</b> esse candidato?',
+                                                   'confirm' => 'Você tem certeza que deseja <b style="color: red;">DESCLASSIFICAR</b> esse candidato?',
                                                    'method' => 'post',
                                                    ],
                        
                             ]);
                         },
 
-                        //DESCLASSIFICAR CANDIDATO
-                        'desclassificarggp' => function ($url, $model) {
-                            return Html::a('<span class="glyphicon glyphicon-remove"></span> ', $url, [
-                                        'class'=>'btn btn-danger btn-xs',
-                                        'title' => Yii::t('app', 'Desclassificar Candidato'),
-                                         'data' => [
-                                                   //'confirm' => 'Você tem certeza que deseja <b style="color: red;">DESCLASSIFICAR</b> esse candidato?',
-                                                   'method' => 'post',
-                                                   ],
-                       
-                            ]);
-                        },
             ],
        ],
+
     ]; 
 
 ?>
@@ -208,21 +160,6 @@ $gridColumns = [
     'headerRowOptions'=>['class'=>'kartik-sheet-style'],
     'filterRowOptions'=>['class'=>'kartik-sheet-style'],
     'pjax'=>false, // pjax is set to always true for this demo
-    'rowOptions' =>function($model){
-                if($model->classificado == '0') //Desclassificado
-                {
-                    return['class'=>'danger'];                        
-                }elseif ($model->classificado == '1') {//Classificado
-                    return['class'=>'success']; 
-                }elseif ($model->classificado == '2') {//Pré-Selecionado pela Gerência Imediata
-                    return['class'=>'success']; 
-                }elseif ($model->classificado == '3') {//Aguardando Envio para Gerência Imediata
-                    return['class'=>'warning']; 
-                }elseif ($model->classificado == '4') {//Enviado para Gerência imediata
-                    return['class'=>'info']; 
-                }
-
-    },
     'export'=>[
             'showConfirmAlert'=>false,
             'target'=>GridView::TARGET_BLANK,
@@ -242,7 +179,7 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes de Curriculos Cadastrados', 'options'=>['colspan'=>13, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes de Curriculos Pré-Aprovados', 'options'=>['colspan'=>13, 'class'=>'text-center warning']],
                 ['content'=>'Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']],
             ],
         ]
@@ -250,7 +187,7 @@ $gridColumns = [
         'hover' => true,
         'panel' => [
         'type'=>GridView::TYPE_PRIMARY,
-        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem de Curriculos</h3>',
+        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem de curriculos pré-aprovados pelo GGP</h3>',
         'persistResize'=>false,
     ],
 ]);

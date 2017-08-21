@@ -40,10 +40,15 @@ echo NavX::widget([
             ['label' => 'Processos Seletivos', 'items' => [
             '<li class="dropdown-header">Administração do site</li>',
                 ['label' => 'Processos Seletivos', 'url' => ['/processo-seletivo/index']],
+            ]],
+
+
+            '<li class="divider"></li>',
+            ['label' => 'Curriculos', 'items' => [
+            '<li class="dropdown-header">Administração dos Curriculos</li>',
                 ['label' => 'Listagem de Candidatos', 'url' => ['/curriculos-admin/index']],
                 ['label' => 'Banco de Curriculos', 'url' => ['/curriculos-admin/banco-de-curriculos']],
             ]],
-
 
             '<li class="divider"></li>',
             ['label' => 'Configuração', 'items' => [
@@ -54,6 +59,7 @@ echo NavX::widget([
             ]],
         ]],
         ['label' => 'Solicitação de Contratação', 'url' => ['/contratacao/index']],
+        ['label' => 'Análise de Curriculos', 'url' => ['/curriculos-admin/analise-gerencial']],
 
         ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
 

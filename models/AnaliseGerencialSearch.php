@@ -9,7 +9,7 @@ use yii\data\ActiveDataProvider;
 /**
  * CurriculosSearch represents the model behind the search form about `app\models\Curriculos`.
  */
-class BancoDeCurriculosSearch extends Curriculos
+class AnaliseGerencialSearch extends Curriculos
 {
     /**
      * @inheritdoc
@@ -59,10 +59,13 @@ class BancoDeCurriculosSearch extends Curriculos
             'datanascimento' => $this->datanascimento,
             'idade' => $this->idade,
             'data' => $this->data,
-            'classificado' => $this->classificado,
+            'classificado' => 4,//Enviado para aprovação da Gerência
         ]);
 
-        $query->andFilterWhere(['like', 'edital', $this->edital])
+        $session = Yii::$app->session;
+
+        $query->andFilterWhere(['unidade_aprovador' => $session['sess_codunidade']])
+            ->andFilterWhere(['like', 'edital', $this->edital])
             ->andFilterWhere(['like', 'nome', $this->nome])
             ->andFilterWhere(['like', 'numeroInscricao', $this->numeroInscricao])
             ->andFilterWhere(['like', 'cargo', $this->cargo])
