@@ -31,38 +31,46 @@ echo NavX::widget([
 
             ['label' => 'Controle - Contração', 'items' => [
             '<li class="dropdown-header">Controle - Contração</li>',
-                ['label' => 'Contratações Pendentes', 'url' => ['/contratacao-pendente/index']],
-                ['label' => 'Contratações Em Andamento', 'url' => ['/contratacao-em-andamento/index']],
-                ['label' => 'Contratações Encerradas', 'url' => ['/contratacao-encerrada/index']],
+                ['label' => 'Contratações Pendentes', 'url' => ['/contratacao/contratacao-pendente/index']],
+                ['label' => 'Contratações Em Andamento', 'url' => ['/contratacao/contratacao-em-andamento/index']],
+                ['label' => 'Contratações Encerradas', 'url' => ['/contratacao/contratacao-encerrada/index']],
             ]],
 
             '<li class="divider"></li>',
             ['label' => 'Processos Seletivos', 'items' => [
             '<li class="dropdown-header">Administração do site</li>',
-                ['label' => 'Processos Seletivos', 'url' => ['/processo-seletivo/index']],
+                ['label' => 'Processos Seletivos', 'url' => ['/processoseletivo/processo-seletivo/index']],
             ]],
 
 
             '<li class="divider"></li>',
             ['label' => 'Curriculos', 'items' => [
             '<li class="dropdown-header">Administração dos Curriculos</li>',
-                ['label' => 'Listagem de Candidatos', 'url' => ['/curriculos-admin/index']],
-                ['label' => 'Análise de Curriculos (Administrador)', 'url' => ['/curriculos-admin/analise-gerencial-administrador']],
-                ['label' => 'Banco de Curriculos', 'url' => ['/curriculos-admin/banco-de-curriculos']],
+                ['label' => 'Listagem de Candidatos', 'url' => ['/curriculos/curriculos-admin/index']],
+                ['label' => 'Análise de Curriculos (Administrador)', 'url' => ['/curriculos/curriculos-admin/analise-gerencial-administrador']],
+                ['label' => 'Banco de Curriculos', 'url' => ['/curriculos/curriculos-admin/banco-de-curriculos']],
             ]],
 
             '<li class="divider"></li>',
             ['label' => 'Configuração', 'items' => [
             '<li class="dropdown-header">Cadastros</li>',
-                ['label' => 'Cargos', 'url' => ['/cargos/index']],
-                ['label' => 'Sistemas', 'url' => ['/sistemas/index']],
+                ['label' => 'Cargos', 'url' => ['/processoseletivo/cargos/index']],
+                ['label' => 'Sistemas', 'url' => ['/processoseletivo/sistemas/index']],
 
             ]],
         ]],
-        ['label' => 'Solicitação de Contratação', 'url' => ['/contratacao/index']],
-        ['label' => 'Análise de Curriculos', 'url' => ['/curriculos-admin/analise-gerencial']],
+        ['label' => 'Solicitação de Contratação', 'url' => ['/contratacao/contratacao/index']],
+        ['label' => 'Análise de Curriculos', 'url' => ['/curriculos/curriculos-admin/analise-gerencial']],
 
-        ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
+        [
+            'label' => 'Usuário (' . utf8_encode(ucwords(strtolower($session['sess_nomeusuario']))) . ')',
+            'items' => [
+                         '<li class="dropdown-header">Área Usuário</li>',
+                                //['label' => 'Alterar Senha', 'url' => ['usuario-usu/update', 'id' => $sess_codusuario]],
+                                ['label' => 'Versões Anteriores', 'url' => ['/site/versao']],
+                                ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
+                        ],
+            ],
 
     ]
 ]); 
@@ -75,7 +83,7 @@ echo NavX::widget([
 'options' => ['class' => 'navbar-nav navbar-right'],
                 
     'items' => [
-        ['label' => 'Solicitação de Contratação', 'url' => ['/contratacao/index']],
+        ['label' => 'Solicitação de Contratação', 'url' => ['/contratacao/contratacao/index']],
         
         ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
 
