@@ -8,6 +8,7 @@ use app\models\Situacao;
 use app\models\Modalidade;
 use app\models\Status;
 use kartik\datecontrol\DateControl;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ProcessoSeletivo */
@@ -75,7 +76,14 @@ use kartik\datecontrol\DateControl;
 
     <?php 
     $options = \yii\helpers\ArrayHelper::map($cargos, 'idcargo', 'descricao');
-    echo $form->field($model, 'permissions')->checkboxList($options, ['unselect'=>NULL]);
+                    echo $form->field($model, 'permissions')->widget(Select2::classname(), [
+                        'data' => $options,
+                        'options' => ['placeholder' => 'Selecione os Cargos...', 'multiple'=>true],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ]);  
+
     ?>
 
 
