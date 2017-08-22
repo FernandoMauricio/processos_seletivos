@@ -19,8 +19,14 @@ use mPDF;
  */
 class ContratacaoEmAndamentoController extends Controller
 {
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
+
+        $this->AccessAllow(); //Irá ser verificado se o usuário está logado no sistema
+
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -59,12 +65,9 @@ class ContratacaoEmAndamentoController extends Controller
      */
     public function actionIndex()
     {
-        $session = Yii::$app->session;
-        if (!isset($session['sess_codusuario']) && !isset($session['sess_codcolaborador']) && !isset($session['sess_codunidade']) && !isset($session['sess_nomeusuario']) && !isset($session['sess_coddepartamento']) && !isset($session['sess_codcargo']) && !isset($session['sess_cargo']) && !isset($session['sess_setor']) && !isset($session['sess_unidade']) && !isset($session['sess_responsavelsetor'])) 
-        {
-           return $this->redirect('http://portalsenac.am.senac.br');
-        }
+        
     
+        $session = Yii::$app->session;
     //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
     if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
 
@@ -482,12 +485,7 @@ class ContratacaoEmAndamentoController extends Controller
      */
     public function actionView($id)
     {
-        $session = Yii::$app->session;
-        if (!isset($session['sess_codusuario']) && !isset($session['sess_codcolaborador']) && !isset($session['sess_codunidade']) && !isset($session['sess_nomeusuario']) && !isset($session['sess_coddepartamento']) && !isset($session['sess_codcargo']) && !isset($session['sess_cargo']) && !isset($session['sess_setor']) && !isset($session['sess_unidade']) && !isset($session['sess_responsavelsetor'])) 
-        {
-           return $this->redirect('http://portalsenac.am.senac.br');
-        }
-
+    $session = Yii::$app->session;
     //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
     if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
 
@@ -508,12 +506,7 @@ class ContratacaoEmAndamentoController extends Controller
      */
     public function actionCreate()
     {
-        $session = Yii::$app->session;
-        if (!isset($session['sess_codusuario']) && !isset($session['sess_codcolaborador']) && !isset($session['sess_codunidade']) && !isset($session['sess_nomeusuario']) && !isset($session['sess_coddepartamento']) && !isset($session['sess_codcargo']) && !isset($session['sess_cargo']) && !isset($session['sess_setor']) && !isset($session['sess_unidade']) && !isset($session['sess_responsavelsetor'])) 
-        {
-           return $this->redirect('http://portalsenac.am.senac.br');
-        }
-
+    $session = Yii::$app->session;
     //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
     if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
 
@@ -541,12 +534,7 @@ class ContratacaoEmAndamentoController extends Controller
      */
     public function actionUpdate($id)
     {
-        $session = Yii::$app->session;
-        if (!isset($session['sess_codusuario']) && !isset($session['sess_codcolaborador']) && !isset($session['sess_codunidade']) && !isset($session['sess_nomeusuario']) && !isset($session['sess_coddepartamento']) && !isset($session['sess_codcargo']) && !isset($session['sess_cargo']) && !isset($session['sess_setor']) && !isset($session['sess_unidade']) && !isset($session['sess_responsavelsetor'])) 
-        {
-           return $this->redirect('http://portalsenac.am.senac.br');
-        }
-
+    $session = Yii::$app->session;
     //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
     if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
 
@@ -679,8 +667,6 @@ return $this->redirect(['index']);
 
     }
 
-
-
     /**
      * Deletes an existing Contratacao model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -706,7 +692,17 @@ return $this->redirect(['index']);
         if (($model = Contratacao::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('A página solicitada não existe.');
+        }
+    }
+
+    public function AccessAllow()
+    {
+        $session = Yii::$app->session;
+        if (!isset($session['sess_codusuario']) && !isset($session['sess_codcolaborador']) && !isset($session['sess_codunidade']) && !isset($session['sess_nomeusuario']) && !isset($session['sess_coddepartamento']) && !isset($session['sess_codcargo']) && !isset($session['sess_cargo']) && !isset($session['sess_setor']) && !isset($session['sess_unidade']) && !isset($session['sess_responsavelsetor'])) 
+        {
+           return $this->redirect('http://portalsenac.am.senac.br');
         }
     }
 }
+

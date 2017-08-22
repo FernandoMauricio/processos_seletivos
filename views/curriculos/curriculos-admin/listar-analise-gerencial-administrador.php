@@ -10,6 +10,7 @@ use yii\bootstrap\Modal;
 use yii\helpers\Url;
 
 use app\models\curriculos\Unidades;
+use app\models\curriculos\SituacaoCandidato;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CurriculosSearch */
@@ -51,7 +52,7 @@ $gridColumns = [
 
             [
                 'attribute'=>'unidade_aprovador', 
-                'width'=>'310px',
+                'width'=>'7%',
                 'value'=>function ($model, $key, $index, $widget) { 
                     return $model->unidades->uni_nomeabreviado;
                 },
@@ -65,27 +66,28 @@ $gridColumns = [
 
             [
             'attribute'=>'edital',
-            'options' => ['width' => '20px'],
+            'label' => 'Doc. Abertura',
+            'options' => ['width' => '5%'],
             ],
 
             [
             'attribute'=>'numeroInscricao',
-            'options' => ['width' => '20px'],
+            'options' => ['width' => '5%'],
             ],
 
             [
             'attribute'=>'cargo',
-            'options' => ['width' => '300px'],
+            'options' => ['width' => '5%'],
             ],
 
             [
             'attribute'=>'nome',
-            'options' => ['width' => '300px'],
+            'options' => ['width' => '5%'],
             ],
 
             [
             'attribute'=>'cpf',
-            'options' => ['width' => '140px'],
+            'options' => ['width' => '5%'],
             ],
 
             [
@@ -95,17 +97,17 @@ $gridColumns = [
 
             [
             'attribute'=>'email',
-            'options' => ['width' => '300px'],
+            'options' => ['width' => '4%'],
             ],
 
             [
             'attribute'=>'emailAlt',
-            'options' => ['width' => '300px'],
+            'options' => ['width' => '4%'],
             ],
 
             [
             'attribute'=>'telefone',
-            'options' => ['width' => '300px'],
+            'options' => ['width' => '4%'],
             ],
 
             [
@@ -114,12 +116,22 @@ $gridColumns = [
             ],
  
             [
-                'attribute' => 'classificado',
-                'value' => 'situacaoCandidato.sitcan_descricao'
+                'attribute'=>'classificado', 
+                'width'=>'3%',
+                'value'=>function ($model, $key, $index, $widget) { 
+                    return $model->situacaoCandidato->sitcan_descricao;
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>ArrayHelper::map(SituacaoCandidato::find()->orderBy('sitcan_descricao')->asArray()->all(), 'sitcan_id', 'sitcan_descricao'), 
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                    'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
             ],
+
             ['class' => 'yii\grid\ActionColumn',
                         'template' => '{imprimir} {classificar} {desclassificar}',
-                        'contentOptions' => ['style' => 'width: 7%;'],
+                        'contentOptions' => ['style' => 'width: 15%;'],
                         'buttons' => [
 
                         //IMPRIMIR
