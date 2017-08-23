@@ -15,6 +15,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'area')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'ch_semana')->textInput() ?>
+
+    <?= $form->field($model, 'salario')->textInput() ?>
+
     <?= $form->field($model, 'status')->radioList(['1' => 'Ativo', '0' => 'Inativo']) ?>
 
 

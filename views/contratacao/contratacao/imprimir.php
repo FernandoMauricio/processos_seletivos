@@ -8,6 +8,7 @@ use app\models\contratacao\Recrutamento;
 use app\models\contratacao\Contratacao;
 use app\models\contratacao\Sistemas;
 use app\models\contratacao\SistemasContratacao;
+use app\models\processoseletivo\Cargos;
 
 ?>
 
@@ -50,6 +51,14 @@ $id = $_GET['id'];
         <td colspan="2"><strong>Código: </strong><?php echo $model->id; ?></td>
         <td colspan="4"><strong>Solicitante: </strong><?php echo $model->colaborador; ?></td> 
         <td colspan="6"><strong>Unidade: </strong> <?php echo $model->unidade; ?></td>
+    </tr> 
+
+    <tr>
+        <td colspan="3"><strong>Cargo: </strong><?php echo isset($model->cargo0->descricao) ? $model->cargo0->descricao : ''; ?></td>
+        <td colspan="3"><strong>Área: </strong><?php echo $model->cargo_area; ?></td> 
+        <td colspan="3"><strong>Salário: </strong> <?php echo $model->cargo_salario; ?></td>
+        <td colspan="2"><strong>Encargos: </strong> <?php echo $model->cargo_encargos; ?></td>
+        <td colspan="2"><strong>Valor Total: </strong> <?php echo $model->cargo_valortotal; ?></td>
     </tr> 
 
     <tr>

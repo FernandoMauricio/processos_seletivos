@@ -7,6 +7,8 @@ use yii\widgets\MaskedInput;
 use yii\helpers\ArrayHelper;
 use app\models\contratacao\Recrutamento;
 use kartik\builder\Form;
+use kartik\select2\Select2;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Contratacao */
@@ -17,11 +19,65 @@ use kartik\builder\Form;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php echo $form->errorSummary($model); ?>   
+    <?php echo $form->errorSummary($model); ?>
 
-    <?= $form->field($model, 'colaborador')->textInput(['readonly'=>true]) ?>
+<div class="panel-body">
+    <div class="row">
+        <div class="col-md-6">
+            <?= $form->field($model, 'colaborador')->textInput(['readonly'=>true]) ?>
+        </div>
 
-    <?= $form->field($model, 'unidade')->textInput(['readonly'=>true]) ?>
+        <div class="col-md-6">
+            <?= $form->field($model, 'unidade')->textInput(['readonly'=>true]) ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <?php
+               $data_cargos = ArrayHelper::map($cargos, 'idcargo', 'descricao');
+               echo $form->field($model, "cargo_id")->widget(Select2::classname(), [
+                       'data' =>  $data_cargos,
+                       'options' => ['placeholder' => 'Selecione o Cargo...',
+                       'onchange'=>'
+                               var select = this;
+                               $.getJSON( "'.Url::toRoute('/contratacao/contratacao/get-cargos').'", { cargosId: $(this).val() } )
+                               .done(function( data ) {
+
+                                      var $divPanelBody =  $(select).parent().parent().parent();
+
+                                      var $inputArea     = $divPanelBody.find("input:eq(0)");
+                                      var $inputSalario  = $divPanelBody.find("input:eq(1)");
+                                      var $inputEncargos = $divPanelBody.find("input:eq(2)");
+                                      var $inputTotal    = $divPanelBody.find("input:eq(3)");
+
+                                      $inputArea.val(data.area);
+                                      $inputSalario.val(data.salario);
+                                      $inputEncargos.val(data.encargos);
+                                      $inputTotal.val(data.valor_total);
+
+                                   });
+                               '
+                       ]]);
+            ?>
+        </div>
+
+        <div class="col-md-3">
+            <?= $form->field($model, 'cargo_area')->textInput(['readonly'=>true]) ?>
+        </div>
+
+        <div class="col-md-2">
+            <?= $form->field($model, 'cargo_salario')->textInput(['readonly'=>true]) ?>
+        </div>
+
+        <div class="col-md-2">
+            <?= $form->field($model, 'cargo_encargos')->textInput(['readonly'=>true]) ?>
+        </div>
+
+        <div class="col-md-2">
+            <?= $form->field($model, 'cargo_valortotal')->textInput(['readonly'=>true]) ?>
+        </div>
+    </div>
 
     <?= $form->field($model, 'quant_pessoa')->textInput() ?>
 

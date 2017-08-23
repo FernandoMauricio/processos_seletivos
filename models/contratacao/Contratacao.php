@@ -3,6 +3,7 @@
 namespace app\models\contratacao;
 
 use Yii;
+use app\models\processoseletivo\Cargos;
 
 /**
  * This is the model class for table "contratacao".
@@ -79,12 +80,14 @@ class Contratacao extends \yii\db\ActiveRecord
             ['tecnico_area', 'required', 'when' => function($model) { return $model->tecnico_comp == 1; }, 'enableClientValidation' => true],
             ['superior_area', 'required', 'when' => function($model) { return $model->superior_comp == 1; }, 'enableClientValidation' => true],
             ['pos_area', 'required', 'when' => function($model) { return $model->pos_comp == 1; }, 'enableClientValidation' => true],
-            [['cod_colaborador', 'cod_unidade_solic', 'quant_pessoa', 'substituicao', 'periodo', 'tempo_periodo', 'aumento_quadro', 'deficiencia', 'fundamental_comp', 'fundamental_inc', 'medio_comp', 'medio_inc', 'tecnico_comp', 'tecnico_inc', 'superior_comp', 'superior_inc', 'pos_comp', 'pos_inc', 'windows', 'word', 'excel', 'internet', 'experiencia', 'jornada_horas', 'recrutamento_id', 'selec_curriculo', 'selec_dinamica', 'selec_prova', 'selec_entrevista', 'situacao_id'], 'integer'],
+            [['cod_colaborador', 'cod_unidade_solic', 'quant_pessoa', 'substituicao', 'periodo', 'tempo_periodo', 'aumento_quadro', 'deficiencia', 'fundamental_comp', 'fundamental_inc', 'medio_comp', 'medio_inc', 'tecnico_comp', 'tecnico_inc', 'superior_comp', 'superior_inc', 'pos_comp', 'pos_inc', 'windows', 'word', 'excel', 'internet', 'experiencia', 'jornada_horas', 'recrutamento_id', 'selec_curriculo', 'selec_dinamica', 'selec_prova', 'selec_entrevista', 'situacao_id', 'cargo_id'], 'integer'],
             [['motivo', 'obs_deficiencia', 'obs_aumento','dominio_atividade', 'jornada_obs', 'principais_atividades'], 'string'],
-            [['recrutamento_id', 'situacao_id', 'permissions'], 'required'],
-            [['colaborador', 'unidade', 'nome_substituicao'], 'string', 'max' => 100],
+            [['recrutamento_id', 'situacao_id', 'permissions','cargo_id', 'cargo_area', 'cargo_salario', 'cargo_encargos', 'cargo_valortotal'], 'required'],
+            [['cargo_salario', 'cargo_encargos', 'cargo_valortotal'], 'number'],
+            [['colaborador', 'unidade', 'nome_substituicao', 'cargo_area'], 'string', 'max' => 100],
             [['data_ingresso'], 'string', 'max' => 15],
-            [['tecnico_area', 'cargo','superior_area', 'pos_area', 'experiencia_tempo', 'experiencia_atividade', 'selec_teste'], 'string', 'max' => 45]
+            [['tecnico_area', 'cargo','superior_area', 'pos_area', 'experiencia_tempo', 'experiencia_atividade', 'selec_teste'], 'string', 'max' => 45],
+            [['cargo_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cargos::className(), 'targetAttribute' => ['cargo_id' => 'idcargo']]
         ];
     }
 
@@ -147,6 +150,11 @@ class Contratacao extends \yii\db\ActiveRecord
             'nomesituacao' => 'Situação',
             'situacao_id' => 'Situação',
             'permissions' => 'Criação de contas para:',
+            'cargo_id' => 'Cargo',
+            'cargo_area' => 'Área',
+            'cargo_salario' => 'Salário',
+            'cargo_encargos' => 'Encargos',
+            'cargo_valortotal' => 'Valor Total',
         ];
     }
 
@@ -164,6 +172,15 @@ class Contratacao extends \yii\db\ActiveRecord
             $tc->sistema_id = $id;
             $tc->save();
         }
+    }
+
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCargo0()
+    {
+        return $this->hasOne(Cargos::className(), ['idcargo' => 'cargo_id']);
     }
 
     /**

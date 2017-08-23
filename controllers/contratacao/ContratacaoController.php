@@ -3,9 +3,10 @@
 namespace app\controllers\contratacao;
 
 use Yii;
-use app\models\contratacao\ContratacaoJustificativas;
+use app\models\processoseletivo\Cargos;
 use app\models\contratacao\Sistemas;
 use app\models\contratacao\SistemasContratacao;
+use app\models\contratacao\ContratacaoJustificativas;
 use app\models\contratacao\Contratacao;
 use app\models\contratacao\ContratacaoSearch;
 use app\models\contratacao\SituacaoContratacao;
@@ -16,6 +17,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use kartik\mpdf\Pdf;
+use yii\helpers\Json;
 
 use mPDF;
 
@@ -110,6 +112,13 @@ class ContratacaoController extends Controller
         ]);
     }
 
+    //Localiza os dados do Cargo
+    public function actionGetCargos($cargosId){
+
+        $getCargos = Cargos::findOne($cargosId);
+        echo Json::encode($getCargos);
+    }
+
     /**
      * Creates a new Contratacao model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -129,6 +138,7 @@ class ContratacaoController extends Controller
 
         $model = new Contratacao();
 
+        $cargos = Cargos::find()->where(['status' => 1])->orderBy('descricao')->all();
         $sistemas = Sistemas::find()->all();
 
         $session = Yii::$app->session;
@@ -175,6 +185,7 @@ class ContratacaoController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'cargos' => $cargos,
                 'sistemas' => $sistemas,
             ]);
         }

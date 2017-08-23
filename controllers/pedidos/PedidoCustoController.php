@@ -61,7 +61,7 @@ class PedidoCustoController extends Controller
         ]);
     }
 
-    //Localiza os dados de valores e tipos de material cadastrados no repositorio
+    //Localiza os dados da contratação
     public function actionGetContratacao($contratacaoId){
 
         $getContratacao = Contratacao::findOne($contratacaoId);
@@ -79,7 +79,7 @@ class PedidoCustoController extends Controller
         $contratacao = new Contratacao();
         $modelsItens = [new PedidocustoItens];
 
-        $contratacoes     = Contratacao::find()->where(['situacao_id' => 4])->orderBy('id')->all();
+        $contratacoes = Contratacao::find()->where(['situacao_id' => 4])->orderBy('id')->all();
 
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

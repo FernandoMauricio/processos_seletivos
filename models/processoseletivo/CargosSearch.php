@@ -8,7 +8,7 @@ use yii\data\ActiveDataProvider;
 use app\models\processoseletivo\Cargos;
 
 /**
- * CargosSearch represents the model behind the search form about `app\models\Cargos`.
+ * CargosSearch represents the model behind the search form about `app\models\processoseletivo\Cargos`.
  */
 class CargosSearch extends Cargos
 {
@@ -18,8 +18,9 @@ class CargosSearch extends Cargos
     public function rules()
     {
         return [
-            [['idcargo', 'status'], 'integer'],
-            [['descricao'], 'safe'],
+            [['idcargo', 'ch_semana', 'status'], 'integer'],
+            [['descricao', 'area'], 'safe'],
+            [['salario', 'encargos', 'valor_total'], 'number'],
         ];
     }
 
@@ -43,6 +44,8 @@ class CargosSearch extends Cargos
     {
         $query = Cargos::find();
 
+        // add conditions that should always apply here
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -55,12 +58,18 @@ class CargosSearch extends Cargos
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'idcargo' => $this->idcargo,
+            'ch_semana' => $this->ch_semana,
+            'salario' => $this->salario,
+            'encargos' => $this->encargos,
+            'valor_total' => $this->valor_total,
             'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'descricao', $this->descricao]);
+        $query->andFilterWhere(['like', 'descricao', $this->descricao])
+            ->andFilterWhere(['like', 'area', $this->area]);
 
         return $dataProvider;
     }

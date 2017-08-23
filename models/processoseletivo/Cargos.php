@@ -9,6 +9,12 @@ use Yii;
  *
  * @property integer $idcargo
  * @property string $descricao
+ * @property string $area
+ * @property integer $ch_semana
+ * @property double $salario
+ * @property double $encargos
+ * @property double $valor_total
+ * @property integer $status
  *
  * @property CargosProcesso[] $cargosProcessos
  */
@@ -28,9 +34,10 @@ class Cargos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descricao'], 'required'],
-            [['status'], 'integer'],
-            [['descricao'], 'string', 'max' => 100]
+            [['descricao', 'area', 'ch_semana', 'salario', 'status'], 'required'],
+            [['ch_semana', 'status'], 'integer'],
+            [['salario', 'encargos', 'valor_total'], 'number'],
+            [['descricao', 'area'], 'string', 'max' => 100],
         ];
     }
 
@@ -40,8 +47,13 @@ class Cargos extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idcargo' => 'Código',
+            'idcargo' => 'Cod.',
             'descricao' => 'Descrição',
+            'area' => 'Área',
+            'ch_semana' => 'CH Semanal',
+            'salario' => 'Salário',
+            'encargos' => 'Encargos',
+            'valor_total' => 'Total',
             'status' => 'Status',
         ];
     }

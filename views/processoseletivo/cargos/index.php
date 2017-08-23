@@ -23,7 +23,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
 ?>
 
-
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -37,6 +36,11 @@ $gridColumns = [
             ['class' => 'yii\grid\SerialColumn'],
 
             'descricao',
+            'area',
+            'ch_semana',
+            'salario',
+            'encargos',
+            'valor_total',
 
             [
                 'class'=>'kartik\grid\BooleanColumn',
@@ -63,8 +67,8 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes de Cargos Cadastrados', 'options'=>['colspan'=>3, 'class'=>'text-center warning']], 
-                ['content'=>'Área de Ações', 'options'=>['colspan'=>3, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes de Cargos Cadastrados', 'options'=>['colspan'=>7, 'class'=>'text-center warning']], 
+                ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]
     ],

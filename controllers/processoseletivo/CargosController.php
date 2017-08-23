@@ -57,29 +57,6 @@ class CargosController extends Controller
     }
 
     /**
-     * Displays a single Cargos model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        
-
-                $session = Yii::$app->session;
-    //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
-    if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
-
-        $this->layout = 'main-acesso-negado';
-        return $this->render('/site/acesso_negado');
-
-    }else
-
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
      * Creates a new Cargos model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -129,6 +106,10 @@ class CargosController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            $model->encargos = ($model->salario * 32.7) / 100;
+            $model->valor_total = $model->salario + $model->encargos;
+            $model->save();
 
             Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong>O Cargo foi atualizado!</strong>');
 

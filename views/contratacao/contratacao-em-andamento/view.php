@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 /**
  * THE VIEW BUTTON
  */
-echo Html::a('<i class="fa glyphicon glyphicon-print"></i> Imprimir', ['imprimir','id' => $model->id], [
+echo Html::a('<i class="fa glyphicon glyphicon-print"></i> Imprimir', ['contratacao/contratacao/imprimir','id' => $model->id], [
     'class'=>'btn pull-right btn-info btn-lg', 
     'target'=>'_blank', 
     'data-toggle'=>'tooltip', 
@@ -27,7 +27,7 @@ echo Html::a('<i class="fa glyphicon glyphicon-print"></i> Imprimir', ['imprimir
     
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('imprimir', [
+   <?= $this->render('../contratacao/imprimir', [
         'model' => $model,
     ]) ?>
 
