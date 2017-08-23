@@ -4,7 +4,7 @@ namespace app\controllers\curriculos;
 
 use Yii;
 
-use app\models\curriculos\Model;
+use app\models\Model;
 use app\models\processoseletivo\Cargos;
 use app\models\processoseletivo\CargosProcesso;
 use app\models\processoseletivo\ProcessoSeletivo;
@@ -521,7 +521,8 @@ session_start();
      
       Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Candidato(a) <strong> '.$model->nome.' </strong> foi Classificado!</strong>');
 
-    return $this->redirect(Yii::$app->request->baseUrl. '/index.php?' . $session['query']);
+    //return $this->redirect(Yii::$app->request->baseUrl. '/index.php?' . $session['query']);
+    return $this->redirect(['analise-gerencial']);
 
     }
 

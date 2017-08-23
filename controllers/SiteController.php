@@ -15,7 +15,7 @@ class SiteController extends Controller
     public function behaviors()
     {
 
-        $this->AccessAllow(); //Irá ser verificado se o usuário está logado no sistema
+        //$this->AccessAllow(); //Irá ser verificado se o usuário está logado no sistema
 
         return [
             'access' => [
@@ -54,6 +54,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         
+        $session = Yii::$app->session;
 
     //VERIFICA SE O COLABORADOR É GERENTE PARA REALIZAR A SOLICITAÇÃO
     if($session['sess_responsavelsetor'] == 0 && $session['sess_coddepartamento'] != 82){

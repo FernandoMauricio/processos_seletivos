@@ -8,6 +8,7 @@ use kartik\export\ExportMenu;
 use yii\helpers\ArrayHelper;
 use yii\bootstrap\Modal;
 use yii\helpers\Url;
+use yii\bootstrap\Collapse;
 
 use app\models\curriculos\SituacaoCandidato;
 
@@ -28,7 +29,20 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
 ?>
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    <?php
+        echo Collapse::widget([
+                    'items' => [
+                        // equivalent to the above
+                        [
+                            'label' => 'Pesquisa Avançada',
+                            'content' => $this->render('_search', ['model' => $searchModel]),
+                            // open its content by default
+                            //'options' => ['class' => 'panel panel-primary']
+                        ],
+                    ]
+                ]);
+    ?>
 
     <p>
         <?= Html::button('Enviar Pré-Selecionados', ['value'=> Url::to('index.php?r=curriculos/curriculos-admin/pre-selecionados'), 'class' => 'btn btn-success', 'id'=>'modalButton']) ?>

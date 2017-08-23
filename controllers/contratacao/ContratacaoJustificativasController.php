@@ -57,8 +57,7 @@ class ContratacaoJustificativasController extends Controller
      */
     public function actionView($id)
     {
-        
-
+        $session = Yii::$app->session;
     //VERIFICA SE O COLABORADOR FAZ É GERENTE PARA REALIZAR A SOLICITAÇÃO
     if($session['sess_responsavelsetor'] == 0 && $session['sess_coddepartamento'] != 82){
 
@@ -80,8 +79,7 @@ class ContratacaoJustificativasController extends Controller
     
     public function actionCreate()
     {
-        
-
+        $session = Yii::$app->session;
     //VERIFICA SE O COLABORADOR É GERENTE OU SE FAZ PARTE DA EQUIPE DE SELEÇÃO PARA REALIZAR A SOLICITAÇÃO
     if($session['sess_responsavelsetor'] == 0 && $session['sess_coddepartamento'] != 82){
 
@@ -160,8 +158,8 @@ class ContratacaoJustificativasController extends Controller
      */
     public function actionUpdate($id)
     {
-        
 
+        $session = Yii::$app->session;
     //VERIFICA SE O COLABORADOR É GERENTE OU SE FAZ PARTE DA EQUIPE DE SELEÇÃO PARA REALIZAR A SOLICITAÇÃO
     if($session['sess_responsavelsetor'] == 0 && $session['sess_coddepartamento'] != 82){
 

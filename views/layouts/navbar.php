@@ -29,16 +29,24 @@ echo NavX::widget([
     'items' => [
         ['label' => 'Administração', 'items' => [
 
-            ['label' => 'Controle - Contração', 'items' => [
-            '<li class="dropdown-header">Controle - Contração</li>',
+            ['label' => 'Contrações', 'items' => [
+            '<li class="dropdown-header">Administração das Contrações</li>',
                 ['label' => 'Contratações Pendentes', 'url' => ['/contratacao/contratacao-pendente/index']],
                 ['label' => 'Contratações Em Andamento', 'url' => ['/contratacao/contratacao-em-andamento/index']],
                 ['label' => 'Contratações Encerradas', 'url' => ['/contratacao/contratacao-encerrada/index']],
             ]],
 
             '<li class="divider"></li>',
+            ['label' => 'Pedidos', 'items' => [
+                '<li class="dropdown-header">Administração dos Pedidos</li>',
+                ['label' => 'Pedidos de Custo', 'url' => ['/pedidos/pedido-custo/index']],
+                ['label' => 'Pedidos de Contratação', 'url' => ['/pedidos/pedido-contratacao/index']],
+
+            ]],
+
+            '<li class="divider"></li>',
             ['label' => 'Processos Seletivos', 'items' => [
-            '<li class="dropdown-header">Administração do site</li>',
+            '<li class="dropdown-header">Administração do Site</li>',
                 ['label' => 'Processos Seletivos', 'url' => ['/processoseletivo/processo-seletivo/index']],
             ]],
 
@@ -52,7 +60,7 @@ echo NavX::widget([
             ]],
 
             '<li class="divider"></li>',
-            ['label' => 'Configuração', 'items' => [
+            ['label' => 'Parâmetros', 'items' => [
             '<li class="dropdown-header">Cadastros</li>',
                 ['label' => 'Cargos', 'url' => ['/processoseletivo/cargos/index']],
                 ['label' => 'Sistemas', 'url' => ['/processoseletivo/sistemas/index']],

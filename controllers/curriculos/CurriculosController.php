@@ -4,9 +4,9 @@ namespace app\controllers\curriculos;
 
 use Yii;
 
-use app\models\curriculos\Model;
-use app\models\curriculos\Cargos;
-use app\models\curriculos\CargosProcesso;
+use app\models\Model;
+use app\models\processoseletivo\Cargos;
+use app\models\processoseletivo\CargosProcesso;
 use app\models\curriculos\Curriculos;
 use app\models\curriculos\CurriculosSearch;
 use app\models\curriculos\CurriculosEndereco;
@@ -32,8 +32,6 @@ class CurriculosController extends Controller
      */
     public function behaviors()
     {
-
-        $this->AccessAllow(); //Irá ser verificado se o usuário está logado no sistema
 
         return [
             'verbs' => [
@@ -87,7 +85,7 @@ class CurriculosController extends Controller
      */
     public function actionCreate()
     {
-        //ini_set('session.cookie_domain','am.senac.br');
+        ini_set('session.cookie_domain','am.senac.br');
 
         $this->layout = 'main-curriculos';
         $model = new Curriculos();
@@ -103,7 +101,7 @@ class CurriculosController extends Controller
         //session numero de edital e do id do processo
         $session = Yii::$app->session;
         $model->edital = $session["numeroEdital"];
-        $model->classificado = 5; //Em análise pelo GGP
+        $model->classificado = 5; //Inscrito
         $id = $session["id"];
 
         $model->data  = date('Y-m-d H:i:s');
@@ -243,13 +241,5 @@ class CurriculosController extends Controller
         }
     }
 
-    public function AccessAllow()
-    {
-        $session = Yii::$app->session;
-        if (!isset($session['sess_codusuario']) && !isset($session['sess_codcolaborador']) && !isset($session['sess_codunidade']) && !isset($session['sess_nomeusuario']) && !isset($session['sess_coddepartamento']) && !isset($session['sess_codcargo']) && !isset($session['sess_cargo']) && !isset($session['sess_setor']) && !isset($session['sess_unidade']) && !isset($session['sess_responsavelsetor'])) 
-        {
-           return $this->redirect('http://portalsenac.am.senac.br');
-        }
-    }
 }
 
