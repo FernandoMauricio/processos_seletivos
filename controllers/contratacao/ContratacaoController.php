@@ -71,9 +71,11 @@ class ContratacaoController extends Controller
 
     public function actionImprimir($id) {
 
+            $model = $this->findModel($id);
+
             $pdf = new Pdf([
                 'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
-                'content' => $this->renderPartial('imprimir'),
+                'content' => $this->renderPartial('imprimir', ['model' => $model]),
                 'options' => [
                     'title' => 'Recrutamento e Seleção - Senac AM',
                     //'subject' => 'Generating PDF files via yii2-mpdf extension has never been easy'
@@ -85,10 +87,9 @@ class ContratacaoController extends Controller
             ]);
 
         return $pdf->render('imprimir', [
-            'model' => $this->findModel($id),
-
+            'model' => $model,
         ]);
-        }
+    }
 
 
     /**

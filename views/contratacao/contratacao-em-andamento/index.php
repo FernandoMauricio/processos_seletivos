@@ -53,7 +53,7 @@ $gridColumns = [
                             return GridView::ROW_COLLAPSED;
                         },
                         'detail'=>function ($model, $key, $index, $column) {
-                            return Yii::$app->controller->renderPartial('../contratacao/pdf_contratacao', ['model'=>$model]);
+                            return Yii::$app->controller->renderPartial('../contratacao/imprimir', ['model'=>$model]);
                         },
                         'headerOptions'=>['class'=>'kartik-sheet-style'], 
                         'expandOneOnly'=>true

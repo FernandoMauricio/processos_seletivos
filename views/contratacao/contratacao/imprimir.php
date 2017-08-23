@@ -12,18 +12,6 @@ use app\models\processoseletivo\Cargos;
 
 ?>
 
-<?php
-
-$session = Yii::$app->session;
-
-$id = $_GET['id'];
-
- $sql = 'SELECT * FROM contratacao WHERE id ='.$id.' ';
-        $model = Contratacao::findBySql($sql)->one(); 
-
-?>
-
-
 <body>
 
 <div class="panel panel-primary">
@@ -170,7 +158,7 @@ $id = $_GET['id'];
 
                <?php
 
-  $query_sistemas = "SELECT descricao FROM sistemas, sistemas_contratacao WHERE contratacao_id = '".$id."' AND sistema_id = idsistema";
+  $query_sistemas = "SELECT descricao FROM sistemas, sistemas_contratacao WHERE contratacao_id = '".$model->id."' AND sistema_id = idsistema";
   $sistema = Sistemas::findBySql($query_sistemas)->all(); 
   foreach ($sistema as $sistemas) {
 
