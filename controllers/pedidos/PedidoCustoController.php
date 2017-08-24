@@ -64,6 +64,15 @@ class PedidoCustoController extends Controller
     //Localiza os dados da contratação
     public function actionGetContratacao($contratacaoId){
 
+        SELECT
+        *,
+        `cargos`.`descricao` AS `cargo`
+        FROM
+        `contratacao`
+        INNER JOIN `cargos` ON `contratacao`.`cargo_id` = `cargos`.`idcargo` 
+        WHERE `id`='1852'
+
+
         $getContratacao = Contratacao::findOne($contratacaoId);
         echo Json::encode($getContratacao);
     }
@@ -79,7 +88,8 @@ class PedidoCustoController extends Controller
         $contratacao = new Contratacao();
         $modelsItens = [new PedidocustoItens];
 
-        $contratacoes = Contratacao::find()->where(['situacao_id' => 4])->orderBy('id')->all();
+        //1 => Em elaboração / 2 => Em correção pelo setor
+        $contratacoes = Contratacao::find()->where(['!=','situacao_id', 1])->andWhere(['!=','situacao_id', 2])->orderBy('id')->all();
 
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

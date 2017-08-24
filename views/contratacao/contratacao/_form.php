@@ -33,7 +33,7 @@ use yii\helpers\Url;
     </div>
 
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-6">
             <?php
                $data_cargos = ArrayHelper::map($cargos, 'idcargo', 'descricao');
                echo $form->field($model, "cargo_id")->widget(Select2::classname(), [
@@ -46,12 +46,14 @@ use yii\helpers\Url;
 
                                       var $divPanelBody =  $(select).parent().parent().parent();
 
-                                      var $inputArea     = $divPanelBody.find("input:eq(0)");
-                                      var $inputSalario  = $divPanelBody.find("input:eq(1)");
-                                      var $inputEncargos = $divPanelBody.find("input:eq(2)");
-                                      var $inputTotal    = $divPanelBody.find("input:eq(3)");
+                                      var $inputArea      = $divPanelBody.find("input:eq(0)");
+                                      var $inputCHSemanal = $divPanelBody.find("input:eq(1)");
+                                      var $inputSalario   = $divPanelBody.find("input:eq(2)");
+                                      var $inputEncargos  = $divPanelBody.find("input:eq(3)");
+                                      var $inputTotal     = $divPanelBody.find("input:eq(4)");
 
                                       $inputArea.val(data.area);
+                                      $inputCHSemanal.val(data.ch_semana);
                                       $inputSalario.val(data.salario);
                                       $inputEncargos.val(data.encargos);
                                       $inputTotal.val(data.valor_total);
@@ -62,19 +64,22 @@ use yii\helpers\Url;
             ?>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-4">
             <?= $form->field($model, 'cargo_area')->textInput(['readonly'=>true]) ?>
         </div>
-
         <div class="col-md-2">
+            <?= $form->field($model, 'cargo_chsemanal')->textInput(['readonly'=>true]) ?>
+        </div>
+
+        <div class="col-md-4">
             <?= $form->field($model, 'cargo_salario')->textInput(['readonly'=>true]) ?>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-md-4">
             <?= $form->field($model, 'cargo_encargos')->textInput(['readonly'=>true]) ?>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-md-4">
             <?= $form->field($model, 'cargo_valortotal')->textInput(['readonly'=>true]) ?>
         </div>
     </div>

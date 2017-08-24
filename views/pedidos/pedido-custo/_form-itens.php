@@ -27,6 +27,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
               'itemcusto_tipocontrato',
               'itemcusto_area',
               'itemcusto_chsemanal',
+              'itemcusto_cargo',
           ],
       ]); ?>
 
@@ -67,14 +68,16 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                                 var $divPanelBody =  $(select).parent().parent().parent();
 
                                                                 var $inputUnidade = $divPanelBody.find("input:eq(0)");
-                                                                var $inputQuant   = $divPanelBody.find("input:eq(1)");
-                                                                var $inputPeriodo = $divPanelBody.find("input:eq(2)");
-                                                                //var $inputArea    = $divPanelBody.find("input:eq(3)");
+                                                                var $inputCargo   = $divPanelBody.find("input:eq(1)");
+                                                                var $inputQuant   = $divPanelBody.find("input:eq(2)");
+                                                                var $inputPeriodo = $divPanelBody.find("input:eq(3)");
+                                                                var $inputArea    = $divPanelBody.find("input:eq(4)");
 
                                                                 $inputUnidade.val(data.unidade);
+                                                                $inputCargo.val(data.cargo);
                                                                 $inputQuant.val(data.quant_pessoa);
                                                                 $inputPeriodo.val(data.periodo == 1 ? "Inderterminado" : "Determinado");
-                                                                //$inputArea.val(data.quant_pessoa);
+                                                                $inputArea.val(data.cargo_area);
 
                                                              });
                                                          '
@@ -84,6 +87,10 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
                                     <div class="col-sm-5">
                                         <?= $form->field($modelItens, "[{$i}]itemcusto_unidade")->textInput(['readonly'=> true]) ?>
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <?= $form->field($modelItens, "[{$i}]itemcusto_cargo")->textInput(['readonly'=> true]) ?>
                                     </div>
 
                                     <div class="col-sm-1">

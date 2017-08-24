@@ -42,11 +42,15 @@ use app\models\processoseletivo\Cargos;
     </tr> 
 
     <tr>
-        <td colspan="3"><strong>Cargo: </strong><?php echo isset($model->cargo0->descricao) ? $model->cargo0->descricao : ''; ?></td>
-        <td colspan="3"><strong>Área: </strong><?php echo $model->cargo_area; ?></td> 
-        <td colspan="3"><strong>Salário: </strong> <?php echo $model->cargo_salario; ?></td>
-        <td colspan="2"><strong>Encargos: </strong> <?php echo $model->cargo_encargos; ?></td>
-        <td colspan="2"><strong>Valor Total: </strong> <?php echo $model->cargo_valortotal; ?></td>
+        <td colspan="6"><strong>Cargo: </strong><?php echo isset($model->cargo0->descricao) ? $model->cargo0->descricao : ''; ?></td>
+        <td colspan="3"><strong>Área: </strong><?php echo $model->cargo_area; ?></td>
+        <td colspan="3"><strong>CH Semanal: </strong><?php echo $model->cargo_chsemanal; ?></td>
+    </tr> 
+
+    <tr>
+        <td colspan="4"><strong>Salário: </strong> <?php echo 'R$ ' . number_format($model->cargo_salario, 2, ',', '.'); ?></td>
+        <td colspan="4"><strong>Encargos: </strong> <?php echo 'R$ ' . number_format($model->cargo_encargos, 2, ',', '.'); ?></td>
+        <td colspan="4"><strong>Valor Total: </strong> <?php echo 'R$ ' . number_format($model->cargo_valortotal, 2, ',', '.'); ?></td>
     </tr> 
 
     <tr>
