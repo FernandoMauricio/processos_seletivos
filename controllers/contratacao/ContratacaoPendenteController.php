@@ -196,16 +196,8 @@ class ContratacaoPendenteController extends Controller
                         } 
             }
 
- //MENSAGEM DE CONFIRMAÇÃO DA SOLICITAÇÃO DE CONTRATAÇÃO CRIADA COM SUCESSO   
-                Yii::$app->getSession()->setFlash('success', [
-                         'type' => 'success',
-                         'duration' => 5000,
-                         'icon' => 'glyphicon glyphicon-ok',
-                         'message' => 'SUCESSO! A solicitação de Processo Seletivo foi INICIADA!</strong>',
-                         'title' => 'Solicitação de Contratação',
-                         'positonY' => 'top',
-                         'positonX' => 'right'
-                     ]);
+                //MENSAGEM DE CONFIRMAÇÃO DA SOLICITAÇÃO DE CONTRATAÇÃO CRIADA COM SUCESSO   
+                Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> solicitação de Processo Seletivo foi <strong> INICIADA</strong>');
                 
 return $this->redirect(['index']);
 

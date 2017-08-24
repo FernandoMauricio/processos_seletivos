@@ -15,27 +15,12 @@ use app\models\curriculos\Unidades;
 $this->title = 'Contratações Pendentes';
 $this->params['breadcrumbs'][] = $this->title;
 
+//Pega as mensagens
+foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
+}
 
-//Get all flash messages and loop through them
-foreach (Yii::$app->session->getAllFlashes() as $message):; ?>
-            <?php
-            echo \kartik\widgets\Growl::widget([
-                'type' => (!empty($message['type'])) ? $message['type'] : 'danger',
-                'title' => (!empty($message['title'])) ? Html::encode($message['title']) : '',
-                'icon' => (!empty($message['icon'])) ? $message['icon'] : 'fa fa-info',
-                'body' => (!empty($message['message'])) ? Html::encode($message['message']) : '',
-                'showSeparator' => true,
-                'delay' => 1, //This delay is how long before the message shows
-                'pluginOptions' => [
-                    'delay' => (!empty($message['duration'])) ? $message['duration'] : 3000, //This delay is how long the message shows for
-                    'placement' => [
-                        'from' => (!empty($message['positonY'])) ? $message['positonY'] : '',
-                        'align' => (!empty($message['positonX'])) ? $message['positonX'] : '',
-                    ]
-                ]
-            ]);
-            ?>
-        <?php endforeach; ?>
+?>
 
 <div class="contratacao-index">
 
