@@ -114,15 +114,7 @@ class ContratacaoEmAndamentoController extends Controller
                             ->send();
                         } 
 
-                Yii::$app->getSession()->setFlash('info', [
-                         'type' => 'info',
-                         'duration' => 5000,
-                         'icon' => 'glyphicon glyphicon-ok',
-                         'message' => 'A solicitação de Contratação foi alterada para ' .$model->situacao->descricao,
-                         'title' => 'Solicitação de Contratação',
-                         'positonY' => 'top',
-                         'positonX' => 'right'
-                     ]);
+                Yii::$app->session->setFlash('info', '<strong>SUCESSO!</strong> A solicitação de Contratação foi alterada para <strong>' .$model->situacao->descricao.'</strong>');
 
 
              }elseif($posted['situacao_id'] == 8) // AGUARDANDO AUTORIZAÇÃO DE CUSTO
@@ -149,15 +141,7 @@ class ContratacaoEmAndamentoController extends Controller
                             ->send();
                         } 
 
-                Yii::$app->getSession()->setFlash('info', [
-                         'type' => 'info',
-                         'duration' => 5000,
-                         'icon' => 'glyphicon glyphicon-ok',
-                         'message' => 'A solicitação de Contratação foi alterada para ' .$model->situacao->descricao,
-                         'title' => 'Solicitação de Contratação',
-                         'positonY' => 'top',
-                         'positonX' => 'right'
-                     ]);
+                Yii::$app->session->setFlash('info', '<strong>SUCESSO!</strong> A solicitação de Contratação foi alterada para <strong>' .$model->situacao->descricao.'</strong>');
             
              }elseif($posted['situacao_id'] == 9) // ELABORAÇÃO DE EDITAL
               {
@@ -183,15 +167,7 @@ class ContratacaoEmAndamentoController extends Controller
                             ->send();
                         } 
 
-                Yii::$app->getSession()->setFlash('info', [
-                         'type' => 'info',
-                         'duration' => 5000,
-                         'icon' => 'glyphicon glyphicon-ok',
-                         'message' => 'A solicitação de Contratação foi alterada para ' .$model->situacao->descricao,
-                         'title' => 'Solicitação de Contratação',
-                         'positonY' => 'top',
-                         'positonX' => 'right'
-                     ]);
+                Yii::$app->session->setFlash('info', '<strong>SUCESSO!</strong> A solicitação de Contratação foi alterada para <strong>' .$model->situacao->descricao.'</strong>');
 
              }elseif($posted['situacao_id'] == 10) // PERÍODO DE INSCRIÇÃO
               {
@@ -217,15 +193,7 @@ class ContratacaoEmAndamentoController extends Controller
                             ->send();
                         } 
 
-                Yii::$app->getSession()->setFlash('info', [
-                         'type' => 'info',
-                         'duration' => 5000,
-                         'icon' => 'glyphicon glyphicon-ok',
-                         'message' => 'A solicitação de Contratação foi alterada para ' .$model->situacao->descricao,
-                         'title' => 'Solicitação de Contratação',
-                         'positonY' => 'top',
-                         'positonX' => 'right'
-                     ]);
+                Yii::$app->session->setFlash('info', '<strong>SUCESSO!</strong> A solicitação de Contratação foi alterada para <strong>' .$model->situacao->descricao.'</strong>');
 
             }elseif($posted['situacao_id'] == 11) // ANÁLISE DE CURRICULO
               {
@@ -251,15 +219,7 @@ class ContratacaoEmAndamentoController extends Controller
                             ->send();
                         } 
 
-                Yii::$app->getSession()->setFlash('info', [
-                         'type' => 'info',
-                         'duration' => 5000,
-                         'icon' => 'glyphicon glyphicon-ok',
-                         'message' => 'A solicitação de Contratação foi alterada para ' .$model->situacao->descricao,
-                         'title' => 'Solicitação de Contratação',
-                         'positonY' => 'top',
-                         'positonX' => 'right'
-                     ]);
+                Yii::$app->session->setFlash('info', '<strong>SUCESSO!</strong> A solicitação de Contratação foi alterada para <strong>' .$model->situacao->descricao.'</strong>');
 
             }elseif($posted['situacao_id'] == 12) // AVALIAÇÃO ESCRITA
               {
@@ -285,15 +245,7 @@ class ContratacaoEmAndamentoController extends Controller
                             ->send();
                         } 
 
-                Yii::$app->getSession()->setFlash('info', [
-                         'type' => 'info',
-                         'duration' => 5000,
-                         'icon' => 'glyphicon glyphicon-ok',
-                         'message' => 'A solicitação de Contratação foi alterada para ' .$model->situacao->descricao,
-                         'title' => 'Solicitação de Contratação',
-                         'positonY' => 'top',
-                         'positonX' => 'right'
-                     ]);
+                Yii::$app->session->setFlash('info', '<strong>SUCESSO!</strong> A solicitação de Contratação foi alterada para <strong>' .$model->situacao->descricao.'</strong>');
 
             }elseif($posted['situacao_id'] == 13) // AVALIAÇÃO COMPORTAMENTAL
               {
@@ -319,15 +271,7 @@ class ContratacaoEmAndamentoController extends Controller
                             ->send();
                         } 
 
-                Yii::$app->getSession()->setFlash('info', [
-                         'type' => 'info',
-                         'duration' => 5000,
-                         'icon' => 'glyphicon glyphicon-ok',
-                         'message' => 'A solicitação de Contratação foi alterada para ' .$model->situacao->descricao,
-                         'title' => 'Solicitação de Contratação',
-                         'positonY' => 'top',
-                         'positonX' => 'right'
-                     ]);
+                Yii::$app->session->setFlash('info', '<strong>SUCESSO!</strong> A solicitação de Contratação foi alterada para <strong>' .$model->situacao->descricao.'</strong>');
 
             }elseif($posted['situacao_id'] == 14) // AVALIAÇÃO DIDÁTICA
               {
@@ -353,15 +297,7 @@ class ContratacaoEmAndamentoController extends Controller
                             ->send();
                         } 
 
-                Yii::$app->getSession()->setFlash('info', [
-                         'type' => 'info',
-                         'duration' => 5000,
-                         'icon' => 'glyphicon glyphicon-ok',
-                         'message' => 'A solicitação de Contratação foi alterada para ' .$model->situacao->descricao,
-                         'title' => 'Solicitação de Contratação',
-                         'positonY' => 'top',
-                         'positonX' => 'right'
-                     ]);
+                Yii::$app->session->setFlash('info', '<strong>SUCESSO!</strong> A solicitação de Contratação foi alterada para <strong>' .$model->situacao->descricao.'</strong>');
 
             }elseif($posted['situacao_id'] == 15) // ENTREVISTA
               {
@@ -387,15 +323,7 @@ class ContratacaoEmAndamentoController extends Controller
                             ->send();
                         } 
 
-                Yii::$app->getSession()->setFlash('info', [
-                         'type' => 'info',
-                         'duration' => 5000,
-                         'icon' => 'glyphicon glyphicon-ok',
-                         'message' => 'A solicitação de Contratação foi alterada para ' .$model->situacao->descricao,
-                         'title' => 'Solicitação de Contratação',
-                         'positonY' => 'top',
-                         'positonX' => 'right'
-                     ]);
+                Yii::$app->session->setFlash('info', '<strong>SUCESSO!</strong> A solicitação de Contratação foi alterada para <strong>' .$model->situacao->descricao.'</strong>');
 
             }elseif($posted['situacao_id'] == 16) // HOMOLOGAÇÃO
               {
@@ -421,15 +349,7 @@ class ContratacaoEmAndamentoController extends Controller
                             ->send();
                         } 
 
-                Yii::$app->getSession()->setFlash('info', [
-                         'type' => 'info',
-                         'duration' => 5000,
-                         'icon' => 'glyphicon glyphicon-ok',
-                         'message' => 'A solicitação de Contratação foi alterada para ' .$model->situacao->descricao,
-                         'title' => 'Solicitação de Contratação',
-                         'positonY' => 'top',
-                         'positonX' => 'right'
-                     ]);
+                Yii::$app->session->setFlash('info', '<strong>SUCESSO!</strong> A solicitação de Contratação foi alterada para <strong>' .$model->situacao->descricao.'</strong>');
 
             }else{ // PEDIDO DE CONTRATAÇÃO
 
@@ -455,15 +375,7 @@ class ContratacaoEmAndamentoController extends Controller
                             ->send();
                         } 
 
-                Yii::$app->getSession()->setFlash('info', [
-                         'type' => 'info',
-                         'duration' => 5000,
-                         'icon' => 'glyphicon glyphicon-ok',
-                         'message' => 'A solicitação de Contratação foi alterada para ' .$model->situacao->descricao,
-                         'title' => 'Solicitação de Contratação',
-                         'positonY' => 'top',
-                         'positonX' => 'right'
-                     ]);
+                Yii::$app->session->setFlash('info', '<strong>SUCESSO!</strong> A solicitação de Contratação foi alterada para <strong>' .$model->situacao->descricao.'</strong>');
             }
 
         return $this->redirect(['index']);
