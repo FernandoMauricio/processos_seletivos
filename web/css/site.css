@@ -46,6 +46,16 @@ body {
     padding-bottom: 15px;
     margin-top: 10px;
 
+}
+
+.dropdown-submenu > .dropdown-menu {
+    width: 160%;
+
+}
+
+.popover-x-body.modal-open .modal { /*Conflito por conta das colunas editáveis*/
+
+margin-top: 70px;
 
 }
 

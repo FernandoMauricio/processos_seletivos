@@ -65,8 +65,6 @@ class ContratacaoEmAndamentoController extends Controller
      */
     public function actionIndex()
     {
-        
-    
         $session = Yii::$app->session;
     //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
     if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){

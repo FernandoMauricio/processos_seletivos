@@ -4,8 +4,6 @@ use yii\helpers\Html;
 use kartik\grid\GridView;
 use kartik\editable\Editable;
 use yii\widgets\Pjax;
-use yii\bootstrap\Modal;
-use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use app\models\contratacao\SituacaoContratacao;
 use app\models\curriculos\Unidades;
@@ -39,8 +37,7 @@ foreach (Yii::$app->session->getAllFlashes() as $message):; ?>
             ?>
         <?php endforeach; ?>
 
-
-<div class="contratacao-index">
+<div class="contratacao-em-andamento-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -171,7 +168,6 @@ $gridColumns = [
     <?php Pjax::begin(); ?>
 
     <?php 
-
     echo GridView::widget([
     'dataProvider'=>$dataProvider,
     'filterModel'=>$searchModel,

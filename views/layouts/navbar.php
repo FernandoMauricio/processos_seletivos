@@ -1,24 +1,22 @@
 <?php
 
-use yii\bootstrap\Nav;
+// use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use kartik\nav\NavX;
 
 ?>
 
 <?php
-        $session = Yii::$app->session;
-            NavBar::begin([
-                //'brandLabel' => 'Processo Seletivo - Senac AM',
-                'brandLabel' => '<img src="css/img/logo_senac_topo.png"/>',
-                'brandUrl' => Yii::$app->homeUrl,
-                'options' => [
-                    'class' => 'navbar-inverse navbar-fixed-top',
-                ],
-            ]);
+$session = Yii::$app->session;
+    NavBar::begin([
+        //'brandLabel' => 'Processo Seletivo - Senac AM',
+        'brandLabel' => '<img src="css/img/logo_senac_topo.png"/>',
+        'brandUrl' => Yii::$app->homeUrl,
+        'options' => [
+            'class' => 'navbar-inverse navbar-fixed-top',
+        ],
+]);
             
-
-
 if($session['sess_codunidade'] == 7 && $session['sess_coddepartamento'] == 82 ){  //TEM QUE SER DO GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
 
 
@@ -78,7 +76,7 @@ echo NavX::widget([
                                 ['label' => 'Versões Anteriores', 'url' => ['/site/versao']],
                                 ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
                         ],
-            ],
+        ],
 
     ]
 ]); 
@@ -100,4 +98,5 @@ echo NavX::widget([
 
 
 NavBar::end();
-        ?>
+
+?>

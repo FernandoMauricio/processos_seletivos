@@ -106,7 +106,6 @@ $gridColumns = [
     <?php Pjax::begin(); ?>
 
     <?php 
-
     echo GridView::widget([
     'dataProvider'=>$dataProvider,
     'filterModel'=>$searchModel,
@@ -127,7 +126,6 @@ $gridColumns = [
         'panel' => [
         'type'=>GridView::TYPE_PRIMARY,
         'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem de Contratações</h3>',
-        'persistResize'=>false,
     ],
 ]);
     ?>
