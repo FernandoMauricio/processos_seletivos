@@ -63,7 +63,6 @@ class ContratacaoEmAndamentoSearch extends Contratacao
             'data_solicitacao' => $this->data_solicitacao,
             'hora_solicitacao' => $this->hora_solicitacao,
             'cod_colaborador' => $this->cod_colaborador,
-            'colaborador' => $this->colaborador,
             'cargo' => $this->cargo,
             'cod_unidade_solic' => $this->cod_unidade_solic,
             'unidade' => $this->unidade,

@@ -4,6 +4,9 @@ use yii\helpers\Html;
 use kartik\grid\GridView;
 use kartik\editable\Editable;
 use yii\widgets\Pjax;
+use yii\helpers\ArrayHelper;
+use app\models\contratacao\SituacaoContratacao;
+use app\models\curriculos\Unidades;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ContratacaoSearch */
@@ -56,15 +59,34 @@ $gridColumns = [
                             'format' => ['date', 'php:d/m/Y'],
                         ],
                         'colaborador',
+
                         [
-                        'attribute'=>'unidade',
-                        'width' => '300px',
-                        ],
-                        [
-                            'attribute' => 'situacao_id',
-                            'value' => 'situacao.descricao',
+                            'attribute'=>'unidade', 
+                            'width'=>'310px',
+                            'value'=>function ($model, $key, $index, $widget) { 
+                                return $model->unidade;
+                            },
+                            'filterType'=>GridView::FILTER_SELECT2,
+                            'filter'=>ArrayHelper::map(Unidades::find()->orderBy('uni_nomeabreviado')->asArray()->all(), 'uni_nomeabreviado', 'uni_nomeabreviado'), 
+                            'filterWidgetOptions'=>[
+                                'pluginOptions'=>['allowClear'=>true],
+                            ],
+                                'filterInputOptions'=>['placeholder'=>'Selecione a Unidade'],
                         ],
 
+                        [
+                            'attribute'=>'situacao_id', 
+                            'width'=>'310px',
+                            'value'=>function ($model, $key, $index, $widget) { 
+                                return $model->situacao->descricao;
+                            },
+                            'filterType'=>GridView::FILTER_SELECT2,
+                            'filter'=>ArrayHelper::map(SituacaoContratacao::find()->orderBy('descricao')->asArray()->all(), 'descricao', 'descricao'), 
+                            'filterWidgetOptions'=>[
+                                'pluginOptions'=>['allowClear'=>true],
+                            ],
+                                'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
+                        ],
 
                         ['class' => 'yii\grid\ActionColumn',
                         'template' => ' {observacoes} {view} {update} {delete}',
@@ -72,10 +94,10 @@ $gridColumns = [
 
                         //ENVIAR PARA CORREÇÃO E INSERIR JUSTIIFCATIVA
                         'observacoes' => function ($url, $model) {
-                            return Html::a('<span class="glyphicon glyphicon-info-sign"></span>', $url, [
+                            return $model->situacao_id == 2 ? Html::a('<span class="glyphicon glyphicon-info-sign" style="color:red"></span>', $url, [
                                 'title' => Yii::t('app', 'Observações'),
-                                   ]);
-                                },
+                                   ]): '';
+                        },
 
         ],
       ],

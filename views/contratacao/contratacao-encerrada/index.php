@@ -4,6 +4,9 @@ use yii\helpers\Html;
 use kartik\grid\GridView;
 use kartik\editable\Editable;
 use yii\widgets\Pjax;
+use yii\helpers\ArrayHelper;
+use app\models\contratacao\SituacaoContratacao;
+use app\models\curriculos\Unidades;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ContratacaoEncerradaSearch */
@@ -49,56 +52,32 @@ $gridColumns = [
             'colaborador',
             
             [
-            'attribute'=>'unidade',
-            'width' => '300px',
+                'attribute'=>'unidade', 
+                'width'=>'310px',
+                'value'=>function ($model, $key, $index, $widget) { 
+                    return $model->unidade;
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>ArrayHelper::map(Unidades::find()->orderBy('uni_nomeabreviado')->asArray()->all(), 'uni_nomeabreviado', 'uni_nomeabreviado'), 
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                    'filterInputOptions'=>['placeholder'=>'Selecione a Unidade'],
             ],
-            
+
             [
-                'attribute' => 'situacao_id',
-                'value' => 'situacao.descricao',
+                'attribute'=>'situacao_id', 
+                'width'=>'310px',
+                'value'=>function ($model, $key, $index, $widget) { 
+                    return $model->situacao->descricao;
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>ArrayHelper::map(SituacaoContratacao::find()->orderBy('descricao')->asArray()->all(), 'descricao', 'descricao'), 
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                    'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
             ],
-            // 'cod_unidade_solic',
-            // 'quant_pessoa',
-            // 'motivo:ntext',
-            // 'substituicao',
-            // 'periodo',
-            // 'tempo_periodo',
-            // 'aumento_quadro',
-            // 'nome_substituicao',
-            // 'deficiencia',
-            // 'obs_deficiencia:ntext',
-            // 'data_ingresso',
-            // 'fundamental_comp',
-            // 'fundamental_inc',
-            // 'medio_comp',
-            // 'medio_inc',
-            // 'tecnico_comp',
-            // 'tecnico_inc',
-            // 'tecnico_area',
-            // 'superior_comp',
-            // 'superior_inc',
-            // 'superior_area',
-            // 'pos_comp',
-            // 'pos_inc',
-            // 'pos_area',
-            // 'dominio_atividade:ntext',
-            // 'windows',
-            // 'word',
-            // 'excel',
-            // 'internet',
-            // 'experiencia',
-            // 'experiencia_tempo',
-            // 'experiencia_atividade',
-            // 'jornada_horas',
-            // 'jornada_obs:ntext',
-            // 'principais_atividades:ntext',
-            // 'recrutamento_id',
-            // 'selec_curriculo',
-            // 'selec_dinamica',
-            // 'selec_prova',
-            // 'selec_entrevista',
-            // 'selec_teste',
-            // 'situacao_id',
 
             ['class' => 'yii\grid\ActionColumn', 'template' => '{view}'],
     ];
@@ -120,7 +99,7 @@ $gridColumns = [
         [
             'columns'=>[
                 ['content'=>'Detalhes da Solicitação de Contratação', 'options'=>['colspan'=>6, 'class'=>'text-center warning']], 
-                //['content'=>'Área de Ações', 'options'=>['colspan'=>3, 'class'=>'text-center warning']], 
+                ['content'=>'Ações', 'options'=>['colspan'=>3, 'class'=>'text-center warning']], 
             ],
         ]
     ],

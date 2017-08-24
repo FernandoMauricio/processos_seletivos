@@ -6,6 +6,9 @@ use kartik\editable\Editable;
 use yii\widgets\Pjax;
 use yii\bootstrap\Modal;
 use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
+use app\models\contratacao\SituacaoContratacao;
+use app\models\curriculos\Unidades;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ContratacaoEmAndamentoSearch */
@@ -67,15 +70,36 @@ $gridColumns = [
                         ],
 
                         'colaborador',
-                        'unidade',
-                        
+
+                        [
+                            'attribute'=>'unidade', 
+                            'width'=>'310px',
+                            'value'=>function ($model, $key, $index, $widget) { 
+                                return $model->unidade;
+                            },
+                            'filterType'=>GridView::FILTER_SELECT2,
+                            'filter'=>ArrayHelper::map(Unidades::find()->orderBy('uni_nomeabreviado')->asArray()->all(), 'uni_nomeabreviado', 'uni_nomeabreviado'), 
+                            'filterWidgetOptions'=>[
+                                'pluginOptions'=>['allowClear'=>true],
+                            ],
+                                'filterInputOptions'=>['placeholder'=>'Selecione a Unidade'],
+                        ],
+
                         [
                             'class' => 'kartik\grid\EditableColumn',
                             'attribute' => 'situacao_id',
-                            'value' => 'situacao.descricao',  
+                            'value'=>function ($model, $key, $index, $widget) { 
+                                return $model->situacao->descricao;
+                            },
                             'readonly'=>function($model, $key, $index, $widget) {
                                 return (!$model->situacao_id); // do not allow editing of inactive records
                             },
+                            'filterType'=>GridView::FILTER_SELECT2,
+                            'filter'=>ArrayHelper::map(SituacaoContratacao::find()->orderBy('descricao')->asArray()->all(), 'descricao', 'descricao'), 
+                            'filterWidgetOptions'=>[
+                                'pluginOptions'=>['allowClear'=>true],
+                            ],
+                                'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
                             //CAIXA DE ALTERAÇÕES DA SITUAÇÃO
                             'editableOptions' => [
                                 'header' => 'Situação',
