@@ -64,14 +64,24 @@ class PedidoCustoController extends Controller
     //Localiza os dados da contratação
     public function actionGetContratacao($contratacaoId){
 
-        SELECT
-        *,
-        `cargos`.`descricao` AS `cargo`
-        FROM
-        `contratacao`
-        INNER JOIN `cargos` ON `contratacao`.`cargo_id` = `cargos`.`idcargo` 
-        WHERE `id`='1852'
-
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand('
+             SELECT
+            `contratacao`.`unidade`,
+            `cargos`.`descricao` AS `cargo_area`,
+            `contratacao`.`quant_pessoa`,
+            `contratacao`.`periodo`,
+            `contratacao`.`cargo_area`,
+            `contratacao`.`cargo_chsemanal`,
+            `contratacao`.`cargo_salario`,
+            `contratacao`.`cargo_encargos`,
+            `contratacao`.`cargo_valortotal`
+            FROM
+            `contratacao`
+            INNER JOIN `cargos` ON `contratacao`.`cargo_id` = `cargos`.`idcargo` 
+            WHERE `id`='.$contratacaoId.'
+            ');
+            $command->queryAll();
 
         $getContratacao = Contratacao::findOne($contratacaoId);
         echo Json::encode($getContratacao);
@@ -84,6 +94,7 @@ class PedidoCustoController extends Controller
      */
     public function actionCreate()
     {
+        $session = Yii::$app->session;
         $model       = new PedidoCusto();
         $contratacao = new Contratacao();
         $modelsItens = [new PedidocustoItens];
@@ -91,6 +102,7 @@ class PedidoCustoController extends Controller
         //1 => Em elaboração / 2 => Em correção pelo setor
         $contratacoes = Contratacao::find()->where(['!=','situacao_id', 1])->andWhere(['!=','situacao_id', 2])->orderBy('id')->all();
 
+        $model->custo_responsavel = $session['sess_nomeusuario'];
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 

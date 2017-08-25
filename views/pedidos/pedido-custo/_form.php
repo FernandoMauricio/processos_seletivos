@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\pedidos\PedidoCusto */
@@ -22,18 +23,22 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
         <div class="col-md-4">
-            <?= $form->field($model, 'custo_recursos')->textInput(['maxlength' => true]) ?>
+        <?php
+            echo $form->field($model, "custo_recursos")->widget(Select2::classname(), [
+                'data' =>  ['PRÓPRIOS' => 'PRÓPRIOS', 'Plano B' => 'Plano B'],
+                'options' => ['placeholder' => 'Selecione o Recurso...'],
+                'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ]);
+        ?>
         </div>
 
-        <div class="col-md-4">
-            <?= $form->field($model, 'custo_valortotal')->textInput() ?>
-        </div>
-        
-        <div class="col-md-4">
-            <?= $form->field($model, 'custo_responsavel')->textInput(['readonly' => true]) ?>
-        </div>
+        <div class="col-md-4"> <?= $form->field($model, 'custo_valortotal')->textInput(['class' => 'sum', 'readonly'=> true]) ?></div>
+           
+        <div class="col-md-4"><?= $form->field($model, 'custo_responsavel')->textInput(['readonly' => true]) ?></div>
+       
     </div>
-
 
 <?= $this->render('_form-itens', [
     'form' => $form,
