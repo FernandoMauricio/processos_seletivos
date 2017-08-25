@@ -25,7 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-
 <div class="panel panel-primary">
   <div class="panel-heading">
     <h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Pedido de Custo</h3>
@@ -114,42 +113,90 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         <!--    ENDEREÇO  -->
 
+          <table class="table table-condensed table-hover">
+            <thead>
+            <tr class="info"><th colspan="12">SEÇÃO 2: Itens do Pedido</th></tr>
+              <tr>
+                <th>Solicitação</th>
+                <th>Unidade</th>
+                <th>Cargo</th>
+                <th>QTD</th>
+                <th>Tipo Contrato</th>
+                <th>Área</th>
+                <th>CH. Semanal</th>
+                <th>Salário</th>
+                <th>Encargos</th>
+                <th>Total</th>
+                <th>Justificativa</th>
+                <th>Data Prevista Início</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <?php foreach ($modelsItens as $i => $modelItens): ?>
+                  <td><?= $modelItens->contratacao_id; ?></td>
+                  <td><?= $modelItens->itemcusto_unidade; ?></td>
+                  <td><?= $modelItens->itemcusto_cargo; ?></td>
+                  <td><?= $modelItens->itemcusto_quantidade; ?></td>
+                  <td><?= $modelItens->itemcusto_tipocontrato; ?></td>
+                  <td><?= $modelItens->itemcusto_area; ?></td>
+                  <td><?= $modelItens->itemcusto_chsemanal; ?></td>
+                  <td style="width: 100px;"><?= 'R$ ' . number_format($modelItens->itemcusto_salario, 2, ',', '.'); ?></td>
+                  <td style="width: 100px;"><?= 'R$ ' . number_format($modelItens->itemcusto_encargos, 2, ',', '.'); ?></td>
+                  <td style="width: 100px;"><?= 'R$ ' . number_format($modelItens->itemcusto_total, 2, ',', '.'); ?></td>
+                  <td><?= $modelItens->itemcusto_justificativa; ?></td>
+                  <td><?= $modelItens->itemcusto_dataingresso; ?></td>
+            </tr>
+                <?php endforeach; ?>
+            </tbody>
+          </table><br /><br /><br />
+                                    <!-- CAIXA DE AUTORIZAÇÃO GERÊNCIA DO SETOR -->
+
   <table class="table table-condensed table-hover">
-    <thead>
-    <tr class="info"><th colspan="12">SEÇÃO 2: Itens do Pedido</th></tr>
-      <tr>
-        <th>Solicitação</th>
-        <th>Unidade</th>
-        <th>Cargo</th>
-        <th>QTD</th>
-        <th>Tipo Contrato</th>
-        <th>Área</th>
-        <th>CH. Semanal</th>
-        <th>Salário</th>
-        <th>Encargos</th>
-        <th>Total</th>
-        <th>Justificativa</th>
-        <th>Data Prevista Início</th>
-      </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <?php foreach ($modelsItens as $i => $modelItens): ?>
-          <td><?= $modelItens->contratacao_id; ?></td>
-          <td><?= $modelItens->itemcusto_unidade; ?></td>
-          <td><?= $modelItens->itemcusto_cargo; ?></td>
-          <td><?= $modelItens->itemcusto_quantidade; ?></td>
-          <td><?= $modelItens->itemcusto_tipocontrato; ?></td>
-          <td><?= $modelItens->itemcusto_area; ?></td>
-          <td><?= $modelItens->itemcusto_chsemanal; ?></td>
-          <td style="width: 100px;"><?= 'R$ ' . number_format($modelItens->itemcusto_salario, 2, ',', '.'); ?></td>
-          <td style="width: 100px;"><?= 'R$ ' . number_format($modelItens->itemcusto_encargos, 2, ',', '.'); ?></td>
-          <td style="width: 100px;"><?= 'R$ ' . number_format($modelItens->itemcusto_total, 2, ',', '.'); ?></td>
-          <td><?= $modelItens->itemcusto_justificativa; ?></td>
-          <td><?= $modelItens->itemcusto_dataingresso; ?></td>
-    </tr>
-        <?php endforeach; ?>
-    </tbody>
-  </table>
+     <tbody>
+         <td style="font-size: 12px; border-top: 0px solid"><b>Assinado eletrônicamente por:</b><br />
+            <?php echo $model->custo_aprovadorggp; ?><br />
+            Gerente de Gestão de Pessoas<br />
+            <?php echo date('d/m/Y à\s H:i', strtotime( $model->custo_dataaprovacaoggp )) ?>&nbsp;&nbsp;&nbsp;<br />
+          </td>
+
+          <td style="font-size: 12px; border-top: 0px solid"><b>Assinado eletrônicamente por:</b><br />
+            <?php echo $model->custo_aprovadorggp; ?><br />
+            Gerente de Gestão de Pessoas<br />
+            <?php echo date('d/m/Y à\s H:i', strtotime( $model->custo_dataaprovacaoggp )) ?>&nbsp;&nbsp;&nbsp;<br />
+          </td>
+
+          <td style="font-size: 12px; border-top: 0px solid"><b>Assinado eletrônicamente por:</b><br />
+            Silvana Maria Ferreira de Carvalho<br />
+            Diretora Regional<br />
+             ___/___/_____<br />
+          </td>
+
+          <td style="font-size: 12px; border-top: 0px solid"><b>Assinado eletrônicamente por:</b><br />
+            José Roberto Tadros<br />
+            Presidente do CR/AM<br />
+             ___/___/_____<br />
+          </td>
+         
+     </tbody>
+ </table>
+
+          <br /><br />
+
+          <div class="row">
+              <div class="col-md-12" style="font-size: 10px;">
+                  CC/RS/GGP  Nº 033/2017<br />
+                  <b>Serviço Nacional de Aprendizagem Comercial - Departamento Regional do Amazonas</b><br />
+                  Rua Costa Azevedo, nº 09 Edificio Rio Madeira, 10º andar, Centro. Manaus/Amazonas  -  Telefones: (92)3216-5740 /3216-5769/ Fax: (92) 3216-5747<br />
+              </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
 </div>
-</div></div></div>
