@@ -36,9 +36,17 @@ use kartik\datecontrol\DateControl;
 
                     <?php //echo $form->field($model, 'curriculo_lattes')->textInput(['maxlength' => true]) ?>
 
-                    <?= $form->field($model, 'datanascimento')->widget(\yii\widgets\MaskedInput::className(), [
-                        'mask' => '99/99/9999',
-                    ]) ?>
+                    <?= $form->field($model, 'datanascimento')->widget(DateControl::classname(), [
+                        'type'=>DateControl::FORMAT_DATETIME,
+                            'displayFormat' => 'dd/MM/yyyy',
+                            'autoWidget' => false,
+                            'widgetClass' => 'yii\widgets\MaskedInput',
+                            'widgetOptions' => [
+                                'mask' => '99/99/9999',
+                                'options' => ['class'=>'form-control', 'placeholder' => 'Data nascimento...'],
+                            ],
+                        ]);
+                    ?>
 
                     <?php
                             echo Form::widget([

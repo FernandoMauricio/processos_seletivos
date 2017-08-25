@@ -27,7 +27,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'custo_id',
             'custo_assunto',
             'custo_recursos',
-            'custo_valortotal',
+            [
+               'attribute' => 'custo_valortotal',
+               'contentOptions' => ['class' => 'col-lg-1'],
+               'format' => ['decimal',2],
+            ],
             'custo_data',
             // 'custo_aprovadorggp',
             // 'custo_situacaoggp',

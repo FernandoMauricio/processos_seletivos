@@ -42,11 +42,11 @@ class PedidocustoItens extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pedidocusto_id', 'contratacao_id', 'itemcusto_unidade', 'itemcusto_cargo', 'itemcusto_quantidade', 'itemcusto_tipocontrato', 'itemcusto_area', 'itemcusto_chsemanal', 'itemcusto_salario', 'itemcusto_encargos', 'itemcusto_total', 'itemcusto_justificativa'], 'required'],
+            [['itemcusto_unidade', 'itemcusto_cargo', 'itemcusto_quantidade', 'itemcusto_tipocontrato', 'itemcusto_area', 'itemcusto_chsemanal', 'itemcusto_salario', 'itemcusto_encargos', 'itemcusto_total', 'itemcusto_justificativa'], 'required'],
             [['pedidocusto_id', 'contratacao_id', 'itemcusto_quantidade'], 'integer'],
             [['itemcusto_chsemanal', 'itemcusto_salario', 'itemcusto_encargos', 'itemcusto_total'], 'number'],
-            [['itemcusto_dataingresso'], 'safe'],
             [['itemcusto_unidade', 'itemcusto_cargo', 'itemcusto_tipocontrato', 'itemcusto_area'], 'string', 'max' => 45],
+            [['itemcusto_dataingresso'], 'string', 'max' => 15],
             [['itemcusto_justificativa'], 'string', 'max' => 255],
             [['contratacao_id'], 'exist', 'skipOnError' => true, 'targetClass' => Contratacao::className(), 'targetAttribute' => ['contratacao_id' => 'id']],
             [['pedidocusto_id'], 'exist', 'skipOnError' => true, 'targetClass' => PedidoCusto::className(), 'targetAttribute' => ['pedidocusto_id' => 'custo_id']],

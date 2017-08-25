@@ -13,6 +13,10 @@ use kartik\select2\Select2;
 
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
+<div class="panel panel-primary">
+<div class="panel-heading">
+  <h3 class="panel-title"><span class="glyphicon glyphicon-book"></span>  Cadatrar Pedido de Custo</h3>
+</div>
 
 <div class="panel-body">
     <div class="row">
@@ -43,27 +47,12 @@ use kartik\select2\Select2;
 <?= $this->render('_form-itens', [
     'form' => $form,
     'model' => $model,
-    'contratacao' => $contratacao,
     'contratacoes' => $contratacoes,
     'modelsItens' => (empty($modelsItens)) ? [new PedidocustoItens] : $modelsItens,
 ]) ?>
 
+    </div>
 </div>
-
-    <?php //echo $form->field($model, 'custo_data')->textInput() ?>
-
-    <?php //echo $form->field($model, 'custo_aprovadorggp')->textInput(['maxlength' => true]) ?>
-
-    <?php //echo $form->field($model, 'custo_situacaoggp')->textInput() ?>
-
-    <?php //echo $form->field($model, 'custo_dataaprovacaoggp')->textInput() ?>
-
-    <?php //echo $form->field($model, 'custo_aprovadordad')->textInput(['maxlength' => true]) ?>
-
-    <?php //echo $form->field($model, 'custo_situacaodad')->textInput() ?>
-
-    <?php //echo $form->field($model, 'custo_dataaprovacaodad')->textInput() ?>
-
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

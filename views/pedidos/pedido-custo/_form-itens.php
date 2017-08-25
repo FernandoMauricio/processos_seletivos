@@ -5,6 +5,7 @@ use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use kartik\datecontrol\DateControl;
 
 use wbraganca\dynamicform\DynamicFormWidget;
 
@@ -36,7 +37,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
           ],
       ]); ?>
 
-<div class="panel panel-default">
+<div class="panel panel-info">
     <div class="panel-heading">
         <i class="glyphicon glyphicon-list-alt"></i> Listagem de Contratações
         <button type="button" class="pull-right add-item-pedidocusto btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i> Adicionar Item</button>
@@ -69,16 +70,18 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                    var select = this;
                                    $.getJSON( "'.Url::toRoute('/pedidos/pedido-custo/get-contratacao').'", { contratacaoId: $(this).val() } )
                                    .done(function( data ) {
-                                          var $divPanelBody =  $(select).parent().parent().parent();
-                                          var $inputUnidade  = $divPanelBody.find("input:eq(0)");
-                                          var $inputCargo    = $divPanelBody.find("input:eq(1)");
-                                          var $inputQuant    = $divPanelBody.find("input:eq(2)");
-                                          var $inputPeriodo  = $divPanelBody.find("input:eq(3)");
-                                          var $inputArea     = $divPanelBody.find("input:eq(4)");
-                                          var $inputCHSemana = $divPanelBody.find("input:eq(5)");
-                                          var $inputSalario  = $divPanelBody.find("input:eq(6)");
-                                          var $inputEncargos = $divPanelBody.find("input:eq(7)");
-                                          var $inputTotal    = $divPanelBody.find("input:eq(8)");
+                                          var $divPanelBody        =  $(select).parent().parent().parent();
+                                          var $inputUnidade        = $divPanelBody.find("input:eq(0)");
+                                          var $inputCargo          = $divPanelBody.find("input:eq(1)");
+                                          var $inputQuant          = $divPanelBody.find("input:eq(2)");
+                                          var $inputPeriodo        = $divPanelBody.find("input:eq(3)");
+                                          var $inputArea           = $divPanelBody.find("input:eq(4)");
+                                          var $inputCHSemana       = $divPanelBody.find("input:eq(5)");
+                                          var $inputSalario        = $divPanelBody.find("input:eq(6)");
+                                          var $inputEncargos       = $divPanelBody.find("input:eq(7)");
+                                          var $inputTotal          = $divPanelBody.find("input:eq(8)");
+                                          var $inputJustificativa  = $divPanelBody.find("input:eq(9)");
+                                          var $inputDataIngresso   = $divPanelBody.find("input:eq(10)");
 
                                           $inputUnidade.val(data.unidade);
                                           $inputCargo.val(data.cargo);
@@ -89,6 +92,8 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                           $inputSalario.val(data.cargo_salario);
                                           $inputEncargos.val(data.cargo_encargos);
                                           $inputTotal.val(data.cargo_valortotal);
+                                          $inputJustificativa.val(data.motivo);
+                                          $inputDataIngresso.val(data.data_ingresso);
 
                                         //Somar total de custo de todos os itens
                                          var items = $(".item-pedidocusto");
@@ -126,8 +131,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
              
               <div class="col-sm-10"><?= $form->field($modelItens,"[{$i}]itemcusto_justificativa")->textInput() ?></div>
              
-              <div class="col-sm-2"><?= $form->field($modelItens, "[{$i}]itemcusto_dataingresso")->textInput() ?></div>
-             
+              <div class="col-sm-2"><?= $form->field($modelItens, "[{$i}]itemcusto_dataingresso")->textInput(['readonly'=> true]) ?></div>
           </div>
         </div>
       </div>

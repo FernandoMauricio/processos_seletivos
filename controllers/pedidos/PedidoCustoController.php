@@ -7,6 +7,7 @@ use app\models\contratacao\Contratacao;
 use app\models\pedidos\PedidoCusto;
 use app\models\pedidos\PedidocustoItens;
 use app\models\pedidos\PedidoCustoSearch;
+use app\models\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -56,8 +57,13 @@ class PedidoCustoController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+
+        $modelsItens = $model->pedidocustoItens;
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'modelsItens' => $modelsItens,
         ]);
     }
 
@@ -96,8 +102,11 @@ class PedidoCustoController extends Controller
     {
         $session = Yii::$app->session;
         $model       = new PedidoCusto();
-        $contratacao = new Contratacao();
         $modelsItens = [new PedidocustoItens];
+
+        $model->custo_situacaoggp = 1; //Aguardando Autorização GPP
+        $model->custo_situacaodad = 1; //Aguardando Autorização DAD
+        $model->custo_data = date('Y-m-d');
 
         //1 => Em elaboração / 2 => Em correção pelo setor
         $contratacoes = Contratacao::find()->where(['!=','situacao_id', 1])->andWhere(['!=','situacao_id', 2])->orderBy('id')->all();
@@ -119,7 +128,6 @@ class PedidoCustoController extends Controller
                     if ($flag = $model->save(false)) {
                         foreach ($modelsItens as $modelItens) {
                             $modelItens->pedidocusto_id = $model->custo_id;
-                            $modelItens->contratacao_id = $contratacao->id;
                             if (! ($flag = $modelItens->save(false))) {
                                 $transaction->rollBack();
                                 break;
@@ -144,7 +152,6 @@ class PedidoCustoController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'contratacao' => $contratacao,
                 'contratacoes' => $contratacoes,
                 'modelsItens' => (empty($modelsItens)) ? [new PedidocustoItens] : $modelsItens,
             ]);
