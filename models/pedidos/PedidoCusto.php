@@ -64,10 +64,10 @@ class PedidoCusto extends \yii\db\ActiveRecord
             'custo_valortotal' => 'Valor Total',
             'custo_data' => 'Data',
             'custo_aprovadorggp' => 'Custo Aprovadorggp',
-            'custo_situacaoggp' => 'Custo Situacaoggp',
+            'custo_situacaoggp' => 'Situação GGP',
             'custo_dataaprovacaoggp' => 'Custo Dataaprovacaoggp',
             'custo_aprovadordad' => 'Custo Aprovadordad',
-            'custo_situacaodad' => 'Custo Situacaodad',
+            'custo_situacaodad' => 'Situação DAD',
             'custo_dataaprovacaodad' => 'Custo Dataaprovacaodad',
             'custo_responsavel' => 'Responsável',
         ];

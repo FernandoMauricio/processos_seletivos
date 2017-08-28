@@ -18,9 +18,8 @@ class PedidoCustoSearch extends PedidoCusto
     public function rules()
     {
         return [
-            [['custo_id', 'custo_situacaoggp', 'custo_situacaodad'], 'integer'],
-            [['custo_assunto', 'custo_recursos', 'custo_data', 'custo_aprovadorggp', 'custo_dataaprovacaoggp', 'custo_aprovadordad', 'custo_dataaprovacaodad', 'custo_responsavel'], 'safe'],
-            [['custo_valortotal'], 'number'],
+            [['custo_id'], 'integer'],
+            [['custo_assunto', 'custo_recursos', 'custo_data', 'custo_aprovadorggp', 'custo_situacaoggp', 'custo_situacaodad', 'custo_dataaprovacaoggp', 'custo_aprovadordad', 'custo_dataaprovacaodad', 'custo_responsavel', 'custo_valortotal'], 'safe'],
         ];
     }
 
@@ -50,6 +49,9 @@ class PedidoCustoSearch extends PedidoCusto
             'query' => $query,
         ]);
 
+        $query->joinWith('custoSituacaoggp');
+        $query->joinWith('custoSituacaodad as b');
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -61,16 +63,16 @@ class PedidoCustoSearch extends PedidoCusto
         // grid filtering conditions
         $query->andFilterWhere([
             'custo_id' => $this->custo_id,
-            'custo_valortotal' => $this->custo_valortotal,
             'custo_data' => $this->custo_data,
-            'custo_situacaoggp' => $this->custo_situacaoggp,
             'custo_dataaprovacaoggp' => $this->custo_dataaprovacaoggp,
-            'custo_situacaodad' => $this->custo_situacaodad,
             'custo_dataaprovacaodad' => $this->custo_dataaprovacaodad,
         ]);
 
         $query->andFilterWhere(['like', 'custo_assunto', $this->custo_assunto])
             ->andFilterWhere(['like', 'custo_recursos', $this->custo_recursos])
+            ->andFilterWhere(['like', 'custo_valortotal', $this->custo_valortotal])
+            ->andFilterWhere(['like', 'pedidocusto_situacao.situacao_descricao', $this->custo_situacaoggp])
+            ->andFilterWhere(['like', 'b.situacao_descricao', $this->custo_situacaodad])
             ->andFilterWhere(['like', 'custo_aprovadorggp', $this->custo_aprovadorggp])
             ->andFilterWhere(['like', 'custo_aprovadordad', $this->custo_aprovadordad])
             ->andFilterWhere(['like', 'custo_responsavel', $this->custo_responsavel]);

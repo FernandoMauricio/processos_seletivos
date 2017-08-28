@@ -62,10 +62,34 @@ echo NavX::widget([
             '<li class="dropdown-header">Cadastros</li>',
                 ['label' => 'Cargos', 'url' => ['/processoseletivo/cargos/index']],
                 ['label' => 'Sistemas', 'url' => ['/processoseletivo/sistemas/index']],
+                ['label' => 'Aprovadores', 'url' => ['/pedidos/aprovacoes/index']],
 
             ]],
         ]],
         ['label' => 'Solicitação de Contratação', 'url' => ['/contratacao/contratacao/index']],
+
+        [
+            'label' => 'Usuário (' . utf8_encode(ucwords(strtolower($session['sess_nomeusuario']))) . ')',
+            'items' => [
+                         '<li class="dropdown-header">Área Usuário</li>',
+                                //['label' => 'Alterar Senha', 'url' => ['usuario-usu/update', 'id' => $sess_codusuario]],
+                                ['label' => 'Versões Anteriores', 'url' => ['/site/versao']],
+                                ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
+                        ],
+        ],
+
+    ]
+]); 
+
+} elseif($session['sess_codunidade'] == 8 && $session['sess_responsabelsetor'] == 1 || $session['sess_coddepartamento'] == 7 &&  $session['sess_responsabelsetor'] == 1 ) { //ACESSOS GERENTE - DAD E GGP
+    echo NavX::widget([
+
+'options' => ['class' => 'navbar-nav navbar-right'],
+                
+    'items' => [
+        
+        ['label' => 'Solicitação de Contratação', 'url' => ['/contratacao/contratacao/index']],
+
         ['label' => 'Análise de Curriculos', 'url' => ['/curriculos/curriculos-admin/analise-gerencial']],
 
         [
@@ -90,6 +114,8 @@ echo NavX::widget([
                 
     'items' => [
         ['label' => 'Solicitação de Contratação', 'url' => ['/contratacao/contratacao/index']],
+
+        ['label' => 'Análise de Curriculos', 'url' => ['/curriculos/curriculos-admin/analise-gerencial']],
         
         ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
 

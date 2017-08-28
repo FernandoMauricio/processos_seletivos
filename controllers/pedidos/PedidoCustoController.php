@@ -57,6 +57,8 @@ class PedidoCustoController extends Controller
      */
     public function actionView($id)
     {
+        $this->layout = 'main-imprimir';
+        
         $model = $this->findModel($id);
 
         $modelsItens = $model->pedidocustoItens;

@@ -48,11 +48,38 @@ $gridColumns = [
                'contentOptions' => ['class' => 'col-lg-1'],
                'format' => ['decimal',2],
             ],
-            'custo_data',
+            [
+                'attribute' => 'custo_situacaoggp',
+                'value' => 'custoSituacaoggp.situacao_descricao',
+
+            ],
+
+            [
+                'attribute' => 'custo_situacaodad',
+                'value' => 'custoSituacaodad.situacao_descricao',
+
+            ],
+
             'custo_responsavel',
             
 
-            ['class' => 'yii\grid\ActionColumn', 'template' => '{view}'],
+            ['class' => 'yii\grid\ActionColumn',
+                        'template' => '{view}',
+                        'contentOptions' => ['style' => 'width: 7%;'],
+                        'buttons' => [
+
+                        //VISUALIZAR/IMPRIMIR
+                        'view' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-print"></span> ', $url, [
+                                        'target'=>'_blank', 
+                                        'data-pjax'=>"0",
+                                        'class'=>'btn btn-info btn-xs',
+                                        'title' => Yii::t('app', 'Imprimir'),
+                       
+                            ]);
+                        },
+                ],
+           ],
     ];
  ?>
 
@@ -70,7 +97,7 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes do Pedido de Custo', 'options'=>['colspan'=>7, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes do Pedido de Custo', 'options'=>['colspan'=>8, 'class'=>'text-center warning']], 
                 ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]

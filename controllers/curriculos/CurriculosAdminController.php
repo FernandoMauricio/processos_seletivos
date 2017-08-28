@@ -153,7 +153,7 @@ class CurriculosAdminController extends Controller
         return $this->render('/site/acesso_negado');
 
     }else
-        $this->layout = 'main-imprimir-curriculos';
+        $this->layout = 'main-imprimir';
         //busca endereço
         $sql_endereco = 'SELECT * FROM curriculos_endereco WHERE curriculos_id ='.$id.' ';
         $curriculosEndereco = CurriculosEndereco::findBySql($sql_endereco)->one();  
