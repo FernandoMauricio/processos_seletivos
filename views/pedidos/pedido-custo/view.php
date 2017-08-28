@@ -12,7 +12,8 @@ use kartik\detail\DetailView;
     <td width="20%"><img src="css/img/logo.png"></td>
     <td width="60%"><h4>SERVIÇO NACIONAL DE APRENDIZAGEM COMERCIAL - SENAC<br /><br />
                          DEPARTAMENTO REGIONAL NO AMAZONAS<br /><br />
-                         GERÊNCIA DE GESTÃO DE PESSOAS</h4>
+                         GERÊNCIA DE GESTÃO DE PESSOAS<br /><br />
+                         PLANILHA DE COMPOSIÇÃO DE CUSTO POR SOLICITAÇÃO</h4>
     </td>
     <td width="20%"><b>CC/RS/GGP  Nº </b> <?= $model->custo_id . '/' . date('Y') ?><br /><br />
     <?=  date('d/m/Y', strtotime($model->custo_data)); ?></td>
@@ -21,7 +22,6 @@ use kartik\detail\DetailView;
 
   <div class="panel-body">
     <div class="row">
-
           <table class="table table-condensed table-hover">
             <thead>
             <tr class="info"><th colspan="12">SEÇÃO 1: Informações</th></tr>
@@ -30,7 +30,7 @@ use kartik\detail\DetailView;
             <tr>
                   <th scope="row">Pedido de Custo:</th>
                   <td><?= $model->custo_id ?></td>
-                  <th scope="row">Assunto:</th>
+                  <th scope="row">Unidade:</th>
                   <td colspan="8"><?= $model->custo_assunto ?></td>
             </tr>
             <tr>
@@ -103,7 +103,7 @@ use kartik\detail\DetailView;
             </tfoot>
 
           </table><br /><br /><br />
-                                    <!-- CAIXA DE AUTORIZAÇÃO GERÊNCIA DO SETOR -->
+                                    <!-- ÁREA DE APROVAÇÕES -->
 
   <table class="table table-condensed table-hover">
      <tbody>
@@ -115,7 +115,7 @@ use kartik\detail\DetailView;
             Assinado eletrônicamente por:<br />
 
             <?php $query = (new \yii\db\Query())->select('aprov_descricao, aprov_cargo, aprov_observacao')->from('db_processos.aprovacoes')->where(['aprov_area' => 'GGP'])->one(); ?>
-            <b><?= $query['aprov_descricao']; ?></b><br />
+            <b><?= $model->custo_aprovadorggp; ?></b><br />
             <?= $query['aprov_cargo']; ?><br />
             <?= $query['aprov_observacao']; ?><br />
             <?php echo date('d/m/Y', strtotime( $model->custo_dataaprovacaoggp )) ?>&nbsp;&nbsp;&nbsp;<br />
@@ -130,7 +130,7 @@ use kartik\detail\DetailView;
             Assinado eletrônicamente por:<br />
             
             <?php $query = (new \yii\db\Query())->select('aprov_descricao, aprov_cargo, aprov_observacao')->from('db_processos.aprovacoes')->where(['aprov_area' => 'DAD'])->one(); ?>
-            <b><?= $query['aprov_descricao']; ?></b><br />
+            <b><?= $model->custo_aprovadorggp; ?></b><br />
             <?= $query['aprov_cargo']; ?><br />
             <?= isset($query['aprov_observacao']) ? $query['aprov_observacao'] . '<br />' : ''; ?>
             <?php echo date('d/m/Y', strtotime( $model->custo_dataaprovacaoggp )) ?>&nbsp;&nbsp;&nbsp;<br />

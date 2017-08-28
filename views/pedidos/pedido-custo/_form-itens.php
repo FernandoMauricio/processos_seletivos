@@ -21,7 +21,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
           'model' => $modelsItens[0],
           'formId' => 'dynamic-form',
           'formFields' => [
-              'itemcusto_id',
+              'id',
               'contratacao_id',
               'itemcusto_unidade',
               'itemcusto_quantidade',
@@ -56,7 +56,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
           <?php
               // necessary for update action.
               if (!$modelItens->isNewRecord) {
-                  echo Html::activeHiddenInput($modelItens, "[{$i}]itemcusto_id");
+                  echo Html::activeHiddenInput($modelItens, "[{$i}]id");
               }
           ?>
             <div class="row">

@@ -59,7 +59,7 @@ class PedidoCusto extends \yii\db\ActiveRecord
     {
         return [
             'custo_id' => 'Cód.',
-            'custo_assunto' => 'Assunto',
+            'custo_assunto' => 'Unidade',
             'custo_recursos' => 'Recursos',
             'custo_valortotal' => 'Valor Total',
             'custo_data' => 'Data',

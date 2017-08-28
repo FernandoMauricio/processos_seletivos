@@ -25,24 +25,15 @@ use kartik\select2\Select2;
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-4">
-        <?php
-            echo $form->field($model, "custo_recursos")->widget(Select2::classname(), [
-                'data' =>  ['PRÓPRIOS' => 'PRÓPRIOS', 'Plano B' => 'Plano B'],
-                'options' => ['placeholder' => 'Selecione o Recurso...'],
-                'pluginOptions' => [
-                        'allowClear' => true
-                    ],
-                ]);
-        ?>
-        </div>
+     <div class="row">
+        <div class="col-md-4"><?= $form->field($model, 'custo_recursos')->textInput(['readonly' => true]) ?></div>
 
         <div class="col-md-4"> <?= $form->field($model, 'custo_valortotal')->textInput(['class' => 'sum', 'readonly'=> true]) ?></div>
            
         <div class="col-md-4"><?= $form->field($model, 'custo_responsavel')->textInput(['readonly' => true]) ?></div>
-       
     </div>
+       
+</div>
 
 <?= $this->render('_form-itens', [
     'form' => $form,

@@ -15,6 +15,12 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pedido-custo-index">
 
+<?php
+//Pega as mensagens
+foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
+}
+?>
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -64,7 +70,7 @@ $gridColumns = [
             
 
             ['class' => 'yii\grid\ActionColumn',
-                        'template' => '{view}',
+                        'template' => '{view} {update}',
                         'contentOptions' => ['style' => 'width: 7%;'],
                         'buttons' => [
 
@@ -75,6 +81,15 @@ $gridColumns = [
                                         'data-pjax'=>"0",
                                         'class'=>'btn btn-info btn-xs',
                                         'title' => Yii::t('app', 'Imprimir'),
+                       
+                            ]);
+                        },
+
+                        //VISUALIZAR/IMPRIMIR
+                        'update' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-pencil"></span> ', $url, [
+                                        'class'=>'btn btn-default btn-xs',
+                                        'title' => Yii::t('app', 'Atualizar'),
                        
                             ]);
                         },

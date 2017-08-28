@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\pedidos\PedidoCusto */
 
-$this->title = 'Update Pedido Custo: ' . $model->custo_id;
-$this->params['breadcrumbs'][] = ['label' => 'Pedido Custos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->custo_id, 'url' => ['view', 'id' => $model->custo_id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Atualizar Pedido Custo: ' . $model->custo_id;
+$this->params['breadcrumbs'][] = ['label' => 'Listagem Pedidos de Custo', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->custo_id];
+$this->params['breadcrumbs'][] = 'Atualizar';
 ?>
 <div class="pedido-custo-update">
 
@@ -16,6 +16,8 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
+    	'contratacoes' => $contratacoes,
+    	'modelsItens' => (empty($modelsItens)) ? [new PedidocustoItens] : $modelsItens,
     ]) ?>
 
 </div>

@@ -12,6 +12,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use yii\helpers\ArrayHelper;
 
 /**
  * PedidoCustoController implements the CRUD actions for PedidoCusto model.
@@ -109,11 +110,11 @@ class PedidoCustoController extends Controller
         $model->custo_situacaoggp = 1; //Aguardando Autorização GPP
         $model->custo_situacaodad = 1; //Aguardando Autorização DAD
         $model->custo_data = date('Y-m-d');
+        $model->custo_responsavel = $session['sess_nomeusuario'];
+        $model->custo_recursos = 'PRÓPRIOS';
 
         //1 => Em elaboração / 2 => Em correção pelo setor
         $contratacoes = Contratacao::find()->where(['!=','situacao_id', 1])->andWhere(['!=','situacao_id', 2])->orderBy('id')->all();
-
-        $model->custo_responsavel = $session['sess_nomeusuario'];
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
@@ -140,7 +141,7 @@ class PedidoCustoController extends Controller
                         $transaction->commit();
                             
                         Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Custo Cadastrado!</strong>');
-                        return $this->redirect(['view', 'id' => $model->custo_id]);
+                       return $this->redirect(['index']);
                     }
                 }
                 }  catch (Exception $e) {
@@ -150,7 +151,7 @@ class PedidoCustoController extends Controller
 
             Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Custo Cadastrado!</strong>');
 
-            return $this->redirect(['view', 'id' => $model->custo_id]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -168,13 +169,65 @@ class PedidoCustoController extends Controller
      */
     public function actionUpdate($id)
     {
+        $session = Yii::$app->session;
         $model = $this->findModel($id);
+        $modelsItens = $model->pedidocustoItens;
+
+        $model->custo_situacaoggp = 1; //Aguardando Autorização GPP
+        $model->custo_situacaodad = 1; //Aguardando Autorização DAD
+        $model->custo_data = date('Y-m-d');
+        $model->custo_responsavel = $session['sess_nomeusuario'];
+
+        //1 => Em elaboração / 2 => Em correção pelo setor
+        $contratacoes = Contratacao::find()->where(['!=','situacao_id', 1])->andWhere(['!=','situacao_id', 2])->orderBy('id')->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->custo_id]);
+
+        //--------Itens do Pedido--------------
+        $oldIDsItens = ArrayHelper::map($modelsItens, 'id', 'id');
+        $modelsItens = Model::createMultiple(PedidocustoItens::classname(), $modelsItens);
+        Model::loadMultiple($modelsItens, Yii::$app->request->post());
+        $deletedIDsItens = array_diff($oldIDsItens, array_filter(ArrayHelper::map($modelsItens, 'id', 'id')));
+
+        // validate all models
+        $valid = $model->validate();
+        $valid = (Model::validateMultiple($modelsItens) && $valid);
+
+                        if ($valid) {
+                            $transaction = \Yii::$app->db->beginTransaction();
+                            try {
+                                if ($flag = $model->save(false)) {
+                                    if (! empty($deletedIDsItens)) {
+                                        PedidocustoItens::deleteAll(['id' => $deletedIDsItens]);
+                                    }
+                                    foreach ($modelsItens as $modelItens) {
+                                        $modelItens->pedidocusto_id = $model->custo_id;
+                                        if (! ($flag = $modelItens->save(false))) {
+                                            $transaction->rollBack();
+                                            break;
+                                        }
+                                    }
+                                }
+
+                               if ($flag) {
+                        $transaction->commit();
+                            
+                        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Custo Atualizado!</strong>');
+                       return $this->redirect(['index']);
+                    }
+                }catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
+
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Custo Atualizado!</strong>');
+
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'contratacoes' => $contratacoes,
+                'modelsItens' => (empty($modelsItens)) ? [new PedidocustoItens] : $modelsItens,
             ]);
         }
     }

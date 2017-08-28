@@ -8,7 +8,7 @@ use app\models\contratacao\Contratacao;
 /**
  * This is the model class for table "pedidocusto_itens".
  *
- * @property integer $itemcusto_id
+ * @property integer $id
  * @property integer $pedidocusto_id
  * @property integer $contratacao_id
  * @property string $itemcusto_unidade
@@ -59,7 +59,7 @@ class PedidocustoItens extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'itemcusto_id' => 'Itemcusto ID',
+            'id' => 'Itemcusto ID',
             'pedidocusto_id' => 'Pedidocusto ID',
             'contratacao_id' => 'Solicitação',
             'itemcusto_unidade' => 'Unidade',

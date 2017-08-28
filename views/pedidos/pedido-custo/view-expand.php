@@ -17,7 +17,7 @@ use kartik\detail\DetailView;
             <tr>
                   <th scope="row">Pedido de Custo:</th>
                   <td><?= $model->custo_id ?></td>
-                  <th scope="row">Assunto:</th>
+                  <th scope="row">Unidade:</th>
                   <td colspan="8"><?= $model->custo_assunto ?></td>
             </tr>
             <tr>
@@ -87,7 +87,7 @@ use kartik\detail\DetailView;
             </tfoot>
 
           </table><br /><br /><br />
-                                    <!-- CAIXA DE AUTORIZAÇÃO GERÊNCIA DO SETOR -->
+                                    <!-- ÁREA DE APROVAÇÕES -->
 
   <table class="table table-condensed table-hover">
      <tbody>
@@ -97,9 +97,12 @@ use kartik\detail\DetailView;
           <td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-ok" aria-hidden="true"> </span>
             <?= $model->custoSituacaoggp->situacao_descricao ?></b><br /><br /><br /><br /><br />
             Assinado eletrônicamente por:<br />
-            <b><?php echo $model->custo_aprovadorggp; ?></b><br />
-            Gerente de Gestão de Pessoas<br />
-            <?php echo date('d/m/Y à\s H:i', strtotime( $model->custo_dataaprovacaoggp )) ?>&nbsp;&nbsp;&nbsp;<br />
+
+            <?php $query = (new \yii\db\Query())->select('aprov_descricao, aprov_cargo, aprov_observacao')->from('db_processos.aprovacoes')->where(['aprov_area' => 'GGP'])->one(); ?>
+            <b><?= $query['aprov_descricao']; ?></b><br />
+            <?= $query['aprov_cargo']; ?><br />
+            <?= $query['aprov_observacao']; ?><br />
+            <?php echo date('d/m/Y', strtotime( $model->custo_dataaprovacaoggp )) ?>&nbsp;&nbsp;&nbsp;<br />
           </td>
           <?php }?>
 
@@ -109,9 +112,12 @@ use kartik\detail\DetailView;
           <td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-ok" aria-hidden="true"> </span>
             <?= $model->custoSituacaodad->situacao_descricao ?></b><br /><br /><br /><br /><br />
             Assinado eletrônicamente por:<br />
-            <b><?php echo $model->custo_aprovadorggp; ?></b><br />
-            Gerente da Divisão Administrativa<br />
-            <?php echo date('d/m/Y à\s H:i', strtotime( $model->custo_dataaprovacaoggp )) ?>&nbsp;&nbsp;&nbsp;<br />
+            
+            <?php $query = (new \yii\db\Query())->select('aprov_descricao, aprov_cargo, aprov_observacao')->from('db_processos.aprovacoes')->where(['aprov_area' => 'DAD'])->one(); ?>
+            <b><?= $query['aprov_descricao']; ?></b><br />
+            <?= $query['aprov_cargo']; ?><br />
+            <?= isset($query['aprov_observacao']) ? $query['aprov_observacao'] . '<br />' : ''; ?>
+            <?php echo date('d/m/Y', strtotime( $model->custo_dataaprovacaoggp )) ?>&nbsp;&nbsp;&nbsp;<br />
           </td>
           <?php }?>
 
@@ -119,16 +125,20 @@ use kartik\detail\DetailView;
             (&nbsp;&nbsp;&nbsp;) Aprovo a solicitação<br />
             (&nbsp;&nbsp;&nbsp;) Não aprovo a solicitação<br />
             (&nbsp;&nbsp;&nbsp;)  Ao Sr. Presidente do C.R para autorização<br /><br /><br /><br />
-            <b>Silvana Maria Ferreira de Carvalho</b><br />
-            Diretora Regional<br />
+
+            <?php $query = (new \yii\db\Query())->select('aprov_descricao, aprov_cargo, aprov_observacao')->from('db_processos.aprovacoes')->where(['aprov_area' => 'DIRETORIA REGIONAL'])->one(); ?>
+            <b><?= $query['aprov_descricao']; ?></b><br />
+            <?= $query['aprov_cargo']; ?><br />
              ___/___/_____<br />
           </td>
 
           <td style="font-size: 12px; border-top: 0px solid">
            (&nbsp;&nbsp;&nbsp;) Autorizo<br />
            (&nbsp;&nbsp;&nbsp;) Não Autorizo<br /><br /><br /><br /><br />
-            <b>José Roberto Tadros</b><br />
-            Presidente do CR/AM<br />
+
+           <?php $query = (new \yii\db\Query())->select('aprov_descricao, aprov_cargo, aprov_observacao')->from('db_processos.aprovacoes')->where(['aprov_area' => 'PRESIDÊNCIA'])->one(); ?>
+            <b><?= $query['aprov_descricao']; ?></b><br />
+           <?= $query['aprov_cargo']; ?><br />
              ___/___/_____<br />
           </td>
      </tbody>
