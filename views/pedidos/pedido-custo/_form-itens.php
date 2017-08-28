@@ -139,6 +139,33 @@ use wbraganca\dynamicform\DynamicFormWidget;
     </div>
 </div>
             <?php DynamicFormWidget::end(); ?>
+
+<?php
+/* start getting the totalamount */
+$script = <<<EOD
+    var getSum = function() {
+
+        var items = $(".item-pedidocusto");
+        var sum = 0;
+
+        items.each(function (index, elem) {
+            var priceValue = $(elem).find(".sumPart").val();
+            //Check if priceValue is numeric or something like that
+            sum = parseInt(sum) + parseInt(priceValue);
+        });
+        //Assign the sum value to the field
+        $(".sum").val(sum);
+    };
+
+    //Bind new elements to support the function too
+    $(".container-items-pedidocusto").on("change", ".sumPart", function() {
+        getSum();
+    });
+EOD;
+$this->registerJs($script);
+/*end getting the totalamount */
+?>
+
 <?php
 
 $js = '
@@ -150,9 +177,15 @@ jQuery(".dynamicform_pedidocusto").on("afterInsert", function(e, item) {
 });
 
 jQuery(".dynamicform_pedidocusto").on("afterDelete", function(e) {
+
+  var items = $(".item-pedidocusto");
+        var sum = 0;
+
     jQuery(".dynamicform_pedidocusto .panel-title-pedidocusto").each(function(i) {
         jQuery(this).html("Item: " + (i + 1))
     });
+
+   getSum();
 });
 
 ';
@@ -161,28 +194,3 @@ $this->registerJs($js);
 
 ?>
 
-<?php
-/* start getting the totalamount */
-// $script = <<<EOD
-//     var getSum = function() {
-
-//         var items = $(".item-pedidocusto");
-//         var sum = 0;
-
-//         items.each(function (index, elem) {
-//             var priceValue = $(elem).find(".sumPart").val();
-//             //Check if priceValue is numeric or something like that
-//             sum = parseInt(sum) + parseInt(priceValue);
-//         });
-//         //Assign the sum value to the field
-//         $(".sum").val(sum);
-//     };
-
-//     //Bind new elements to support the function too
-//     $(".container-items-pedidocusto").on("change", ".sumPart", function() {
-//         getSum();
-//     });
-// EOD;
-// $this->registerJs($script);
-/*end getting the totalamount */
-?>

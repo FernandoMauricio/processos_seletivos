@@ -26,7 +26,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php
+<?php
 
 $gridColumns = [
             

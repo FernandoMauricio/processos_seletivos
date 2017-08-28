@@ -1,7 +1,10 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
+use kartik\editable\Editable;
+use yii\widgets\Pjax;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\pedidos\PedidoCustoSearch */
@@ -18,11 +21,24 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Novo Pedido de Custo', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+
+<?php
+
+$gridColumns = [
+            
+             [
+             'class'=>'kartik\grid\ExpandRowColumn',
+             'width'=>'50px',
+             'format' => 'raw',
+             'value'=>function ($model, $key, $index, $column) {
+                 return GridView::ROW_COLLAPSED;
+             },
+             'detail'=>function ($model, $key, $index, $column) {
+                 return Yii::$app->controller->renderPartial('view-expand', ['model'=>$model, 'modelsItens' => $model->pedidocustoItens]);
+             },
+             'headerOptions'=>['class'=>'kartik-sheet-style'], 
+             'expandOneOnly'=>true
+             ],
 
             'custo_id',
             'custo_assunto',
@@ -33,15 +49,40 @@ $this->params['breadcrumbs'][] = $this->title;
                'format' => ['decimal',2],
             ],
             'custo_data',
-            // 'custo_aprovadorggp',
-            // 'custo_situacaoggp',
-            // 'custo_dataaprovacaoggp',
-            // 'custo_aprovadordad',
-            // 'custo_situacaodad',
-            // 'custo_dataaprovacaodad',
             'custo_responsavel',
+            
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{view}'],
+    ];
+ ?>
+
+    <?php Pjax::begin(); ?>
+
+    <?php 
+    echo GridView::widget([
+    'dataProvider'=>$dataProvider,
+    'filterModel'=>$searchModel,
+    'columns'=>$gridColumns,
+    'containerOptions'=>['style'=>'overflow: auto'], // only set when $responsive = false
+    'headerRowOptions'=>['class'=>'kartik-sheet-style'],
+    'filterRowOptions'=>['class'=>'kartik-sheet-style'],
+    'pjax'=>false, // pjax is set to always true for this demo
+    'beforeHeader'=>[
+        [
+            'columns'=>[
+                ['content'=>'Detalhes do Pedido de Custo', 'options'=>['colspan'=>7, 'class'=>'text-center warning']], 
+                ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
+            ],
+        ]
+    ],
+        'hover' => true,
+        'panel' => [
+        'type'=>GridView::TYPE_PRIMARY,
+        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem - Contratações em Andamento</h3>',
+    ],
+]);
+    ?>
+    <?php Pjax::end(); ?>
+
 </div>
+

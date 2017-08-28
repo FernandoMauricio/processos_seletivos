@@ -3,26 +3,8 @@
 use yii\helpers\Html;
 use kartik\detail\DetailView;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\pedidos\PedidoCusto */
-
-$this->title = $model->custo_id;
-$this->params['breadcrumbs'][] = ['label' => 'Listagem Pedidos de Custo', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pedido-custo-view">
-
-<table width="100%" border="0">
-  <tr> 
-    <td width="20%"><img src="css/img/logo.png"></td>
-    <td width="60%"><h4>SERVIÇO NACIONAL DE APRENDIZAGEM COMERCIAL - SENAC<br /><br />
-                         DEPARTAMENTO REGIONAL NO AMAZONAS<br /><br />
-                         GERÊNCIA DE GESTÃO DE PESSOAS</h4>
-    </td>
-    <td width="20%"><b>CC/RS/GGP  Nº </b> <?= $model->custo_id . '/' . date('Y') ?><br /><br />
-    <?=  date('d/m/Y', strtotime($model->custo_data)); ?></td>
-  </tr>
-</table>
 
   <div class="panel-body">
     <div class="row">
