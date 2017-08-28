@@ -24,10 +24,6 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Novo Pedido de Custo', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
 <?php
 
 $gridColumns = [
@@ -49,47 +45,44 @@ $gridColumns = [
             'custo_id',
             'custo_assunto',
             'custo_recursos',
+
             [
                'attribute' => 'custo_valortotal',
                'contentOptions' => ['class' => 'col-lg-1'],
                'format' => ['decimal',2],
             ],
+
             [
                 'attribute' => 'custo_situacaoggp',
                 'value' => 'custoSituacaoggp.situacao_descricao',
-
             ],
 
             [
                 'attribute' => 'custo_situacaodad',
                 'value' => 'custoSituacaodad.situacao_descricao',
-
             ],
 
             'custo_responsavel',
             
-
             ['class' => 'yii\grid\ActionColumn',
-                        'template' => '{view} {update}',
+                        'template' => '{aprovar-dad} {reprovar-dad}',
                         'contentOptions' => ['style' => 'width: 7%;'],
                         'buttons' => [
 
-                        //VISUALIZAR/IMPRIMIR
-                        'view' => function ($url, $model) {
-                            return Html::a('<span class="glyphicon glyphicon-print"></span> ', $url, [
-                                        'target'=>'_blank', 
-                                        'data-pjax'=>"0",
-                                        'class'=>'btn btn-info btn-xs',
-                                        'title' => Yii::t('app', 'Imprimir'),
+                        //APROVAR
+                        'aprovar-dad' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-ok"></span> ', $url, [
+                                        'class'=>'btn btn-success btn-xs',
+                                        'title' => Yii::t('app', 'Aprovar'),
                        
                             ]);
                         },
 
-                        //VISUALIZAR/IMPRIMIR
-                        'update' => function ($url, $model) {
-                            return Html::a('<span class="glyphicon glyphicon-pencil"></span> ', $url, [
-                                        'class'=>'btn btn-default btn-xs',
-                                        'title' => Yii::t('app', 'Atualizar'),
+                        //REPROVAr
+                        'reprovar-dad' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-remove"></span> ', $url, [
+                                        'class'=>'btn btn-danger btn-xs',
+                                        'title' => Yii::t('app', 'Reprovar'),
                        
                             ]);
                         },
@@ -120,7 +113,7 @@ $gridColumns = [
         'hover' => true,
         'panel' => [
         'type'=>GridView::TYPE_PRIMARY,
-        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem - Pedido de Custo</h3>',
+        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem - Pedido de Custo Em Aprovação</h3>',
     ],
 ]);
     ?>

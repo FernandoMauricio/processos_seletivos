@@ -99,7 +99,7 @@ use kartik\detail\DetailView;
             Assinado eletrônicamente por:<br />
 
             <?php $query = (new \yii\db\Query())->select('aprov_descricao, aprov_cargo, aprov_observacao')->from('db_processos.aprovacoes')->where(['aprov_area' => 'GGP'])->one(); ?>
-            <b><?= $query['aprov_descricao']; ?></b><br />
+            <b><?= $model->custo_aprovadorggp; ?></b><br />
             <?= $query['aprov_cargo']; ?><br />
             <?= $query['aprov_observacao']; ?><br />
             <?php echo date('d/m/Y', strtotime( $model->custo_dataaprovacaoggp )) ?>&nbsp;&nbsp;&nbsp;<br />
@@ -114,7 +114,7 @@ use kartik\detail\DetailView;
             Assinado eletrônicamente por:<br />
             
             <?php $query = (new \yii\db\Query())->select('aprov_descricao, aprov_cargo, aprov_observacao')->from('db_processos.aprovacoes')->where(['aprov_area' => 'DAD'])->one(); ?>
-            <b><?= $query['aprov_descricao']; ?></b><br />
+            <b><?= $model->custo_aprovadorggp; ?></b><br />
             <?= $query['aprov_cargo']; ?><br />
             <?= isset($query['aprov_observacao']) ? $query['aprov_observacao'] . '<br />' : ''; ?>
             <?php echo date('d/m/Y', strtotime( $model->custo_dataaprovacaoggp )) ?>&nbsp;&nbsp;&nbsp;<br />

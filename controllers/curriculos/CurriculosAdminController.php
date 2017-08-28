@@ -110,8 +110,6 @@ class CurriculosAdminController extends Controller
     {
         $this->layout = 'main-admin-curriculos';
 
-        
-
         $searchModel = new AnaliseGerencialAdministradorSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->sort = ['defaultOrder' => ['id'=>SORT_DESC]];
@@ -128,8 +126,6 @@ class CurriculosAdminController extends Controller
     {
         $this->layout = 'main-admin-curriculos';
 
-        
-
         $searchModel = new AnaliseGerencialSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->sort = ['defaultOrder' => ['id'=>SORT_DESC]];
@@ -143,7 +139,6 @@ class CurriculosAdminController extends Controller
     }
 
     public function actionImprimir($id) {
-
     {
     $session = Yii::$app->session;
     //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO

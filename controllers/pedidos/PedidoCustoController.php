@@ -7,6 +7,8 @@ use app\models\contratacao\Contratacao;
 use app\models\pedidos\PedidoCusto;
 use app\models\pedidos\PedidocustoItens;
 use app\models\pedidos\PedidoCustoSearch;
+use app\models\pedidos\PedidoCustoAprovacaoGgpSearch;
+use app\models\pedidos\PedidoCustoAprovacaoDadSearch;
 use app\models\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -49,6 +51,96 @@ class PedidoCustoController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionGgpIndex()
+    {
+        $this->layout = 'main-admin-curriculos';
+
+        $searchModel = new PedidoCustoAprovacaoGgpSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('aprovacao-ggp', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionAprovarGgp($id)
+    {
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
+
+        //Classifica o candidato
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`pedido_custo` SET `custo_aprovadorggp` = '".$session['sess_nomeusuario']."', `custo_situacaoggp` = '2', `custo_dataaprovacaoggp` = ".date('"Y-m-d"')." WHERE `custo_id` = '".$model->custo_id."'");
+        $command->execute();
+        
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Custo <strong> '.$model->custo_id.' </strong> foi Aprovado!</strong>');
+
+        return $this->redirect(['ggp-index']);
+    }
+
+    public function actionReprovarGgp($id)
+    {
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
+
+        //Classifica o candidato
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`pedido_custo` SET `custo_aprovadorggp` = '".$session['sess_nomeusuario']."', `custo_situacaoggp` = '3', `custo_dataaprovacaoggp` = ".date('"Y-m-d"')." WHERE `custo_id` = '".$model->custo_id."'");
+        $command->execute();
+        
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Custo <strong> '.$model->custo_id.' </strong> foi Reprovado!</strong>');
+
+        return $this->redirect(['ggp-index']);
+    }
+
+    public function actionDadIndex()
+    {
+        $this->layout = 'main-admin-curriculos';
+
+        $searchModel = new PedidoCustoAprovacaoDadSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('aprovacao-dad', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionAprovarDad($id)
+    {
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
+
+        //Classifica o candidato
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`pedido_custo` SET `custo_aprovadordad` = '".$session['sess_nomeusuario']."', `custo_situacaodad` = '5', `custo_dataaprovacaodad` = ".date('"Y-m-d"')." WHERE `custo_id` = '".$model->custo_id."'");
+        $command->execute();
+        
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Custo <strong> '.$model->custo_id.' </strong> foi Aprovado!</strong>');
+
+        return $this->redirect(['dad-index']);
+    }
+
+    public function actionReprovarDad($id)
+    {
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
+
+        //Classifica o candidato
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`pedido_custo` SET `custo_aprovadordad` = '".$session['sess_nomeusuario']."', `custo_situacaodad` = '3', `custo_dataaprovacaodad` = ".date('"Y-m-d"')." WHERE `custo_id` = '".$model->custo_id."'");
+        $command->execute();
+        
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Custo <strong> '.$model->custo_id.' </strong> foi Reprovado!</strong>');
+
+        return $this->redirect(['ggp-index']);
     }
 
     /**
