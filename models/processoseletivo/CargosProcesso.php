@@ -67,6 +67,25 @@ class CargosProcesso extends \yii\db\ActiveRecord
 
    }
 
+    //Localiza os cargos vinculado ao Processo Seletivo
+    public static function getCargosEtapasProcessoSubCat($cat_id) {
+
+        $sql = 'SELECT
+                    `cargos`.`descricao` AS id,
+                    `cargos`.`descricao` AS name
+               FROM 
+                   `cargos`
+               INNER JOIN 
+                   `cargos_processo` ON  `cargos_processo`.`cargo_id` = `cargos`.`idcargo`
+               WHERE
+                    `cargos_processo`.`processo_id` = '.$cat_id.'';
+
+        $data = \app\models\processoseletivo\CargosProcesso::findBySql($sql)->asArray()->all();
+
+        return $data;
+
+   }
+
     /**
      * @return \yii\db\ActiveQuery
      */

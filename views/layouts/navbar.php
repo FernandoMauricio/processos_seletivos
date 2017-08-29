@@ -56,6 +56,12 @@ if($session['sess_codunidade'] == 7 && $session['sess_coddepartamento'] == 82 &&
             ]],
 
             '<li class="divider"></li>',
+            ['label' => 'Etapas do Processo', 'items' => [
+            '<li class="dropdown-header">Administração das Etapas do Processo</li>',
+                ['label' => 'Etapas do Processo', 'url' => ['/etapasprocesso/etapas-processo/index']],
+            ]],
+
+            '<li class="divider"></li>',
             ['label' => 'Parâmetros', 'items' => [
             '<li class="dropdown-header">Cadastros</li>',
                 ['label' => 'Cargos', 'url' => ['/processoseletivo/cargos/index']],
@@ -120,6 +126,12 @@ echo NavX::widget([
                 ['label' => 'Listagem de Candidatos', 'url' => ['/curriculos/curriculos-admin/index']],
                 ['label' => 'Análise de Curriculos (Administrador)', 'url' => ['/curriculos/curriculos-admin/analise-gerencial-administrador']],
                 ['label' => 'Banco de Curriculos', 'url' => ['/curriculos/curriculos-admin/banco-de-curriculos']],
+            ]],
+
+            '<li class="divider"></li>',
+            ['label' => 'Etapas do Processo', 'items' => [
+            '<li class="dropdown-header">Administração das Etapas do Processo</li>',
+                ['label' => 'Etapas do Processo', 'url' => ['/etapasprocesso/etapas-processo/index']],
             ]],
 
             '<li class="divider"></li>',
