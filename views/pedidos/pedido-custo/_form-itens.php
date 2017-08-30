@@ -127,7 +127,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
              
               <div class="col-sm-2"><?= $form->field($modelItens, "[{$i}]itemcusto_encargos")->textInput(['readonly'=> true]) ?></div>
              
-              <div class="col-sm-2"><?= $form->field($modelItens, "[{$i}]itemcusto_total")->textInput(['maxlength' => true,'class' => 'sumPart']) ?></div>
+              <div class="col-sm-2"><?= $form->field($modelItens, "[{$i}]itemcusto_total")->textInput(['maxlength' => true,'class' => 'sumPart', 'readonly' => true]) ?></div>
              
               <div class="col-sm-10"><?= $form->field($modelItens,"[{$i}]itemcusto_justificativa")->textInput() ?></div>
              

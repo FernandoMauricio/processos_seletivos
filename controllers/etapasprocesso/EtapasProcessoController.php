@@ -104,11 +104,16 @@ class EtapasProcessoController extends Controller
            $etapasprocesso_id  = $model->etapa_id;
            $curriculos_id      = $candidato['id'];
 
+
         //Inclui as informações dos candidatos classificados
                 Yii::$app->db->createCommand()
                     ->insert('etapas_itens', [
                              'etapasprocesso_id' => $etapasprocesso_id,
                              'curriculos_id'     => $curriculos_id,
+                             'itens_analisarperfil' =>0,
+                             'itens_comportamental' =>0,
+                             'itens_entrevista'     =>0,
+                             
                              ])
                     ->execute();
         }

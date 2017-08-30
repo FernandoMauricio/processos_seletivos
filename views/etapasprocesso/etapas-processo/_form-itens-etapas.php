@@ -1,12 +1,3 @@
-<?php
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
-use yii\helpers\ArrayHelper;
-use kartik\select2\Select2;
-use yii\helpers\Json;
-use yii\helpers\Url;
-
-?>
 
 <div class="panel panel-default">
                 <table class="table"> 
@@ -21,9 +12,9 @@ use yii\helpers\Url;
                             <th>Classificação</th>
                         </tr> 
                     </thead>
-                        <?php foreach ($modelsEtapasItens as $i => $modelEtapasItens): ?>
                     <tbody> 
-                        <tr class="default"> 
+                        <?php foreach ($modelsEtapasItens as $i => $modelEtapasItens): ?>
+                        <tr class="default<?= "$i" ?>"> 
 
                             <td style="width: 160px;"><?= $form->field($modelEtapasItens, "[{$i}]inscricao")->textInput(['value' => $modelEtapasItens->curriculos->numeroInscricao, 'readonly'=> true])->label(false); ?></td>
 
@@ -41,7 +32,33 @@ use yii\helpers\Url;
 
                         </tr> 
 
-                        <?php endforeach; ?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+  jQuery('#etapasitens-<?=$i?>-itens_analisarperfil, #etapasitens-<?=$i?>-itens_comportamental, #etapasitens-<?=$i?>-itens_entrevista').keyup(function(){   
+   var total = 0; 
+   var total = parseFloat($('#etapasitens-<?=$i?>-itens_analisarperfil').val(), 0);
+   $('#etapasitens-<?=$i?>-itens_pontuacaototal').val(total);
+   var valor2 = parseFloat($('#etapasitens-<?=$i?>-itens_comportamental').val(), 0);
+   if (valor2 == 0){
+       $('#etapasitens-<?=$i?>-itens_pontuacaototal').val(total);
+   }
+   else {
+       total += valor2;
+       $('#etapasitens-<?=$i?>-itens_pontuacaototal').val(total);
+   }
+   var valor3 = parseFloat($('#etapasitens-<?=$i?>-itens_entrevista').val(), 0);
+   if (valor3 == 0){
+       $('#etapasitens-<?=$i?>-itens_pontuacaototal').val(total);
+   }
+   else{
+       total += valor3;
+       $('#etapasitens-<?=$i?>-itens_pontuacaototal').val(total);
+   }
+  });
+});
+</script>
+                <?php endforeach; ?>
             </tbody>
-                </table>
+    </table>
 </div>
