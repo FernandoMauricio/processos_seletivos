@@ -53,7 +53,7 @@ class EtapasProcesso extends \yii\db\ActiveRecord
     {
         return [
             'etapa_id' => 'Cód.',
-            'processo_id' => 'Processo ID',
+            'processo_id' => 'Pedido de Custo',
             'processoSeletivo' => 'Documento de Abertura',
             'etapa_cargo' => 'Cargo',
             'etapa_data' => 'Data da Criação',

@@ -66,7 +66,7 @@ use kartik\select2\Select2;
         <?= $this->render('_form-itens-etapas', [
             'form' => $form,
             'model' => $model,
-            'modelsEtapasItens' => $modelsEtapasItens,
+            'itens' => $itens,
         ]) ?>
 
     </div>

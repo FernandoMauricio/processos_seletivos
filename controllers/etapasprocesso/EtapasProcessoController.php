@@ -59,8 +59,12 @@ class EtapasProcessoController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $itens = EtapasItens::find()->where(['etapasprocesso_id' => $model->etapa_id])->orderBy(['itens_classificacao' => SORT_ASC])->all();
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'itens' => $itens,
         ]);
     }
 
@@ -138,11 +142,10 @@ class EtapasProcessoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $modelsEtapasItens = $model->etapasItens;
+
+        $itens = EtapasItens::find()->where(['etapasprocesso_id' => $model->etapa_id])->orderBy(['itens_classificacao' => SORT_ASC])->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-        $itens = EtapasItens::find()->where(['etapasprocesso_id' => $model->etapa_id])->all();
 
         foreach ($itens as $i => $etapa) {
             $etapa->etapasprocesso_id = $model->etapa_id;
@@ -157,11 +160,10 @@ class EtapasProcessoController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'modelsEtapasItens' => $modelsEtapasItens,
+                'itens' => $itens,
             ]);
         }
     }
-
 
     /**
      * Deletes an existing EtapasProcesso model.
