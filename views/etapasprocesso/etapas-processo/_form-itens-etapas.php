@@ -16,7 +16,7 @@
                         <?php foreach ($modelsEtapasItens as $i => $modelEtapasItens): ?>
                         <tr class="default<?= "$i" ?>"> 
 
-                            <td style="width: 160px;"><?= $form->field($modelEtapasItens, "[{$i}]inscricao")->textInput(['value' => $modelEtapasItens->curriculos->numeroInscricao, 'readonly'=> true])->label(false); ?></td>
+                            <td><?= yii\helpers\Html::a($modelEtapasItens->curriculos->numeroInscricao, ['curriculos/curriculos-admin/imprimir', 'id' => $modelEtapasItens->curriculos->id], ['class' => 'profile-link', 'target' => '_blank']) ?></td>
 
                             <td><?= $form->field($modelEtapasItens, "[{$i}]nome")->textInput(['value' => $modelEtapasItens->curriculos->nome, 'readonly'=> true])->label(false); ?></td>
 

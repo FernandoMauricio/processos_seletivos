@@ -9,7 +9,7 @@ use app\models\curriculos\Curriculos;
 /**
  * This is the model class for table "etapas_itens".
  *
- * @property integer $itens_id
+ * @property integer $id
  * @property integer $etapasprocesso_id
  * @property integer $curriculos_id
  * @property double $itens_analisarperfil
@@ -40,7 +40,7 @@ class EtapasItens extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['etapasprocesso_id', 'curriculos_id'], 'required'],
+            //[['etapasprocesso_id', 'curriculos_id'], 'required'],
             [['etapasprocesso_id', 'curriculos_id'], 'integer'],
             [['itens_analisarperfil', 'itens_comportamental', 'itens_entrevista', 'itens_pontuacaototal'], 'number'],
             [['itens_classificacao', 'nome', 'inscricao'], 'string', 'max' => 255],
@@ -55,7 +55,7 @@ class EtapasItens extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'itens_id' => 'Itens ID',
+            'id' => 'Itens ID',
             'etapasprocesso_id' => 'Etapasprocesso ID',
             'curriculos_id' => 'Curriculos ID',
             'itens_analisarperfil' => 'Análise de Perfil',

@@ -3,15 +3,19 @@
 namespace app\controllers\etapasprocesso;
 
 use Yii;
+use app\models\Model;
 use app\models\curriculos\CurriculosAdmin;
 use app\models\processoseletivo\CargosProcesso;
 use app\models\processoseletivo\ProcessoSeletivo;
 use app\models\etapasprocesso\EtapasProcesso;
 use app\models\etapasprocesso\EtapasProcessoSearch;
+use app\models\etapasprocesso\EtapasItens;
+use app\models\etapasprocesso\EtapasItensSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use yii\helpers\ArrayHelper;
 
 /**
  * EtapasProcessoController implements the CRUD actions for EtapasProcesso model.
@@ -104,7 +108,6 @@ class EtapasProcessoController extends Controller
            $etapasprocesso_id  = $model->etapa_id;
            $curriculos_id      = $candidato['id'];
 
-
         //Inclui as informações dos candidatos classificados
                 Yii::$app->db->createCommand()
                     ->insert('etapas_itens', [
@@ -135,11 +138,22 @@ class EtapasProcessoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        $modelsEtapasItens  = $model->etapasItens;
+        $modelsEtapasItens = $model->etapasItens;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->etapa_id]);
+
+        $itens = EtapasItens::find()->where(['etapasprocesso_id' => $model->etapa_id])->all();
+
+        foreach ($itens as $i => $etapa) {
+            $etapa->etapasprocesso_id = $model->etapa_id;
+            $etapa->itens_analisarperfil = $_POST['EtapasItens'][$i]['itens_analisarperfil'];
+            $etapa->itens_comportamental = $_POST['EtapasItens'][$i]['itens_comportamental'];
+            $etapa->itens_entrevista     = $_POST['EtapasItens'][$i]['itens_entrevista'];
+            $etapa->itens_pontuacaototal = $_POST['EtapasItens'][$i]['itens_pontuacaototal'];
+            $etapa->itens_classificacao  = $_POST['EtapasItens'][$i]['itens_classificacao'];
+            $etapa->update(false); // skipping validation as no user input is involved
+        }
+            return $this->redirect(['update', 'id' => $model->etapa_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -147,6 +161,7 @@ class EtapasProcessoController extends Controller
             ]);
         }
     }
+
 
     /**
      * Deletes an existing EtapasProcesso model.
