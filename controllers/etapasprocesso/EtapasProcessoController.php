@@ -11,6 +11,7 @@ use app\models\etapasprocesso\EtapasProcesso;
 use app\models\etapasprocesso\EtapasProcessoSearch;
 use app\models\etapasprocesso\EtapasItens;
 use app\models\etapasprocesso\EtapasItensSearch;
+use app\models\etapasprocesso\Usuarios;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -59,6 +60,8 @@ class EtapasProcessoController extends Controller
      */
     public function actionView($id)
     {
+        $this->layout = 'main-imprimir';
+        
         $model = $this->findModel($id);
         $itens = EtapasItens::find()->where(['etapasprocesso_id' => $model->etapa_id])->orderBy(['itens_classificacao' => SORT_ASC])->all();
 
@@ -115,12 +118,11 @@ class EtapasProcessoController extends Controller
         //Inclui as informações dos candidatos classificados
                 Yii::$app->db->createCommand()
                     ->insert('etapas_itens', [
-                             'etapasprocesso_id' => $etapasprocesso_id,
-                             'curriculos_id'     => $curriculos_id,
-                             'itens_analisarperfil' =>0,
-                             'itens_comportamental' =>0,
-                             'itens_entrevista'     =>0,
-                             
+                             'etapasprocesso_id'    => $etapasprocesso_id,
+                             'curriculos_id'        => $curriculos_id,
+                             'itens_analisarperfil' => 0,
+                             'itens_comportamental' => 0,
+                             'itens_entrevista'     => 0,
                              ])
                     ->execute();
         }
@@ -143,24 +145,36 @@ class EtapasProcessoController extends Controller
     {
         $model = $this->findModel($id);
 
-        $itens = EtapasItens::find()->where(['etapasprocesso_id' => $model->etapa_id])->orderBy(['itens_classificacao' => SORT_ASC])->all();
+        $itens = EtapasItens::find()->where(['etapasprocesso_id' => $model->etapa_id])->orderBy(['itens_pontuacaototal' => SORT_DESC])->all();
+        $selecionadores = Usuarios::find()->where(['usu_codsituacao' => 1, 'usu_codtipo' => 2])->orderBy(['usu_nomeusuario' => SORT_ASC])->all();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //Mostrará os Selecionadores das etapas do processo
+        $model->etapa_selecionadores = explode(",",$model->etapa_selecionadores);
 
+        if ($model->load(Yii::$app->request->post())) {
+
+            //Transformará os Selecionadores em um string separados por ,
+            $model->etapa_selecionadores = implode(",",$model->etapa_selecionadores);
+            $model->save();
+
+        //Input dos candidados selecionados da etapa
         foreach ($itens as $i => $etapa) {
             $etapa->etapasprocesso_id = $model->etapa_id;
-            $etapa->itens_analisarperfil = $_POST['EtapasItens'][$i]['itens_analisarperfil'];
-            $etapa->itens_comportamental = $_POST['EtapasItens'][$i]['itens_comportamental'];
-            $etapa->itens_entrevista     = $_POST['EtapasItens'][$i]['itens_entrevista'];
-            $etapa->itens_pontuacaototal = $_POST['EtapasItens'][$i]['itens_pontuacaototal'];
-            $etapa->itens_classificacao  = $_POST['EtapasItens'][$i]['itens_classificacao'];
+            $etapa->itens_analisarperfil   = $_POST['EtapasItens'][$i]['itens_analisarperfil'];
+            $etapa->itens_comportamental   = $_POST['EtapasItens'][$i]['itens_comportamental'];
+            $etapa->itens_entrevista       = $_POST['EtapasItens'][$i]['itens_entrevista'];
+            $etapa->itens_pontuacaototal   = $_POST['EtapasItens'][$i]['itens_pontuacaototal'];
+            $etapa->itens_classificacao    = $_POST['EtapasItens'][$i]['itens_classificacao'];
+            $etapa->itens_localcontratacao = $_POST['EtapasItens'][$i]['itens_localcontratacao'];
             $etapa->update(false); // skipping validation as no user input is involved
         }
+
             return $this->redirect(['update', 'id' => $model->etapa_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
                 'itens' => $itens,
+                'selecionadores' => $selecionadores,
             ]);
         }
     }

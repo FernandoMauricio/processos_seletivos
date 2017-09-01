@@ -29,18 +29,49 @@ use kartik\select2\Select2;
                 <div class="col-md-3">
                     <?= $form->field($model, 'processoSeletivo')->textInput(['value' => $model->processo->numeroEdital,'readonly' => true]) ?>
                 </div>
-                <div class="col-md-7">
+                <div class="col-md-3">
                     <?= $form->field($model, 'etapa_cargo')->textInput(['readonly' => true]) ?>
                 </div>
-                <div class="col-md-2">
-                    <?= $form->field($model, 'etapa_data')->textInput(['readonly' => true]) ?>
+                <div class="col-md-3">
+                    <?= $form->field($model, 'etapa_atualizadopor')->textInput(['readonly' => true]) ?>
+                </div>
+                <div class="col-md-3">
+                    <?= $form->field($model, 'etapa_dataatualizacao')->textInput(['readonly' => true]) ?>
                 </div>
             </div>
+
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-3">
+                    <?= $form->field($model, 'etapa_datarealizacao')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-md-3">
+                    <?= $form->field($model, 'etapa_local')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-md-3">
+                    <?= $form->field($model, 'etapa_cidade')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-md-3">
+                    <?= $form->field($model, 'etapa_estado')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-9">
+                    <?php 
+                        $options = \yii\helpers\ArrayHelper::map($selecionadores, 'usu_nomeusuario', 'usu_nomeusuario');
+                            echo $form->field($model, 'etapa_selecionadores')->widget(Select2::classname(), [
+                                'data' => $options,
+                                'options' => ['placeholder' => 'Informe os Selecionadores...', 'multiple'=>true],
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ]);  
+                    ?>
+                </div>
+                <div class="col-md-3">
                     <?php
                         echo $form->field($model, 'etapa_situacao')->widget(Select2::classname(), [
-                                'data' =>  ['Aberto' => 'Aberto', 'Em Processo' => 'Em Processo', 'Encerrado' => 'Encerrado'],
+                                'data' =>  ['Em Processo' => 'Em Processo', 'Encerrado' => 'Encerrado','Encerrado sem Classificados' => 'Encerrado sem Classificados'],
                                 'options' => ['placeholder' => 'Situação...'],
                                 'pluginOptions' => [
                                         'allowClear' => true
@@ -48,13 +79,13 @@ use kartik\select2\Select2;
                                 ]);
                     ?>
                 </div>
-                <div class="col-md-2">
-                    <?= $form->field($model, 'etapa_atualizadopor')->textInput(['readonly' => true]) ?>
-                </div>
-                <div class="col-md-2">
-                    <?= $form->field($model, 'etapa_dataatualizacao')->textInput(['readonly' => true]) ?>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <?= $form->field($model, 'etapa_observacao')->textarea(['maxlength' => true, 'rows' => 2]) ?>
                 </div>
             </div>
+
         </div>
 
         <table class="table table-condensed table-hover">

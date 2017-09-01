@@ -6,22 +6,20 @@ use kartik\select2\Select2;
                 <table class="table"> 
                     <thead> 
                         <tr>    
-                            <th>Inscrição</th>
                             <th>Nome Completo</th>
                             <th>Análise de Perfil</th>
                             <th>Avaliação Comportamental</th>
                             <th>Entrevista</th>
                             <th>Pontuação Total</th>
                             <th>Classificação</th>
+                            <th>Local de Contratação</th>
                         </tr> 
                     </thead>
                     <tbody> 
                         <?php foreach ($itens as $i => $etapa): ?>
                         <tr class="default<?= "$i" ?>"> 
 
-                            <td><?= yii\helpers\Html::a($etapa->curriculos->numeroInscricao, ['curriculos/curriculos-admin/imprimir', 'id' => $etapa->curriculos->id], ['class' => 'profile-link', 'target' => '_blank']) ?></td>
-
-                            <td><?= $form->field($etapa, "[{$i}]nome")->textInput(['value' => $etapa->curriculos->nome, 'readonly'=> true])->label(false); ?></td>
+                            <td style="width: 300px;"><?= yii\helpers\Html::a($etapa->curriculos->nome, ['curriculos/curriculos-admin/imprimir', 'id' => $etapa->curriculos->id], ['class' => 'profile-link', 'target' => '_blank', 'style' => 'text-transform: uppercase']) ?></td>
 
                             <td style="width: 80px;"><?= $form->field($etapa, "[{$i}]itens_analisarperfil")->textInput()->label(false); ?></td>
 
@@ -31,7 +29,7 @@ use kartik\select2\Select2;
 
                             <td style="width: 80px;"><?= $form->field($etapa, "[{$i}]itens_pontuacaototal")->textInput(['readonly' => true])->label(false); ?></td>
 
-                            <td style="width: 300px;">
+                            <td style="width: 200px;">
                             <?php 
                                 echo $form->field($etapa, "[{$i}]itens_classificacao")->widget(Select2::classname(), [
                                     'options' => ['placeholder' => 'Selecione a Classificação...'],
@@ -51,6 +49,57 @@ use kartik\select2\Select2;
                                         '7º colocado(a)' => '7º colocado(a)', 
                                         '8º colocado(a)' => '8º colocado(a)', 
                                         '9º colocado(a)' => '9º colocado(a)', 
+                                      ],
+                                    ])->label(false);
+                            ?>
+                            </td>
+                            <td style="width: 200px;">
+                            <?php 
+                                echo $form->field($etapa, "[{$i}]itens_localcontratacao")->widget(Select2::classname(), [
+                                    'options' => ['placeholder' => 'Local de Contratação...'],
+                                    'pluginOptions' => [
+                                            'allowClear' => true
+                                        ],
+                                    'data' =>
+                                      [
+                                        'BANCO DE DADOS' => 'BANCO DE DADOS',
+                                        'DESISTENTE' => 'DESISTENTE',
+                                        'DRG' => 'DRG',
+                                        'SPD' => 'SPD',
+                                        'GCO' => 'GCO',
+                                        'GMA' => 'GMA',
+                                        'GGP' => 'GGP',
+                                        'DAD' => 'DAD',
+                                        'DPM' => 'DPM',
+                                        'GPE' => 'GPE',
+                                        'DEP' => 'DEP',
+                                        'GMT' => 'GMT',
+                                        'GDE' => 'GDE',
+                                        'GMK' => 'GMK',
+                                        'ACI' => 'ACI',
+                                        'GNPE' => 'GNPE',
+                                        'GPO' => 'GPO',
+                                        'CTH' => 'CTH',
+                                        'CIN' => 'CIN',
+                                        'GTI' => 'GTI',
+                                        'CEP - PF' => 'CEP - PF',
+                                        'CEP - JT' => 'CEP - JT',
+                                        'CEP - LB' => 'CEP - LB',
+                                        'CEP - MPR' => 'CEP - MPR',
+                                        'CEP - MBI' => 'CEP - MBI',
+                                        'CEP - PJP' => 'CEP - PJP',
+                                        'CEP - LSR' => 'CEP - LSR',
+                                        'FATESE' => 'FATESE',
+                                        'GTC/DPM' => 'GTC/DPM',
+                                        'EDC' => 'EDC',
+                                        'SEDOC' => 'SEDOC',
+                                        'DIF' => 'DIF',
+                                        'SECAD' => 'SECAD',
+                                        'BALSA ESCOLA' => 'BALSA ESCOLA',
+                                        'ENGENHARIA E OBRAS' => 'ENGENHARIA E OBRAS',
+                                        'CARRETA DE INF.' => 'CARRETA DE INF.',
+                                        'CARRETA DE TUR. E HOSP.' => 'CARRETA DE TUR. E HOSP.',
+                                        'CARRETA DE BEL.' => 'CARRETA DE BEL.',
                                       ],
                                     ])->label(false);
                             ?>

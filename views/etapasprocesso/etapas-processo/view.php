@@ -49,6 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <th>Entrevista</th>
                 <th>Pontuação Total</th>
                 <th>Classificação</th>
+                <th>Local Contratação</th>
               </tr>
             </thead>
             <tbody>
@@ -57,11 +58,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 foreach ($itens as $i => $etapa): ?>
                   <td><?= $etapa->curriculos->numeroInscricao; ?></td>
                   <td><?= $etapa->curriculos->nome; ?></td>
-                  <td><?= $etapa->itens_analisarperfil; ?></td>
-                  <td><?= $etapa->itens_comportamental; ?></td>
-                  <td><?= $etapa->itens_entrevista; ?></td>
-                  <td><?= $etapa->itens_pontuacaototal; ?></td>
+                  <td style="width: 80px;"><?= $etapa->itens_analisarperfil; ?></td>
+                  <td style="width: 80px;"><?= $etapa->itens_comportamental; ?></td>
+                  <td style="width: 80px;"><?= $etapa->itens_entrevista; ?></td>
+                  <td style="width: 80px;"><?= $etapa->itens_pontuacaototal; ?></td>
                   <td><?= $etapa->itens_classificacao; ?></td>
+                  <td><?= $etapa->itens_localcontratacao; ?></td>
             </tr>
               <?php endforeach; ?>
 

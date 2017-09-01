@@ -8,6 +8,8 @@ use yii\helpers\ArrayHelper;
 use yii\bootstrap\Modal;
 use yii\helpers\Url;
 
+use app\models\etapasprocesso\EtapasItens;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\etapasprocesso\EtapasProcessoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -53,7 +55,8 @@ $gridColumns = [
                  return GridView::ROW_COLLAPSED;
              },
              'detail'=>function ($model, $key, $index, $column) {
-                 return Yii::$app->controller->renderPartial('view-expand', ['model'=>$model, 'etapasItens' => $model->etapasItens]);
+                $itens = EtapasItens::find()->where(['etapasprocesso_id' => $model->etapa_id])->orderBy(['itens_classificacao' => SORT_ASC])->all();
+                return Yii::$app->controller->renderPartial('view-expand', ['model'=>$model, 'etapasItens' => $itens]);
              },
              'headerOptions'=>['class'=>'kartik-sheet-style'], 
              'expandOneOnly'=>true

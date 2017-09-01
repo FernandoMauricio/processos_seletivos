@@ -23,7 +23,6 @@ use app\models\curriculos\Curriculos;
  */
 class EtapasItens extends \yii\db\ActiveRecord
 {
-    public $inscricao;
     public $nome;
 
     /**
@@ -43,7 +42,7 @@ class EtapasItens extends \yii\db\ActiveRecord
             //[['etapasprocesso_id', 'curriculos_id'], 'required'],
             [['etapasprocesso_id', 'curriculos_id'], 'integer'],
             [['itens_analisarperfil', 'itens_comportamental', 'itens_entrevista', 'itens_pontuacaototal'], 'number'],
-            [['itens_classificacao', 'nome', 'inscricao'], 'string', 'max' => 255],
+            [['itens_classificacao', 'itens_localcontratacao', 'nome'], 'string', 'max' => 255],
             [['curriculos_id'], 'exist', 'skipOnError' => true, 'targetClass' => Curriculos::className(), 'targetAttribute' => ['curriculos_id' => 'id']],
             [['etapasprocesso_id'], 'exist', 'skipOnError' => true, 'targetClass' => EtapasProcesso::className(), 'targetAttribute' => ['etapasprocesso_id' => 'etapa_id']],
         ];
