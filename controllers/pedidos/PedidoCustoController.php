@@ -42,7 +42,7 @@ class PedidoCustoController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout = 'main-admin-curriculos';
+        $this->layout = 'main-full';
 
         $searchModel = new PedidoCustoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -55,7 +55,7 @@ class PedidoCustoController extends Controller
 
     public function actionGgpIndex()
     {
-        $this->layout = 'main-admin-curriculos';
+        $this->layout = 'main-full';
 
         $searchModel = new PedidoCustoAprovacaoGgpSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -100,7 +100,7 @@ class PedidoCustoController extends Controller
 
     public function actionDadIndex()
     {
-        $this->layout = 'main-admin-curriculos';
+        $this->layout = 'main-full';
 
         $searchModel = new PedidoCustoAprovacaoDadSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);

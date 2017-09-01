@@ -17,17 +17,22 @@ use yii\widgets\DetailView;
             </thead>
             <tbody>
             <tr>
-                  <th scope="row">Cód:</th>
-                  <td><?= $model->etapa_id ?></td>
-                  <th scope="row">Unidade:</th>
+                  <th scope="row">Processo Seletivo:</th> <td><?= $model->processo->numeroEdital ?></td>
+                    
+                  <th scope="row">Cargo:</th> <td><?= $model->etapa_cargo ?></td>
+                    
+                  <th scope="row">Atualizado por:</th>  <td><?= $model->etapa_atualizadopor ?></td>
+                   
+                  <th scope="row">Data Atualização:</th>  <td><?= date('d/m/Y à\s H:i', strtotime($model->etapa_dataatualizacao)); ?></td>
             </tr>
             <tr>
-                  <th scope="row">Recursos:</th>
-                  <td><?= $model->processo_id ?></td>
-                  <th scope="row">Valor Total:</th>
-                  <td colspan="3"><?= $model->etapa_cargo ?></td>
-                  <th scope="row">Responsável:</th>
-                  <td><?= $model->etapa_atualizadopor ?></td>
+                  <th scope="row">Data da Realização:</th> <td><?= $model->etapa_datarealizacao ?></td>
+                    
+                  <th scope="row">Local:</th> <td><?= $model->etapa_local ?></td>
+                    
+                  <th scope="row">Data da Realização:</th> <td><?= $model->etapa_cidade ?></td>
+                    
+                  <th scope="row">Local:</th> <td><?= $model->etapa_estado ?></td>
             </tr>
             </tbody>
           </table>
@@ -37,6 +42,7 @@ use yii\widgets\DetailView;
             <thead>
             <tr class="info"><th colspan="12">SEÇÃO 2: Classificados / Etapas do Processo</th></tr>
               <tr>
+                <th>Contato Confirmado?</th>
                 <th>Inscrição</th>
                 <th>Nome Completo</th>
                 <th>Análise de Perfil</th>
@@ -51,6 +57,7 @@ use yii\widgets\DetailView;
             <tr>
               <?php 
                 foreach ($etapasItens as $i => $etapa): ?>
+                  <td><?= $etapa->itens_confirmacaocontato == 1 ? ' <span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: #54c51b;"></span>' : '<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: #a94442;"></span>'; ?></td>
                   <td><?= $etapa->curriculos->numeroInscricao; ?></td>
                   <td><?= $etapa->curriculos->nome; ?></td>
                   <td style="width: 80px;"><?= $etapa->itens_analisarperfil; ?></td>

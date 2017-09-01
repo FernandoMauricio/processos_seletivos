@@ -59,7 +59,7 @@ class EtapasProcesso extends \yii\db\ActiveRecord
     {
         return [
             'etapa_id' => 'Cód',
-            'processo_id' => 'Documento Abertura',
+            'processo_id' => 'Processo Seletivo',
             'etapa_cargo' => 'Cargo',
             'etapa_datarealizacao' => 'Data da Realização',
             'etapa_local' => 'Local',
@@ -68,7 +68,7 @@ class EtapasProcesso extends \yii\db\ActiveRecord
             'etapa_selecionadores' => 'Selecionadores',
             'etapa_data' => 'Data da Criação',
             'etapa_atualizadopor' => 'Atualizado Por',
-            'etapa_dataatualizacao' => 'Data atualização',
+            'etapa_dataatualizacao' => 'Data Atualização',
             'etapa_situacao' => 'Situação',
             'etapa_observacao' => 'Observação',
         ];

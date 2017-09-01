@@ -58,7 +58,7 @@ class CurriculosAdminController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout = 'main-admin-curriculos';
+        $this->layout = 'main-full';
 
     $session = Yii::$app->session;
     //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
@@ -82,7 +82,7 @@ class CurriculosAdminController extends Controller
 
     public function actionBancoDeCurriculos()
     {
-        $this->layout = 'main-admin-curriculos';
+        $this->layout = 'main-full';
 
     $session = Yii::$app->session;
     //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
@@ -108,7 +108,7 @@ class CurriculosAdminController extends Controller
 
     public function actionAnaliseGerencialAdministrador()
     {
-        $this->layout = 'main-admin-curriculos';
+        $this->layout = 'main-full';
 
         $searchModel = new AnaliseGerencialAdministradorSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -124,7 +124,7 @@ class CurriculosAdminController extends Controller
 
     public function actionAnaliseGerencial()
     {
-        $this->layout = 'main-admin-curriculos';
+        $this->layout = 'main-full';
 
         $searchModel = new AnaliseGerencialSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);

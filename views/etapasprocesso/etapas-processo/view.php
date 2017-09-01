@@ -5,14 +5,21 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\etapasprocesso\EtapasProcesso */
-
-$this->title = $model->etapa_id;
-$this->params['breadcrumbs'][] = ['label' => 'Etapas Processos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="etapas-processo-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<table width="100%" border="0">
+  <tr> 
+    <td width="5%"><img src="css/img/logo.png"></td>
+    <td width="90%"><h4 style="text-align: center;">SERVIÇO NACIONAL DE APRENDIZAGEM COMERCIAL - SENAC<br /><br />
+                         DEPARTAMENTO REGIONAL NO AMAZONAS<br /><br />
+                         GERÊNCIA DE GESTÃO DE PESSOAS<br /><br />
+                         TABELA DE PONTUAÇÃO GERAL DAS AVALIAÇÕES<br /><br />
+                         PROCESSO SELETIVO PARA <span class="text-uppercase"><b><?= $model->etapa_cargo ?></span></b>
+                    </h4>
+    </td>
+  </tr>
+</table>
 
   <div class="panel-body">
     <div class="row">
@@ -22,18 +29,29 @@ $this->params['breadcrumbs'][] = $this->title;
             </thead>
             <tbody>
             <tr>
-                  <th scope="row">Cód:</th>
-                  <td><?= $model->etapa_id ?></td>
-                  <th scope="row">Unidade:</th>
+                  <th scope="row">Processo Seletivo:</th> <td><?= $model->processo->numeroEdital ?></td>
+                    
+                  <th scope="row">Cargo:</th> <td colspan="2"><?= $model->etapa_cargo ?></td>
+                    
+                  <th scope="row">Atualizado por:</th>  <td colspan="2"><?= $model->etapa_atualizadopor ?></td>
+                   
+                  <th scope="row">Data Atualização:</th>  <td><?= date('d/m/Y à\s H:i', strtotime($model->etapa_dataatualizacao)); ?></td>
             </tr>
             <tr>
-                  <th scope="row">Recursos:</th>
-                  <td><?= $model->processo_id ?></td>
-                  <th scope="row">Valor Total:</th>
-                  <td colspan="3"><?= $model->etapa_cargo ?></td>
-                  <th scope="row">Responsável:</th>
-                  <td><?= $model->etapa_atualizadopor ?></td>
+                  <th scope="row">Data da Realização:</th> <td colspan="2"><?= $model->etapa_datarealizacao ?></td>
+                    
+                  <th scope="row">Local:</th> <td><?= $model->etapa_local ?></td>
+                    
+                  <th scope="row">Cidade:</th> <td colspan="2"><?= $model->etapa_cidade ?></td>
+                    
+                  <th scope="row">Estado:</th> <td><?= $model->etapa_estado ?></td>
             </tr>
+            <tr>
+                  <th scope="row">Nome dos Selecionadores:</th> <td colspan="7"><?= $model->etapa_selecionadores ?></td>
+                    
+                  <th scope="row">Situação:</th> <td colspan="2"><?= $model->etapa_situacao ?></td>
+            </tr>
+
             </tbody>
           </table>
                         <!-- ITENS DOS CLASSIFICADOS E AS ETAPAS DO PROCESSO  -->
@@ -42,6 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <thead>
             <tr class="info"><th colspan="12">SEÇÃO 2: Classificados / Etapas do Processo</th></tr>
               <tr>
+                <th>Contato Confirmado?</th>
                 <th>Inscrição</th>
                 <th>Nome Completo</th>
                 <th>Análise de Perfil</th>
@@ -56,6 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <tr>
               <?php 
                 foreach ($itens as $i => $etapa): ?>
+                  <td><?= $etapa->itens_confirmacaocontato == 1 ? ' <span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: #54c51b;"></span>' : '<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: #a94442;"></span>'; ?></td>
                   <td><?= $etapa->curriculos->numeroInscricao; ?></td>
                   <td><?= $etapa->curriculos->nome; ?></td>
                   <td style="width: 80px;"><?= $etapa->itens_analisarperfil; ?></td>

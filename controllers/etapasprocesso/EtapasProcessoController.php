@@ -99,7 +99,7 @@ class EtapasProcessoController extends Controller
 
         $model->etapa_data = date('Y-m-d H:i:s');
         $model->etapa_atualizadopor = $session['sess_nomeusuario'];
-        $model->etapa_dataatualizacao = date('Y-m-d H:i:s') ;
+        $model->etapa_dataatualizacao = date('Y-m-d H:i:s');
         $model->etapa_situacao = 'Em Processo';
 
         $processo = ProcessoSeletivo::find()->where(['situacao_id' => 1])->orWhere(['situacao_id' => 2])->all();
@@ -143,29 +143,35 @@ class EtapasProcessoController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->layout = 'main-full';
+        
+        $session = Yii::$app->session;
         $model = $this->findModel($id);
 
         $itens = EtapasItens::find()->where(['etapasprocesso_id' => $model->etapa_id])->orderBy(['itens_pontuacaototal' => SORT_DESC])->all();
         $selecionadores = Usuarios::find()->where(['usu_codsituacao' => 1, 'usu_codtipo' => 2])->orderBy(['usu_nomeusuario' => SORT_ASC])->all();
 
         //Mostrará os Selecionadores das etapas do processo
-        $model->etapa_selecionadores = explode(",",$model->etapa_selecionadores);
+        $model->etapa_selecionadores = explode(", ",$model->etapa_selecionadores);
 
         if ($model->load(Yii::$app->request->post())) {
 
+            $model->etapa_atualizadopor = $session['sess_nomeusuario'];
+            $model->etapa_dataatualizacao = date('Y-m-d H:i:s');
             //Transformará os Selecionadores em um string separados por ,
-            $model->etapa_selecionadores = implode(",",$model->etapa_selecionadores);
+            $model->etapa_selecionadores = implode(", ",$model->etapa_selecionadores);
             $model->save();
 
         //Input dos candidados selecionados da etapa
         foreach ($itens as $i => $etapa) {
             $etapa->etapasprocesso_id = $model->etapa_id;
-            $etapa->itens_analisarperfil   = $_POST['EtapasItens'][$i]['itens_analisarperfil'];
-            $etapa->itens_comportamental   = $_POST['EtapasItens'][$i]['itens_comportamental'];
-            $etapa->itens_entrevista       = $_POST['EtapasItens'][$i]['itens_entrevista'];
-            $etapa->itens_pontuacaototal   = $_POST['EtapasItens'][$i]['itens_pontuacaototal'];
-            $etapa->itens_classificacao    = $_POST['EtapasItens'][$i]['itens_classificacao'];
-            $etapa->itens_localcontratacao = $_POST['EtapasItens'][$i]['itens_localcontratacao'];
+            $etapa->itens_confirmacaocontato = $_POST['EtapasItens'][$i]['itens_confirmacaocontato'];
+            $etapa->itens_analisarperfil     = $_POST['EtapasItens'][$i]['itens_analisarperfil'];
+            $etapa->itens_comportamental     = $_POST['EtapasItens'][$i]['itens_comportamental'];
+            $etapa->itens_entrevista         = $_POST['EtapasItens'][$i]['itens_entrevista'];
+            $etapa->itens_pontuacaototal     = $_POST['EtapasItens'][$i]['itens_pontuacaototal'];
+            $etapa->itens_classificacao      = $_POST['EtapasItens'][$i]['itens_classificacao'];
+            $etapa->itens_localcontratacao   = $_POST['EtapasItens'][$i]['itens_localcontratacao'];
             $etapa->update(false); // skipping validation as no user input is involved
         }
 

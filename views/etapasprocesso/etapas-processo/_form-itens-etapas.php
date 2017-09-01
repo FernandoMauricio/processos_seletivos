@@ -6,6 +6,7 @@ use kartik\select2\Select2;
                 <table class="table"> 
                     <thead> 
                         <tr>    
+                            <th>Contato Confirmado?</th>
                             <th>Nome Completo</th>
                             <th>Análise de Perfil</th>
                             <th>Avaliação Comportamental</th>
@@ -19,17 +20,19 @@ use kartik\select2\Select2;
                         <?php foreach ($itens as $i => $etapa): ?>
                         <tr class="default<?= "$i" ?>"> 
 
-                            <td style="width: 300px;"><?= yii\helpers\Html::a($etapa->curriculos->nome, ['curriculos/curriculos-admin/imprimir', 'id' => $etapa->curriculos->id], ['class' => 'profile-link', 'target' => '_blank', 'style' => 'text-transform: uppercase']) ?></td>
+                            <td><?= $form->field($etapa, "[{$i}]itens_confirmacaocontato")->checkbox(['uncheck' => 0, 'label' => null]); ?></td>
 
-                            <td style="width: 80px;"><?= $form->field($etapa, "[{$i}]itens_analisarperfil")->textInput()->label(false); ?></td>
+                            <td><?= yii\helpers\Html::a($etapa->curriculos->nome, ['curriculos/curriculos-admin/imprimir', 'id' => $etapa->curriculos->id], ['class' => 'profile-link', 'target' => '_blank', 'style' => 'text-transform: uppercase']) ?></td>
 
-                            <td style="width: 80px;"><?= $form->field($etapa, "[{$i}]itens_comportamental")->textInput()->label(false); ?></td>
+                            <td style="width: 50px;"><?= $form->field($etapa, "[{$i}]itens_analisarperfil")->textInput()->label(false); ?></td>
 
-                            <td style="width: 80px;"><?= $form->field($etapa, "[{$i}]itens_entrevista")->textInput()->label(false); ?></td>
+                            <td style="width: 50px;"><?= $form->field($etapa, "[{$i}]itens_comportamental")->textInput()->label(false); ?></td>
 
-                            <td style="width: 80px;"><?= $form->field($etapa, "[{$i}]itens_pontuacaototal")->textInput(['readonly' => true])->label(false); ?></td>
+                            <td style="width: 50px;"><?= $form->field($etapa, "[{$i}]itens_entrevista")->textInput()->label(false); ?></td>
 
-                            <td style="width: 200px;">
+                            <td style="width: 50px;"><?= $form->field($etapa, "[{$i}]itens_pontuacaototal")->textInput(['readonly' => true])->label(false); ?></td>
+
+                            <td >
                             <?php 
                                 echo $form->field($etapa, "[{$i}]itens_classificacao")->widget(Select2::classname(), [
                                     'options' => ['placeholder' => 'Selecione a Classificação...'],
@@ -53,7 +56,7 @@ use kartik\select2\Select2;
                                     ])->label(false);
                             ?>
                             </td>
-                            <td style="width: 200px;">
+                            <td>
                             <?php 
                                 echo $form->field($etapa, "[{$i}]itens_localcontratacao")->widget(Select2::classname(), [
                                     'options' => ['placeholder' => 'Local de Contratação...'],

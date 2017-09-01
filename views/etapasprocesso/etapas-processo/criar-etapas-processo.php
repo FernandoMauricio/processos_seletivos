@@ -19,7 +19,7 @@ use yii\helpers\Json;
 
 <div class="panel-body">
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-3">
             <?php
                 $data_contratacao = ArrayHelper::map($processo, 'id', 'numeroEdital');
                 echo $form->field($model, 'processo_id')->widget(Select2::classname(), [
