@@ -14,7 +14,7 @@ use app\models\etapasprocesso\EtapasItens;
 /* @var $searchModel app\models\etapasprocesso\EtapasProcessoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Etapas Processos';
+$this->title = 'Etapas do Processo';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="etapas-processo-index">
@@ -68,7 +68,27 @@ $gridColumns = [
                 'value' => 'processo.numeroEdital',
             ],
             'etapa_cargo',
-            'etapa_situacao',
+            [
+                'attribute'=>'etapa_perfil',
+                'width'=>'10%',
+                'value' => function ($data) { return $data->etapa_perfil == 0 ? 'Administrativo' : 'Docente/Motorista/Cozinha'; },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=> ['0'=>'Administrativo','1'=>'Docente/Motorista/Cozinha'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                    'filterInputOptions'=>['placeholder'=>'Selecione a Etapa'],
+            ],
+            [
+                'attribute'=>'etapa_situacao',
+                'width'=>'10%',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=> ['Em Processo'=>'Em Processo','Encerrado'=>'Encerrado', 'Encerrado sem Classificados'=>'Encerrado sem Classificados'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                    'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
+            ],
 
             ['class' => 'yii\grid\ActionColumn',
                         'template' => '{view} {update}',
@@ -113,7 +133,7 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes das Etapas do Processo', 'options'=>['colspan'=>5, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes das Etapas do Processo', 'options'=>['colspan'=>6, 'class'=>'text-center warning']], 
                 ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]

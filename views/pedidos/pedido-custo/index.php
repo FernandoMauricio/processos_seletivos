@@ -6,6 +6,8 @@ use kartik\editable\Editable;
 use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
 
+use app\models\pedidos\PedidocustoSituacao;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\pedidos\PedidoCustoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -54,16 +56,33 @@ $gridColumns = [
                'contentOptions' => ['class' => 'col-lg-1'],
                'format' => ['decimal',2],
             ],
-            [
-                'attribute' => 'custo_situacaoggp',
-                'value' => 'custoSituacaoggp.situacao_descricao',
 
+            [
+                'attribute'=>'custo_situacaoggp', 
+                'width'=>'310px',
+                'value'=>function ($model, $key, $index, $widget) { 
+                    return $model->custoSituacaoggp->situacao_descricao;
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>ArrayHelper::map(PedidocustoSituacao::find()->orderBy('situacao_descricao')->asArray()->all(), 'situacao_descricao', 'situacao_descricao'), 
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                    'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
             ],
 
             [
-                'attribute' => 'custo_situacaodad',
-                'value' => 'custoSituacaodad.situacao_descricao',
-
+                'attribute'=>'custo_situacaodad', 
+                'width'=>'310px',
+                'value'=>function ($model, $key, $index, $widget) { 
+                    return $model->custoSituacaoggp->situacao_descricao;
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>ArrayHelper::map(PedidocustoSituacao::find()->orderBy('situacao_descricao')->asArray()->all(), 'situacao_descricao', 'situacao_descricao'), 
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                    'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
             ],
 
             'custo_responsavel',

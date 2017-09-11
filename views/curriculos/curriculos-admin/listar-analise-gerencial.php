@@ -93,8 +93,14 @@ $gridColumns = [
             ],
 
             [
-                'attribute' => 'sexo',
+                'attribute'=>'sexo', 
                 'value' => function ($data) { return $data->sexo == 0 ? 'Feminino' : 'Masculino'; },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=> ['0'=>'Feminino','1'=>'Masculino'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                    'filterInputOptions'=>['placeholder'=>'Selecione o sexo'],
             ],
  
             [
@@ -103,7 +109,7 @@ $gridColumns = [
             ],
             ['class' => 'yii\grid\ActionColumn',
                         'template' => '{imprimir} {classificar} {desclassificar}',
-                        'contentOptions' => ['style' => 'width: 7%;'],
+                        'contentOptions' => ['style' => 'width: 10%;'],
                         'buttons' => [
 
                         //IMPRIMIR

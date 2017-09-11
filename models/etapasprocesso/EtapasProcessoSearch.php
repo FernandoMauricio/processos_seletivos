@@ -19,7 +19,7 @@ class EtapasProcessoSearch extends EtapasProcesso
     {
         return [
             [['etapa_id'], 'integer'],
-            [['etapa_cargo', 'etapa_data', 'etapa_atualizadopor', 'etapa_dataatualizacao', 'etapa_situacao', 'processo_id'], 'safe'],
+            [['etapa_cargo', 'etapa_data', 'etapa_atualizadopor', 'etapa_dataatualizacao', 'etapa_situacao', 'processo_id', 'etapa_perfil'], 'safe'],
         ];
     }
 
@@ -68,6 +68,7 @@ class EtapasProcessoSearch extends EtapasProcesso
 
         $query->andFilterWhere(['like', 'processo.numeroEdital', $this->processo_id])
             ->andFilterWhere(['like', 'etapa_cargo', $this->etapa_cargo])
+            ->andFilterWhere(['like', 'etapa_perfil', $this->etapa_perfil])
             ->andFilterWhere(['like', 'etapa_atualizadopor', $this->etapa_atualizadopor])
             ->andFilterWhere(['like', 'etapa_situacao', $this->etapa_situacao]);
 
