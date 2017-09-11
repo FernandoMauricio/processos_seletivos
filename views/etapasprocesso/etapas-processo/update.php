@@ -14,6 +14,13 @@ $this->params['breadcrumbs'][] = 'Atualizar';
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+<?php
+//Pega as mensagens
+foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
+}
+?>
+
     <p>
    		<?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Retornar', ['index'], ['class' => 'btn btn-default']) ?>
         <?= Html::a('<span class="glyphicon glyphicon-print"></span> Imprimir', ['view', 'id' => $model->etapa_id], ['class' => 'btn btn-info', 'target'=>'_blank']) ?>

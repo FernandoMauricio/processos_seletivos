@@ -120,9 +120,11 @@ class EtapasProcessoController extends Controller
                     ->insert('etapas_itens', [
                              'etapasprocesso_id'    => $etapasprocesso_id,
                              'curriculos_id'        => $curriculos_id,
-                             'itens_analisarperfil' => 0,
+                             'itens_escrita'        => 0,
+                             'itens_didatica'       => 0,
                              'itens_comportamental' => 0,
                              'itens_entrevista'     => 0,
+                             'itens_pratica'        => 0,
                              ])
                     ->execute();
         }
@@ -166,7 +168,7 @@ class EtapasProcessoController extends Controller
         foreach ($itens as $i => $etapa) {
             $etapa->etapasprocesso_id = $model->etapa_id;
             $etapa->itens_confirmacaocontato = $_POST['EtapasItens'][$i]['itens_confirmacaocontato'];
-            $etapa->itens_analisarperfil     = $_POST['EtapasItens'][$i]['itens_analisarperfil'];
+            $etapa->itens_escrita     = $_POST['EtapasItens'][$i]['itens_escrita'];
             $etapa->itens_comportamental     = $_POST['EtapasItens'][$i]['itens_comportamental'];
             $etapa->itens_entrevista         = $_POST['EtapasItens'][$i]['itens_entrevista'];
             $etapa->itens_pontuacaototal     = $_POST['EtapasItens'][$i]['itens_pontuacaototal'];
@@ -174,6 +176,8 @@ class EtapasProcessoController extends Controller
             $etapa->itens_localcontratacao   = $_POST['EtapasItens'][$i]['itens_localcontratacao'];
             $etapa->update(false); // skipping validation as no user input is involved
         }
+
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong>Dados Atualizados!</strong>');
 
             return $this->redirect(['update', 'id' => $model->etapa_id]);
         } else {

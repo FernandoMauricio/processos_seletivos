@@ -19,21 +19,27 @@ use yii\widgets\DetailView;
             <tr>
                   <th scope="row">Processo Seletivo:</th> <td><?= $model->processo->numeroEdital ?></td>
                     
-                  <th scope="row">Cargo:</th> <td><?= $model->etapa_cargo ?></td>
+                  <th scope="row">Cargo:</th> <td colspan="2"><?= $model->etapa_cargo ?></td>
                     
-                  <th scope="row">Atualizado por:</th>  <td><?= $model->etapa_atualizadopor ?></td>
+                  <th scope="row">Atualizado por:</th>  <td colspan="2"><?= $model->etapa_atualizadopor ?></td>
                    
                   <th scope="row">Data Atualização:</th>  <td><?= date('d/m/Y à\s H:i', strtotime($model->etapa_dataatualizacao)); ?></td>
             </tr>
             <tr>
-                  <th scope="row">Data da Realização:</th> <td><?= $model->etapa_datarealizacao ?></td>
+                  <th scope="row">Data da Realização:</th> <td colspan="2"><?= $model->etapa_datarealizacao ?></td>
                     
                   <th scope="row">Local:</th> <td><?= $model->etapa_local ?></td>
                     
-                  <th scope="row">Data da Realização:</th> <td><?= $model->etapa_cidade ?></td>
+                  <th scope="row">Cidade:</th> <td colspan="2"><?= $model->etapa_cidade ?></td>
                     
-                  <th scope="row">Local:</th> <td><?= $model->etapa_estado ?></td>
+                  <th scope="row">Estado:</th> <td><?= $model->etapa_estado ?></td>
             </tr>
+            <tr>
+                  <th scope="row">Nome dos Selecionadores:</th> <td colspan="7"><?= $model->etapa_selecionadores ?></td>
+                    
+                  <th scope="row">Situação:</th> <td colspan="2"><?= $model->etapa_situacao ?></td>
+            </tr>
+
             </tbody>
           </table>
                         <!-- ITENS DOS CLASSIFICADOS E AS ETAPAS DO PROCESSO  -->
@@ -45,8 +51,8 @@ use yii\widgets\DetailView;
                 <th>Contato Confirmado?</th>
                 <th>Inscrição</th>
                 <th>Nome Completo</th>
-                <th>Análise de Perfil</th>
-                <th>Avaliação Comportamental</th>
+                <th>Escrita</th>
+                <th>Comportamental</th>
                 <th>Entrevista</th>
                 <th>Pontuação Total</th>
                 <th>Classificação</th>
@@ -59,8 +65,8 @@ use yii\widgets\DetailView;
                 foreach ($etapasItens as $i => $etapa): ?>
                   <td><?= $etapa->itens_confirmacaocontato == 1 ? ' <span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: #54c51b;"></span>' : '<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: #a94442;"></span>'; ?></td>
                   <td><?= $etapa->curriculos->numeroInscricao; ?></td>
-                  <td><?= $etapa->curriculos->nome; ?></td>
-                  <td style="width: 80px;"><?= $etapa->itens_analisarperfil; ?></td>
+                  <td><span class="text-uppercase"><?= $etapa->curriculos->nome; ?></span></td>
+                  <td style="width: 80px;"><?= $etapa->itens_escrita; ?></td>
                   <td style="width: 80px;"><?= $etapa->itens_comportamental; ?></td>
                   <td style="width: 80px;"><?= $etapa->itens_entrevista; ?></td>
                   <td style="width: 80px;"><?= $etapa->itens_pontuacaototal; ?></td>

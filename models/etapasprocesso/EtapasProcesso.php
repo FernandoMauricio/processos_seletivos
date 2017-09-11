@@ -43,8 +43,8 @@ class EtapasProcesso extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['processo_id'], 'required'],
-            [['processo_id'], 'integer'],
+            [['processo_id', 'etapa_selecionadores','etapa_local', 'etapa_cidade', 'etapa_estado', 'etapa_situacao'], 'required'],
+            [['processo_id', 'etapa_perfil'], 'integer'],
             [['etapa_data', 'etapa_dataatualizacao', 'etapa_selecionadores'], 'safe'],
             [['etapa_cargo', 'etapa_observacao'], 'string', 'max' => 255],
             [['etapa_datarealizacao', 'etapa_local', 'etapa_cidade', 'etapa_estado', 'etapa_atualizadopor', 'etapa_situacao'], 'string', 'max' => 45],
@@ -65,12 +65,13 @@ class EtapasProcesso extends \yii\db\ActiveRecord
             'etapa_local' => 'Local',
             'etapa_cidade' => 'Cidade',
             'etapa_estado' => 'Estado',
-            'etapa_selecionadores' => 'Selecionadores',
+            'etapa_selecionadores' => 'Nome dos Selecionadores',
             'etapa_data' => 'Data da Criação',
             'etapa_atualizadopor' => 'Atualizado Por',
             'etapa_dataatualizacao' => 'Data Atualização',
             'etapa_situacao' => 'Situação',
             'etapa_observacao' => 'Observação',
+            'etapa_perfil' => 'Perfil das Etapas',
         ];
     }
 

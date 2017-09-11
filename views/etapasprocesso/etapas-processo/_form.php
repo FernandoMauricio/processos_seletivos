@@ -13,6 +13,8 @@ use kartik\select2\Select2;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?php echo $form->errorSummary($model); ?>   
+
 
     <div class="panel panel-primary">
         <div class="panel-heading">
@@ -100,11 +102,8 @@ use kartik\select2\Select2;
             'itens' => $itens,
         ]) ?>
 
+
     </div>
-
-
-
-   
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -19,7 +19,7 @@ class EtapasItensSearch extends EtapasItens
     {
         return [
             [['id', 'etapasprocesso_id', 'curriculos_id'], 'integer'],
-            [['itens_analisarperfil', 'itens_comportamental', 'itens_entrevista', 'itens_pontuacaototal'], 'number'],
+            [['itens_escrita', 'itens_comportamental', 'itens_entrevista', 'itens_pontuacaototal'], 'number'],
             [['itens_classificacao'], 'safe'],
         ];
     }
@@ -63,7 +63,7 @@ class EtapasItensSearch extends EtapasItens
             'id' => $this->id,
             'etapasprocesso_id' => $this->etapasprocesso_id,
             'curriculos_id' => $this->curriculos_id,
-            'itens_analisarperfil' => $this->itens_analisarperfil,
+            'itens_escrita' => $this->itens_escrita,
             'itens_comportamental' => $this->itens_comportamental,
             'itens_entrevista' => $this->itens_entrevista,
             'itens_pontuacaototal' => $this->itens_pontuacaototal,

@@ -63,9 +63,11 @@ use yii\widgets\DetailView;
                 <th>Contato Confirmado?</th>
                 <th>Inscrição</th>
                 <th>Nome Completo</th>
-                <th>Análise de Perfil</th>
-                <th>Avaliação Comportamental</th>
+                <th>Escrita</th>
+                <th>Comportamental</th>
+                <?php echo $model->etapa_perfil == 1 ? '<th>Didática</th>' : ''; ?>
                 <th>Entrevista</th>
+                <?php echo $model->etapa_perfil == 1 ? '<th>Prática</th>' : ''; ?>
                 <th>Pontuação Total</th>
                 <th>Classificação</th>
                 <th>Local Contratação</th>
@@ -77,10 +79,12 @@ use yii\widgets\DetailView;
                 foreach ($itens as $i => $etapa): ?>
                   <td><?= $etapa->itens_confirmacaocontato == 1 ? ' <span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: #54c51b;"></span>' : '<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: #a94442;"></span>'; ?></td>
                   <td><?= $etapa->curriculos->numeroInscricao; ?></td>
-                  <td><?= $etapa->curriculos->nome; ?></td>
-                  <td style="width: 80px;"><?= $etapa->itens_analisarperfil; ?></td>
+                  <td><span class="text-uppercase"><?= $etapa->curriculos->nome; ?></span></td>
+                  <td style="width: 80px;"><?= $etapa->itens_escrita; ?></td>
                   <td style="width: 80px;"><?= $etapa->itens_comportamental; ?></td>
+                  <?php echo $model->etapa_perfil == 1 ? '<td style="width: 80px;"> '.$etapa->itens_didatica.' </td>' : ''; ?>
                   <td style="width: 80px;"><?= $etapa->itens_entrevista; ?></td>
+                  <?php echo $model->etapa_perfil == 1 ? '<td style="width: 80px;"> '.$etapa->itens_pratica.' </td>' : ''; ?>
                   <td style="width: 80px;"><?= $etapa->itens_pontuacaototal; ?></td>
                   <td><?= $etapa->itens_classificacao; ?></td>
                   <td><?= $etapa->itens_localcontratacao; ?></td>

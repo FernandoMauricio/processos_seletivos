@@ -46,6 +46,19 @@ use yii\helpers\Json;
                     ]);
             ?>
         </div>
+        <div class="col-md-3">
+            <?php
+                echo $form->field($model, 'etapa_perfil')->widget(Select2::classname(), [
+                        'data' =>  ['0' => 'Administrativo', '1' => 'Docente/Motorista/Cozinha'],
+                        'hideSearch' => true,
+                        'options' => ['placeholder' => 'Selecione o Perfil...'],
+                        'pluginOptions' => [
+                                'allowClear' => true,
+                            ],
+                        ]);
+            ?>
+        </div>
+
     </div>
 </div>
 

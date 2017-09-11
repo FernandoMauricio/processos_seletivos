@@ -63,11 +63,11 @@ $gridColumns = [
              ],
 
             'etapa_id',
-            'processo_id',
+            [
+                'attribute' => 'processo_id',
+                'value' => 'processo.numeroEdital',
+            ],
             'etapa_cargo',
-            //'etapa_data',
-            'etapa_atualizadopor',
-            'etapa_dataatualizacao',
             'etapa_situacao',
 
             ['class' => 'yii\grid\ActionColumn',
@@ -113,7 +113,7 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes das Etapas do Processo', 'options'=>['colspan'=>7, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes das Etapas do Processo', 'options'=>['colspan'=>5, 'class'=>'text-center warning']], 
                 ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]

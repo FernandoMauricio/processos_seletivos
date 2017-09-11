@@ -12,7 +12,7 @@ use app\models\curriculos\Curriculos;
  * @property integer $id
  * @property integer $etapasprocesso_id
  * @property integer $curriculos_id
- * @property double $itens_analisarperfil
+ * @property double $itens_escrita
  * @property double $itens_comportamental
  * @property double $itens_entrevista
  * @property double $itens_pontuacaototal
@@ -41,7 +41,7 @@ class EtapasItens extends \yii\db\ActiveRecord
         return [
             //[['etapasprocesso_id', 'curriculos_id'], 'required'],
             [['etapasprocesso_id', 'curriculos_id'], 'integer'],
-            [['itens_analisarperfil', 'itens_comportamental', 'itens_entrevista', 'itens_pontuacaototal'], 'number'],
+            [['itens_escrita', 'itens_comportamental', 'itens_didatica', 'itens_entrevista', 'itens_pratica', 'itens_pontuacaototal'], 'number'],
             [['itens_classificacao', 'itens_localcontratacao', 'nome'], 'string', 'max' => 255],
             [['itens_confirmacaocontato'], 'safe'],
             [['curriculos_id'], 'exist', 'skipOnError' => true, 'targetClass' => Curriculos::className(), 'targetAttribute' => ['curriculos_id' => 'id']],
@@ -58,8 +58,10 @@ class EtapasItens extends \yii\db\ActiveRecord
             'id' => 'Itens ID',
             'etapasprocesso_id' => 'Etapasprocesso ID',
             'curriculos_id' => 'Curriculos ID',
-            'itens_analisarperfil' => 'Análise de Perfil',
+            'itens_escrita' => 'Avaliação Escrita',
             'itens_comportamental' => 'Avaliação Comportamental',
+            'itens_didatica' => 'Avaliação Didática',
+            'itens_pratica' => 'Avaliação Prática',
             'itens_entrevista' => 'Entrevista',
             'itens_pontuacaototal' => 'Pontuação Total',
             'itens_classificacao' => 'Classificação',

@@ -8,12 +8,14 @@ use kartik\select2\Select2;
                         <tr>    
                             <th>Contato Confirmado?</th>
                             <th>Nome Completo</th>
-                            <th>Análise de Perfil</th>
-                            <th>Avaliação Comportamental</th>
+                            <th>Escrita</th>
+                            <th>Comportamental</th>
+                            <?php echo $model->etapa_perfil == 1 ? '<th>Didática</th>' : ''; ?>
                             <th>Entrevista</th>
+                            <?php echo $model->etapa_perfil == 1 ? '<th>Prática</th>' : ''; ?>
                             <th>Pontuação Total</th>
                             <th>Classificação</th>
-                            <th>Local de Contratação</th>
+                            <th>Local Contratação</th>
                         </tr> 
                     </thead>
                     <tbody> 
@@ -24,11 +26,15 @@ use kartik\select2\Select2;
 
                             <td><?= yii\helpers\Html::a($etapa->curriculos->nome, ['curriculos/curriculos-admin/imprimir', 'id' => $etapa->curriculos->id], ['class' => 'profile-link', 'target' => '_blank', 'style' => 'text-transform: uppercase']) ?></td>
 
-                            <td style="width: 50px;"><?= $form->field($etapa, "[{$i}]itens_analisarperfil")->textInput()->label(false); ?></td>
+                            <td style="width: 50px;"><?= $form->field($etapa, "[{$i}]itens_escrita")->textInput()->label(false); ?></td>
 
                             <td style="width: 50px;"><?= $form->field($etapa, "[{$i}]itens_comportamental")->textInput()->label(false); ?></td>
 
+                            <?= $model->etapa_perfil == 1 ? '<td style="width: 50px;"> '.$form->field($etapa, "[{$i}]itens_didatica")->textInput()->label(false).'' : ''; ?></td>
+
                             <td style="width: 50px;"><?= $form->field($etapa, "[{$i}]itens_entrevista")->textInput()->label(false); ?></td>
+
+                            <?= $model->etapa_perfil == 1 ? '<td style="width: 50px;"> '.$form->field($etapa, "[{$i}]itens_pratica")->textInput()->label(false).'' : ''; ?></td>
 
                             <td style="width: 50px;"><?= $form->field($etapa, "[{$i}]itens_pontuacaototal")->textInput(['readonly' => true])->label(false); ?></td>
 
@@ -113,9 +119,9 @@ use kartik\select2\Select2;
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-  jQuery('#etapasitens-<?=$i?>-itens_analisarperfil, #etapasitens-<?=$i?>-itens_comportamental, #etapasitens-<?=$i?>-itens_entrevista').keyup(function(){   
+  jQuery('#etapasitens-<?=$i?>-itens_escrita, #etapasitens-<?=$i?>-itens_comportamental, #etapasitens-<?=$i?>-itens_entrevista').keyup(function(){   
    var total = 0; 
-   var total = parseFloat($('#etapasitens-<?=$i?>-itens_analisarperfil').val(), 0);
+   var total = parseFloat($('#etapasitens-<?=$i?>-itens_escrita').val(), 0);
    $('#etapasitens-<?=$i?>-itens_pontuacaototal').val(total);
    var valor2 = parseFloat($('#etapasitens-<?=$i?>-itens_comportamental').val(), 0);
    if (valor2 == 0){
