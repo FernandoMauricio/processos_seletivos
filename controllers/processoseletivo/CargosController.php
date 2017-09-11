@@ -38,6 +38,7 @@ class CargosController extends Controller
      */
     public function actionIndex()
     {
+    $this->layout = 'main-full';
     $session = Yii::$app->session;
     //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
     if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
@@ -76,6 +77,27 @@ class CargosController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
+            if($model->calculos == 1) { // Realiza os cálculos de Planejamento e Produtividade caso seja marcado a opção
+            $model->salario_1sexto        = $model->salario / 6;
+            $model->salario_produtividade = (($model->salario_valorhora * 45) / 100) * $model->ch_semana * 5;
+            $model->salario_6horasfixas   = $model->salario_valorhora * 6;
+            $model->salario_1sextofixas   = $model->salario_6horasfixas / 6;
+            $model->salario_bruto         = $model->salario + $model->salario_1sexto + $model->salario_produtividade + $model->salario_6horasfixas + $model->salario_1sextofixas;
+            $model->encargos              = ($model->salario_bruto * 32.7) / 100;
+            $model->valor_total           = $model->salario + $model->encargos;
+            $model->save();
+        }else{
+            $model->salario_valorhora     = 0;
+            $model->salario_1sexto        = 0;  
+            $model->salario_produtividade = 0; 
+            $model->salario_6horasfixas   = 0; 
+            $model->salario_1sextofixas   = 0;
+            $model->salario_bruto         = $model->salario + $model->salario_1sexto + $model->salario_produtividade + $model->salario_6horasfixas + $model->salario_1sextofixas;
+            $model->encargos              = ($model->salario_bruto * 32.7) / 100;
+            $model->valor_total           = $model->salario + $model->encargos;
+            $model->save();
+        }
+
             Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong>O Cargo foi cadastrado!</strong>');
             
             return $this->redirect(['index']);
@@ -107,10 +129,26 @@ class CargosController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            $model->encargos = ($model->salario * 32.7) / 100;
-            $model->valor_total = $model->salario + $model->encargos;
+            if($model->calculos == 1) { // Realiza os cálculos de Planejamento e Produtividade caso seja marcado a opção
+            $model->salario_1sexto        = $model->salario / 6;
+            $model->salario_produtividade = (($model->salario_valorhora * 45) / 100) * $model->ch_semana * 5;
+            $model->salario_6horasfixas   = $model->salario_valorhora * 6;
+            $model->salario_1sextofixas   = $model->salario_6horasfixas / 6;
+            $model->salario_bruto         = $model->salario + $model->salario_1sexto + $model->salario_produtividade + $model->salario_6horasfixas + $model->salario_1sextofixas;
+            $model->encargos              = ($model->salario_bruto * 32.7) / 100;
+            $model->valor_total           = $model->salario + $model->encargos;
             $model->save();
-
+        }else{
+            $model->salario_valorhora     = 0;
+            $model->salario_1sexto        = 0;  
+            $model->salario_produtividade = 0; 
+            $model->salario_6horasfixas   = 0; 
+            $model->salario_1sextofixas   = 0;
+            $model->salario_bruto         = $model->salario + $model->salario_1sexto + $model->salario_produtividade + $model->salario_6horasfixas + $model->salario_1sextofixas;
+            $model->encargos              = ($model->salario_bruto * 32.7) / 100;
+            $model->valor_total           = $model->salario + $model->encargos;
+            $model->save();
+        }
             Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong>O Cargo foi atualizado!</strong>');
 
             return $this->redirect(['index']);

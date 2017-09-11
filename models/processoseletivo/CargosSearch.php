@@ -20,7 +20,7 @@ class CargosSearch extends Cargos
         return [
             [['idcargo', 'ch_semana', 'status'], 'integer'],
             [['descricao', 'area'], 'safe'],
-            [['salario', 'encargos', 'valor_total'], 'number'],
+            [['salario_valorhora', 'salario', 'salario_1sexto', 'salario_produtividade', 'salario_6horasfixas', 'salario_1sextofixas', 'salario_bruto', 'encargos', 'valor_total'], 'number'],
         ];
     }
 
@@ -62,7 +62,13 @@ class CargosSearch extends Cargos
         $query->andFilterWhere([
             'idcargo' => $this->idcargo,
             'ch_semana' => $this->ch_semana,
+            'salario_valorhora' => $this->salario_valorhora,
             'salario' => $this->salario,
+            'salario_1sexto' => $this->salario_1sexto,
+            'salario_produtividade' => $this->salario_produtividade,
+            'salario_6horasfixas' => $this->salario_6horasfixas,
+            'salario_1sextofixas' => $this->salario_1sextofixas,
+            'salario_bruto' => $this->salario_bruto,
             'encargos' => $this->encargos,
             'valor_total' => $this->valor_total,
             'status' => $this->status,

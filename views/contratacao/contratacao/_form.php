@@ -54,7 +54,7 @@ use yii\helpers\Url;
 
                                       $inputArea.val(data.area);
                                       $inputCHSemanal.val(data.ch_semana);
-                                      $inputSalario.val(data.salario);
+                                      $inputSalario.val(data.salario_bruto);
                                       $inputEncargos.val(data.encargos);
                                       $inputTotal.val(data.valor_total);
 

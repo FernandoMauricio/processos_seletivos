@@ -11,15 +11,24 @@ use Yii;
  * @property string $descricao
  * @property string $area
  * @property integer $ch_semana
+ * @property double $salario_valorhora
  * @property double $salario
+ * @property double $salario_1sexto
+ * @property double $salario_produtividade
+ * @property double $salario_6horasfixas
+ * @property double $salario_1sextofixas
+ * @property double $salario_bruto
  * @property double $encargos
  * @property double $valor_total
  * @property integer $status
  *
  * @property CargosProcesso[] $cargosProcessos
+ * @property Contratacao[] $contratacaos
  */
 class Cargos extends \yii\db\ActiveRecord
 {
+    public $calculos;
+
     /**
      * @inheritdoc
      */
@@ -34,9 +43,9 @@ class Cargos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descricao', 'area', 'ch_semana', 'salario', 'status'], 'required'],
+            [['descricao', 'area', 'ch_semana', 'salario', 'status', 'calculos'], 'required'],
             [['ch_semana', 'status'], 'integer'],
-            [['salario', 'encargos', 'valor_total'], 'number'],
+            [['salario_valorhora', 'salario', 'salario_1sexto', 'salario_produtividade', 'salario_6horasfixas', 'salario_1sextofixas', 'salario_bruto', 'encargos', 'valor_total'], 'number'],
             [['descricao', 'area'], 'string', 'max' => 100],
         ];
     }
@@ -51,10 +60,17 @@ class Cargos extends \yii\db\ActiveRecord
             'descricao' => 'Descrição',
             'area' => 'Área',
             'ch_semana' => 'CH Semanal',
-            'salario' => 'Salário',
+            'salario_valorhora' => 'V.H',
+            'salario' => 'S. Base',
+            'salario_1sexto' => '1/6 RSR',
+            'salario_produtividade' => 'PRODUT.',
+            'salario_6horasfixas' => '06h Fixas',
+            'salario_1sextofixas' => '1/6 Fixas',
+            'salario_bruto' => 'S. Bruto',
             'encargos' => 'Encargos',
-            'valor_total' => 'Total',
+            'valor_total' => 'Valor Total',
             'status' => 'Status',
+            'calculos' => 'Realizar cálculos para Docentes?',
         ];
     }
 

@@ -38,17 +38,49 @@ $gridColumns = [
             'descricao',
             'area',
             'ch_semana',
-            'salario',
-            'encargos',
-            'valor_total',
-
+            [
+                'format' => 'Currency',
+                'attribute' => 'salario_valorhora',
+            ],
+            [
+                'format' => 'Currency',
+                'attribute' => 'salario',
+            ],
+            [
+                'format' => 'Currency',
+                'attribute' => 'salario_1sexto',
+            ],
+            [
+                'format' => 'Currency',
+                'attribute' => 'salario_produtividade',
+            ],
+            [
+                'format' => 'Currency',
+                'attribute' => 'salario_6horasfixas',
+            ],
+            [
+                'format' => 'Currency',
+                'attribute' => 'salario_1sextofixas',
+            ],
+            [
+                'format' => 'Currency',
+                'attribute' => 'salario_bruto',
+            ],
+            [
+                'format' => 'Currency',
+                'attribute' => 'encargos',
+            ],
+            [
+                'format' => 'Currency',
+                'attribute' => 'valor_total',
+            ],
             [
                 'class'=>'kartik\grid\BooleanColumn',
                 'attribute'=>'status', 
                 'vAlign'=>'middle'
             ], 
                         
-            ['class' => 'yii\grid\ActionColumn','template' => '{update} {delete}'],
+            ['class' => 'yii\grid\ActionColumn','template' => '{update}'],
     ]; 
 ?>
 
@@ -67,7 +99,7 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes de Cargos Cadastrados', 'options'=>['colspan'=>7, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes de Cargos Cadastrados', 'options'=>['colspan'=>14, 'class'=>'text-center warning']], 
                 ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]
