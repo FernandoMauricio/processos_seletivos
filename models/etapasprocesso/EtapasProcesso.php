@@ -43,7 +43,7 @@ class EtapasProcesso extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['processo_id', 'etapa_selecionadores','etapa_local', 'etapa_cidade', 'etapa_estado', 'etapa_situacao'], 'required'],
+            [['etapa_selecionadores','etapa_local', 'etapa_cidade', 'etapa_estado', 'etapa_situacao'], 'required', 'on' => 'update'],
             [['processo_id', 'etapa_perfil'], 'integer'],
             [['etapa_data', 'etapa_dataatualizacao', 'etapa_selecionadores'], 'safe'],
             [['etapa_cargo', 'etapa_observacao'], 'string', 'max' => 255],
@@ -51,6 +51,13 @@ class EtapasProcesso extends \yii\db\ActiveRecord
             [['processo_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProcessoSeletivo::className(), 'targetAttribute' => ['processo_id' => 'id']],
         ];
     }
+
+    public function scenarios()
+        {
+            $scenarios = parent::scenarios();
+            $scenarios['update'] = ['etapa_selecionadores','etapa_local', 'etapa_cidade', 'etapa_estado', 'etapa_situacao'];//Scenario Values Only Accepted
+            return $scenarios;
+        }
 
     /**
      * @inheritdoc

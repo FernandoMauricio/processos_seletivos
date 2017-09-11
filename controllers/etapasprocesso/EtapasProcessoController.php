@@ -63,7 +63,7 @@ class EtapasProcessoController extends Controller
         $this->layout = 'main-imprimir';
         
         $model = $this->findModel($id);
-        $itens = EtapasItens::find()->where(['etapasprocesso_id' => $model->etapa_id])->orderBy(['itens_classificacao' => SORT_ASC])->all();
+        $itens = EtapasItens::find()->where(['etapasprocesso_id' => $model->etapa_id])->orderBy(['itens_pontuacaototal' => SORT_DESC])->all();
 
         return $this->render('view', [
             'model' => $model,
@@ -149,6 +149,7 @@ class EtapasProcessoController extends Controller
         
         $session = Yii::$app->session;
         $model = $this->findModel($id);
+        $model->scenario = 'update'; //Validações obrigatórias na atualização
 
         $itens = EtapasItens::find()->where(['etapasprocesso_id' => $model->etapa_id])->orderBy(['itens_pontuacaototal' => SORT_DESC])->all();
         $selecionadores = Usuarios::find()->where(['usu_codsituacao' => 1, 'usu_codtipo' => 2])->orderBy(['usu_nomeusuario' => SORT_ASC])->all();
