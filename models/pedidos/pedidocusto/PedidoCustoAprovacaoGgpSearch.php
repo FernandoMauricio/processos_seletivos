@@ -1,16 +1,16 @@
 <?php
 
-namespace app\models\pedidos;
+namespace app\models\pedidos\pedidocusto;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\pedidos\PedidoCusto;
+use app\models\pedidos\pedidocusto\PedidoCusto;
 
 /**
  * PedidoCustoSearch represents the model behind the search form about `app\models\pedidos\PedidoCusto`.
  */
-class PedidoCustoSearch extends PedidoCusto
+class PedidoCustoAprovacaoGgpSearch extends PedidoCusto
 {
     /**
      * @inheritdoc
@@ -66,6 +66,8 @@ class PedidoCustoSearch extends PedidoCusto
             'custo_data' => $this->custo_data,
             'custo_dataaprovacaoggp' => $this->custo_dataaprovacaoggp,
             'custo_dataaprovacaodad' => $this->custo_dataaprovacaodad,
+            'custo_situacaoggp' => 1, // Aguardando Aprovação
+            'custo_situacaodad' => 1, // Aguardando Aprovação
         ]);
 
         $query->andFilterWhere(['like', 'custo_assunto', $this->custo_assunto])

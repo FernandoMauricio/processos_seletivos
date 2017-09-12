@@ -4,11 +4,11 @@ namespace app\controllers\pedidos;
 
 use Yii;
 use app\models\contratacao\Contratacao;
-use app\models\pedidos\PedidoCusto;
-use app\models\pedidos\PedidocustoItens;
-use app\models\pedidos\PedidoCustoSearch;
-use app\models\pedidos\PedidoCustoAprovacaoGgpSearch;
-use app\models\pedidos\PedidoCustoAprovacaoDadSearch;
+use app\models\pedidos\pedidocusto\PedidoCusto;
+use app\models\pedidos\pedidocusto\PedidocustoItens;
+use app\models\pedidos\pedidocusto\PedidoCustoSearch;
+use app\models\pedidos\pedidocusto\PedidoCustoAprovacaoGgpSearch;
+use app\models\pedidos\pedidocusto\PedidoCustoAprovacaoDadSearch;
 use app\models\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

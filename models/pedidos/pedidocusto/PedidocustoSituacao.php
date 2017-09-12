@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models\pedidos;
+namespace app\models\pedidos\pedidocusto;
 
 use Yii;
 

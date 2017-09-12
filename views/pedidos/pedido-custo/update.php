@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\pedidos\PedidoCusto */
+/* @var $model app\models\pedidos\pedidocusto\PedidoCusto */
 
 $this->title = 'Atualizar Pedido Custo: ' . $model->custo_id;
 $this->params['breadcrumbs'][] = ['label' => 'Listagem Pedidos de Custo', 'url' => ['index']];

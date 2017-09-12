@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\pedidos\PedidoCustoSearch */
+/* @var $searchModel app\models\pedidos\pedidocusto\PedidoCustoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Pedido de Custos';

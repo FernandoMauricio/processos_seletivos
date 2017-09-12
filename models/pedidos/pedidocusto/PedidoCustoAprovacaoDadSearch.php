@@ -1,11 +1,11 @@
 <?php
 
-namespace app\models\pedidos;
+namespace app\models\pedidos\pedidocusto;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\pedidos\PedidoCusto;
+use app\models\pedidos\pedidocusto\PedidoCusto;
 
 /**
  * PedidoCustoSearch represents the model behind the search form about `app\models\pedidos\PedidoCusto`.

@@ -6,10 +6,10 @@ use kartik\editable\Editable;
 use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
 
-use app\models\pedidos\PedidocustoSituacao;
+use app\models\pedidos\pedidocusto\PedidocustoSituacao;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\pedidos\PedidoCustoSearch */
+/* @var $searchModel app\models\pedidos\pedidocusto\PedidoCustoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Pedido de Custos';
