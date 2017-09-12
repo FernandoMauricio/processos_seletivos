@@ -19,7 +19,7 @@ class CargosSearch extends Cargos
     {
         return [
             [['idcargo', 'ch_semana', 'status'], 'integer'],
-            [['descricao', 'area'], 'safe'],
+            [['descricao', 'areasLabel'], 'safe'],
             [['salario_valorhora', 'salario', 'salario_1sexto', 'salario_produtividade', 'salario_6horasfixas', 'salario_1sextofixas', 'salario_bruto', 'encargos', 'valor_total'], 'number'],
         ];
     }
@@ -50,6 +50,13 @@ class CargosSearch extends Cargos
             'query' => $query,
         ]);
 
+        $query->joinWith('areasCargos.area');
+
+        $dataProvider->sort->attributes['areasLabel'] = [
+        'asc' => ['areas.descricao' => SORT_ASC],
+        'desc' => ['areas.descricao' => SORT_DESC],
+        ];
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -74,8 +81,8 @@ class CargosSearch extends Cargos
             'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'descricao', $this->descricao])
-            ->andFilterWhere(['like', 'area', $this->area]);
+        $query->andFilterWhere(['like', 'cargos.descricao', $this->descricao])
+              ->andFilterWhere(['like', 'areas.descricao', $this->areasLabel]);
 
         return $dataProvider;
     }

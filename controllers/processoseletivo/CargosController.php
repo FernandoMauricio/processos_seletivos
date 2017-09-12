@@ -5,6 +5,7 @@ namespace app\controllers\processoseletivo;
 use Yii;
 use app\models\processoseletivo\Cargos;
 use app\models\processoseletivo\CargosSearch;
+use app\models\contratacao\Areas;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -74,6 +75,7 @@ class CargosController extends Controller
     }else
 
         $model = new Cargos();
+        $areas = Areas::find()->where(['status' => 1])->orderBy('descricao')->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
@@ -104,6 +106,7 @@ class CargosController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'areas' => $areas,
             ]);
         }
     }
@@ -127,7 +130,15 @@ class CargosController extends Controller
     
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $areas = Areas::find()->where(['status' => 1])->orderBy('descricao')->all();
+
+        //Retrieve the stored checkboxes
+        $model->areasLabel = \yii\helpers\ArrayHelper::getColumn(
+            $model->getAreasCargos()->asArray()->all(),
+            'area_id'
+        );
+
+        if ($model->load(Yii::$app->request->post()) ) {
 
             if($model->calculos == 1) { // Realiza os cálculos de Planejamento e Produtividade caso seja marcado a opção
             $model->salario_1sexto        = $model->salario / 6;
@@ -155,6 +166,7 @@ class CargosController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'areas' => $areas,
             ]);
         }
     }

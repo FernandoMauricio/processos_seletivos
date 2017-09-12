@@ -167,9 +167,9 @@ class EtapasProcessoController extends Controller
 
         //Input dos candidados selecionados da etapa
         foreach ($itens as $i => $etapa) {
-            $etapa->etapasprocesso_id = $model->etapa_id;
+            $etapa->etapasprocesso_id        = $model->etapa_id;
             $etapa->itens_confirmacaocontato = $_POST['EtapasItens'][$i]['itens_confirmacaocontato'];
-            $etapa->itens_escrita     = $_POST['EtapasItens'][$i]['itens_escrita'];
+            $etapa->itens_escrita            = $_POST['EtapasItens'][$i]['itens_escrita'];
             $etapa->itens_comportamental     = $_POST['EtapasItens'][$i]['itens_comportamental'];
             $etapa->itens_entrevista         = $_POST['EtapasItens'][$i]['itens_entrevista'];
             $etapa->itens_pontuacaototal     = $_POST['EtapasItens'][$i]['itens_pontuacaototal'];

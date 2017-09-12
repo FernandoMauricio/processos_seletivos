@@ -19,8 +19,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'descricao') ?>
 
-    <?= $form->field($model, 'area') ?>
-
     <?= $form->field($model, 'ch_semana') ?>
 
     <?= $form->field($model, 'salario') ?>

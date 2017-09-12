@@ -9,6 +9,7 @@ use app\models\contratacao\Recrutamento;
 use kartik\builder\Form;
 use kartik\select2\Select2;
 use yii\helpers\Url;
+use kartik\depdrop\DepDrop;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Contratacao */
@@ -38,34 +39,43 @@ use yii\helpers\Url;
                $data_cargos = ArrayHelper::map($cargos, 'idcargo', 'descricao');
                echo $form->field($model, "cargo_id")->widget(Select2::classname(), [
                        'data' =>  $data_cargos,
-                       'options' => ['placeholder' => 'Selecione o Cargo...',
+                       'options' => ['id'=>'cargo-id','placeholder' => 'Selecione o Cargo...',
                        'onchange'=>'
                                var select = this;
                                $.getJSON( "'.Url::toRoute('/contratacao/contratacao/get-cargos').'", { cargosId: $(this).val() } )
                                .done(function( data ) {
 
-                                      var $divPanelBody =  $(select).parent().parent().parent();
+                                var $divPanelBody =  $(select).parent().parent().parent();
 
-                                      var $inputArea      = $divPanelBody.find("input:eq(0)");
-                                      var $inputCHSemanal = $divPanelBody.find("input:eq(1)");
-                                      var $inputSalario   = $divPanelBody.find("input:eq(2)");
-                                      var $inputEncargos  = $divPanelBody.find("input:eq(3)");
-                                      var $inputTotal     = $divPanelBody.find("input:eq(4)");
+                                var $inputCHSemanal = $divPanelBody.find("input:eq(0)");
+                                var $inputSalario   = $divPanelBody.find("input:eq(1)");
+                                var $inputEncargos  = $divPanelBody.find("input:eq(2)");
+                                var $inputTotal     = $divPanelBody.find("input:eq(3)");
 
-                                      $inputArea.val(data.area);
-                                      $inputCHSemanal.val(data.ch_semana);
-                                      $inputSalario.val(data.salario_bruto);
-                                      $inputEncargos.val(data.encargos);
-                                      $inputTotal.val(data.valor_total);
+                                $inputCHSemanal.val(data.ch_semana);
+                                $inputSalario.val(data.salario_bruto);
+                                $inputEncargos.val(data.encargos);
+                                $inputTotal.val(data.valor_total);
 
-                                   });
-                               '
+                               });
+                           '
                        ]]);
             ?>
         </div>
 
         <div class="col-md-4">
-            <?= $form->field($model, 'cargo_area')->textInput(['readonly'=>true]) ?>
+            <?php
+                echo $form->field($model, 'cargo_area')->widget(DepDrop::classname(), [
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
+                        'pluginOptions'=>[
+                            'depends'=>['cargo-id'],
+                            'placeholder'=>'Selecione os Níveis...',
+                            'initialize' => true,
+                            'url'=>Url::to(['/contratacao/contratacao/areas-cargo'])
+                        ]
+                    ]);
+            ?>
         </div>
         <div class="col-md-2">
             <?= $form->field($model, 'cargo_chsemanal')->textInput(['readonly'=>true]) ?>

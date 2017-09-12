@@ -4,6 +4,8 @@ namespace app\models\processoseletivo;
 
 use Yii;
 
+use app\models\contratacao\AreasCargos;
+
 /**
  * This is the model class for table "cargos".
  *
@@ -28,6 +30,7 @@ use Yii;
 class Cargos extends \yii\db\ActiveRecord
 {
     public $calculos;
+    public $areasLabel;
 
     /**
      * @inheritdoc
@@ -43,10 +46,10 @@ class Cargos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descricao', 'area', 'ch_semana', 'salario', 'status', 'calculos'], 'required'],
+            [['descricao', 'ch_semana', 'salario', 'status', 'calculos','areasLabel'], 'required'],
             [['ch_semana', 'status'], 'integer'],
             [['salario_valorhora', 'salario', 'salario_1sexto', 'salario_produtividade', 'salario_6horasfixas', 'salario_1sextofixas', 'salario_bruto', 'encargos', 'valor_total'], 'number'],
-            [['descricao', 'area'], 'string', 'max' => 100],
+            [['descricao'], 'string', 'max' => 100],
         ];
     }
 
@@ -58,7 +61,6 @@ class Cargos extends \yii\db\ActiveRecord
         return [
             'idcargo' => 'Cod.',
             'descricao' => 'Descrição',
-            'area' => 'Área',
             'ch_semana' => 'CH Semanal',
             'salario_valorhora' => 'V.H',
             'salario' => 'S. Base',
@@ -71,7 +73,25 @@ class Cargos extends \yii\db\ActiveRecord
             'valor_total' => 'Valor Total',
             'status' => 'Status',
             'calculos' => 'Realizar cálculos para Docentes?',
+            'areasLabel' => 'Níveis', 
         ];
+    }
+
+    public function getAreasCargos() //Relation between Cargos & Processo table
+    {
+        return $this->hasMany(AreasCargos::className(), ['cargo_id' => 'idcargo']);
+    }
+
+
+    public function afterSave($insert, $changedAttributes){
+        //Cargos
+        \Yii::$app->db->createCommand()->delete('areas_cargos', 'cargo_id = '.(int) $this->idcargo)->execute(); //Delete existing value
+        foreach ($this->areasLabel as $id) { //Write new values
+            $tc = new AreasCargos();
+            $tc->cargo_id = $this->idcargo;
+            $tc->area_id = $id;
+            $tc->save();
+        }
     }
 
     /**

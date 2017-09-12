@@ -91,6 +91,20 @@ class ContratacaoController extends Controller
         ]);
     }
 
+    //Localiza os cargos vinculado ao Processo Seletivo
+    public function actionAreasCargo() {
+                $out = [];
+                if (isset($_POST['depdrop_parents'])) {
+                    $parents = $_POST['depdrop_parents'];
+                    if ($parents != null) {
+                        $cat_id = $parents[0];
+                        $out = Contratacao::getAreasCargoSubCat($cat_id);
+                        echo Json::encode(['output'=>$out, 'selected'=>'']);
+                        return;
+                    }
+                }
+                echo Json::encode(['output'=>'', 'selected'=>'']);
+    }
 
     /**
      * Displays a single Contratacao model.

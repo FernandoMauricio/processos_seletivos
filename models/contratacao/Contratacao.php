@@ -4,6 +4,7 @@ namespace app\models\contratacao;
 
 use Yii;
 use app\models\processoseletivo\Cargos;
+use app\models\contratacao\AreasCargo;
 
 /**
  * This is the model class for table "contratacao".
@@ -82,7 +83,7 @@ class Contratacao extends \yii\db\ActiveRecord
             ['pos_area', 'required', 'when' => function($model) { return $model->pos_comp == 1; }, 'enableClientValidation' => true],
             [['cod_colaborador', 'cod_unidade_solic', 'quant_pessoa', 'substituicao', 'periodo', 'tempo_periodo', 'aumento_quadro', 'deficiencia', 'fundamental_comp', 'fundamental_inc', 'medio_comp', 'medio_inc', 'tecnico_comp', 'tecnico_inc', 'superior_comp', 'superior_inc', 'pos_comp', 'pos_inc', 'windows', 'word', 'excel', 'internet', 'experiencia', 'jornada_horas', 'recrutamento_id', 'selec_curriculo', 'selec_dinamica', 'selec_prova', 'selec_entrevista', 'situacao_id', 'cargo_id'], 'integer'],
             [['motivo', 'obs_deficiencia', 'obs_aumento','dominio_atividade', 'jornada_obs', 'principais_atividades'], 'string'],
-            [['recrutamento_id', 'situacao_id', 'permissions','cargo_id', 'cargo_area', 'cargo_chsemanal', 'cargo_salario', 'cargo_encargos', 'cargo_valortotal'], 'required'],
+            [['recrutamento_id', 'situacao_id', 'permissions','cargo_id', 'cargo_chsemanal', 'cargo_salario', 'cargo_encargos', 'cargo_valortotal'], 'required'],
             [['cargo_salario', 'cargo_encargos', 'cargo_valortotal'], 'number'],
             [['colaborador', 'unidade', 'nome_substituicao', 'cargo_area'], 'string', 'max' => 100],
             [['data_ingresso'], 'string', 'max' => 15],
@@ -151,7 +152,7 @@ class Contratacao extends \yii\db\ActiveRecord
             'situacao_id' => 'Situação',
             'permissions' => 'Criação de contas para:',
             'cargo_id' => 'Cargo',
-            'cargo_area' => 'Área',
+            'cargo_area' => 'Nível',
             'cargo_chsemanal' => 'CH Semanal',
             'cargo_salario' => 'Salário',
             'cargo_encargos' => 'Encargos',
@@ -175,6 +176,13 @@ class Contratacao extends \yii\db\ActiveRecord
         }
     }
 
+    //Localiza os cargos vinculado ao Processo Seletivo
+    public static function getAreasCargoSubCat($cat_id) {
+        $sql = 'SELECT descricao as id, descricao as name FROM areas INNER JOIN areas_cargos ON area_id = idarea WHERE cargo_id = '.$cat_id.' ';
+        $data = AreasCargos::findBySql($sql)->asArray()->all();
+
+            return $data;
+    }
 
     /**
      * @return \yii\db\ActiveQuery

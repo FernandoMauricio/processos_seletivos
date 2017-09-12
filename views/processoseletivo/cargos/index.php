@@ -36,7 +36,15 @@ $gridColumns = [
             ['class' => 'yii\grid\SerialColumn'],
 
             'descricao',
-            'area',
+            [
+                'label' => 'Níveis',
+                'encodeLabel' => false,
+                'attribute' => 'areasLabel',
+                'width'=>'5%',
+                'value' => function($model) {
+                        return implode(', ', \yii\helpers\ArrayHelper::map($model->areasCargos, 'id', 'area.descricao'));
+                    },
+            ],
             'ch_semana',
             [
                 'format' => 'Currency',
