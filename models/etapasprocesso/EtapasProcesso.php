@@ -53,11 +53,11 @@ class EtapasProcesso extends \yii\db\ActiveRecord
     }
 
     public function scenarios()
-        {
-            $scenarios = parent::scenarios();
-            $scenarios['update'] = ['etapa_selecionadores','etapa_local', 'etapa_cidade', 'etapa_estado', 'etapa_situacao'];//Scenario Values Only Accepted
-            return $scenarios;
-        }
+    {
+        $scenarios = parent::scenarios();
+        $scenarios['update'] = ['etapa_selecionadores','etapa_local', 'etapa_cidade', 'etapa_estado', 'etapa_situacao'];//Scenario Values Only Accepted
+        return $scenarios;
+    }
 
     /**
      * @inheritdoc
@@ -81,6 +81,30 @@ class EtapasProcesso extends \yii\db\ActiveRecord
             'etapa_perfil' => 'Perfil das Etapas',
         ];
     }
+
+    //Localiza os cargos vinculado ao Processo Seletivo
+    public static function getCandidatosAprovadosSubCat($cat_id) {
+
+        $sql = 'SELECT
+                    `curriculos`.`id` AS id,
+                    `curriculos`.`nome` AS name
+                FROM 
+                    `curriculos`
+                INNER JOIN 
+                    `etapas_itens` ON  `etapas_itens`.`curriculos_id` = `curriculos`.`id`
+                INNER JOIN 
+                    `etapas_processo` ON `etapas_processo`.`etapa_id` = `etapas_itens`.`etapasprocesso_id`
+                INNER JOIN 
+                    `processo` ON `processo`.`id` = `etapas_processo`.`processo_id`
+                WHERE
+                    `etapas_itens`.`itens_classificacao` = "1º colocado(a)"
+                AND
+                    `processo`.`id` = '.$cat_id.'';
+
+        $data = \app\models\curriculos\Curriculos::findBySql($sql)->asArray()->all();
+
+        return $data;
+   }
 
     /**
      * @return \yii\db\ActiveQuery

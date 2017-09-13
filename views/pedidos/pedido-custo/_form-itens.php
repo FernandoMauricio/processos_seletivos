@@ -6,7 +6,6 @@ use kartik\select2\Select2;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use kartik\datecontrol\DateControl;
-
 use wbraganca\dynamicform\DynamicFormWidget;
 
 ?>

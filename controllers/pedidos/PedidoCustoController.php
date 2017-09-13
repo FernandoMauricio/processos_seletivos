@@ -195,15 +195,15 @@ class PedidoCustoController extends Controller
      */
     public function actionCreate()
     {
-        $session = Yii::$app->session;
+        $session     = Yii::$app->session;
         $model       = new PedidoCusto();
         $modelsItens = [new PedidocustoItens];
 
         $model->custo_situacaoggp = 1; //Aguardando Autorização GPP
         $model->custo_situacaodad = 1; //Aguardando Autorização DAD
-        $model->custo_data = date('Y-m-d');
+        $model->custo_data        = date('Y-m-d');
         $model->custo_responsavel = $session['sess_nomeusuario'];
-        $model->custo_recursos = 'PRÓPRIOS';
+        $model->custo_recursos    = 'PRÓPRIOS';
 
         //1 => Em elaboração / 2 => Em correção pelo setor
         $contratacoes = Contratacao::find()->where(['!=','situacao_id', 1])->andWhere(['!=','situacao_id', 2])->orderBy('id')->all();
