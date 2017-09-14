@@ -124,7 +124,7 @@ use kartik\depdrop\DepDrop;
                     ?>
               </div>
 
-              <div class="col-sm-3">
+              <div class="col-sm-10">
                   <?php
                       echo $form->field($modelItens, "[{$i}]itemcontratacao_nome")->widget(DepDrop::classname(), [
                               'type'=>DepDrop::TYPE_SELECT2,
@@ -139,8 +139,11 @@ use kartik\depdrop\DepDrop;
                   ?>
               </div>
 
-              <div class="col-sm-2"><?= $form->field($modelItens, "[{$i}]itemcontratacao_tipocontrato")->textInput(['readonly'=> true]) ?></div>
                  
+              <div class="col-sm-5"><?= $form->field($modelItens, "[{$i}]itemcontratacao_carta")->textInput(['maxlength' => true]) ?></div>
+
+              <div class="col-sm-2"><?= $form->field($modelItens, "[{$i}]itemcontratacao_tipocontrato")->textInput(['readonly'=> true]) ?></div>
+
               <div class="col-sm-2"><?= $form->field($modelItens, "[{$i}]itemcontratacao_chsemanal")->textInput(['readonly'=> true]) ?></div>
              
               <div class="col-sm-3"><?= $form->field($modelItens, "[{$i}]itemcontratacao_total")->textInput(['maxlength' => true,'class' => 'sumPart', 'readonly' => true]) ?></div>

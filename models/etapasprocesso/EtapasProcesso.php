@@ -87,8 +87,8 @@ class EtapasProcesso extends \yii\db\ActiveRecord
     public static function getCandidatosAprovadosSubCat($cat_id) {
 
         $sql = 'SELECT
-                    `curriculos`.`id` AS id,
-                    `curriculos`.`nome` AS name
+                   `curriculos`.`id` AS id,
+                   concat(UPPER(`curriculos`.`nome`), " - ", `etapas_itens`.`itens_classificacao`, " - ", `etapas_itens`.`itens_pontuacaototal`, " pontos") AS name
                 FROM 
                     `curriculos`
                 INNER JOIN 
@@ -96,9 +96,13 @@ class EtapasProcesso extends \yii\db\ActiveRecord
                 INNER JOIN 
                     `etapas_processo` ON `etapas_processo`.`etapa_id` = `etapas_itens`.`etapasprocesso_id`
                 WHERE
-                    `etapas_itens`.`itens_classificacao` = "1º colocado(a)"
+                    `etapas_itens`.`itens_classificacao` NOT LIKE "%Desclassificado(a)%"
                 AND
-                    `etapas_processo`.`processo_id` = '.$cat_id.'';
+                    `etapas_itens`.`itens_classificacao` NOT LIKE ""
+                AND
+                    `etapas_processo`.`processo_id` = '.$cat_id.'
+                ORDER BY 
+                    `etapas_itens`.`itens_pontuacaototal` DESC' ;
 
         $data = \app\models\curriculos\Curriculos::findBySql($sql)->asArray()->all();
 
