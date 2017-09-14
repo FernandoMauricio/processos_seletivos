@@ -95,12 +95,10 @@ class EtapasProcesso extends \yii\db\ActiveRecord
                     `etapas_itens` ON  `etapas_itens`.`curriculos_id` = `curriculos`.`id`
                 INNER JOIN 
                     `etapas_processo` ON `etapas_processo`.`etapa_id` = `etapas_itens`.`etapasprocesso_id`
-                INNER JOIN 
-                    `processo` ON `processo`.`id` = `etapas_processo`.`processo_id`
                 WHERE
                     `etapas_itens`.`itens_classificacao` = "1º colocado(a)"
                 AND
-                    `processo`.`id` = '.$cat_id.'';
+                    `etapas_processo`.`processo_id` = '.$cat_id.'';
 
         $data = \app\models\curriculos\Curriculos::findBySql($sql)->asArray()->all();
 

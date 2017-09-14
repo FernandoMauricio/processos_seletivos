@@ -113,7 +113,7 @@ use kartik\depdrop\DepDrop;
 
               <div class="col-sm-2">
                     <?php 
-                        $options = \yii\helpers\ArrayHelper::map($processo, 'id', 'numeroEdital');
+                        $options = \yii\helpers\ArrayHelper::map($processo, 'processo.id', 'processo.numeroEdital');
                             echo $form->field($modelItens, "[{$i}]etapasprocesso_id")->widget(Select2::classname(), [
                                 'data' => $options,
                                 'options' => ['id'=>"pedidocontratacaoitens-".$i."-etapasprocesso_id", 'placeholder' => 'Informe o Processo Seletivo...'],
