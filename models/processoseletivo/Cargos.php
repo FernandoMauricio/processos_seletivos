@@ -47,6 +47,7 @@ class Cargos extends \yii\db\ActiveRecord
     {
         return [
             [['descricao', 'ch_semana', 'salario', 'status', 'calculos','areasLabel'], 'required'],
+            [['ch_semana'], 'compare', 'compareValue' => 0, 'operator' => '>', 'message'=>'Valores maiores que 0 e sem vírgulas.'],
             [['ch_semana', 'status'], 'integer'],
             [['salario_valorhora', 'salario', 'salario_1sexto', 'salario_produtividade', 'salario_6horasfixas', 'salario_1sextofixas', 'salario_bruto', 'encargos', 'valor_total'], 'number'],
             [['descricao'], 'string', 'max' => 100],

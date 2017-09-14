@@ -104,13 +104,27 @@ class EtapasProcessoController extends Controller
 
         $processo = ProcessoSeletivo::find()->where(['situacao_id' => 1])->orWhere(['situacao_id' => 2])->all();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            //Verifica se existe alguma etapa do proecsso criada do processo e cargo selecionado
+            if(EtapasProcesso::find()->where(['processo_id' => $model->processo_id, 'etapa_cargo' => $model->etapa_cargo])->count() > 0) {
+                Yii::$app->session->setFlash('danger', '<b>ERRO! </b>Etapas do Processo Seletivo <b>'.$model->processo->numeroEdital.'</b> para o cargo <b>' .$model->etapa_cargo. '</b> já criado!</b>');
+                return $this->redirect(['index']);
+            }
+
+            //Verifica se existe algum candiadto selecionado
+            if(CurriculosAdmin::find()->where(['classificado'=> 1, 'edital' => $model->processo->numeroEdital, 'cargo' => $model->etapa_cargo])->count() == 0) {
+                Yii::$app->session->setFlash('warning', '<b>AVISO! </b>Não existem candidatos selecionados!</b>');
+                return $this->redirect(['index']);
+            }
+
+        $model->save();
 
         //Localiza somente os candidatos classificados para o edital escolhido
         $sqlCandidatos = 'SELECT `curriculos`.`id`, `curriculos`.`edital` FROM `curriculos` LEFT JOIN `processo` ON `curriculos`.`edital` = `processo`.`numeroEdital` WHERE (`classificado`= 1) AND `curriculos`.`edital` = "'.$model->processo->numeroEdital.'" AND `curriculos`.`cargo` = "'.$model->etapa_cargo.'"';
 
-            $candidatos = CurriculosAdmin::findBySql($sqlCandidatos)->all();
-        
+        $candidatos = CurriculosAdmin::findBySql($sqlCandidatos)->all();
+
         foreach ($candidatos as $candidato) {
            $etapasprocesso_id  = $model->etapa_id;
            $curriculos_id      = $candidato['id'];
@@ -127,7 +141,11 @@ class EtapasProcessoController extends Controller
                              'itens_pratica'        => 0,
                              ])
                     ->execute();
+            $model->save();
         }
+
+        Yii::$app->session->setFlash('success', '<b>SUCESSO! </b>Etapas do Processo Seletivo <b>'.$model->processo->numeroEdital.'</b> para o cargo <b>' .$model->etapa_cargo. '</b> criado com sucesso!</b>');
+
             return $this->redirect(['update', 'id' => $model->etapa_id]);
         } else {
             return $this->renderAjax('criar-etapas-processo', [

@@ -43,6 +43,7 @@ class EtapasProcesso extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['processo_id', 'etapa_cargo' ,'etapa_perfil'], 'required'],
             [['etapa_selecionadores','etapa_local', 'etapa_cidade', 'etapa_estado', 'etapa_situacao'], 'required', 'on' => 'update'],
             [['processo_id', 'etapa_perfil'], 'integer'],
             [['etapa_data', 'etapa_dataatualizacao', 'etapa_selecionadores'], 'safe'],
