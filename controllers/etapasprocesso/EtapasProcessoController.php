@@ -216,7 +216,11 @@ class EtapasProcessoController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        EtapasItens::deleteAll('etapasprocesso_id = "'.$id.'"');
+        $model->delete(); //Exclui a etapa do processo
+
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Etapa do Processo excluido!</strong>');
 
         return $this->redirect(['index']);
     }
