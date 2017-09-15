@@ -19,7 +19,7 @@ class EtapasProcessoSearch extends EtapasProcesso
     {
         return [
             [['etapa_id'], 'integer'],
-            [['etapa_cargo', 'etapa_data', 'etapa_atualizadopor', 'etapa_dataatualizacao', 'etapa_situacao', 'processo_id', 'etapa_perfil'], 'safe'],
+            [['etapa_cargo', 'pedidocusto_id', 'etapa_data', 'etapa_atualizadopor', 'etapa_dataatualizacao', 'etapa_situacao', 'processo_id', 'etapa_perfil'], 'safe'],
         ];
     }
 

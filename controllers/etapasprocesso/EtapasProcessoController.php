@@ -7,6 +7,7 @@ use app\models\Model;
 use app\models\curriculos\CurriculosAdmin;
 use app\models\processoseletivo\CargosProcesso;
 use app\models\processoseletivo\ProcessoSeletivo;
+use app\models\pedidos\pedidocusto\PedidoCusto;
 use app\models\etapasprocesso\EtapasProcesso;
 use app\models\etapasprocesso\EtapasProcessoSearch;
 use app\models\etapasprocesso\EtapasItens;
@@ -103,6 +104,7 @@ class EtapasProcessoController extends Controller
         $model->etapa_situacao = 'Em Processo';
 
         $processo = ProcessoSeletivo::find()->where(['situacao_id' => 1])->orWhere(['situacao_id' => 2])->all();
+        $pedidoCusto = PedidoCusto::find()->select(['custo_id', new \yii\db\Expression("CONCAT(`custo_id`, ' - ', `custo_assunto`) as custo_assunto")])->where(['custo_situacaoggp' => 4, 'custo_situacaodad' => 4])->all(); //Aprovado pelo GGP e DAD
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -151,6 +153,7 @@ class EtapasProcessoController extends Controller
             return $this->renderAjax('criar-etapas-processo', [
                 'model' => $model,
                 'processo' => $processo,
+                'pedidoCusto' => $pedidoCusto,
             ]);
         }
     }

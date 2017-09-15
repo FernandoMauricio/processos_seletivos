@@ -28,33 +28,27 @@ use kartik\select2\Select2;
 
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-3">
-                    <?= $form->field($model, 'processoSeletivo')->textInput(['value' => $model->processo->numeroEdital,'readonly' => true]) ?>
-                </div>
-                <div class="col-md-3">
-                    <?= $form->field($model, 'etapa_cargo')->textInput(['readonly' => true]) ?>
-                </div>
-                <div class="col-md-3">
-                    <?= $form->field($model, 'etapa_atualizadopor')->textInput(['readonly' => true]) ?>
-                </div>
-                <div class="col-md-3">
-                    <?= $form->field($model, 'etapa_dataatualizacao')->textInput(['readonly' => true]) ?>
-                </div>
+                <div class="col-md-2"><?= $form->field($model, 'processoSeletivo')->textInput(['value' => $model->processo->numeroEdital,'readonly' => true]) ?></div>
+                
+                <div class="col-md-10"><?= $form->field($model, 'pedidocusto_id')->textInput(['value' => $model->pedidocusto->custo_id .' - ' . $model->pedidocusto->custo_assunto,'readonly' => true]) ?></div>
             </div>
 
             <div class="row">
-                <div class="col-md-3">
-                    <?= $form->field($model, 'etapa_datarealizacao')->textInput(['maxlength' => true]) ?>
-                </div>
-                <div class="col-md-3">
-                    <?= $form->field($model, 'etapa_local')->textInput(['maxlength' => true]) ?>
-                </div>
-                <div class="col-md-3">
-                    <?= $form->field($model, 'etapa_cidade')->textInput(['maxlength' => true]) ?>
-                </div>
-                <div class="col-md-3">
-                    <?= $form->field($model, 'etapa_estado')->textInput(['maxlength' => true]) ?>
-                </div>
+                <div class="col-md-4"><?= $form->field($model, 'etapa_cargo')->textInput(['readonly' => true]) ?></div>
+                   
+                <div class="col-md-4"><?= $form->field($model, 'etapa_atualizadopor')->textInput(['readonly' => true]) ?></div>
+                    
+                <div class="col-md-4"><?= $form->field($model, 'etapa_dataatualizacao')->textInput(['readonly' => true]) ?></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3"><?= $form->field($model, 'etapa_datarealizacao')->textInput(['maxlength' => true]) ?></div>
+                    
+                <div class="col-md-3"><?= $form->field($model, 'etapa_local')->textInput(['maxlength' => true]) ?></div>
+                    
+                <div class="col-md-3"><?= $form->field($model, 'etapa_cidade')->textInput(['maxlength' => true]) ?></div>
+                    
+                <div class="col-md-3"><?= $form->field($model, 'etapa_estado')->textInput(['maxlength' => true]) ?></div>
             </div>
 
             <div class="row">
@@ -82,10 +76,9 @@ use kartik\select2\Select2;
                     ?>
                 </div>
             </div>
+
             <div class="row">
-                <div class="col-md-12">
-                    <?= $form->field($model, 'etapa_observacao')->textarea(['maxlength' => true, 'rows' => 2]) ?>
-                </div>
+                <div class="col-md-12"><?= $form->field($model, 'etapa_observacao')->textarea(['maxlength' => true, 'rows' => 2]) ?></div>
             </div>
 
         </div>

@@ -5,6 +5,7 @@ namespace app\models\etapasprocesso;
 use Yii;
 
 use app\models\processoseletivo\ProcessoSeletivo;
+use app\models\pedidos\pedidocusto\PedidoCusto;
 
 /**
  * This is the model class for table "etapas_processo".
@@ -43,12 +44,13 @@ class EtapasProcesso extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['processo_id', 'etapa_cargo' ,'etapa_perfil'], 'required'],
+            [['processo_id', 'pedidocusto_id', 'etapa_cargo' ,'etapa_perfil'], 'required'],
             [['etapa_selecionadores','etapa_local', 'etapa_cidade', 'etapa_estado', 'etapa_situacao'], 'required', 'on' => 'update'],
             [['processo_id', 'etapa_perfil'], 'integer'],
             [['etapa_data', 'etapa_dataatualizacao', 'etapa_selecionadores'], 'safe'],
             [['etapa_cargo', 'etapa_observacao'], 'string', 'max' => 255],
             [['etapa_datarealizacao', 'etapa_local', 'etapa_cidade', 'etapa_estado', 'etapa_atualizadopor', 'etapa_situacao'], 'string', 'max' => 45],
+            [['pedidocusto_id'], 'exist', 'skipOnError' => true, 'targetClass' => PedidoCusto::className(), 'targetAttribute' => ['pedidocusto_id' => 'custo_id']],
             [['processo_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProcessoSeletivo::className(), 'targetAttribute' => ['processo_id' => 'id']],
         ];
     }
@@ -68,6 +70,7 @@ class EtapasProcesso extends \yii\db\ActiveRecord
         return [
             'etapa_id' => 'Cód',
             'processo_id' => 'Processo Seletivo',
+            'pedidocusto_id' => 'Pedido de Custo',
             'etapa_cargo' => 'Cargo',
             'etapa_datarealizacao' => 'Data da Realização',
             'etapa_local' => 'Local',
@@ -95,6 +98,8 @@ class EtapasProcesso extends \yii\db\ActiveRecord
                     `etapas_itens` ON  `etapas_itens`.`curriculos_id` = `curriculos`.`id`
                 INNER JOIN 
                     `etapas_processo` ON `etapas_processo`.`etapa_id` = `etapas_itens`.`etapasprocesso_id`
+                INNER JOIN 
+                    `pedidocusto_itens` ON `pedidocusto_itens`.`pedidocusto_id` = `etapas_processo`.`pedidocusto_id`
                 WHERE
                     `etapas_itens`.`itens_classificacao` NOT LIKE "%Desclassificado(a)%"
                 AND
@@ -124,4 +129,21 @@ class EtapasProcesso extends \yii\db\ActiveRecord
     {
         return $this->hasOne(ProcessoSeletivo::className(), ['id' => 'processo_id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPedidocusto()
+    {
+        return $this->hasOne(PedidoCusto::className(), ['custo_id' => 'pedidocusto_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPedidocontratacaoItens()
+    {
+        return $this->hasMany(PedidocontratacaoItens::className(), ['etapasprocesso_id' => 'etapa_id']);
+    }
+
 }
