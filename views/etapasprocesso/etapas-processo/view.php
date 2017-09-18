@@ -29,7 +29,7 @@ use yii\widgets\DetailView;
             </thead>
             <tbody>
             <tr>
-                  <th scope="row">Processo Seletivo:</th> <td><?= $model->processo->numeroEdital ?></td>
+                  <th scope="row">Documento de Abertura:</th> <td><?= $model->processo->numeroEdital ?></td>
                     
                   <th scope="row">Cargo:</th> <td colspan="2"><?= $model->etapa_cargo ?></td>
                     

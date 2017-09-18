@@ -63,7 +63,7 @@ class PedidocontratacaoItens extends \yii\db\ActiveRecord
             'id' => 'Cód.',
             'pedidocontratacao_id' => 'Cód. Pedido Contratação',
             'contratacao_id' => 'Solicitação',
-            'etapasprocesso_id' => 'Nº Processo Seletivo',
+            'etapasprocesso_id' => 'Nº Documento de Abertura',
             'itemcontratacao_unidade' => 'Unidade',
             'itemcontratacao_cargo' => 'Cargo',
             'itemcontratacao_area' => 'Nível',

@@ -176,7 +176,7 @@ class Contratacao extends \yii\db\ActiveRecord
         }
     }
 
-    //Localiza os cargos vinculado ao Processo Seletivo
+    //Localiza os cargos vinculado ao Documento de Abertura
     public static function getAreasCargoSubCat($cat_id) {
         $sql = 'SELECT descricao as id, descricao as name FROM areas INNER JOIN areas_cargos ON area_id = idarea WHERE cargo_id = '.$cat_id.' ';
         $data = AreasCargos::findBySql($sql)->asArray()->all();

@@ -63,7 +63,7 @@ class CurriculosSearch extends Curriculos
             'idade' => $this->idade,
             'data' => $this->data,
             'classificado' => $this->classificado,
-            'processo.situacao_id' => [1,2] , //Processo Seletivos que estão "EM PROCESSO"
+            'processo.situacao_id' => [1,2] , //Documento de Aberturas que estão "EM PROCESSO"
         ]);
 
         $query->andFilterWhere(['like', 'edital', $this->edital])

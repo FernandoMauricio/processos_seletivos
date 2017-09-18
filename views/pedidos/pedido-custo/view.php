@@ -31,7 +31,7 @@ use kartik\detail\DetailView;
                   <th scope="row">Pedido de Custo:</th>
                   <td><?= $model->custo_id ?></td>
                   <th scope="row">Unidade:</th>
-                  <td colspan="8"><?= $model->custo_assunto ?></td>
+                  <td colspan="8">PLANILHA DE COMPOSIÇÃO DE CUSTO POR SOLICITAÇÃO: <b style="color: #0823f3;"><?= $model->custo_assunto ?></b></td>
             </tr>
             <tr>
                   <th scope="row">Recursos:</th>
@@ -49,7 +49,7 @@ use kartik\detail\DetailView;
             <thead>
             <tr class="info"><th colspan="12">SEÇÃO 2: Itens do Pedido</th></tr>
                <caption><b>Sr.(a) Gerente</b><br />                    
-                  Segue para aprovação a planilha de custos visando processo seletivo para posterior contratação de pessoal, solicitados pelas unidades/setores acima em substituições de colaboradores, demandas administrativas e/ou de docência das unidades.
+                  Segue para aprovação a planilha de custos visando Documento de Abertura para posterior contratação de pessoal, solicitados pelas unidades/setores acima em substituições de colaboradores, demandas administrativas e/ou de docência das unidades.
               </caption>
               <tr>
                 <th>Solicitação</th>

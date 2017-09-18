@@ -48,7 +48,7 @@ class CargosProcesso extends \yii\db\ActiveRecord
         ];
     }
 
-    //Localiza os cargos vinculado ao Processo Seletivo
+    //Localiza os cargos vinculado ao Documento de Abertura
     public static function getCargosProcessoSubCat($cat_id) {
 
         $sql = 'SELECT
@@ -67,7 +67,7 @@ class CargosProcesso extends \yii\db\ActiveRecord
 
    }
 
-    //Localiza os cargos vinculado ao Processo Seletivo
+    //Localiza os cargos vinculado ao Documento de Abertura
     public static function getCargosEtapasProcessoSubCat($cat_id) {
 
         $sql = 'SELECT

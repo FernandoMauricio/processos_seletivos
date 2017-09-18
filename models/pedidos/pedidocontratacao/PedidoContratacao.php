@@ -76,7 +76,7 @@ class PedidoContratacao extends \yii\db\ActiveRecord
         ];
     }
 
-    //Localiza os cargos vinculado ao Processo Seletivo
+    //Localiza os cargos vinculado ao Documento de Abertura
     public static function getCandidatosAprovadosSubCat($cat_id) {
 
         $sql = 'SELECT

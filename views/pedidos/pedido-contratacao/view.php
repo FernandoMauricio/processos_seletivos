@@ -30,7 +30,7 @@ use yii\widgets\DetailView;
                   <th scope="row">Pedido de Custo:</th>
                   <td><?= $model->pedcontratacao_id ?></td>
                   <th scope="row">Unidade:</th>
-                  <td colspan="8"> Pedido de contratação para atender a unidade/setor do: <?= $model->pedcontratacao_assunto ?></td>
+                  <td colspan="8"> Pedido de contratação para atender a unidade/setor do: <b style="color: #0823f3;"><?= $model->pedcontratacao_assunto ?></b></td>
             </tr>
             <tr>
                   <th scope="row">Recursos:</th>
@@ -48,7 +48,7 @@ use yii\widgets\DetailView;
             <thead>
             <tr class="info"><th colspan="12">SEÇÃO 2: Itens do Pedido</th></tr>
                <caption><b>Sr.(a) Gerente</b><br />                    
-                  Segue para aprovação a planilha de custos visando processo seletivo para posterior contratação de pessoal, solicitados pelas unidades/setores acima em substituições de colaboradores, demandas administrativas e/ou de docência das unidades.
+                  Segue para aprovação a planilha de custos visando Documento de Abertura para posterior contratação de pessoal, solicitados pelas unidades/setores acima em substituições de colaboradores, demandas administrativas e/ou de docência das unidades.
               </caption>
               <tr>
                 <th>Solicitação</th>

@@ -57,7 +57,7 @@ class ProcessoSeletivo extends \yii\db\ActiveRecord
             'descricao' => 'Descrição',
             'data' => 'Data de Abertura',
             'data_encer' => 'Data de Encerramento',
-            'numeroEdital' => 'Edital',
+            'numeroEdital' => 'Documento de Abertura',
             'objetivo' => 'Objetivo',
             'status_id' => 'Publicação no site',
             'situacao_id' => 'Situação',

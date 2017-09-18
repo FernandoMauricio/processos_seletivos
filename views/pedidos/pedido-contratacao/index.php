@@ -89,7 +89,7 @@ $gridColumns = [
             
 
             ['class' => 'yii\grid\ActionColumn',
-                        'template' => '{view} {update}',
+                        'template' => '{view} {update} {delete}',
                         'contentOptions' => ['style' => 'width: 7%;'],
                         'buttons' => [
 
@@ -109,6 +109,19 @@ $gridColumns = [
                             return Html::a('<span class="glyphicon glyphicon-pencil"></span> ', $url, [
                                         'class'=>'btn btn-default btn-xs',
                                         'title' => Yii::t('app', 'Atualizar'),
+                       
+                            ]);
+                        },
+
+                         //DELETAR
+                        'delete' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-trash"></span> ', $url, [
+                                        'class'=>'btn btn-danger btn-xs',
+                                        'title' => Yii::t('app', 'Deletar'),
+                                        'data' =>  [
+                                                        'confirm' => 'Você tem CERTEZA que deseja EXCLUIR esse item?',
+                                                        'method' => 'post',
+                                                   ],
                        
                             ]);
                         },

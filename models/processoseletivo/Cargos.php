@@ -46,9 +46,10 @@ class Cargos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descricao', 'ch_semana', 'salario', 'status', 'calculos','areasLabel'], 'required'],
+            [['descricao', 'ch_semana', 'salario', 'status', 'calculos'], 'required'],
             [['ch_semana'], 'compare', 'compareValue' => 0, 'operator' => '>', 'message'=>'Valores maiores que 0 e sem vírgulas.'],
             [['ch_semana', 'status'], 'integer'],
+            [['areasLabel'], 'safe'],
             [['salario_valorhora', 'salario', 'salario_1sexto', 'salario_produtividade', 'salario_6horasfixas', 'salario_1sextofixas', 'salario_bruto', 'encargos', 'valor_total'], 'number'],
             [['descricao'], 'string', 'max' => 100],
         ];
@@ -85,13 +86,16 @@ class Cargos extends \yii\db\ActiveRecord
 
 
     public function afterSave($insert, $changedAttributes){
-        //Cargos
+        //Níveis do Cargo
+        
         \Yii::$app->db->createCommand()->delete('areas_cargos', 'cargo_id = '.(int) $this->idcargo)->execute(); //Delete existing value
-        foreach ($this->areasLabel as $id) { //Write new values
-            $tc = new AreasCargos();
-            $tc->cargo_id = $this->idcargo;
-            $tc->area_id = $id;
-            $tc->save();
+        if($_POST['Cargos']['areasLabel'] != '') {
+            foreach ($this->areasLabel as $id) { //Write new values
+                $tc = new AreasCargos();
+                $tc->cargo_id = $this->idcargo;
+                $tc->area_id = $id;
+                $tc->save();
+            }
         }
     }
 
