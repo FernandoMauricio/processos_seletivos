@@ -61,20 +61,48 @@ class PedidoContratacao extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pedcontratacao_id' => 'Pedcontratacao ID',
-            'pedcontratacao_assunto' => 'Pedcontratacao Assunto',
-            'pedcontratacao_recursos' => 'Pedcontratacao Recursos',
-            'pedcontratacao_valortotal' => 'Pedcontratacao Valortotal',
-            'pedcontratacao_data' => 'Pedcontratacao Data',
-            'pedcontratacao_aprovadorggp' => 'Pedcontratacao Aprovadorggp',
-            'pedcontratacao_situacaoggp' => 'Pedcontratacao Situacaoggp',
-            'pedcontratacao_dataaprovacaoggp' => 'Pedcontratacao Dataaprovacaoggp',
-            'pedcontratacao_aprovadordad' => 'Pedcontratacao Aprovadordad',
-            'pedcontratacao_situacaodad' => 'Pedcontratacao Situacaodad',
-            'pedcontratacao_dataaprovacaodad' => 'Pedcontratacao Dataaprovacaodad',
-            'pedcontratacao_responsavel' => 'Pedcontratacao Responsavel',
+            'pedcontratacao_id' => 'ID',
+            'pedcontratacao_assunto' => 'Unidade',
+            'pedcontratacao_recursos' => 'Recursos',
+            'pedcontratacao_valortotal' => 'Valor Total',
+            'pedcontratacao_data' => 'Data',
+            'pedcontratacao_aprovadorggp' => 'Aprovadorggp',
+            'pedcontratacao_situacaoggp' => 'Situacaoggp',
+            'pedcontratacao_dataaprovacaoggp' => 'Dataaprovacaoggp',
+            'pedcontratacao_aprovadordad' => 'Aprovadordad',
+            'pedcontratacao_situacaodad' => 'Situacaodad',
+            'pedcontratacao_dataaprovacaodad' => 'Dataaprovacaodad',
+            'pedcontratacao_responsavel' => 'Responsavel',
         ];
     }
+
+    //Localiza os cargos vinculado ao Processo Seletivo
+    public static function getCandidatosAprovadosSubCat($cat_id) {
+
+        $sql = 'SELECT
+                   `curriculos`.`nome` AS id,
+                   concat(UPPER(`curriculos`.`nome`), " - ", `etapas_itens`.`itens_classificacao`) AS name
+                FROM 
+                    `curriculos`
+                INNER JOIN 
+                    `etapas_itens` ON  `etapas_itens`.`curriculos_id` = `curriculos`.`id`
+                INNER JOIN 
+                    `etapas_processo` ON `etapas_processo`.`etapa_id` = `etapas_itens`.`etapasprocesso_id`
+                INNER JOIN 
+                    `pedidocusto_itens` ON `pedidocusto_itens`.`pedidocusto_id` = `etapas_processo`.`pedidocusto_id`
+                WHERE
+                    `etapas_itens`.`itens_classificacao` NOT LIKE "%Desclassificado(a)%"
+                AND
+                    `etapas_itens`.`itens_classificacao` NOT LIKE ""
+                AND
+                    `etapas_processo`.`etapa_id` = '.$cat_id.'
+                ORDER BY 
+                    `etapas_itens`.`itens_pontuacaototal` DESC' ;
+
+        $data = \app\models\curriculos\Curriculos::findBySql($sql)->asArray()->all();
+
+        return $data;
+   }
 
     /**
      * @return \yii\db\ActiveQuery

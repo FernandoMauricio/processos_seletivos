@@ -11,6 +11,13 @@ use kartik\select2\Select2;
 
 <div class="pedido-custo-form">
 
+<?php
+//Pega as mensagens
+foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
+}
+?>
+
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
 <div class="panel panel-primary">

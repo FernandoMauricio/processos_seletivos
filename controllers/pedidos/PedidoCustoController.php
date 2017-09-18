@@ -66,6 +66,19 @@ class PedidoCustoController extends Controller
         ]);
     }
 
+    public function actionDadIndex()
+    {
+        $this->layout = 'main-full';
+
+        $searchModel = new PedidoCustoAprovacaoDadSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('aprovacao-dad', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     public function actionAprovarGgp($id)
     {
         $session = Yii::$app->session;
@@ -81,6 +94,23 @@ class PedidoCustoController extends Controller
 
         return $this->redirect(['ggp-index']);
     }
+    
+    public function actionAprovarDad($id)
+    {
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
+
+        //Classifica o candidato
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`pedido_custo` SET `custo_aprovadordad` = '".$session['sess_nomeusuario']."', `custo_situacaodad` = '5', `custo_dataaprovacaodad` = ".date('"Y-m-d"')." WHERE `custo_id` = '".$model->custo_id."'");
+        $command->execute();
+        
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Custo <strong> '.$model->custo_id.' </strong> foi Aprovado!</strong>');
+
+        return $this->redirect(['dad-index']);
+    }
+
 
     public function actionReprovarGgp($id)
     {
@@ -96,35 +126,6 @@ class PedidoCustoController extends Controller
         Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Custo <strong> '.$model->custo_id.' </strong> foi Reprovado!</strong>');
 
         return $this->redirect(['ggp-index']);
-    }
-
-    public function actionDadIndex()
-    {
-        $this->layout = 'main-full';
-
-        $searchModel = new PedidoCustoAprovacaoDadSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('aprovacao-dad', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    public function actionAprovarDad($id)
-    {
-        $session = Yii::$app->session;
-        $model = $this->findModel($id);
-
-        //Classifica o candidato
-        $connection = Yii::$app->db;
-        $command = $connection->createCommand(
-        "UPDATE `db_processos`.`pedido_custo` SET `custo_aprovadordad` = '".$session['sess_nomeusuario']."', `custo_situacaodad` = '5', `custo_dataaprovacaodad` = ".date('"Y-m-d"')." WHERE `custo_id` = '".$model->custo_id."'");
-        $command->execute();
-        
-        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Custo <strong> '.$model->custo_id.' </strong> foi Aprovado!</strong>');
-
-        return $this->redirect(['dad-index']);
     }
 
     public function actionReprovarDad($id)
@@ -230,7 +231,14 @@ class PedidoCustoController extends Controller
                         }
 
                     if ($flag) {
-                        $transaction->commit();
+                            //Verifica se existe já a contratação inserida anterioemente em algum pedido de custo
+                            foreach ($modelsItens as $i => $modelItens) {
+                            if(PedidocustoItens::find()->where(['contratacao_id' => $_POST['PedidocustoItens'][$i]['contratacao_id']])->count() >= 2) {
+                                Yii::$app->session->setFlash('danger', '<b>ERRO! </b>Solicitação <b>'.$_POST['PedidocustoItens'][$i]['contratacao_id'].'</b> já inserida no Pedido de Custo!</b>');
+                                return $this->redirect(['update', 'id' => $model->custo_id]);
+                                }
+                            }
+                    $transaction->commit();
                             
                         Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Custo Cadastrado!</strong>');
                        return $this->redirect(['index']);
@@ -248,7 +256,7 @@ class PedidoCustoController extends Controller
             return $this->render('create', [
                 'model' => $model,
                 'contratacoes' => $contratacoes,
-                'modelsItens' => (empty($modelsItens)) ? [new PedidocustoItens] : $modelsItens,
+                'modelsItens' => $modelsItens,
             ]);
         }
     }
@@ -275,7 +283,7 @@ class PedidoCustoController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-        //--------Itens do Pedido--------------
+        //--------Itens do Pedido de Custo--------------
         $oldIDsItens = ArrayHelper::map($modelsItens, 'id', 'id');
         $modelsItens = Model::createMultiple(PedidocustoItens::classname(), $modelsItens);
         Model::loadMultiple($modelsItens, Yii::$app->request->post());
@@ -302,6 +310,13 @@ class PedidoCustoController extends Controller
                                 }
 
                                if ($flag) {
+                                    //Verifica se existe já a contratação inserida anterioemente em algum pedido de custo
+                                    foreach ($modelsItens as $i => $modelItens) {
+                                    if(PedidocustoItens::find()->where(['contratacao_id' => $_POST['PedidocustoItens'][$i]['contratacao_id']])->count() >= 2) {
+                                        Yii::$app->session->setFlash('danger', '<b>ERRO! </b>Solicitação <b>'.$_POST['PedidocustoItens'][$i]['contratacao_id'].'</b> já inserida no Pedido de Custo!</b>');
+                                        return $this->redirect(['update', 'id' => $model->custo_id]);
+                                        }
+                                    }
                         $transaction->commit();
                             
                         Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Custo Atualizado!</strong>');

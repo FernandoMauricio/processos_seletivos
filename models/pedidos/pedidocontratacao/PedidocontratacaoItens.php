@@ -6,6 +6,7 @@ use Yii;
 
 use app\models\contratacao\Contratacao;
 use app\models\etapasprocesso\EtapasProcesso;
+
 /**
  * This is the model class for table "pedidocontratacao_itens".
  *
@@ -42,7 +43,7 @@ class PedidocontratacaoItens extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pedidocontratacao_id', 'contratacao_id', 'itemcontratacao_unidade', 'itemcontratacao_cargo', 'itemcontratacao_area', 'itemcontratacao_nome', 'itemcontratacao_tipocontrato', 'itemcontratacao_chsemanal', 'itemcontratacao_total', 'itemcontratacao_justificativa'], 'required'],
+            [['itemcontratacao_unidade', 'itemcontratacao_cargo', 'itemcontratacao_area', 'itemcontratacao_nome', 'itemcontratacao_tipocontrato', 'itemcontratacao_chsemanal', 'itemcontratacao_total', 'itemcontratacao_justificativa'], 'required'],
             [['pedidocontratacao_id', 'contratacao_id', 'etapasprocesso_id'], 'integer'],
             [['itemcontratacao_chsemanal', 'itemcontratacao_total'], 'number'],
             [['itemcontratacao_unidade', 'itemcontratacao_cargo', 'itemcontratacao_carta', 'itemcontratacao_area', 'itemcontratacao_tipocontrato', 'itemcontratacao_dataingresso'], 'string', 'max' => 45],
@@ -62,7 +63,7 @@ class PedidocontratacaoItens extends \yii\db\ActiveRecord
             'id' => 'Cód.',
             'pedidocontratacao_id' => 'Cód. Pedido Contratação',
             'contratacao_id' => 'Solicitação',
-            'etapasprocesso_id' => 'Nº P.S.',
+            'etapasprocesso_id' => 'Nº Processo Seletivo',
             'itemcontratacao_unidade' => 'Unidade',
             'itemcontratacao_cargo' => 'Cargo',
             'itemcontratacao_area' => 'Nível',
@@ -82,6 +83,14 @@ class PedidocontratacaoItens extends \yii\db\ActiveRecord
     public function getContratacao()
     {
         return $this->hasOne(Contratacao::className(), ['id' => 'contratacao_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEtapasProcesso()
+    {
+        return $this->hasOne(EtapasProcesso::className(), ['etapa_id' => 'etapasprocesso_id']);
     }
 
     /**

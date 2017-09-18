@@ -9,6 +9,7 @@ use kartik\datecontrol\DateControl;
 use wbraganca\dynamicform\DynamicFormWidget;
 use kartik\depdrop\DepDrop;
 
+
 ?>
        <?php DynamicFormWidget::begin([
           'widgetContainer' => 'dynamicform_pedidocontratacao', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
@@ -24,7 +25,7 @@ use kartik\depdrop\DepDrop;
               'id',
               'pedidocontratacao_id',
               'contratacao_id',
-              'pedidocusto_itens_id',
+              'etapasprocesso_id',
               'itemcontratacao_unidade',
               'itemcontratacao_cargo',
               'itemcontratacao_nome',
@@ -74,11 +75,11 @@ use kartik\depdrop\DepDrop;
                                           var $inputUnidade        = $divPanelBody.find("input:eq(0)");
                                           var $inputCargo          = $divPanelBody.find("input:eq(1)");
                                           var $inputArea           = $divPanelBody.find("input:eq(2)");
-                                          var $inputPeriodo        = $divPanelBody.find("input:eq(3)");
-                                          var $inputCHSemana       = $divPanelBody.find("input:eq(4)");
-                                          var $inputTotal          = $divPanelBody.find("input:eq(5)");
-                                          var $inputJustificativa  = $divPanelBody.find("input:eq(6)");
-                                          var $inputDataIngresso   = $divPanelBody.find("input:eq(7)");
+                                          var $inputPeriodo        = $divPanelBody.find("input:eq(4)");
+                                          var $inputCHSemana       = $divPanelBody.find("input:eq(5)");
+                                          var $inputTotal          = $divPanelBody.find("input:eq(6)");
+                                          var $inputJustificativa  = $divPanelBody.find("input:eq(7)");
+                                          var $inputDataIngresso   = $divPanelBody.find("input:eq(8)");
 
                                           $inputUnidade.val(data.unidade);
                                           $inputCargo.val(data.cargo);
@@ -111,9 +112,9 @@ use kartik\depdrop\DepDrop;
 
               <div class="col-sm-2"><?= $form->field($modelItens, "[{$i}]itemcontratacao_area")->textInput(['readonly'=> true]) ?></div>
 
-              <div class="col-sm-2">
+              <div class="col-sm-4">
                     <?php 
-                        $options = \yii\helpers\ArrayHelper::map($processo, 'processo.id', 'processo.numeroEdital');
+                        $options = \yii\helpers\ArrayHelper::map($processo, 'etapa_id', 'etapa_cargo');
                             echo $form->field($modelItens, "[{$i}]etapasprocesso_id")->widget(Select2::classname(), [
                                 'data' => $options,
                                 'options' => ['id'=>"pedidocontratacaoitens-".$i."-etapasprocesso_id", 'placeholder' => 'Informe o Processo Seletivo...'],
@@ -124,7 +125,7 @@ use kartik\depdrop\DepDrop;
                     ?>
               </div>
 
-              <div class="col-sm-10">
+              <div class="col-sm-8">
                   <?php
                       echo $form->field($modelItens, "[{$i}]itemcontratacao_nome")->widget(DepDrop::classname(), [
                               'type'=>DepDrop::TYPE_SELECT2,
@@ -138,7 +139,6 @@ use kartik\depdrop\DepDrop;
                           ]);
                   ?>
               </div>
-
                  
               <div class="col-sm-5"><?= $form->field($modelItens, "[{$i}]itemcontratacao_carta")->textInput(['maxlength' => true]) ?></div>
 

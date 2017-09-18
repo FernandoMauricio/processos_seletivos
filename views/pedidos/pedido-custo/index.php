@@ -146,4 +146,3 @@ $gridColumns = [
     <?php Pjax::end(); ?>
 
 </div>
-

@@ -86,34 +86,6 @@ class EtapasProcesso extends \yii\db\ActiveRecord
         ];
     }
 
-    //Localiza os cargos vinculado ao Processo Seletivo
-    public static function getCandidatosAprovadosSubCat($cat_id) {
-
-        $sql = 'SELECT
-                   `curriculos`.`id` AS id,
-                   concat(UPPER(`curriculos`.`nome`), " - ", `etapas_itens`.`itens_classificacao`, " - ", `etapas_itens`.`itens_pontuacaototal`, " pontos") AS name
-                FROM 
-                    `curriculos`
-                INNER JOIN 
-                    `etapas_itens` ON  `etapas_itens`.`curriculos_id` = `curriculos`.`id`
-                INNER JOIN 
-                    `etapas_processo` ON `etapas_processo`.`etapa_id` = `etapas_itens`.`etapasprocesso_id`
-                INNER JOIN 
-                    `pedidocusto_itens` ON `pedidocusto_itens`.`pedidocusto_id` = `etapas_processo`.`pedidocusto_id`
-                WHERE
-                    `etapas_itens`.`itens_classificacao` NOT LIKE "%Desclassificado(a)%"
-                AND
-                    `etapas_itens`.`itens_classificacao` NOT LIKE ""
-                AND
-                    `etapas_processo`.`processo_id` = '.$cat_id.'
-                ORDER BY 
-                    `etapas_itens`.`itens_pontuacaototal` DESC' ;
-
-        $data = \app\models\curriculos\Curriculos::findBySql($sql)->asArray()->all();
-
-        return $data;
-   }
-
     /**
      * @return \yii\db\ActiveQuery
      */

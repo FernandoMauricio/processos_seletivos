@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\pedidos\pedidocontratacao\PedidoContratacao */
 
-$this->title = 'Update Pedido Contratacao: ' . $model->pedcontratacao_id;
-$this->params['breadcrumbs'][] = ['label' => 'Pedido Contratacaos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->pedcontratacao_id, 'url' => ['view', 'id' => $model->pedcontratacao_id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Atualizar Pedido Contratação: ' . $model->pedcontratacao_id;
+$this->params['breadcrumbs'][] = ['label' => 'Listagem Pedidos de Contratação', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->pedcontratacao_id];
+$this->params['breadcrumbs'][] = 'Atualizar';
 ?>
 <div class="pedido-contratacao-update">
 
@@ -16,6 +16,9 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
+    	'contratacoes' => $contratacoes,
+    	'processo' => $processo,
+    	'modelsItens' => (empty($modelsItens)) ? [new PedidocontratacaoItens] : $modelsItens,
     ]) ?>
 
 </div>

@@ -9,10 +9,12 @@ use app\models\processoseletivo\ProcessoSeletivo;
 use app\models\pedidos\pedidocontratacao\PedidocontratacaoItens;
 use app\models\pedidos\pedidocontratacao\PedidoContratacao;
 use app\models\pedidos\pedidocontratacao\PedidoContratacaoSearch;
+use app\models\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use yii\helpers\ArrayHelper;
 
 /**
  * PedidoContratacaoController implements the CRUD actions for PedidoContratacao model.
@@ -56,8 +58,15 @@ class PedidoContratacaoController extends Controller
      */
     public function actionView($id)
     {
+        $this->layout = 'main-imprimir';
+        
+        $model = $this->findModel($id);
+
+        $modelsItens = $model->pedidocontratacaoItens;
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'modelsItens' => $modelsItens,
         ]);
     }
 
@@ -68,7 +77,7 @@ class PedidoContratacaoController extends Controller
                     $parents = $_POST['depdrop_parents'];
                     if ($parents != null) {
                         $cat_id = $parents[0];
-                        $out = EtapasProcesso::getCandidatosAprovadosSubCat($cat_id);
+                        $out = PedidoContratacao::getCandidatosAprovadosSubCat($cat_id);
                         echo Json::encode(['output'=>$out, 'selected'=>'']);
                         return;
                     }
@@ -96,10 +105,44 @@ class PedidoContratacaoController extends Controller
         //1 => Em elaboração / 2 => Em correção pelo setor
         $contratacoes = Contratacao::find()->where(['!=','situacao_id', 1])->andWhere(['!=','situacao_id', 2])->orderBy('id')->all();
 
-        $processo = EtapasProcesso::find()->where(['etapa_situacao' => 'Em Processo'])->all();
+        $processo = EtapasProcesso::find()->select(['etapa_id', new \yii\db\Expression("CONCAT(`processo`.`numeroEdital`, ' - ', `etapa_cargo`) as etapa_cargo")])->innerJoinWith('processo', `processo.id` == `etapasprocesso_id`)->where(['etapa_situacao' => 'Em Processo'])->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pedcontratacao_id]);
+
+            //Inserir vários itens
+            $modelsItens = Model::createMultiple(PedidocontratacaoItens::classname());
+            Model::loadMultiple($modelsItens, Yii::$app->request->post());
+
+            // validate all models
+            $valid = $model->validate();
+
+            if ($valid ) {
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {
+                    if ($flag = $model->save(false)) {
+                        foreach ($modelsItens as $modelItens) {
+                            $modelItens->pedidocontratacao_id = $model->pedcontratacao_id;
+                            if (! ($flag = $modelItens->save(false))) {
+                                $transaction->rollBack();
+                                break;
+                            }
+                        }
+
+                    if ($flag) {
+                        $transaction->commit();
+                            
+                        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação Cadastrado!</strong>');
+                       return $this->redirect(['index']);
+                    }
+                }
+                }  catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
+
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação Cadastrado!</strong>');
+
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -118,13 +161,68 @@ class PedidoContratacaoController extends Controller
      */
     public function actionUpdate($id)
     {
+        $session = Yii::$app->session;
         $model = $this->findModel($id);
+        $modelsItens = $model->pedidocontratacaoItens;
+
+        $model->pedcontratacao_situacaoggp = 1; //Aguardando Autorização GPP
+        $model->pedcontratacao_situacaodad = 1; //Aguardando Autorização DAD
+        $model->pedcontratacao_data = date('Y-m-d');
+        $model->pedcontratacao_responsavel = $session['sess_nomeusuario'];
+
+        //1 => Em elaboração / 2 => Em correção pelo setor
+        $contratacoes = Contratacao::find()->where(['!=','situacao_id', 1])->andWhere(['!=','situacao_id', 2])->orderBy('id')->all();
+
+        $processo = EtapasProcesso::find()->select(['etapa_id', new \yii\db\Expression("CONCAT(`processo`.`numeroEdital`, ' - ', `etapa_cargo`) as etapa_cargo")])->innerJoinWith('processo', `processo.id` == `etapasprocesso_id`)->where(['etapa_situacao' => 'Em Processo'])->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pedcontratacao_id]);
+
+        //--------Itens do Pedido de Contratação--------------
+        $oldIDsItens = ArrayHelper::map($modelsItens, 'id', 'id');
+        $modelsItens = Model::createMultiple(PedidocontratacaoItens::classname(), $modelsItens);
+        Model::loadMultiple($modelsItens, Yii::$app->request->post());
+        $deletedIDsItens = array_diff($oldIDsItens, array_filter(ArrayHelper::map($modelsItens, 'id', 'id')));
+
+        // validate all models
+        $valid = $model->validate();
+        $valid = (Model::validateMultiple($modelsItens) && $valid);
+
+                        if ($valid) {
+                            $transaction = \Yii::$app->db->beginTransaction();
+                            try {
+                                if ($flag = $model->save(false)) {
+                                    if (! empty($deletedIDsItens)) {
+                                        PedidocontratacaoItens::deleteAll(['id' => $deletedIDsItens]);
+                                    }
+                                    foreach ($modelsItens as $modelItens) {
+                                        $modelItens->pedidocontratacao_id = $model->pedcontratacao_id;
+                                        if (! ($flag = $modelItens->save(false))) {
+                                            $transaction->rollBack();
+                                            break;
+                                        }
+                                    }
+                                }
+
+                               if ($flag) {
+                        $transaction->commit();
+                            
+                        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação Atualizado!</strong>');
+                       return $this->redirect(['index']);
+                    }
+                }catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
+
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação Atualizado!</strong>');
+
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'contratacoes' => $contratacoes,
+                'processo' => $processo,
+                'modelsItens' => (empty($modelsItens)) ? [new PedidocontratacaoItens] : $modelsItens,
             ]);
         }
     }
