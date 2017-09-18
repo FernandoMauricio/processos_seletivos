@@ -83,7 +83,7 @@ $gridColumns = [
                 'attribute'=>'etapa_situacao',
                 'width'=>'10%',
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=> ['Em Processo'=>'Em Processo','Encerrado'=>'Encerrado', 'Encerrado sem Classificados'=>'Encerrado sem Classificados'],
+                'filter'=> ['Em Processo'=>'Em Processo', 'Em Homologação' => 'Em Homologação', 'Encerrado'=>'Encerrado', 'Encerrado sem Classificados'=>'Encerrado sem Classificados'],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],

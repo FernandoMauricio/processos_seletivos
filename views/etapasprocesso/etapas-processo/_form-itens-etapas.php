@@ -71,7 +71,7 @@ use kartik\select2\Select2;
                                         ],
                                     'data' =>
                                       [
-                                        'BANCO DE DADOS' => 'BANCO DE DADOS',
+                                        'CADASTRO DE RESERVA' => 'CADASTRO DE RESERVA',
                                         'DESISTENTE' => 'DESISTENTE',
                                         'DRG' => 'DRG',
                                         'SPD' => 'SPD',

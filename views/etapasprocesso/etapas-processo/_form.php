@@ -67,7 +67,7 @@ use kartik\select2\Select2;
                 <div class="col-md-3">
                     <?php
                         echo $form->field($model, 'etapa_situacao')->widget(Select2::classname(), [
-                                'data' =>  ['Em Processo' => 'Em Processo', 'Encerrado' => 'Encerrado','Encerrado sem Classificados' => 'Encerrado sem Classificados'],
+                                'data' =>  ['Em Processo' => 'Em Processo', 'Em Homologação' => 'Em Homologação', 'Encerrado' => 'Encerrado','Encerrado sem Classificados' => 'Encerrado sem Classificados'],
                                 'options' => ['placeholder' => 'Situação...'],
                                 'pluginOptions' => [
                                         'allowClear' => true
