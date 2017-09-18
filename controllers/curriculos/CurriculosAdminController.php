@@ -516,8 +516,25 @@ session_start();
      
       Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Candidato(a) <strong> '.$model->nome.' </strong> foi Classificado!</strong>');
 
-    //return $this->redirect(Yii::$app->request->baseUrl. '/index.php?' . $session['query']);
     return $this->redirect(['analise-gerencial']);
+
+    }
+
+    public function actionClassificarAdmin($id)
+    {
+
+     $session = Yii::$app->session;
+     $model = $this->findModel($id);
+
+     //Classifica o candidato
+     $connection = Yii::$app->db;
+     $command = $connection->createCommand(
+     "UPDATE `db_processos`.`curriculos` SET `classificado` = '1', `aprovador_solicitante` = '".$session['sess_nomeusuario']."', `dataaprovador_solicitante` = ".date('"Y-m-d H:i:s"').", `situacao_aprovadorsolicitante` = '1' WHERE `id` = '".$model->id."'");
+     $command->execute();
+     
+      Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Candidato(a) <strong> '.$model->nome.' </strong> foi Classificado!</strong>');
+
+    return $this->redirect(['analise-gerencial-administrador']);
 
     }
 
@@ -535,10 +552,27 @@ session_start();
 
      Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Candidato(a) <strong> '.$model->nome.' </strong> foi Desclassificado!</strong>');
      
-    return $this->redirect(Yii::$app->request->baseUrl. '/index.php?' . $session['query']);
+     return $this->redirect(['analise-gerencial']);
 
     }
 
+    public function actionDesclassificarAdmin($id)
+    {
+
+     $session = Yii::$app->session;
+     $model = $this->findModel($id);
+
+     //Desclassifica o candidato
+     $connection = Yii::$app->db;
+     $command = $connection->createCommand(
+     "UPDATE `db_processos`.`curriculos` SET `classificado` = '0', `aprovador_solicitante` = '".$session['sess_nomeusuario']."', `dataaprovador_solicitante` = ".date('"Y-m-d H:i:s"').", `situacao_aprovadorsolicitante` = '0' WHERE `id` = '".$model->id."'");
+     $command->execute();
+
+     Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Candidato(a) <strong> '.$model->nome.' </strong> foi Desclassificado!</strong>');
+     
+    return $this->redirect(['analise-gerencial-administrador']);
+
+    }
     public function actionDesclassificarggp($id)
     {
 

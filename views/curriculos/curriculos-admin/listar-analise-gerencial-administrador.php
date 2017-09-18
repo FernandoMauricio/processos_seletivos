@@ -136,7 +136,7 @@ $gridColumns = [
             ],
 
             ['class' => 'yii\grid\ActionColumn',
-                        'template' => '{imprimir} {classificar} {desclassificar}',
+                        'template' => '{imprimir} {classificar-admin} {desclassificar-admin}',
                         'contentOptions' => ['style' => 'width: 15%;'],
                         'buttons' => [
 
@@ -152,7 +152,7 @@ $gridColumns = [
                         },
 
                         //CLASSIFICAR CANDIDATO
-                        'classificar' => function ($url, $model) {
+                        'classificar-admin' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-ok"></span> ', $url, [
                                         'class'=>'btn btn-success btn-xs',
                                         'title' => Yii::t('app', 'Classificar Candidato'),
@@ -164,7 +164,7 @@ $gridColumns = [
                         },
                         
                         //DESCLASSIFICAR CANDIDATO
-                        'desclassificar' => function ($url, $model) {
+                        'desclassificar-admin' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-remove"></span> ', $url, [
                                         'class'=>'btn btn-danger btn-xs',
                                         'title' => Yii::t('app', 'Desclassificar candidato'),

@@ -55,7 +55,7 @@ $gridColumns = [
                  return GridView::ROW_COLLAPSED;
              },
              'detail'=>function ($model, $key, $index, $column) {
-                $itens = EtapasItens::find()->where(['etapasprocesso_id' => $model->etapa_id])->orderBy(['itens_classificacao' => SORT_ASC])->all();
+                $itens = EtapasItens::find()->where(['etapasprocesso_id' => $model->etapa_id])->orderBy(['itens_pontuacaototal' => SORT_DESC])->all();
                 return Yii::$app->controller->renderPartial('view-expand', ['model'=>$model, 'etapasItens' => $itens]);
              },
              'headerOptions'=>['class'=>'kartik-sheet-style'], 
