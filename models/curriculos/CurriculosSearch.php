@@ -19,7 +19,8 @@ class CurriculosSearch extends Curriculos
     {
         return [
             [['id','idade', 'classificado'], 'integer'],
-            [['edital', 'nome','numeroInscricao', 'cargo', 'cpf', 'datanascimento', 'sexo', 'email', 'emailAlt', 'telefone', 'telefoneAlt', 'data'], 'safe'],
+            [['edital', 'nome','numeroInscricao', 'cargo', 'cpf', 'datanascimento', 'sexo', 'email', 'emailAlt', 'telefone', 'telefoneAlt', 'data', 'bairroLabel', 'cidadeLabel', 'posLabel', 'tecnicoLabel',
+'mestradoLabel'], 'safe'],
         ];
     }
 
@@ -47,7 +48,7 @@ class CurriculosSearch extends Curriculos
             'query' => $query,
         ]);
 
-        $query->joinWith('processoSeletivo');
+        $query->joinWith(['processoSeletivo', 'curriculosEnderecos', 'curriculosFormacaos']);
 
         $this->load($params);
 
@@ -75,6 +76,11 @@ class CurriculosSearch extends Curriculos
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'emailAlt', $this->emailAlt])
             ->andFilterWhere(['like', 'telefone', $this->telefone])
+            ->andFilterWhere(['like', 'curriculos_endereco.bairro', $this->bairroLabel])
+            ->andFilterWhere(['like', 'curriculos_endereco.cidade', $this->cidadeLabel])
+            ->andFilterWhere(['like', 'curriculos_formacao.tecnico', $this->tecnicoLabel])
+            ->andFilterWhere(['like', 'curriculos_formacao.pos', $this->posLabel])
+            ->andFilterWhere(['like', 'curriculos_formacao.mestrado', $this->mestradoLabel])
             ->andFilterWhere(['like', 'telefoneAlt', $this->telefoneAlt]);
 
         return $dataProvider;

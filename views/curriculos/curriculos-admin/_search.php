@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\CurriculosSearch */
@@ -15,33 +16,46 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'edital') ?>
-
-    <?= $form->field($model, 'cargo') ?>
-
-    <?= $form->field($model, 'nome') ?>
-
-    <?= $form->field($model, 'cpf') ?>
-
-    <?php // echo $form->field($model, 'datanascimento') ?>
-
-    <?php // echo $form->field($model, 'sexo') ?>
-
-    <?php // echo $form->field($model, 'email') ?>
-
-    <?php // echo $form->field($model, 'emailAlt') ?>
-
-    <?php // echo $form->field($model, 'telefone') ?>
-
-    <?php // echo $form->field($model, 'telefoneAlt') ?>
-
-    <?php // echo $form->field($model, 'data') ?>
+<div class="panel-body">
+    <div class="row">
+        <div class="col-md-2"><?php  echo $form->field($model, 'bairroLabel') ?></div>
+        <div class="col-md-1"><?php  echo $form->field($model, 'cidadeLabel') ?></div>
+        <div class="col-md-1">
+            <?php  echo $form->field($model, 'tecnicoLabel')->widget(Select2::classname(), [
+                                'data' =>  ['1' => 'Completo', '0' => 'Incompleto'],
+                                'options' => ['placeholder' => 'Completo/Incompleto...'],
+                                'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                ]);
+            ?>
+        </div>
+        <div class="col-md-1">
+            <?php  echo $form->field($model, 'posLabel')->widget(Select2::classname(), [
+                                'data' =>  ['1' => 'Completo', '0' => 'Incompleto'],
+                                'options' => ['placeholder' => 'Completo/Incompleto...'],
+                                'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                ]);
+            ?>
+        </div>
+        <div class="col-md-1">
+            <?php  echo $form->field($model, 'mestradoLabel')->widget(Select2::classname(), [
+                                'data' =>  ['1' => 'Completo', '0' => 'Incompleto'],
+                                'options' => ['placeholder' => 'Completo/Incompleto...'],
+                                'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                ]);
+            ?>
+        </div>
+    </div>
+</div>
 
     <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton('Procurar', ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton('Limpar', ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
