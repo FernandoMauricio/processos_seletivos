@@ -238,6 +238,7 @@ class PedidoCustoController extends Controller
                                 return $this->redirect(['update', 'id' => $model->custo_id]);
                                 }
                             }
+                    $model->save();
                     $transaction->commit();
                             
                         Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Custo Cadastrado!</strong>');
@@ -281,7 +282,7 @@ class PedidoCustoController extends Controller
         //1 => Em elaboração / 2 => Em correção pelo setor
         $contratacoes = Contratacao::find()->where(['!=','situacao_id', 1])->andWhere(['!=','situacao_id', 2])->orderBy('id')->all();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
 
         //--------Itens do Pedido de Custo--------------
         $oldIDsItens = ArrayHelper::map($modelsItens, 'id', 'id');
@@ -317,6 +318,7 @@ class PedidoCustoController extends Controller
                                         return $this->redirect(['update', 'id' => $model->custo_id]);
                                         }
                                     }
+                        $model->save();
                         $transaction->commit();
                             
                         Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Custo Atualizado!</strong>');
@@ -347,7 +349,11 @@ class PedidoCustoController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        PedidocustoItens::deleteAll('pedidocusto_id = "'.$id.'"');
+        $model->delete(); //Exclui a etapa do processo
+
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Pedido de Custo excluido!</strong>');
 
         return $this->redirect(['index']);
     }

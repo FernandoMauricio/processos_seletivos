@@ -235,7 +235,11 @@ class PedidoContratacaoController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        PedidocontratacaoItens::deleteAll('pedidocontratacao_id = "'.$id.'"');
+        $model->delete(); //Exclui a etapa do processo
+
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Pedido de Contratação excluido!</strong>');
 
         return $this->redirect(['index']);
     }

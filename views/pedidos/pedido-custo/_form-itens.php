@@ -90,7 +90,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                           $inputCHSemana.val(data.cargo_chsemanal);
                                           $inputSalario.val(data.cargo_salario);
                                           $inputEncargos.val(data.cargo_encargos);
-                                          $inputTotal.val(data.cargo_valortotal);
+                                          $inputTotal.val(data.cargo_valortotal * data.quant_pessoa);
                                           $inputJustificativa.val(data.motivo);
                                           $inputDataIngresso.val(data.data_ingresso);
 
