@@ -145,6 +145,7 @@ use kartik\detail\DetailView;
             <?php $query = (new \yii\db\Query())->select('aprov_descricao, aprov_cargo, aprov_observacao')->from('db_processos.aprovacoes')->where(['aprov_area' => 'DIRETORIA REGIONAL'])->one(); ?>
             <b><?= $query['aprov_descricao']; ?></b><br />
             <?= $query['aprov_cargo']; ?><br />
+            <?= isset($query['aprov_observacao']) ? $query['aprov_observacao'] . '<br />' : ''; ?>
              ___/___/_____<br />
           </td>
 
@@ -155,6 +156,7 @@ use kartik\detail\DetailView;
            <?php $query = (new \yii\db\Query())->select('aprov_descricao, aprov_cargo, aprov_observacao')->from('db_processos.aprovacoes')->where(['aprov_area' => 'PRESIDÊNCIA'])->one(); ?>
             <b><?= $query['aprov_descricao']; ?></b><br />
            <?= $query['aprov_cargo']; ?><br />
+           <?= isset($query['aprov_observacao']) ? $query['aprov_observacao'] . '<br />' : ''; ?>
              ___/___/_____<br />
           </td>
      </tbody>

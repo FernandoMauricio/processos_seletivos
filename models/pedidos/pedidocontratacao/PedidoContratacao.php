@@ -67,10 +67,10 @@ class PedidoContratacao extends \yii\db\ActiveRecord
             'pedcontratacao_valortotal' => 'Valor Total',
             'pedcontratacao_data' => 'Data',
             'pedcontratacao_aprovadorggp' => 'Aprovadorggp',
-            'pedcontratacao_situacaoggp' => 'Situacaoggp',
+            'pedcontratacao_situacaoggp' => 'Situação GGP',
             'pedcontratacao_dataaprovacaoggp' => 'Dataaprovacaoggp',
             'pedcontratacao_aprovadordad' => 'Aprovadordad',
-            'pedcontratacao_situacaodad' => 'Situacaodad',
+            'pedcontratacao_situacaodad' => 'Situação DAD',
             'pedcontratacao_dataaprovacaodad' => 'Dataaprovacaodad',
             'pedcontratacao_responsavel' => 'Responsavel',
         ];

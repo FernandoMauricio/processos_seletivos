@@ -33,14 +33,6 @@ if($session['sess_codunidade'] == 7 && $session['sess_coddepartamento'] == 82 &&
             ]],
 
             '<li class="divider"></li>',
-            ['label' => 'Pedidos', 'items' => [
-                '<li class="dropdown-header">Administração dos Pedidos</li>',
-                ['label' => 'Pedidos de Custo', 'url' => ['/pedidos/pedido-custo/index']],
-                ['label' => 'Pedidos de Contratação', 'url' => ['/pedidos/pedido-contratacao/index']],
-
-            ]],
-
-            '<li class="divider"></li>',
             ['label' => 'Processos Seletivos', 'items' => [
             '<li class="dropdown-header">Administração do Site</li>',
                 ['label' => 'Processos Seletivos', 'url' => ['/processoseletivo/processo-seletivo/index']],
@@ -53,6 +45,14 @@ if($session['sess_codunidade'] == 7 && $session['sess_coddepartamento'] == 82 &&
                 ['label' => 'Listagem de Candidatos', 'url' => ['/curriculos/curriculos-admin/index']],
                 ['label' => 'Análise de Curriculos (Administrador)', 'url' => ['/curriculos/curriculos-admin/analise-gerencial-administrador']],
                 ['label' => 'Banco de Curriculos', 'url' => ['/curriculos/curriculos-admin/banco-de-curriculos']],
+            ]],
+
+            '<li class="divider"></li>',
+            ['label' => 'Pedidos', 'items' => [
+                '<li class="dropdown-header">Administração dos Pedidos</li>',
+                ['label' => 'Pedidos de Custo', 'url' => ['/pedidos/pedido-custo/index']],
+                ['label' => 'Pedidos de Contratação', 'url' => ['/pedidos/pedido-contratacao/index']],
+
             ]],
 
             '<li class="divider"></li>',
@@ -106,14 +106,6 @@ echo NavX::widget([
             ]],
 
             '<li class="divider"></li>',
-            ['label' => 'Pedidos', 'items' => [
-                '<li class="dropdown-header">Administração dos Pedidos</li>',
-                ['label' => 'Pedidos de Custo', 'url' => ['/pedidos/pedido-custo/index']],
-                ['label' => 'Pedidos de Contratação', 'url' => ['/pedidos/pedido-contratacao/index']],
-
-            ]],
-
-            '<li class="divider"></li>',
             ['label' => 'Processos Seletivos', 'items' => [
             '<li class="dropdown-header">Administração do Site</li>',
                 ['label' => 'Processos Seletivos', 'url' => ['/processoseletivo/processo-seletivo/index']],
@@ -126,6 +118,14 @@ echo NavX::widget([
                 ['label' => 'Listagem de Candidatos', 'url' => ['/curriculos/curriculos-admin/index']],
                 ['label' => 'Análise de Curriculos (Administrador)', 'url' => ['/curriculos/curriculos-admin/analise-gerencial-administrador']],
                 ['label' => 'Banco de Curriculos', 'url' => ['/curriculos/curriculos-admin/banco-de-curriculos']],
+            ]],
+
+            '<li class="divider"></li>',
+            ['label' => 'Pedidos', 'items' => [
+                '<li class="dropdown-header">Administração dos Pedidos</li>',
+                ['label' => 'Pedidos de Custo', 'url' => ['/pedidos/pedido-custo/index']],
+                ['label' => 'Pedidos de Contratação', 'url' => ['/pedidos/pedido-contratacao/index']],
+
             ]],
 
             '<li class="divider"></li>',

@@ -6,19 +6,6 @@ use yii\widgets\DetailView;
 ?>
 <div class="pedido-contratacao-view">
 
-    <table width="100%" border="0">
-  <tr> 
-    <td width="20%"><img src="css/img/logo.png"></td>
-    <td width="60%"><h4>SERVIÇO NACIONAL DE APRENDIZAGEM COMERCIAL - SENAC<br /><br />
-                         DEPARTAMENTO REGIONAL NO AMAZONAS<br /><br />
-                         GERÊNCIA DE GESTÃO DE PESSOAS<br /><br />
-                         PEDIDO DE CONTRATAÇÃO</h4>
-    </td>
-    <td width="20%"><b>CC/RS/GGP  Nº </b> <?= $model->pedcontratacao_id . '/' . date('Y', strtotime($model->pedcontratacao_data)) ?><br /><br />
-    <?=  date('d/m/Y', strtotime($model->pedcontratacao_data)); ?></td>
-  </tr>
-</table>
-
   <div class="panel-body">
     <div class="row">
           <table class="table table-condensed table-hover">

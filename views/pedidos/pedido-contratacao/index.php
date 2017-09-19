@@ -34,19 +34,19 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
 $gridColumns = [
             
-             // [
-             // 'class'=>'kartik\grid\ExpandRowColumn',
-             // 'width'=>'50px',
-             // 'format' => 'raw',
-             // 'value'=>function ($model, $key, $index, $column) {
-             //     return GridView::ROW_COLLAPSED;
-             // },
-             // 'detail'=>function ($model, $key, $index, $column) {
-             //     return Yii::$app->controller->renderPartial('view-expand', ['model'=>$model, 'modelsItens' => $model->pedcontratacaoItens]);
-             // },
-             // 'headerOptions'=>['class'=>'kartik-sheet-style'], 
-             // 'expandOneOnly'=>true
-             // ],
+             [
+             'class'=>'kartik\grid\ExpandRowColumn',
+             'width'=>'50px',
+             'format' => 'raw',
+             'value'=>function ($model, $key, $index, $column) {
+                 return GridView::ROW_COLLAPSED;
+             },
+             'detail'=>function ($model, $key, $index, $column) {
+                 return Yii::$app->controller->renderPartial('view-expand', ['model'=>$model, 'modelsItens' => $model->pedidocontratacaoItens]);
+             },
+             'headerOptions'=>['class'=>'kartik-sheet-style'], 
+             'expandOneOnly'=>true
+             ],
 
             'pedcontratacao_id',
             'pedcontratacao_assunto',
