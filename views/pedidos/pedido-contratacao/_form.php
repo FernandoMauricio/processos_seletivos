@@ -10,6 +10,13 @@ use yii\widgets\ActiveForm;
 
 <div class="pedido-contratacao-form">
 
+<?php
+//Pega as mensagens
+foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
+}
+?>
+
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
 <div class="panel panel-primary">

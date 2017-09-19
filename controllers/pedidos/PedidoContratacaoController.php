@@ -129,6 +129,13 @@ class PedidoContratacaoController extends Controller
                         }
 
                     if ($flag) {
+                            //Verifica se existe já a contratação inserida anterioemente em algum pedido de Contratação
+                            foreach ($modelsItens as $i => $modelItens) {
+                            if(PedidocontratacaoItens::find()->where(['contratacao_id' => $_POST['PedidocontratacaoItens'][$i]['contratacao_id']])->count() >= 2) {
+                                Yii::$app->session->setFlash('danger', '<b>ERRO! </b>Solicitação <b>'.$_POST['PedidocontratacaoItens'][$i]['contratacao_id'].'</b> já inserida no Pedido de Contratação!</b>');
+                                return $this->redirect(['update', 'id' => $model->pedcontratacao_id]);
+                                }
+                            }
                         $transaction->commit();
                             
                         Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação Cadastrado!</strong>');
@@ -204,6 +211,14 @@ class PedidoContratacaoController extends Controller
                                 }
 
                                if ($flag) {
+                            //Verifica se existe já a contratação inserida anterioemente em algum pedido de Contratação
+                            foreach ($modelsItens as $i => $modelItens) {
+                            if(PedidocontratacaoItens::find()->where(['contratacao_id' => $_POST['PedidocontratacaoItens'][$i]['contratacao_id']])->count() >= 2) {
+                                Yii::$app->session->setFlash('danger', '<b>ERRO! </b>Solicitação <b>'.$_POST['PedidocontratacaoItens'][$i]['contratacao_id'].'</b> já inserida no Pedido de Contratação!</b>');
+                                return $this->redirect(['update', 'id' => $model->pedcontratacao_id]);
+                                }
+                            }
+                    $model->save();
                         $transaction->commit();
                             
                         Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação Atualizado!</strong>');
