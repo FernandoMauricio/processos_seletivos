@@ -24,6 +24,7 @@ use app\models\curriculos\Curriculos;
 class EtapasItens extends \yii\db\ActiveRecord
 {
     public $nome;
+    public $cargo;
 
     /**
      * @inheritdoc
@@ -42,7 +43,7 @@ class EtapasItens extends \yii\db\ActiveRecord
             //[['etapasprocesso_id', 'curriculos_id'], 'required'],
             [['etapasprocesso_id', 'curriculos_id'], 'integer'],
             [['itens_escrita', 'itens_comportamental', 'itens_didatica', 'itens_entrevista', 'itens_pratica', 'itens_pontuacaototal'], 'number'],
-            [['itens_classificacao', 'itens_localcontratacao', 'nome'], 'string', 'max' => 255],
+            [['itens_classificacao', 'itens_localcontratacao', 'nome', 'cargo'], 'string', 'max' => 255],
             [['itens_confirmacaocontato'], 'safe'],
             [['curriculos_id'], 'exist', 'skipOnError' => true, 'targetClass' => Curriculos::className(), 'targetAttribute' => ['curriculos_id' => 'id']],
             [['etapasprocesso_id'], 'exist', 'skipOnError' => true, 'targetClass' => EtapasProcesso::className(), 'targetAttribute' => ['etapasprocesso_id' => 'etapa_id']],
@@ -65,7 +66,8 @@ class EtapasItens extends \yii\db\ActiveRecord
             'itens_entrevista' => 'Entrevista',
             'itens_pontuacaototal' => 'Pontuação Total',
             'itens_classificacao' => 'Classificação',
-            'itens_confirmacaocontato' => 'Contato Confirmado?'
+            'itens_confirmacaocontato' => 'Contato Confirmado?',
+            'itens_localcontratacao' => 'Local Contratação',
         ];
     }
 
