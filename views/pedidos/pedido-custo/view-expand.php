@@ -94,7 +94,7 @@ use yii\widgets\DetailView;
         <?php if($model->custo_situacaoggp == 1){ ?>
           <td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-lock" aria-hidden="true"> </span> <?= $model->custoSituacaoggp->situacao_descricao ?><br /><br /></td>
           <?php }else{?>
-          <td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-ok" aria-hidden="true"> </span>
+          <?php echo $model->custo_situacaoggp == 3 ? '<td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-remove" aria-hidden="true"> </span>' : '<td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-ok" aria-hidden="true"> </span>'; ?>
             <?= $model->custoSituacaoggp->situacao_descricao ?></b><br /><br /><br /><br /><br />
             Assinado eletrônicamente por:<br />
 
@@ -109,15 +109,15 @@ use yii\widgets\DetailView;
         <?php if($model->custo_situacaodad == 1){ ?>
           <td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-lock" aria-hidden="true"> </span> <?= $model->custoSituacaodad->situacao_descricao ?><br /><br /></td>
           <?php }else{?>
-          <td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-ok" aria-hidden="true"> </span>
+          <?php echo $model->custo_situacaodad == 3 ? '<td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-remove" aria-hidden="true"> </span>' : '<td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-ok" aria-hidden="true"> </span>'; ?>
             <?= $model->custoSituacaodad->situacao_descricao ?></b><br /><br /><br /><br /><br />
             Assinado eletrônicamente por:<br />
             
             <?php $query = (new \yii\db\Query())->select('aprov_descricao, aprov_cargo, aprov_observacao')->from('db_processos.aprovacoes')->where(['aprov_area' => 'DAD'])->one(); ?>
-            <b><?= $model->custo_aprovadorggp; ?></b><br />
+            <b><?= $model->custo_aprovadordad; ?></b><br />
             <?= $query['aprov_cargo']; ?><br />
             <?= isset($query['aprov_observacao']) ? $query['aprov_observacao'] . '<br />' : ''; ?>
-            <?php echo date('d/m/Y', strtotime( $model->custo_dataaprovacaoggp )) ?>&nbsp;&nbsp;&nbsp;<br />
+            <?php echo date('d/m/Y', strtotime( $model->custo_dataaprovacaodad )) ?>&nbsp;&nbsp;&nbsp;<br />
           </td>
           <?php }?>
 

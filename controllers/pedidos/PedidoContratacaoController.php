@@ -10,6 +10,7 @@ use app\models\pedidos\pedidocontratacao\PedidocontratacaoItens;
 use app\models\pedidos\pedidocontratacao\PedidoContratacao;
 use app\models\pedidos\pedidocontratacao\PedidoContratacaoSearch;
 use app\models\pedidos\pedidocontratacao\PedidoContratacaoAprovacaoGgpSearch;
+use app\models\pedidos\pedidocontratacao\PedidoContratacaoAprovacaoDadSearch;
 use app\models\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -62,6 +63,19 @@ class PedidoContratacaoController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('ggp-index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionDadIndex()
+    {
+        $this->layout = 'main-full';
+
+        $searchModel = new PedidoContratacaoAprovacaoDadSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('dad-index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -129,7 +143,7 @@ class PedidoContratacaoController extends Controller
         
         Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação <strong> '.$model->pedcontratacao_id.' </strong> foi Reprovado!</strong>');
 
-        return $this->redirect(['ggp-index']);
+        return $this->redirect(['dad-index']);
     }
 
     /**

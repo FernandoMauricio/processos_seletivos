@@ -146,7 +146,8 @@ echo NavX::widget([
                 ['label' => 'Aprovadores', 'url' => ['/pedidos/aprovacoes/index']],
 
             ]],
-        ]],
+        ]
+    ],
 
     ['label' => 'Aprovações Pendentes GGP', 'items' => [
 
@@ -155,7 +156,18 @@ echo NavX::widget([
 
         ['label' => 'Pedido de Contratação', 'url' => ['/pedidos/pedido-contratacao/ggp-index']],
 
-        ]],
+        ],
+    ],
+
+    ['label' => 'Aprovações Pendentes DAD', 'items' => [
+
+        '<li class="dropdown-header">Aprovações Pendentes DAD</li>',
+        ['label' => 'Pedido de Custo', 'url' => ['/pedidos/pedido-custo/dad-index']],
+
+        ['label' => 'Pedido de Contratação', 'url' => ['/pedidos/pedido-contratacao/dad-index']],
+
+        ],
+    ],
 
         ['label' => 'Solicitação de Contratação', 'url' => ['/contratacao/contratacao/index']],
 

@@ -125,7 +125,7 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes do Pedido de pedcontratacao', 'options'=>['colspan'=>8, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes do Pedido de Contratação', 'options'=>['colspan'=>8, 'class'=>'text-center warning']], 
                 ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]
@@ -133,7 +133,7 @@ $gridColumns = [
         'hover' => true,
         'panel' => [
         'type'=>GridView::TYPE_PRIMARY,
-        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem - Pedido de pedcontratacao Em Aprovação</h3>',
+        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem - Pedido de Contratação Em Aprovação</h3>',
     ],
 ]);
     ?>

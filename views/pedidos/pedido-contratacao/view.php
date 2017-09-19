@@ -105,7 +105,7 @@ use yii\widgets\DetailView;
         <?php if($model->pedcontratacao_situacaoggp == 1){ ?>
           <td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-lock" aria-hidden="true"> </span> <?= $model->pedcontratacaoSituacaoggp->situacao_descricao ?><br /><br /></td>
           <?php }else{?>
-          <td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-ok" aria-hidden="true"> </span>
+          <?php echo $model->pedcontratacao_situacaoggp == 3 ? '<td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-remove" aria-hidden="true"> </span>' : '<td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-ok" aria-hidden="true"> </span>'; ?>
             <?= $model->pedcontratacaoSituacaoggp->situacao_descricao ?></b><br /><br /><br /><br /><br />
             Assinado eletrônicamente por:<br />
 
@@ -120,15 +120,15 @@ use yii\widgets\DetailView;
         <?php if($model->pedcontratacao_situacaodad == 1){ ?>
           <td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-lock" aria-hidden="true"> </span> <?= $model->pedcontratacaoSituacaodad->situacao_descricao ?><br /><br /></td>
           <?php }else{?>
-          <td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-ok" aria-hidden="true"> </span>
+          <?php echo $model->pedcontratacao_situacaodad == 3 ? '<td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-remove" aria-hidden="true"> </span>' : '<td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-ok" aria-hidden="true"> </span>'; ?>
             <?= $model->pedcontratacaoSituacaodad->situacao_descricao ?></b><br /><br /><br /><br /><br />
             Assinado eletrônicamente por:<br />
             
             <?php $query = (new \yii\db\Query())->select('aprov_descricao, aprov_cargo, aprov_observacao')->from('db_processos.aprovacoes')->where(['aprov_area' => 'DAD'])->one(); ?>
-            <b><?= $model->pedcontratacao_aprovadorggp; ?></b><br />
+            <b><?= $model->pedcontratacao_aprovadordad; ?></b><br />
             <?= $query['aprov_cargo']; ?><br />
             <?= isset($query['aprov_observacao']) ? $query['aprov_observacao'] . '<br />' : ''; ?>
-            <?php echo date('d/m/Y', strtotime( $model->pedcontratacao_dataaprovacaoggp )) ?>&nbsp;&nbsp;&nbsp;<br />
+            <?php echo date('d/m/Y', strtotime( $model->pedcontratacao_dataaprovacaodad )) ?>&nbsp;&nbsp;&nbsp;<br />
           </td>
           <?php }?>
 

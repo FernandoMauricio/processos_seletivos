@@ -9,13 +9,13 @@ use yii\helpers\ArrayHelper;
 use app\models\pedidos\pedidocusto\PedidocustoSituacao;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\pedidos\pedidocusto\PedidoCustoSearch */
+/* @var $searchModel app\models\pedidos\pedidocontratacao\PedidoContratacaoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pedido de Custos';
+$this->title = 'Pedido de Contratação';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="pedido-custo-index">
+<div class="pedido-pedidocontratacao-index">
 
 <?php
 //Pega as mensagens
@@ -30,35 +30,35 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
 $gridColumns = [
             
-             [
-             'class'=>'kartik\grid\ExpandRowColumn',
-             'width'=>'50px',
-             'format' => 'raw',
-             'value'=>function ($model, $key, $index, $column) {
-                 return GridView::ROW_COLLAPSED;
-             },
-             'detail'=>function ($model, $key, $index, $column) {
-                 return Yii::$app->controller->renderPartial('view-expand', ['model'=>$model, 'modelsItens' => $model->pedidocustoItens]);
-             },
-             'headerOptions'=>['class'=>'kartik-sheet-style'], 
-             'expandOneOnly'=>true
-             ],
+            [
+            'class'=>'kartik\grid\ExpandRowColumn',
+            'width'=>'50px',
+            'format' => 'raw',
+            'value'=>function ($model, $key, $index, $column) {
+                return GridView::ROW_COLLAPSED;
+            },
+            'detail'=>function ($model, $key, $index, $column) {
+                return Yii::$app->controller->renderPartial('view-expand', ['model'=>$model, 'modelsItens' => $model->pedidocontratacaoItens]);
+            },
+            'headerOptions'=>['class'=>'kartik-sheet-style'], 
+            'expandOneOnly'=>true
+            ],
 
-            'custo_id',
-            'custo_assunto',
-            'custo_recursos',
+            'pedcontratacao_id',
+            'pedcontratacao_assunto',
+            'pedcontratacao_recursos',
 
             [
-               'attribute' => 'custo_valortotal',
+               'attribute' => 'pedcontratacao_valortotal',
                'contentOptions' => ['class' => 'col-lg-1'],
                'format' => ['decimal',2],
             ],
 
             [
-                'attribute'=>'custo_situacaoggp', 
+                'attribute'=>'pedcontratacao_situacaoggp', 
                 'width'=>'310px',
                 'value'=>function ($model, $key, $index, $widget) { 
-                    return $model->custoSituacaoggp->situacao_descricao;
+                    return $model->pedcontratacaoSituacaoggp->situacao_descricao;
                 },
                 'filterType'=>GridView::FILTER_SELECT2,
                 'filter'=>ArrayHelper::map(PedidocustoSituacao::find()->orderBy('situacao_descricao')->asArray()->all(), 'situacao_descricao', 'situacao_descricao'), 
@@ -69,10 +69,10 @@ $gridColumns = [
             ],
 
             [
-                'attribute'=>'custo_situacaodad', 
+                'attribute'=>'pedcontratacao_situacaodad', 
                 'width'=>'310px',
                 'value'=>function ($model, $key, $index, $widget) { 
-                    return $model->custoSituacaodad->situacao_descricao;
+                    return $model->pedcontratacaoSituacaodad->situacao_descricao;
                 },
                 'filterType'=>GridView::FILTER_SELECT2,
                 'filter'=>ArrayHelper::map(PedidocustoSituacao::find()->orderBy('situacao_descricao')->asArray()->all(), 'situacao_descricao', 'situacao_descricao'), 
@@ -82,15 +82,15 @@ $gridColumns = [
                     'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
             ],
 
-            'custo_responsavel',
+            'pedcontratacao_responsavel',
             
             ['class' => 'yii\grid\ActionColumn',
-                        'template' => '{aprovar-ggp} {reprovar-ggp}',
+                        'template' => '{aprovar-dad} {reprovar-dad}',
                         'contentOptions' => ['style' => 'width: 7%;'],
                         'buttons' => [
 
                         //APROVAR
-                        'aprovar-ggp' => function ($url, $model) {
+                        'aprovar-dad' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-ok"></span> ', $url, [
                                         'class'=>'btn btn-success btn-xs',
                                         'title' => Yii::t('app', 'Aprovar'),
@@ -99,7 +99,7 @@ $gridColumns = [
                         },
 
                         //REPROVAR
-                        'reprovar-ggp' => function ($url, $model) {
+                        'reprovar-dad' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-remove"></span> ', $url, [
                                         'class'=>'btn btn-danger btn-xs',
                                         'title' => Yii::t('app', 'Reprovar'),
@@ -125,7 +125,7 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes do Pedido de Custo', 'options'=>['colspan'=>8, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes do Pedido de Contratação', 'options'=>['colspan'=>8, 'class'=>'text-center warning']], 
                 ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]
@@ -133,7 +133,7 @@ $gridColumns = [
         'hover' => true,
         'panel' => [
         'type'=>GridView::TYPE_PRIMARY,
-        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem - Pedido de Custo Em Aprovação</h3>',
+        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem - Pedido de Contratação Em Aprovação</h3>',
     ],
 ]);
     ?>

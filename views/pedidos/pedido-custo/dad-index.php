@@ -72,7 +72,7 @@ $gridColumns = [
                 'attribute'=>'custo_situacaodad', 
                 'width'=>'310px',
                 'value'=>function ($model, $key, $index, $widget) { 
-                    return $model->custoSituacaoggp->situacao_descricao;
+                    return $model->custoSituacaodad->situacao_descricao;
                 },
                 'filterType'=>GridView::FILTER_SELECT2,
                 'filter'=>ArrayHelper::map(PedidocustoSituacao::find()->orderBy('situacao_descricao')->asArray()->all(), 'situacao_descricao', 'situacao_descricao'), 
