@@ -14,7 +14,7 @@ use yii\widgets\DetailView;
                          GERÊNCIA DE GESTÃO DE PESSOAS<br /><br />
                          PEDIDO DE CONTRATAÇÃO</h4>
     </td>
-    <td width="20%"><b>CC/RS/GGP  Nº </b> <?= $model->pedcontratacao_id . '/' . date('Y') ?><br /><br />
+    <td width="20%"><b>CC/RS/GGP  Nº </b> <?= $model->pedcontratacao_id . '/' . date('Y', strtotime($model->pedcontratacao_data)) ?><br /><br />
     <?=  date('d/m/Y', strtotime($model->pedcontratacao_data)); ?></td>
   </tr>
 </table>
@@ -48,7 +48,7 @@ use yii\widgets\DetailView;
             <thead>
             <tr class="info"><th colspan="12">SEÇÃO 2: Itens do Pedido</th></tr>
                <caption><b>Sr.(a) Gerente</b><br />                    
-                  Segue para aprovação a planilha de custos visando Documento de Abertura para posterior contratação de pessoal, solicitados pelas unidades/setores acima em substituições de colaboradores, demandas administrativas e/ou de docência das unidades.
+                  Segue para aprovação o pedido de contratação de pessoal para atender as demandas da unidade de ensino e setor citados acima.
               </caption>
               <tr>
                 <th>Solicitação</th>
@@ -57,8 +57,8 @@ use yii\widgets\DetailView;
                 <th>Área</th>
                 <th>Nome</th>
                 <th>Carta</th>
-                <th>Tipo Contrato</th>
                 <th>Nº da Autorização de Custo</th>
+                <th>Tipo Contrato</th>
                 <th>CH. Semanal</th>
                 <th>Remuneração com Encargos</th>
                 <th>Justificativa</th>
@@ -78,8 +78,8 @@ use yii\widgets\DetailView;
                   <td><?= $modelItens->itemcontratacao_area; ?></td>
                   <td><?= $modelItens->itemcontratacao_nome; ?></td>
                   <td><?= $modelItens->itemcontratacao_carta; ?></td>
+                  <td><?= $modelItens->etapasprocesso_id . '/'.date('Y', strtotime($model->pedcontratacao_data)); ?></td>
                   <td><?= $modelItens->itemcontratacao_tipocontrato; ?></td>
-                  <td><?= $modelItens->etapasprocesso_id . '/'.date('Y'); ?></td>
                   <td><?= $modelItens->itemcontratacao_chsemanal; ?></td>
                   <td style="width: 100px;"><?= 'R$ ' . number_format($modelItens->itemcontratacao_total, 2, ',', '.'); ?></td>
                   <td><?= $modelItens->itemcontratacao_justificativa; ?></td>
@@ -159,7 +159,7 @@ use yii\widgets\DetailView;
 
           <div class="row">
               <div class="col-md-12" style="font-size: 10px;">
-                  CC/RS/GGP  Nº  <?= $model->pedcontratacao_id . '/' . date('Y') ?><br />
+                  CC/RS/GGP  Nº  <?= $model->pedcontratacao_id . '/' . date('Y', strtotime($model->pedcontratacao_data)) ?><br />
                   <b>Serviço Nacional de Aprendizagem Comercial - Departamento Regional do Amazonas</b><br />
                   Rua Costa Azevedo, nº 09 Edificio Rio Madeira, 10º andar, Centro. Manaus/Amazonas  -  Telefones: (92)3216-5740 /3216-5769/ Fax: (92) 3216-5747<br />
               </div>

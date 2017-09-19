@@ -15,7 +15,7 @@ use kartik\detail\DetailView;
                          GERÊNCIA DE GESTÃO DE PESSOAS<br /><br />
                          PLANILHA DE COMPOSIÇÃO DE CUSTO POR SOLICITAÇÃO</h4>
     </td>
-    <td width="20%"><b>CC/RS/GGP  Nº </b> <?= $model->custo_id . '/' . date('Y') ?><br /><br />
+    <td width="20%"><b>CC/RS/GGP  Nº </b> <?= $model->custo_id . '/' . date('Y', strtotime($model->custo_data)) ?><br /><br />
     <?=  date('d/m/Y', strtotime($model->custo_data)); ?></td>
   </tr>
 </table>
@@ -164,7 +164,7 @@ use kartik\detail\DetailView;
 
           <div class="row">
               <div class="col-md-12" style="font-size: 10px;">
-                  CC/RS/GGP  Nº  <?= $model->custo_id . '/' . date('Y') ?><br />
+                  CC/RS/GGP  Nº  <?= $model->custo_id . '/' . date('Y', strtotime($model->custo_data)) ?><br />
                   <b>Serviço Nacional de Aprendizagem Comercial - Departamento Regional do Amazonas</b><br />
                   Rua Costa Azevedo, nº 09 Edificio Rio Madeira, 10º andar, Centro. Manaus/Amazonas  -  Telefones: (92)3216-5740 /3216-5769/ Fax: (92) 3216-5747<br />
               </div>

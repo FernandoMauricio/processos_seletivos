@@ -148,7 +148,7 @@ use kartik\detail\DetailView;
 
           <div class="row">
               <div class="col-md-12" style="font-size: 10px;">
-                  CC/RS/GGP  Nº  <?= $model->custo_id . '/' . date('Y') ?><br />
+                  CC/RS/GGP  Nº  <?= $model->custo_id . '/' . date('Y', strtotime($model->custo_data)) ?><br />
                   <b>Serviço Nacional de Aprendizagem Comercial - Departamento Regional do Amazonas</b><br />
                   Rua Costa Azevedo, nº 09 Edificio Rio Madeira, 10º andar, Centro. Manaus/Amazonas  -  Telefones: (92)3216-5740 /3216-5769/ Fax: (92) 3216-5747<br />
               </div>
