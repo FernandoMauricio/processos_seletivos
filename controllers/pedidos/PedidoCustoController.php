@@ -60,7 +60,7 @@ class PedidoCustoController extends Controller
         $searchModel = new PedidoCustoAprovacaoGgpSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('aprovacao-ggp', [
+        return $this->render('ggp-index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -73,7 +73,7 @@ class PedidoCustoController extends Controller
         $searchModel = new PedidoCustoAprovacaoDadSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('aprovacao-dad', [
+        return $this->render('dad-index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

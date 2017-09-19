@@ -6,6 +6,8 @@ use kartik\editable\Editable;
 use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
 
+use app\models\pedidos\pedidocusto\PedidocustoSituacao;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\pedidos\pedidocusto\PedidoCustoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -53,24 +55,42 @@ $gridColumns = [
             ],
 
             [
-                'attribute' => 'custo_situacaoggp',
-                'value' => 'custoSituacaoggp.situacao_descricao',
+                'attribute'=>'custo_situacaoggp', 
+                'width'=>'310px',
+                'value'=>function ($model, $key, $index, $widget) { 
+                    return $model->custoSituacaoggp->situacao_descricao;
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>ArrayHelper::map(PedidocustoSituacao::find()->orderBy('situacao_descricao')->asArray()->all(), 'situacao_descricao', 'situacao_descricao'), 
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                    'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
             ],
 
             [
-                'attribute' => 'custo_situacaodad',
-                'value' => 'custoSituacaodad.situacao_descricao',
+                'attribute'=>'custo_situacaodad', 
+                'width'=>'310px',
+                'value'=>function ($model, $key, $index, $widget) { 
+                    return $model->custoSituacaoggp->situacao_descricao;
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>ArrayHelper::map(PedidocustoSituacao::find()->orderBy('situacao_descricao')->asArray()->all(), 'situacao_descricao', 'situacao_descricao'), 
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                    'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
             ],
 
             'custo_responsavel',
             
             ['class' => 'yii\grid\ActionColumn',
-                        'template' => '{aprovar-dad} {reprovar-dad}',
+                        'template' => '{aprovar-ggp} {reprovar-ggp}',
                         'contentOptions' => ['style' => 'width: 7%;'],
                         'buttons' => [
 
                         //APROVAR
-                        'aprovar-dad' => function ($url, $model) {
+                        'aprovar-ggp' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-ok"></span> ', $url, [
                                         'class'=>'btn btn-success btn-xs',
                                         'title' => Yii::t('app', 'Aprovar'),
@@ -78,8 +98,8 @@ $gridColumns = [
                             ]);
                         },
 
-                        //REPROVAr
-                        'reprovar-dad' => function ($url, $model) {
+                        //REPROVAR
+                        'reprovar-ggp' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-remove"></span> ', $url, [
                                         'class'=>'btn btn-danger btn-xs',
                                         'title' => Yii::t('app', 'Reprovar'),

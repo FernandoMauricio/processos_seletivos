@@ -9,6 +9,7 @@ use app\models\processoseletivo\ProcessoSeletivo;
 use app\models\pedidos\pedidocontratacao\PedidocontratacaoItens;
 use app\models\pedidos\pedidocontratacao\PedidoContratacao;
 use app\models\pedidos\pedidocontratacao\PedidoContratacaoSearch;
+use app\models\pedidos\pedidocontratacao\PedidoContratacaoAprovacaoGgpSearch;
 use app\models\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -42,6 +43,8 @@ class PedidoContratacaoController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = 'main-full';
+
         $searchModel = new PedidoContratacaoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -49,6 +52,84 @@ class PedidoContratacaoController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionGgpIndex()
+    {
+        $this->layout = 'main-full';
+
+        $searchModel = new PedidoContratacaoAprovacaoGgpSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('ggp-index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionAprovarGgp($id)
+    {
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
+
+        //Classifica o candidato
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`pedido_contratacao` SET `pedcontratacao_aprovadorggp` = '".$session['sess_nomeusuario']."', `pedcontratacao_situacaoggp` = '2', `pedcontratacao_dataaprovacaoggp` = ".date('"Y-m-d"')." WHERE `pedcontratacao_id` = '".$model->pedcontratacao_id."'");
+        $command->execute();
+        
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação <strong> '.$model->pedcontratacao_id.' </strong> foi Aprovado!</strong>');
+
+        return $this->redirect(['ggp-index']);
+    }
+    
+    public function actionAprovarDad($id)
+    {
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
+
+        //Classifica o candidato
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`pedido_contratacao` SET `pedcontratacao_aprovadordad` = '".$session['sess_nomeusuario']."', `pedcontratacao_situacaodad` = '5', `pedcontratacao_dataaprovacaodad` = ".date('"Y-m-d"')." WHERE `pedcontratacao_id` = '".$model->pedcontratacao_id."'");
+        $command->execute();
+        
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação <strong> '.$model->pedcontratacao_id.' </strong> foi Aprovado!</strong>');
+
+        return $this->redirect(['dad-index']);
+    }
+
+
+    public function actionReprovarGgp($id)
+    {
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
+
+        //Classifica o candidato
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`pedido_contratacao` SET `pedcontratacao_aprovadorggp` = '".$session['sess_nomeusuario']."', `pedcontratacao_situacaoggp` = '3', `pedcontratacao_dataaprovacaoggp` = ".date('"Y-m-d"')." WHERE `pedcontratacao_id` = '".$model->pedcontratacao_id."'");
+        $command->execute();
+        
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação <strong> '.$model->pedcontratacao_id.' </strong> foi Reprovado!</strong>');
+
+        return $this->redirect(['ggp-index']);
+    }
+
+    public function actionReprovarDad($id)
+    {
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
+
+        //Classifica o candidato
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`pedido_contratacao` SET `pedcontratacao_aprovadordad` = '".$session['sess_nomeusuario']."', `pedcontratacao_situacaodad` = '3', `pedcontratacao_dataaprovacaodad` = ".date('"Y-m-d"')." WHERE `pedcontratacao_id` = '".$model->pedcontratacao_id."'");
+        $command->execute();
+        
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação <strong> '.$model->pedcontratacao_id.' </strong> foi Reprovado!</strong>');
+
+        return $this->redirect(['ggp-index']);
     }
 
     /**
