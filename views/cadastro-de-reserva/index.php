@@ -31,9 +31,20 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 <?php
 
 $gridColumns = [
+
+            [
+                'attribute' => 'numeroEdital',
+                'value' => 'curriculos.edital'
+            ],
             
-            'id',
-            'curriculos_id',
+            [
+                'attribute' => 'numeroInscricao',
+                'value' => 'curriculos.numeroInscricao'
+            ],
+            [
+                'attribute' => 'nome',
+                'value' => 'curriculos.nome'
+            ],
             'itens_classificacao',
             'itens_localcontratacao',
             'cargo',
@@ -45,6 +56,7 @@ $gridColumns = [
 
                         //VISUALIZAR/IMPRIMIR
                         'view' => function ($url, $model) {
+                            $url = 'index.php?r=curriculos/curriculos-admin/imprimir&id=' . $model->curriculos->id;
                             return Html::a('<span class="glyphicon glyphicon-print"></span> ', $url, [
                                         'target'=>'_blank', 
                                         'data-pjax'=>"0",
@@ -72,7 +84,7 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes do Cadastro de Reserva', 'options'=>['colspan'=>5, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes do Cadastro de Reserva', 'options'=>['colspan'=>6, 'class'=>'text-center warning']], 
                 ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]

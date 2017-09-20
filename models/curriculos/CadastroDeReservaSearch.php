@@ -21,7 +21,7 @@ class CadastroDeReservaSearch extends EtapasItens
         return [
             [['id', 'etapasprocesso_id', 'curriculos_id'], 'integer'],
             [['itens_escrita', 'itens_comportamental', 'itens_entrevista', 'itens_pontuacaototal'], 'number'],
-            [['itens_classificacao', 'itens_localcontratacao', 'cargo'], 'safe'],
+            [['itens_classificacao', 'itens_localcontratacao', 'cargo', 'nome', 'numeroInscricao', 'numeroEdital'], 'safe'],
         ];
     }
 
@@ -44,13 +44,32 @@ class CadastroDeReservaSearch extends EtapasItens
     public function search($params)
     {
 
-        $query = EtapasItens::find()->select(['id', 'curriculos_id', 'itens_classificacao', 'itens_localcontratacao', 'etapa_cargo as cargo'])->innerJoinWith('etapasprocesso', `etapasprocesso_id` == `etapa_id`)->where(['<>','itens_classificacao', '%Desclassificado(a)%'])->andWhere(['<>','itens_classificacao', '']);
+        $query = EtapasItens::find()->select(['numeroInscricao', 'nome', 'curriculos_id', 'processo_id', 'itens_classificacao', 'itens_localcontratacao', 'etapa_cargo as cargo'])
+        ->innerJoinWith('etapasprocesso', `etapasprocesso_id` == `etapa_id`)
+        ->innerJoinWith('curriculos', `curriculos.id` == `curriculos_id`)
+        ->where(['<>','itens_classificacao', '%Desclassificado(a)%'])
+        ->andWhere(['<>','itens_classificacao', '']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        $dataProvider->sort->attributes['numeroEdital'] = [
+        'asc' => ['curriculos.edital' => SORT_ASC],
+        'desc' => ['curriculos.edital' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['numeroInscricao'] = [
+        'asc' => ['curriculos.numeroInscricao' => SORT_ASC],
+        'desc' => ['curriculos.numeroInscricao' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['nome'] = [
+        'asc' => ['curriculos.nome' => SORT_ASC],
+        'desc' => ['curriculos.nome' => SORT_DESC],
+        ];
 
         $dataProvider->sort->attributes['cargo'] = [
         'asc' => ['etapas_processo.etapa_cargo' => SORT_ASC],
@@ -78,7 +97,10 @@ class CadastroDeReservaSearch extends EtapasItens
 
         $query->andFilterWhere(['like', 'itens_classificacao', $this->itens_classificacao])
               ->andFilterWhere(['like', 'itens_localcontratacao', $this->itens_localcontratacao])
-              ->andFilterWhere(['like', 'etapas_processo.etapa_cargo', $this->cargo]);
+              ->andFilterWhere(['like', 'etapas_processo.etapa_cargo', $this->cargo])
+              ->andFilterWhere(['like', 'curriculos.nome', $this->nome])
+              ->andFilterWhere(['like', 'curriculos.numeroInscricao', $this->numeroInscricao])
+              ->andFilterWhere(['like', 'curriculos.edital', $this->numeroEdital]);
 
         return $dataProvider;
     }

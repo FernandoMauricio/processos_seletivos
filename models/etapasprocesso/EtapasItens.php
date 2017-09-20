@@ -25,6 +25,8 @@ class EtapasItens extends \yii\db\ActiveRecord
 {
     public $nome;
     public $cargo;
+    public $numeroInscricao;
+    public $numeroEdital;
 
     /**
      * @inheritdoc
@@ -41,9 +43,9 @@ class EtapasItens extends \yii\db\ActiveRecord
     {
         return [
             //[['etapasprocesso_id', 'curriculos_id'], 'required'],
-            [['etapasprocesso_id', 'curriculos_id'], 'integer'],
+            [['etapasprocesso_id', 'curriculos_id', 'numeroInscricao'], 'integer'],
             [['itens_escrita', 'itens_comportamental', 'itens_didatica', 'itens_entrevista', 'itens_pratica', 'itens_pontuacaototal'], 'number'],
-            [['itens_classificacao', 'itens_localcontratacao', 'nome', 'cargo'], 'string', 'max' => 255],
+            [['itens_classificacao', 'itens_localcontratacao', 'nome', 'cargo', 'numeroEdital'], 'string', 'max' => 255],
             [['itens_confirmacaocontato'], 'safe'],
             [['curriculos_id'], 'exist', 'skipOnError' => true, 'targetClass' => Curriculos::className(), 'targetAttribute' => ['curriculos_id' => 'id']],
             [['etapasprocesso_id'], 'exist', 'skipOnError' => true, 'targetClass' => EtapasProcesso::className(), 'targetAttribute' => ['etapasprocesso_id' => 'etapa_id']],
@@ -58,7 +60,7 @@ class EtapasItens extends \yii\db\ActiveRecord
         return [
             'id' => 'Itens ID',
             'etapasprocesso_id' => 'Etapasprocesso ID',
-            'curriculos_id' => 'Curriculos ID',
+            'curriculos_id' => 'Cód. Inscrição',
             'itens_escrita' => 'Avaliação Escrita',
             'itens_comportamental' => 'Avaliação Comportamental',
             'itens_didatica' => 'Avaliação Didática',
@@ -68,6 +70,8 @@ class EtapasItens extends \yii\db\ActiveRecord
             'itens_classificacao' => 'Classificação',
             'itens_confirmacaocontato' => 'Contato Confirmado?',
             'itens_localcontratacao' => 'Local Contratação',
+            'numeroInscricao' => 'Número de Inscrição',
+            'numeroEdital' => 'Documento de Abertura',
         ];
     }
 
