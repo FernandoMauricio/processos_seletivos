@@ -77,7 +77,7 @@ use app\models\processoseletivo\Cargos;
     </tr> 
 
     <tr>
-        <td colspan="5"><strong>Previsão de ingresso: </strong><?php echo $model->data_ingresso; ?></td>
+        <td colspan="5"><strong>Previsão de ingresso: </strong><?php echo $model->data_ingresso_prevista; ?></td>
         <td colspan="5"><strong>Recrutamento de pessoa com deficiência: </strong><?php echo $model->deficiencia ? '<span class="label label-success">Sim</span>' : '<span class="label label-danger">Não</span>' ?></td>
         <td colspan="2"><strong>Observação: </strong><?php echo $model->obs_deficiencia; ?></td>
     </tr> 

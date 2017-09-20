@@ -79,7 +79,7 @@ class PedidoContratacao extends \yii\db\ActiveRecord
     //Localiza os cargos vinculado ao Documento de Abertura
     public static function getCandidatosAprovadosSubCat($cat_id) {
 
-        $sql = 'SELECT
+        $sql = 'SELECT DISTINCT
                    `curriculos`.`nome` AS id,
                    concat(UPPER(`curriculos`.`nome`), " - ", `etapas_itens`.`itens_classificacao`) AS name
                 FROM 

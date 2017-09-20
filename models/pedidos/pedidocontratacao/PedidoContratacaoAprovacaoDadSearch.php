@@ -68,7 +68,7 @@ class PedidoContratacaoAprovacaoDadSearch extends PedidoContratacao
             'pedcontratacao_data' => $this->pedcontratacao_data,
             'pedcontratacao_dataaprovacaoggp' => $this->pedcontratacao_dataaprovacaoggp,
             'pedcontratacao_dataaprovacaodad' => $this->pedcontratacao_dataaprovacaodad,
-            'pedcontratacao_situacaoggp' => 2,//Aprovado Pelo GGP
+            'pedcontratacao_situacaoggp' => 4,//Aprovado Pelo GGP
             'pedcontratacao_situacaodad' => 1, // Aguardando Aprovação
         ]);
 

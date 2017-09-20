@@ -83,16 +83,16 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                           var $inputDataIngresso   = $divPanelBody.find("input:eq(10)");
 
                                           $inputUnidade.val(data.unidade);
-                                          $inputCargo.val(data.cargo);
+                                          $inputCargo.val(data.cargo_descricao);
                                           $inputQuant.val(data.quant_pessoa);
-                                          $inputPeriodo.val(data.periodo == 1 ? "Inderterminado" : "Determinado");
+                                          $inputPeriodo.val(data.periodo == 1 ? "Indeterminado" : "Determinado");
                                           $inputArea.val(data.cargo_area);
                                           $inputCHSemana.val(data.cargo_chsemanal);
                                           $inputSalario.val(data.cargo_salario);
                                           $inputEncargos.val(data.cargo_encargos);
                                           $inputTotal.val(data.cargo_valortotal * data.quant_pessoa);
                                           $inputJustificativa.val(data.motivo);
-                                          $inputDataIngresso.val(data.data_ingresso);
+                                          $inputDataIngresso.val(data.data_ingresso_prevista);
 
                                         //Somar total de custo de todos os itens
                                          var items = $(".item-pedidocusto");

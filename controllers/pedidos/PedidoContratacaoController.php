@@ -89,7 +89,7 @@ class PedidoContratacaoController extends Controller
         //Classifica o candidato
         $connection = Yii::$app->db;
         $command = $connection->createCommand(
-        "UPDATE `db_processos`.`pedido_contratacao` SET `pedcontratacao_aprovadorggp` = '".$session['sess_nomeusuario']."', `pedcontratacao_situacaoggp` = '2', `pedcontratacao_dataaprovacaoggp` = ".date('"Y-m-d"')." WHERE `pedcontratacao_id` = '".$model->pedcontratacao_id."'");
+        "UPDATE `db_processos`.`pedido_contratacao` SET `pedcontratacao_aprovadorggp` = '".$session['sess_nomeusuario']."', `pedcontratacao_situacaoggp` = '4', `pedcontratacao_dataaprovacaoggp` = ".date('"Y-m-d"')." WHERE `pedcontratacao_id` = '".$model->pedcontratacao_id."'");
         $command->execute();
         
         Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação <strong> '.$model->pedcontratacao_id.' </strong> foi Aprovado!</strong>');
@@ -105,7 +105,16 @@ class PedidoContratacaoController extends Controller
         //Classifica o candidato
         $connection = Yii::$app->db;
         $command = $connection->createCommand(
-        "UPDATE `db_processos`.`pedido_contratacao` SET `pedcontratacao_aprovadordad` = '".$session['sess_nomeusuario']."', `pedcontratacao_situacaodad` = '5', `pedcontratacao_dataaprovacaodad` = ".date('"Y-m-d"')." WHERE `pedcontratacao_id` = '".$model->pedcontratacao_id."'");
+        "UPDATE `db_processos`.`pedido_contratacao` SET `pedcontratacao_aprovadordad` = '".$session['sess_nomeusuario']."', `pedcontratacao_situacaodad` = '4', `pedcontratacao_dataaprovacaodad` = ".date('"Y-m-d"')." WHERE `pedcontratacao_id` = '".$model->pedcontratacao_id."'");
+        $command->execute();
+
+        //Atualiza a data do ingresso na Solicitação de Contratação
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`contratacao` 
+        INNER JOIN `pedidocontratacao_itens` ON `pedidocontratacao_itens`.`contratacao_id` = `contratacao`.`id`
+        INNER JOIN `pedido_contratacao` ON `pedido_contratacao`.`pedcontratacao_id` = `pedidocontratacao_itens`.`pedidocontratacao_id` 
+        SET `data_ingresso` = `pedidocontratacao_itens`.`itemcontratacao_dataingresso` 
+        WHERE `pedidocontratacao_itens`.`contratacao_id` = `contratacao`.`id` AND `pedido_contratacao`.`pedcontratacao_id` = ".$model->pedcontratacao_id." ");
         $command->execute();
         
         Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação <strong> '.$model->pedcontratacao_id.' </strong> foi Aprovado!</strong>');
@@ -119,7 +128,7 @@ class PedidoContratacaoController extends Controller
         $session = Yii::$app->session;
         $model = $this->findModel($id);
 
-        //Classifica o candidato
+        //Reprova o candidato
         $connection = Yii::$app->db;
         $command = $connection->createCommand(
         "UPDATE `db_processos`.`pedido_contratacao` SET `pedcontratacao_aprovadorggp` = '".$session['sess_nomeusuario']."', `pedcontratacao_situacaoggp` = '3', `pedcontratacao_dataaprovacaoggp` = ".date('"Y-m-d"')." WHERE `pedcontratacao_id` = '".$model->pedcontratacao_id."'");
@@ -135,12 +144,12 @@ class PedidoContratacaoController extends Controller
         $session = Yii::$app->session;
         $model = $this->findModel($id);
 
-        //Classifica o candidato
+        //Reprova o candidato
         $connection = Yii::$app->db;
         $command = $connection->createCommand(
         "UPDATE `db_processos`.`pedido_contratacao` SET `pedcontratacao_aprovadordad` = '".$session['sess_nomeusuario']."', `pedcontratacao_situacaodad` = '3', `pedcontratacao_dataaprovacaodad` = ".date('"Y-m-d"')." WHERE `pedcontratacao_id` = '".$model->pedcontratacao_id."'");
         $command->execute();
-        
+
         Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação <strong> '.$model->pedcontratacao_id.' </strong> foi Reprovado!</strong>');
 
         return $this->redirect(['dad-index']);
@@ -225,9 +234,9 @@ class PedidoContratacaoController extends Controller
 
                     if ($flag) {
                             foreach ($modelsItens as $i => $modelItens) {
-                           //Verifica se é o mesmo cargo escolhido na solicitação de Contratação     
-                           if(PedidocontratacaoItens::find()->select(['etapa_id', 'etapa_cargo'])->innerJoinWith('etapasProcesso', `etapas_processo.etapa_id` == `etapasprocesso_id`)->where(['!=', 'etapa_cargo', $_POST['PedidocontratacaoItens'][$i]['itemcontratacao_cargo']])->all()) {
-                                Yii::$app->session->setFlash('danger', '<b>ERRO! Cargo '.$modelItens['etapasProcesso']['etapa_cargo'].'</b> diferente do informado na Solicitação <b>'.$_POST['PedidocontratacaoItens'][$i]['contratacao_id'].'</b>');
+                           //Verifica se é o mesmo cargo escolhido na solicitação de Contratação  
+                           if($_POST['PedidocontratacaoItens'][$i]['itemcontratacao_cargo'] != $modelItens->etapasProcesso->etapa_cargo) {
+                                Yii::$app->session->setFlash('danger', '<b>ERRO!</b> Cargo <b>'.$modelItens['etapasProcesso']['etapa_cargo'].'</b> diferente do informado na Solicitação <b>'.$_POST['PedidocontratacaoItens'][$i]['contratacao_id'].'</b>');
                                 return $this->redirect(['update', 'id' => $model->pedcontratacao_id]);
                                 }
                             //Verifica se existe já a contratação inserida anterioemente em algum pedido de Contratação
@@ -235,6 +244,7 @@ class PedidoContratacaoController extends Controller
                                 Yii::$app->session->setFlash('danger', '<b>ERRO! </b>Solicitação <b>'.$_POST['PedidocontratacaoItens'][$i]['contratacao_id'].'</b> já inserida no Pedido de Contratação!</b>');
                                 return $this->redirect(['update', 'id' => $model->pedcontratacao_id]);
                                 }
+                                 $model->save();
                             }
                         $transaction->commit();
                             
@@ -312,9 +322,9 @@ class PedidoContratacaoController extends Controller
 
                                if ($flag) {
                             foreach ($modelsItens as $i => $modelItens) {
-                           //Verifica se é o mesmo cargo escolhido na solicitação de Contratação     
-                           if(PedidocontratacaoItens::find()->select(['etapa_id', 'etapa_cargo'])->innerJoinWith('etapasProcesso', `etapas_processo.etapa_id` == `etapasprocesso_id`)->where(['!=', 'etapa_cargo', $_POST['PedidocontratacaoItens'][$i]['itemcontratacao_cargo']])->all()) {
-                                Yii::$app->session->setFlash('danger', '<b>ERRO! Cargo '.$modelItens['etapasProcesso']['etapa_cargo'].'</b> diferente do informado na Solicitação <b>'.$_POST['PedidocontratacaoItens'][$i]['contratacao_id'].'</b>');
+                           //Verifica se é o mesmo cargo escolhido na solicitação de Contratação  
+                           if($_POST['PedidocontratacaoItens'][$i]['itemcontratacao_cargo'] != $modelItens->etapasProcesso->etapa_cargo) {
+                                Yii::$app->session->setFlash('danger', '<b>ERRO!</b> Cargo <b>'.$modelItens['etapasProcesso']['etapa_cargo'].'</b> diferente do informado na Solicitação <b>'.$_POST['PedidocontratacaoItens'][$i]['contratacao_id'].'</b>');
                                 return $this->redirect(['update', 'id' => $model->pedcontratacao_id]);
                                 }
                             //Verifica se existe já a contratação inserida anterioemente em algum pedido de Contratação
@@ -322,10 +332,10 @@ class PedidoContratacaoController extends Controller
                                 Yii::$app->session->setFlash('danger', '<b>ERRO! </b>Solicitação <b>'.$_POST['PedidocontratacaoItens'][$i]['contratacao_id'].'</b> já inserida no Pedido de Contratação!</b>');
                                 return $this->redirect(['update', 'id' => $model->pedcontratacao_id]);
                                 }
+                                 $model->save();
                             }
-                        $model->save();
                         $transaction->commit();
-                            
+
                         Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação Atualizado!</strong>');
                        return $this->redirect(['index']);
                     }

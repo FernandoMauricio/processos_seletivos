@@ -87,7 +87,7 @@ class PedidoCustoController extends Controller
         //Classifica o candidato
         $connection = Yii::$app->db;
         $command = $connection->createCommand(
-        "UPDATE `db_processos`.`pedido_custo` SET `custo_aprovadorggp` = '".$session['sess_nomeusuario']."', `custo_situacaoggp` = '2', `custo_dataaprovacaoggp` = ".date('"Y-m-d"')." WHERE `custo_id` = '".$model->custo_id."'");
+        "UPDATE `db_processos`.`pedido_custo` SET `custo_aprovadorggp` = '".$session['sess_nomeusuario']."', `custo_situacaoggp` = '4', `custo_dataaprovacaoggp` = ".date('"Y-m-d"')." WHERE `custo_id` = '".$model->custo_id."'");
         $command->execute();
         
         Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Custo <strong> '.$model->custo_id.' </strong> foi Aprovado!</strong>');
@@ -103,7 +103,7 @@ class PedidoCustoController extends Controller
         //Classifica o candidato
         $connection = Yii::$app->db;
         $command = $connection->createCommand(
-        "UPDATE `db_processos`.`pedido_custo` SET `custo_aprovadordad` = '".$session['sess_nomeusuario']."', `custo_situacaodad` = '5', `custo_dataaprovacaodad` = ".date('"Y-m-d"')." WHERE `custo_id` = '".$model->custo_id."'");
+        "UPDATE `db_processos`.`pedido_custo` SET `custo_aprovadordad` = '".$session['sess_nomeusuario']."', `custo_situacaodad` = '4', `custo_dataaprovacaodad` = ".date('"Y-m-d"')." WHERE `custo_id` = '".$model->custo_id."'");
         $command->execute();
         
         Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Custo <strong> '.$model->custo_id.' </strong> foi Aprovado!</strong>');
@@ -170,23 +170,24 @@ class PedidoCustoController extends Controller
         $command = $connection->createCommand('
              SELECT
             `contratacao`.`unidade`,
-            `cargos`.`descricao` AS `cargo_area`,
+            `cargos`.`descricao` AS `cargo_descricao`,
             `contratacao`.`quant_pessoa`,
             `contratacao`.`periodo`,
             `contratacao`.`cargo_area`,
             `contratacao`.`cargo_chsemanal`,
             `contratacao`.`cargo_salario`,
             `contratacao`.`cargo_encargos`,
-            `contratacao`.`cargo_valortotal`
+            `contratacao`.`cargo_valortotal`,
+            `contratacao`.`motivo`,
+            `contratacao`.`data_ingresso_prevista`
             FROM
             `contratacao`
             INNER JOIN `cargos` ON `contratacao`.`cargo_id` = `cargos`.`idcargo` 
             WHERE `id`='.$contratacaoId.'
             ');
-            $command->queryAll();
+           $queryResult = $command->queryOne();
 
-        $getContratacao = Contratacao::findOne($contratacaoId);
-        echo Json::encode($getContratacao);
+        echo Json::encode($queryResult);
     }
 
     /**

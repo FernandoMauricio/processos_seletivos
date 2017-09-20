@@ -82,13 +82,13 @@ use kartik\depdrop\DepDrop;
                                           var $inputDataIngresso   = $divPanelBody.find("input:eq(8)");
 
                                           $inputUnidade.val(data.unidade);
-                                          $inputCargo.val(data.cargo);
+                                          $inputCargo.val(data.cargo_descricao);
                                           $inputArea.val(data.cargo_area);
-                                          $inputPeriodo.val(data.periodo == 1 ? "Inderterminado" : "Determinado");
+                                          $inputPeriodo.val(data.periodo == 1 ? "Indeterminado" : "Determinado");
                                           $inputCHSemana.val(data.cargo_chsemanal);
                                           $inputTotal.val(data.cargo_valortotal);
                                           $inputJustificativa.val(data.motivo);
-                                          $inputDataIngresso.val(data.data_ingresso);
+                                          $inputDataIngresso.val(data.data_ingresso_prevista);
 
                                         //Somar total de custo de todos os itens
                                          var items = $(".item-pedidocontratacao");

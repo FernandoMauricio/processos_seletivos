@@ -83,10 +83,10 @@ class Contratacao extends \yii\db\ActiveRecord
             ['pos_area', 'required', 'when' => function($model) { return $model->pos_comp == 1; }, 'enableClientValidation' => true],
             [['cod_colaborador', 'cod_unidade_solic', 'quant_pessoa', 'substituicao', 'periodo', 'tempo_periodo', 'aumento_quadro', 'deficiencia', 'fundamental_comp', 'fundamental_inc', 'medio_comp', 'medio_inc', 'tecnico_comp', 'tecnico_inc', 'superior_comp', 'superior_inc', 'pos_comp', 'pos_inc', 'windows', 'word', 'excel', 'internet', 'experiencia', 'jornada_horas', 'recrutamento_id', 'selec_curriculo', 'selec_dinamica', 'selec_prova', 'selec_entrevista', 'situacao_id', 'cargo_id'], 'integer'],
             [['motivo', 'obs_deficiencia', 'obs_aumento','dominio_atividade', 'jornada_obs', 'principais_atividades'], 'string'],
-            [['recrutamento_id', 'situacao_id', 'permissions','cargo_id', 'cargo_chsemanal', 'cargo_salario', 'cargo_encargos', 'cargo_valortotal'], 'required'],
+            [['recrutamento_id', 'situacao_id', 'permissions','cargo_id', 'cargo_chsemanal', 'cargo_salario', 'cargo_encargos', 'cargo_valortotal', 'quant_pessoa'], 'required'],
             [['cargo_salario', 'cargo_encargos', 'cargo_valortotal'], 'number'],
             [['colaborador', 'unidade', 'nome_substituicao', 'cargo_area'], 'string', 'max' => 100],
-            [['data_ingresso'], 'string', 'max' => 15],
+            [['data_ingresso_prevista', 'data_ingresso'], 'string', 'max' => 15],
             [['tecnico_area', 'cargo','superior_area', 'pos_area', 'experiencia_tempo', 'experiencia_atividade', 'selec_teste'], 'string', 'max' => 45],
             [['cargo_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cargos::className(), 'targetAttribute' => ['cargo_id' => 'idcargo']]
         ];
@@ -100,7 +100,7 @@ class Contratacao extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'Código',
-            'data_solicitacao' => 'Data Solicitacao',
+            'data_solicitacao' => 'Data da Solicitação',
             'hora_solicitacao' => 'Hora Solicitacao',
             'cod_colaborador' => 'Cod. Colaborador',
             'colaborador' => 'Solicitante',
@@ -115,7 +115,8 @@ class Contratacao extends \yii\db\ActiveRecord
             'tempo_periodo' => 'Período em meses',
             'aumento_quadro' => 'Necessidade de aumento do quadro de pessoal:',
             'obs_aumento' => 'Justificativa em caso do aumento do quadro de pessoal:',
-            'data_ingresso' => 'Data prevista do ingresso do futuro contratado(a):',
+            'data_ingresso_prevista' => 'Data prevista do ingresso do futuro contratado(a):',
+            'data_ingresso' => 'Data da Admissão',
             'deficiencia' => 'Poderá ser recrutado e selecionado candidato portador de algum tipo de deficiência:',
             'obs_deficiencia' => 'Observação',
             'fundamental_comp' => 'Completo',

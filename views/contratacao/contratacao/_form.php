@@ -129,7 +129,7 @@ use kartik\depdrop\DepDrop;
     <?= $form->field($model, 'obs_aumento')->textarea(['rows' => 3]) ?>
 
         <?php
-        echo $form->field($model, 'data_ingresso')->widget(DatePicker::classname(), [
+        echo $form->field($model, 'data_ingresso_prevista')->widget(DatePicker::classname(), [
             'options' => ['placeholder' => 'Insira a data ...'],
             'pluginOptions' => [
                 'autoclose'=>true

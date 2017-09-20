@@ -5,6 +5,7 @@ use kartik\grid\GridView;
 use kartik\editable\Editable;
 use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
+use kartik\widgets\DatePicker;
 use app\models\contratacao\SituacaoContratacao;
 use app\models\curriculos\Unidades;
 
@@ -50,14 +51,23 @@ $gridColumns = [
                         'expandOneOnly'=>true
                         ],
 
-                        [
-                        'attribute'=>'id',
-                        ],
+                        'id',
 
                         [
                             'attribute' => 'data_solicitacao',
-                            'format' => ['date', 'php:d/m/Y'],
+                            'format' => ['datetime', 'php:d/m/Y'],
+                            'width' => '190px',
+                            'hAlign' => 'center',
+                            'filter'=> DatePicker::widget([
+                            'model' => $searchModel, 
+                            'attribute' => 'data_solicitacao',
+                            'pluginOptions' => [
+                                 'autoclose'=>true,
+                                 'format' => 'yyyy-mm-dd',
+                                ]
+                            ])
                         ],
+
                         'colaborador',
 
                         [
@@ -88,6 +98,18 @@ $gridColumns = [
                                 'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
                         ],
 
+                        [
+                            'attribute' => 'data_ingresso',
+                            'hAlign' => 'center',
+                            'filter'=> DatePicker::widget([
+                            'model' => $searchModel, 
+                            'attribute' => 'data_ingresso',
+                            'pluginOptions' => [
+                                 'autoclose'=>true,
+                                ]
+                            ])
+                        ],
+
                         ['class' => 'yii\grid\ActionColumn',
                         'template' => ' {observacoes} {view} {update} {delete}',
                         'buttons' => [
@@ -98,9 +120,8 @@ $gridColumns = [
                                 'title' => Yii::t('app', 'Observações'),
                                    ]): '';
                         },
-
-        ],
-      ],
+                ],
+            ],
     ]; ?>
 
     <?php Pjax::begin(); ?>
@@ -117,7 +138,7 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes da Solicitação de Contratação', 'options'=>['colspan'=>6, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes da Solicitação de Contratação', 'options'=>['colspan'=>7, 'class'=>'text-center warning']], 
                 ['content'=>'Área de Ações', 'options'=>['colspan'=>2, 'class'=>'text-center warning']], 
             ],
         ]

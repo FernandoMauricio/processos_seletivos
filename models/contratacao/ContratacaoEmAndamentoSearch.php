@@ -19,7 +19,7 @@ class ContratacaoEmAndamentoSearch extends Contratacao
     {
         return [
             [['id', 'cod_colaborador', 'cod_unidade_solic', 'quant_pessoa', 'substituicao', 'periodo', 'tempo_periodo', 'aumento_quadro', 'deficiencia', 'fundamental_comp', 'fundamental_inc', 'medio_comp', 'medio_inc', 'tecnico_comp', 'tecnico_inc', 'superior_comp', 'superior_inc', 'pos_comp', 'pos_inc', 'windows', 'word', 'excel', 'internet', 'experiencia', 'jornada_horas', 'recrutamento_id', 'selec_curriculo', 'selec_dinamica', 'selec_prova', 'selec_entrevista'], 'integer'],
-            [['data_solicitacao', 'hora_solicitacao', 'colaborador', 'cargo', 'unidade', 'motivo','obs_aumento' ,'nome_substituicao', 'obs_deficiencia', 'data_ingresso', 'tecnico_area', 'superior_area', 'pos_area', 'dominio_atividade', 'experiencia_tempo', 'experiencia_atividade', 'jornada_obs', 'principais_atividades', 'selec_teste', 'situacao_id'], 'safe'],
+            [['data_solicitacao', 'hora_solicitacao', 'colaborador', 'cargo', 'unidade', 'motivo','obs_aumento' ,'nome_substituicao', 'obs_deficiencia', 'data_ingresso_prevista', 'tecnico_area', 'superior_area', 'pos_area', 'dominio_atividade', 'experiencia_tempo', 'experiencia_atividade', 'jornada_obs', 'principais_atividades', 'selec_teste', 'situacao_id'], 'safe'],
         ];
     }
 
@@ -105,7 +105,7 @@ class ContratacaoEmAndamentoSearch extends Contratacao
             ->andFilterWhere(['like', 'obs_aumento', $this->obs_aumento])
             ->andFilterWhere(['like', 'nome_substituicao', $this->nome_substituicao])
             ->andFilterWhere(['like', 'obs_deficiencia', $this->obs_deficiencia])
-            ->andFilterWhere(['like', 'data_ingresso', $this->data_ingresso])
+            ->andFilterWhere(['like', 'data_ingresso_prevista', $this->data_ingresso_prevista])
             ->andFilterWhere(['like', 'tecnico_area', $this->tecnico_area])
             ->andFilterWhere(['like', 'superior_area', $this->superior_area])
             ->andFilterWhere(['like', 'pos_area', $this->pos_area])
