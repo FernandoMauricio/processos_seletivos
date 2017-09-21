@@ -10,6 +10,7 @@ use kartik\builder\Form;
 use kartik\select2\Select2;
 use yii\helpers\Url;
 use kartik\depdrop\DepDrop;
+use yii\bootstrap\Modal;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Contratacao */
@@ -17,6 +18,8 @@ use kartik\depdrop\DepDrop;
 ?>
 
 <div class="contratacao-form">
+
+    <?php $session = Yii::$app->session; ?>
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -34,7 +37,7 @@ use kartik\depdrop\DepDrop;
     </div>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-5">
             <?php
                $data_cargos = ArrayHelper::map($cargos, 'idcargo', 'descricao');
                echo $form->field($model, "cargo_id")->widget(Select2::classname(), [
@@ -45,25 +48,35 @@ use kartik\depdrop\DepDrop;
                                $.getJSON( "'.Url::toRoute('/contratacao/contratacao/get-cargos').'", { cargosId: $(this).val() } )
                                .done(function( data ) {
 
-                                var $divPanelBody =  $(select).parent().parent().parent();
+                                var $divPanelBody =  $(select).parent().parent().parent().parent();
+                                var $divDescricao =  $(select).parent().parent().parent();
 
-                                var $inputCHSemanal = $divPanelBody.find("input:eq(0)");
-                                var $inputSalario   = $divPanelBody.find("input:eq(1)");
-                                var $inputEncargos  = $divPanelBody.find("input:eq(2)");
-                                var $inputTotal     = $divPanelBody.find("input:eq(3)");
+                                var $descricao      = $divDescricao.find("textarea:eq(0)");
+                                var $inputCHSemanal = $divPanelBody.find("input:eq(2)");
+                                var $inputSalario   = $divPanelBody.find("input:eq(3)");
+                                var $inputEncargos  = $divPanelBody.find("input:eq(4)");
+                                var $inputTotal     = $divPanelBody.find("input:eq(5)");
 
+                                $descricao.val(data.descricao_cargo);
                                 $inputCHSemanal.val(data.ch_semana);
                                 $inputSalario.val(data.salario_bruto);
                                 $inputEncargos.val(data.encargos);
                                 $inputTotal.val(data.valor_total);
 
-                               });
+                               }
+                           );
                            '
-                       ]]);
-            ?>
+                       ]]);?>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-7"><?= $form->field($model, 'descricao_cargo')->textarea(['rows' => 6, 'readonly'=>true]) ?></div>
+
+
+        
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
             <?php
                 echo $form->field($model, 'cargo_area')->widget(DepDrop::classname(), [
                         'type'=>DepDrop::TYPE_SELECT2,
@@ -81,15 +94,15 @@ use kartik\depdrop\DepDrop;
             <?= $form->field($model, 'cargo_chsemanal')->textInput(['readonly'=>true]) ?>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-2">
             <?= $form->field($model, 'cargo_salario')->textInput(['readonly'=>true]) ?>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-2">
             <?= $form->field($model, 'cargo_encargos')->textInput(['readonly'=>true]) ?>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-2">
             <?= $form->field($model, 'cargo_valortotal')->textInput(['readonly'=>true]) ?>
         </div>
     </div>

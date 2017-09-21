@@ -46,7 +46,8 @@ class Cargos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descricao', 'ch_semana', 'salario', 'status', 'calculos'], 'required'],
+            [['descricao', 'ch_semana', 'salario', 'status', 'calculos', 'descricao_cargo'], 'required'],
+            [['descricao_cargo'], 'string'],
             [['ch_semana'], 'compare', 'compareValue' => 0, 'operator' => '>', 'message'=>'Valores maiores que 0 e sem vírgulas.'],
             [['ch_semana', 'status'], 'integer'],
             [['areasLabel'], 'safe'],
@@ -62,7 +63,8 @@ class Cargos extends \yii\db\ActiveRecord
     {
         return [
             'idcargo' => 'Cod.',
-            'descricao' => 'Descrição',
+            'descricao' => 'Cargo',
+            'descricao_cargo' => 'Descrição do Cargo',
             'ch_semana' => 'CH Semanal',
             'salario_valorhora' => 'V.H',
             'salario' => 'S. Base',

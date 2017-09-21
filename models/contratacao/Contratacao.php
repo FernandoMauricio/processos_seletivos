@@ -62,6 +62,7 @@ class Contratacao extends \yii\db\ActiveRecord
 {
     public $nomesituacao;
     public $permissions;
+    public $descricao_cargo;
 
     /**
      * @inheritdoc
@@ -77,7 +78,7 @@ class Contratacao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['data_solicitacao', 'hora_solicitacao', 'nomesituacao'], 'safe'],
+            [['data_solicitacao', 'hora_solicitacao', 'nomesituacao', 'descricao_cargo'], 'safe'],
             ['tecnico_area', 'required', 'when' => function($model) { return $model->tecnico_comp == 1; }, 'enableClientValidation' => true],
             ['superior_area', 'required', 'when' => function($model) { return $model->superior_comp == 1; }, 'enableClientValidation' => true],
             ['pos_area', 'required', 'when' => function($model) { return $model->pos_comp == 1; }, 'enableClientValidation' => true],
@@ -158,6 +159,7 @@ class Contratacao extends \yii\db\ActiveRecord
             'cargo_salario' => 'Salário',
             'cargo_encargos' => 'Encargos',
             'cargo_valortotal' => 'Valor Total',
+            'descricao_cargo' => 'Descrição do Cargo',
         ];
     }
 

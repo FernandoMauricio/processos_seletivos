@@ -45,6 +45,10 @@ use kartik\select2\Select2;
         <div class="col-md-6"><?= $form->field($model, 'calculos')->radioList(['1' => 'Sim', '0' => 'Não']) ?></div>
     </div>
 
+    <div class="row">
+        <div class="col-md-12"><?= $form->field($model, 'descricao_cargo')->textarea(['rows' => '6']) ?></div>
+    </div>
+
 </div>
 
     <div class="form-group">
