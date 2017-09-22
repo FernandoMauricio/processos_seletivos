@@ -127,6 +127,4 @@ class EtapasProcesso extends \yii\db\ActiveRecord
     {
         return $this->hasOne(PedidocontratacaoItens::className(), ['etapasprocesso_id' => 'etapa_id']);
     }
-
-
 }

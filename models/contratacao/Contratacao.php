@@ -5,6 +5,7 @@ namespace app\models\contratacao;
 use Yii;
 use app\models\processoseletivo\Cargos;
 use app\models\contratacao\AreasCargo;
+use app\models\pedidos\pedidocusto\PedidocustoItens;
 
 /**
  * This is the model class for table "contratacao".
@@ -217,5 +218,10 @@ class Contratacao extends \yii\db\ActiveRecord
     public function getContratacaoJustificativas()
     {
         return $this->hasMany(ContratacaoJustificativas::className(), ['id_contratacao' => 'id']);
+    }
+
+    public function getPedidocustoItens()
+    {
+        return $this->hasOne(PedidocustoItens::className(), ['contratacao_id' => 'id']);
     }
 }

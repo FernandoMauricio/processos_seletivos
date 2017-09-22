@@ -90,4 +90,9 @@ class EtapasItens extends \yii\db\ActiveRecord
     {
         return $this->hasOne(EtapasProcesso::className(), ['etapa_id' => 'etapasprocesso_id']);
     }
+
+    public function getContratacao()
+    {
+        return $this->hasOne(Contratacao::className(), ['id' => 'contratacao_id']);
+    }
 }

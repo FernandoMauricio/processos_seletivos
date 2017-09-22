@@ -111,15 +111,51 @@ $gridColumns = [
                         ],
 
                         ['class' => 'yii\grid\ActionColumn',
-                        'template' => ' {observacoes} {view} {update} {delete}',
+                        'template' => ' {observacoes} {view} {etapas} {update} {delete}',
+                        'contentOptions' => ['style' => 'width: 15%;'],
                         'buttons' => [
 
-                        //ENVIAR PARA CORREÇÃO E INSERIR JUSTIIFCATIVA
+                        //OBSERVAÇÕES PARA CORREÇÃO DA SOLICITAÇÃO
                         'observacoes' => function ($url, $model) {
-                            return $model->situacao_id == 2 ? Html::a('<span class="glyphicon glyphicon-info-sign" style="color:red"></span>', $url, [
+                            return $model->situacao_id == 2 ? Html::a('<span class="glyphicon glyphicon-info-sign"></span>', $url, [
+                                'class'=>'btn btn-danger btn-xs',
                                 'title' => Yii::t('app', 'Observações'),
                                    ]): '';
                         },
+
+                        //VISUALIZAR CONTRATAÇÃO
+                        'view' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span> ', $url, [
+                                        'class'=>'btn btn-default btn-xs',
+                                        'title' => Yii::t('app', 'Visualizar'),
+                                    ]);
+                        },
+
+                        //ENVIAR PARA CORREÇÃO E INSERIR JUSTIIFCATIVA
+                        'etapas' => function ($url, $model) {
+                            return isset($model->pedidocustoItens->contratacao_id) ? Html::a('<span class="glyphicon glyphicon-list"></span> ', $url, [
+                                        'target'=>'_blank', 
+                                        'data-pjax'=>"0",
+                                        'class'=>'btn btn-info btn-xs',
+                                        'title' => Yii::t('app', 'Listagem de Candidatos aprovados para as Etapas do Processo'),
+                                    ]): '';
+                        },
+
+                        //ATUALIZAR A SOLICITAÇÃO
+                        'update' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-pencil"></span> ', $url, [
+                                        'class'=>'btn btn-primary btn-xs',
+                                        'title' => Yii::t('app', 'Atualizar'),
+                                    ]);
+                        },
+
+                        //DELETAR A SOLICITAÇÃO
+                        'delete' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-trash"></span> ', $url, [
+                                        'class'=>'btn btn-danger btn-xs',
+                                        'title' => Yii::t('app', 'Deletar'),
+                                    ]);
+                        },  
                 ],
             ],
     ]; ?>

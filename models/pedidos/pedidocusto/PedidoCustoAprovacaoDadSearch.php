@@ -66,7 +66,7 @@ class PedidoCustoAprovacaoDadSearch extends PedidoCusto
             'custo_data' => $this->custo_data,
             'custo_dataaprovacaoggp' => $this->custo_dataaprovacaoggp,
             'custo_dataaprovacaodad' => $this->custo_dataaprovacaodad,
-            'custo_situacaoggp' => 2, //Aprovado Pelo GGP
+            'custo_situacaoggp' => 4, //Aprovado Pelo GGP
             'custo_situacaodad' => 1, // Aguardando Aprovação
         ]);
 

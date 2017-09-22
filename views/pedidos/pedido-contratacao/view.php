@@ -76,7 +76,7 @@ use yii\widgets\DetailView;
                   <td><?= $modelItens->itemcontratacao_cargo; ?></td>
                   <td><?= $modelItens->itemcontratacao_area; ?></td>
                   <td><?= $modelItens->itemcontratacao_nome; ?></td>
-                  <td><?= $modelItens->etapasprocesso_id . '/'.date('Y', strtotime($model->pedcontratacao_data)); ?></td>
+                  <td><?= $modelItens->etapasProcesso->pedidocusto_id . '/'.date('Y', strtotime($model->pedcontratacao_data)); ?></td>
                   <td><?= $modelItens->itemcontratacao_tipocontrato; ?></td>
                   <td><?= $modelItens->itemcontratacao_chsemanal; ?></td>
                   <td style="width: 100px;"><?= 'R$ ' . number_format($modelItens->itemcontratacao_total, 2, ',', '.'); ?></td>
