@@ -59,7 +59,7 @@ class EtapasProcesso extends \yii\db\ActiveRecord
     public function scenarios()
     {
         $scenarios = parent::scenarios();
-        $scenarios['update'] = ['etapa_selecionadores','etapa_local', 'etapa_cidade', 'etapa_estado', 'etapa_situacao'];//Scenario Values Only Accepted
+        $scenarios['update'] = ['etapa_selecionadores','etapa_local', 'etapa_cidade', 'etapa_estado', 'etapa_situacao', 'etapa_observacao', 'pedidocusto_id', 'etapa_cargo', 'etapa_atualizadopor', 'etapa_datarealizacao', 'etapa_dataatualizacao'];//Scenario Values Only Accepted
         return $scenarios;
     }
 
@@ -82,7 +82,7 @@ class EtapasProcesso extends \yii\db\ActiveRecord
             'etapa_atualizadopor' => 'Atualizado Por',
             'etapa_dataatualizacao' => 'Data Atualização',
             'etapa_situacao' => 'Situação',
-            'etapa_observacao' => 'Observação',
+            'etapa_observacao' => 'Cronograma das Etapas',
             'etapa_perfil' => 'Perfil das Etapas',
             'processoSeletivo' => 'Documento de Abertura',
         ];

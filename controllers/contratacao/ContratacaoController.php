@@ -250,7 +250,8 @@ class ContratacaoController extends Controller
     
         $model = $this->findModel($id);
 
-        $sistemas = Sistemas::find()->where(['status' => 1])->all();
+       $cargos = Cargos::find()->where(['status' => 1])->orderBy('descricao')->all();
+       $sistemas = Sistemas::find()->where(['status' => 1])->all();
 
         //Retrieve the stored checkboxes
         $model->permissions = \yii\helpers\ArrayHelper::getColumn(
@@ -310,6 +311,7 @@ class ContratacaoController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'cargos' => $cargos,
                 'sistemas' => $sistemas,
             ]);
         }

@@ -78,7 +78,7 @@ use kartik\select2\Select2;
             </div>
 
             <div class="row">
-                <div class="col-md-12"><?= $form->field($model, 'etapa_observacao')->textarea(['maxlength' => true, 'rows' => 2]) ?></div>
+                <div class="col-md-12"><?= $form->field($model, 'etapa_observacao')->textarea(['maxlength' => true, 'rows' => 3]) ?></div>
             </div>
 
         </div>

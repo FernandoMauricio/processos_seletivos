@@ -154,6 +154,10 @@ $gridColumns = [
                             return Html::a('<span class="glyphicon glyphicon-trash"></span> ', $url, [
                                         'class'=>'btn btn-danger btn-xs',
                                         'title' => Yii::t('app', 'Deletar'),
+                                        'data' =>  [
+                                                        'confirm' => 'Você tem CERTEZA que deseja EXCLUIR esse item?',
+                                                        'method' => 'post',
+                                                   ],
                                     ]);
                         },  
                 ],

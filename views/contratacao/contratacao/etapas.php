@@ -51,6 +51,9 @@ use yii\widgets\DetailView;
                     
                   <th scope="row">Situação:</th> <td colspan="2"><?= $model['etapa_situacao'] ?></td>
             </tr>
+            <tr>
+                  <th scope="row">Cronograma das Etapas:</th> <td colspan="9"><textarea name="textarea" rows="3" cols="130" readonly><?= $model['etapa_observacao'] ?></textarea></td>
+            </tr>
 
             </tbody>
           </table>
@@ -70,7 +73,7 @@ use yii\widgets\DetailView;
                 <?php echo $model['etapa_perfil'] == 1 ? '<th>Prática</th>' : ''; ?>
                 <th>Pontuação Total</th>
                 <th>Classificação</th>
-                <th>Local Contratação</th>
+                <th>Destino</th>
               </tr>
             </thead>
             <tbody>

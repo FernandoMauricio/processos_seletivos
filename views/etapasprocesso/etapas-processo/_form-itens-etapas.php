@@ -15,7 +15,7 @@ use kartik\select2\Select2;
                             <?php echo $model->etapa_perfil == 1 ? '<th>Prática</th>' : ''; ?>
                             <th>Pontuação Total</th>
                             <th>Classificação</th>
-                            <th>Local Contratação</th>
+                            <th>Destino</th>
                         </tr> 
                     </thead>
                     <tbody> 
@@ -65,7 +65,7 @@ use kartik\select2\Select2;
                             <td>
                             <?php 
                                 echo $form->field($etapa, "[{$i}]itens_localcontratacao")->widget(Select2::classname(), [
-                                    'options' => ['placeholder' => 'Local de Contratação...'],
+                                    'options' => ['placeholder' => 'Destino...'],
                                     'pluginOptions' => [
                                             'allowClear' => true
                                         ],

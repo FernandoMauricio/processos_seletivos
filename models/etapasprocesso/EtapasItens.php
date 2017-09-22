@@ -69,7 +69,7 @@ class EtapasItens extends \yii\db\ActiveRecord
             'itens_pontuacaototal' => 'Pontuação Total',
             'itens_classificacao' => 'Classificação',
             'itens_confirmacaocontato' => 'Contato Confirmado?',
-            'itens_localcontratacao' => 'Local Contratação',
+            'itens_localcontratacao' => 'Destino',
             'numeroInscricao' => 'Número de Inscrição',
             'numeroEdital' => 'Documento de Abertura',
         ];
