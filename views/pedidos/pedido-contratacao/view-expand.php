@@ -43,13 +43,12 @@ use yii\widgets\DetailView;
                 <th>Cargo</th>
                 <th>Área</th>
                 <th>Nome</th>
-                <th>Carta</th>
                 <th>Nº da Autorização de Custo</th>
                 <th>Tipo Contrato</th>
                 <th>CH. Semanal</th>
                 <th>Remuneração com Encargos</th>
                 <th>Justificativa</th>
-                <th>Data Prevista Início</th>
+                <th>Data Admissão</th>
               </tr>
             </thead>
             <tbody>
@@ -64,7 +63,6 @@ use yii\widgets\DetailView;
                   <td><?= $modelItens->itemcontratacao_cargo; ?></td>
                   <td><?= $modelItens->itemcontratacao_area; ?></td>
                   <td><?= $modelItens->itemcontratacao_nome; ?></td>
-                  <td><?= $modelItens->itemcontratacao_carta; ?></td>
                   <td><?= $modelItens->etapasprocesso_id . '/'.date('Y', strtotime($model->pedcontratacao_data)); ?></td>
                   <td><?= $modelItens->itemcontratacao_tipocontrato; ?></td>
                   <td><?= $modelItens->itemcontratacao_chsemanal; ?></td>
@@ -79,7 +77,7 @@ use yii\widgets\DetailView;
             </tbody>
             <tfoot>
               <tr class="warning kv-edit-hidden" style="border-top: #dedede">
-                 <th colspan="9">TOTAL </th>
+                 <th colspan="8">TOTAL </th>
                  <td colspan="3" style="color:red"><?= 'R$ ' . number_format($totalsgeral, 2, ',', '.'); ?></td>
               </tr>
             </tfoot>

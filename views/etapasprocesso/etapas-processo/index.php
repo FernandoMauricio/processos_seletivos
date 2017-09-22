@@ -63,6 +63,7 @@ $gridColumns = [
              ],
 
             'etapa_id',
+            'pedidocusto_id',
             [
                 'attribute' => 'processo_id',
                 'value' => 'processo.numeroEdital',
@@ -146,7 +147,7 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes das Etapas do Processo', 'options'=>['colspan'=>6, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes das Etapas do Processo', 'options'=>['colspan'=>7, 'class'=>'text-center warning']], 
                 ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]

@@ -240,11 +240,11 @@ class PedidoContratacaoController extends Controller
                                 return $this->redirect(['update', 'id' => $model->pedcontratacao_id]);
                                 }
                             //Verifica se existe já a contratação inserida anterioemente em algum pedido de Contratação
-                            if(PedidocontratacaoItens::find()->where(['contratacao_id' => $_POST['PedidocontratacaoItens'][$i]['contratacao_id']])->count() >= 2) {
-                                Yii::$app->session->setFlash('danger', '<b>ERRO! </b>Solicitação <b>'.$_POST['PedidocontratacaoItens'][$i]['contratacao_id'].'</b> já inserida no Pedido de Contratação!</b>');
-                                return $this->redirect(['update', 'id' => $model->pedcontratacao_id]);
-                                }
-                                 $model->save();
+                            // if(PedidocontratacaoItens::find()->where(['contratacao_id' => $_POST['PedidocontratacaoItens'][$i]['contratacao_id']])->count() >= 2) {
+                            //     Yii::$app->session->setFlash('danger', '<b>ERRO! </b>Solicitação <b>'.$_POST['PedidocontratacaoItens'][$i]['contratacao_id'].'</b> já inserida no Pedido de Contratação!</b>');
+                            //     return $this->redirect(['update', 'id' => $model->pedcontratacao_id]);
+                            //     }
+                                $model->save();
                             }
                         $transaction->commit();
                             
@@ -328,11 +328,11 @@ class PedidoContratacaoController extends Controller
                                 return $this->redirect(['update', 'id' => $model->pedcontratacao_id]);
                                 }
                             //Verifica se existe já a contratação inserida anterioemente em algum pedido de Contratação
-                            if(PedidocontratacaoItens::find()->where(['contratacao_id' => $_POST['PedidocontratacaoItens'][$i]['contratacao_id']])->count() >= 2) {
-                                Yii::$app->session->setFlash('danger', '<b>ERRO! </b>Solicitação <b>'.$_POST['PedidocontratacaoItens'][$i]['contratacao_id'].'</b> já inserida no Pedido de Contratação!</b>');
-                                return $this->redirect(['update', 'id' => $model->pedcontratacao_id]);
-                                }
-                                 $model->save();
+                            // if(PedidocontratacaoItens::find()->where(['contratacao_id' => $_POST['PedidocontratacaoItens'][$i]['contratacao_id']])->count() >= 2) {
+                            //     Yii::$app->session->setFlash('danger', '<b>ERRO! </b>Solicitação <b>'.$_POST['PedidocontratacaoItens'][$i]['contratacao_id'].'</b> já inserida no Pedido de Contratação!</b>');
+                            //     return $this->redirect(['update', 'id' => $model->pedcontratacao_id]);
+                            //     }
+                                $model->save();
                             }
                         $transaction->commit();
 

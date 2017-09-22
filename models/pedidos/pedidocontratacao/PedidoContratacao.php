@@ -29,6 +29,7 @@ use app\models\pedidos\pedidocusto\PedidocustoSituacao;
  */
 class PedidoContratacao extends \yii\db\ActiveRecord
 {
+    public $pedidocusto_id;
     /**
      * @inheritdoc
      */
@@ -46,7 +47,7 @@ class PedidoContratacao extends \yii\db\ActiveRecord
             [['pedcontratacao_assunto', 'pedcontratacao_recursos', 'pedcontratacao_valortotal', 'pedcontratacao_situacaoggp', 'pedcontratacao_situacaodad'], 'required'],
             [['pedcontratacao_valortotal'], 'number'],
             [['pedcontratacao_data', 'pedcontratacao_dataaprovacaoggp', 'pedcontratacao_dataaprovacaodad'], 'safe'],
-            [['pedcontratacao_situacaoggp', 'pedcontratacao_situacaodad'], 'integer'],
+            [['pedcontratacao_situacaoggp', 'pedcontratacao_situacaodad', 'pedidocusto_id'], 'integer'],
             [['pedcontratacao_assunto'], 'string', 'max' => 255],
             [['pedcontratacao_recursos'], 'string', 'max' => 100],
             [['pedcontratacao_aprovadorggp', 'pedcontratacao_aprovadordad', 'pedcontratacao_responsavel'], 'string', 'max' => 45],
@@ -61,7 +62,7 @@ class PedidoContratacao extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pedcontratacao_id' => 'ID',
+            'pedcontratacao_id' => 'Cód.',
             'pedcontratacao_assunto' => 'Unidade',
             'pedcontratacao_recursos' => 'Recursos',
             'pedcontratacao_valortotal' => 'Valor Total',
@@ -73,6 +74,7 @@ class PedidoContratacao extends \yii\db\ActiveRecord
             'pedcontratacao_situacaodad' => 'Situação DAD',
             'pedcontratacao_dataaprovacaodad' => 'Dataaprovacaodad',
             'pedcontratacao_responsavel' => 'Responsavel',
+            'pedidocusto_id' => 'Pedido de Custo',
         ];
     }
 
@@ -127,4 +129,10 @@ class PedidoContratacao extends \yii\db\ActiveRecord
     {
         return $this->hasMany(PedidocontratacaoItens::className(), ['pedidocontratacao_id' => 'pedcontratacao_id']);
     }
+
+    public function getPedidoCusto()
+    {
+        return $this->hasOne(PedidocontratacaoItens::className(), ['pedidocontratacao_id' => 'pedcontratacao_id']);
+    }
+
 }

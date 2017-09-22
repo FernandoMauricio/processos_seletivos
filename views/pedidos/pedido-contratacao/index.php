@@ -49,6 +49,12 @@ $gridColumns = [
              ],
 
             'pedcontratacao_id',
+            [
+                'attribute' => 'pedidocusto_id',
+                'value'=>function ($model, $key, $index, $widget) { 
+                    return $model->pedidoCusto->etapasProcesso->pedidocusto_id;
+                },
+            ],
             'pedcontratacao_assunto',
             'pedcontratacao_recursos',
             [

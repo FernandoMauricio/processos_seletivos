@@ -4,6 +4,7 @@ namespace app\controllers\pedidos;
 
 use Yii;
 use app\models\contratacao\Contratacao;
+use app\models\etapasprocesso\EtapasProcesso;
 use app\models\pedidos\pedidocusto\PedidoCusto;
 use app\models\pedidos\pedidocusto\PedidocustoItens;
 use app\models\pedidos\pedidocusto\PedidoCustoSearch;
@@ -90,7 +91,7 @@ class PedidoCustoController extends Controller
         "UPDATE `db_processos`.`pedido_custo` SET `custo_aprovadorggp` = '".$session['sess_nomeusuario']."', `custo_situacaoggp` = '4', `custo_dataaprovacaoggp` = ".date('"Y-m-d"')." WHERE `custo_id` = '".$model->custo_id."'");
         $command->execute();
         
-        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Custo <strong> '.$model->custo_id.' </strong> foi Aprovado!</strong>');
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Custo <b> '.$model->custo_id.' </b> foi Aprovado!</b>');
 
         return $this->redirect(['ggp-index']);
     }
@@ -106,7 +107,7 @@ class PedidoCustoController extends Controller
         "UPDATE `db_processos`.`pedido_custo` SET `custo_aprovadordad` = '".$session['sess_nomeusuario']."', `custo_situacaodad` = '4', `custo_dataaprovacaodad` = ".date('"Y-m-d"')." WHERE `custo_id` = '".$model->custo_id."'");
         $command->execute();
         
-        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Custo <strong> '.$model->custo_id.' </strong> foi Aprovado!</strong>');
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Custo <b> '.$model->custo_id.' </b> foi Aprovado!</b>');
 
         return $this->redirect(['dad-index']);
     }
@@ -123,7 +124,7 @@ class PedidoCustoController extends Controller
         "UPDATE `db_processos`.`pedido_custo` SET `custo_aprovadorggp` = '".$session['sess_nomeusuario']."', `custo_situacaoggp` = '3', `custo_dataaprovacaoggp` = ".date('"Y-m-d"')." WHERE `custo_id` = '".$model->custo_id."'");
         $command->execute();
         
-        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Custo <strong> '.$model->custo_id.' </strong> foi Reprovado!</strong>');
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Custo <b> '.$model->custo_id.' </b> foi Reprovado!</b>');
 
         return $this->redirect(['ggp-index']);
     }
@@ -139,7 +140,7 @@ class PedidoCustoController extends Controller
         "UPDATE `db_processos`.`pedido_custo` SET `custo_aprovadordad` = '".$session['sess_nomeusuario']."', `custo_situacaodad` = '3', `custo_dataaprovacaodad` = ".date('"Y-m-d"')." WHERE `custo_id` = '".$model->custo_id."'");
         $command->execute();
         
-        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Custo <strong> '.$model->custo_id.' </strong> foi Reprovado!</strong>');
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Custo <b> '.$model->custo_id.' </b> foi Reprovado!</b>');
 
         return $this->redirect(['ggp-index']);
     }
@@ -242,7 +243,7 @@ class PedidoCustoController extends Controller
                     $model->save();
                     $transaction->commit();
                             
-                        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Custo Cadastrado!</strong>');
+                        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Custo Cadastrado!</b>');
                        return $this->redirect(['index']);
                     }
                 }
@@ -251,7 +252,7 @@ class PedidoCustoController extends Controller
                 }
             }
 
-            Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Custo Cadastrado!</strong>');
+            Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Custo Cadastrado!</b>');
 
             return $this->redirect(['index']);
         } else {
@@ -282,6 +283,12 @@ class PedidoCustoController extends Controller
 
         //1 => Em elaboração / 2 => Em correção pelo setor
         $contratacoes = Contratacao::find()->where(['!=','situacao_id', 1])->andWhere(['!=','situacao_id', 2])->orderBy('id')->all();
+
+        //Verifica se já existe alguma etapa de processo criada
+        if(isset($model->etapasProcesso->pedidocusto_id)) {
+            Yii::$app->session->setFlash('danger', '<b>ERRO! </b> Não é possível <b>EDITAR</b> pois já existem <b>Etapas do Processo</b> criadas para esse Pedido de Custo.');
+            return $this->redirect(['index']);
+        }
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -322,7 +329,7 @@ class PedidoCustoController extends Controller
                         $model->save();
                         $transaction->commit();
                             
-                        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Custo Atualizado!</strong>');
+                        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Custo Atualizado!</b>');
                        return $this->redirect(['index']);
                     }
                 }catch (Exception $e) {
@@ -330,7 +337,7 @@ class PedidoCustoController extends Controller
                 }
             }
 
-            Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Custo Atualizado!</strong>');
+            Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Custo Atualizado!</b>');
 
             return $this->redirect(['index']);
         } else {
@@ -351,12 +358,17 @@ class PedidoCustoController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        PedidocustoItens::deleteAll('pedidocusto_id = "'.$id.'"');
-        $model->delete(); //Exclui a etapa do processo
 
-        Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Pedido de Custo excluido!</strong>');
-
-        return $this->redirect(['index']);
+        //Verifica se já existe alguma etapa de processo criada
+        if(isset($model->etapasProcesso->pedidocusto_id)) {
+            Yii::$app->session->setFlash('danger', '<b>ERRO! </b> Não é possível <b>EXCLUIR</b> pois já existem <b>Etapas do Processo</b> criadas para esse Pedido de Custo.');
+            return $this->redirect(['index']);
+        }else{
+            PedidocustoItens::deleteAll('pedidocusto_id = "'.$id.'"');
+            $model->delete(); //Exclui o pedido de custo
+            Yii::$app->session->setFlash('success', '<b>SUCESSO! </b> Pedido de Custo excluido!</b>');
+            return $this->redirect(['index']);
+        }
     }
 
     /**

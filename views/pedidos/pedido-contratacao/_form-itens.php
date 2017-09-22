@@ -75,11 +75,11 @@ use kartik\depdrop\DepDrop;
                                           var $inputUnidade        = $divPanelBody.find("input:eq(0)");
                                           var $inputCargo          = $divPanelBody.find("input:eq(1)");
                                           var $inputArea           = $divPanelBody.find("input:eq(2)");
-                                          var $inputPeriodo        = $divPanelBody.find("input:eq(4)");
-                                          var $inputCHSemana       = $divPanelBody.find("input:eq(5)");
-                                          var $inputTotal          = $divPanelBody.find("input:eq(6)");
-                                          var $inputJustificativa  = $divPanelBody.find("input:eq(7)");
-                                          var $inputDataIngresso   = $divPanelBody.find("input:eq(8)");
+                                          var $inputPeriodo        = $divPanelBody.find("input:eq(3)");
+                                          var $inputCHSemana       = $divPanelBody.find("input:eq(4)");
+                                          var $inputTotal          = $divPanelBody.find("input:eq(5)");
+                                          var $inputJustificativa  = $divPanelBody.find("input:eq(6)");
+                                          var $inputDataIngresso   = $divPanelBody.find("input:eq(7)");
 
                                           $inputUnidade.val(data.unidade);
                                           $inputCargo.val(data.cargo_descricao);
@@ -140,8 +140,6 @@ use kartik\depdrop\DepDrop;
                   ?>
               </div>
                  
-              <div class="col-sm-5"><?= $form->field($modelItens, "[{$i}]itemcontratacao_carta")->textInput(['maxlength' => true]) ?></div>
-
               <div class="col-sm-2"><?= $form->field($modelItens, "[{$i}]itemcontratacao_tipocontrato")->textInput(['readonly'=> true]) ?></div>
 
               <div class="col-sm-2"><?= $form->field($modelItens, "[{$i}]itemcontratacao_chsemanal")->textInput(['readonly'=> true]) ?></div>

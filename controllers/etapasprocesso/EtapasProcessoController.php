@@ -178,6 +178,12 @@ class EtapasProcessoController extends Controller
         //Mostrará os Selecionadores das etapas do processo
         $model->etapa_selecionadores = explode(", ",$model->etapa_selecionadores);
 
+        //Verifica se já existe algum Pedido de Contratação criado para essa Etapa de Processo
+        if(isset($model->pedidoContratacao->etapasprocesso_id)) {
+            Yii::$app->session->setFlash('danger', '<b>ERRO! </b> Não é possível <b>EDITAR</b> pois já existe <b>Pedido de Contratação</b> criado.');
+            return $this->redirect(['index']);
+        }
+
         if ($model->load(Yii::$app->request->post())) {
 
             $model->etapa_atualizadopor = $session['sess_nomeusuario'];
@@ -220,12 +226,16 @@ class EtapasProcessoController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
+        //Verifica se já existe algum Pedido de Contratação criado para essa Etapa de Processo
+        if(isset($model->pedidoContratacao->etapasprocesso_id)) {
+            Yii::$app->session->setFlash('danger', '<b>ERRO! </b> Não é possível <b>EXCLUIR</b> pois já existe <b>Pedido de Contratação</b> criado.');
+            return $this->redirect(['index']);
+        }else{
         EtapasItens::deleteAll('etapasprocesso_id = "'.$id.'"');
         $model->delete(); //Exclui a etapa do processo
-
         Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Etapa do Processo excluido!</strong>');
-
         return $this->redirect(['index']);
+        }
     }
 
     /**

@@ -4,6 +4,8 @@ namespace app\models\pedidos\pedidocusto;
 
 use Yii;
 
+use app\models\etapasprocesso\EtapasProcesso;
+
 /**
  * This is the model class for table "pedido_custo".
  *
@@ -71,6 +73,14 @@ class PedidoCusto extends \yii\db\ActiveRecord
             'custo_dataaprovacaodad' => 'Custo Dataaprovacaodad',
             'custo_responsavel' => 'Responsável',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEtapasProcesso()
+    {
+        return $this->hasOne(EtapasProcesso::className(), ['pedidocusto_id' => 'custo_id']);
     }
 
     /**

@@ -58,6 +58,22 @@ class CargosController extends Controller
         ]);
     }
 
+    public function actionHomologar($id)
+    {
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
+
+        //HOMOLOGA O CARGO (Acesso somente para o Gerente do GGP)
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`cargos` SET `homologacao` = '".$session['sess_nomeusuario']."', `data_homologacao` = ".date('"Y-m-d"')." WHERE `idcargo` = '".$model->idcargo."'");
+        $command->execute();
+        
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Cargo <b> '.$model->descricao.'</b> foi HOMOLOGADO!</b>');
+
+        return $this->redirect(['index']);
+    }
+
     /**
      * Creates a new Cargos model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -100,7 +116,7 @@ class CargosController extends Controller
             $model->save();
         }
 
-            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong>O Cargo foi cadastrado!</strong>');
+            Yii::$app->session->setFlash('success', '<b>SUCESSO! </b>O Cargo foi cadastrado!</b>');
             
             return $this->redirect(['index']);
         } else {
@@ -148,6 +164,8 @@ class CargosController extends Controller
             $model->salario_bruto         = $model->salario + $model->salario_1sexto + $model->salario_produtividade + $model->salario_6horasfixas + $model->salario_1sextofixas;
             $model->encargos              = ($model->salario_bruto * 32.7) / 100;
             $model->valor_total           = $model->salario + $model->encargos;
+            $model->homologacao           = null;
+            $model->data_homologacao      = null;
             $model->save();
         }else{
             $model->salario_valorhora     = 0;
@@ -158,9 +176,11 @@ class CargosController extends Controller
             $model->salario_bruto         = $model->salario + $model->salario_1sexto + $model->salario_produtividade + $model->salario_6horasfixas + $model->salario_1sextofixas;
             $model->encargos              = ($model->salario_bruto * 32.7) / 100;
             $model->valor_total           = $model->salario + $model->encargos;
+            $model->homologacao           = null;
+            $model->data_homologacao      = null;
             $model->save();
         }
-            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong>O Cargo foi atualizado!</strong>');
+            Yii::$app->session->setFlash('success', '<b>SUCESSO! </b>O Cargo foi atualizado!</b>');
 
             return $this->redirect(['index']);
         } else {

@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 $this->title = 'Atualizar Etapas do Processo: ' . $model->etapa_id;
 $this->params['breadcrumbs'][] = ['label' => 'Listagem de Etapas do Processo', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->etapa_id, 'url' => ['view', 'id' => $model->etapa_id]];
+$this->params['breadcrumbs'][] = ['label' => $model->etapa_id];
 $this->params['breadcrumbs'][] = 'Atualizar';
 ?>
 <div class="etapas-processo-update">

@@ -16,7 +16,6 @@ use app\models\etapasprocesso\EtapasProcesso;
  * @property integer $pedidocusto_itens_id
  * @property string $itemcontratacao_unidade
  * @property string $itemcontratacao_nome
- * @property string $itemcontratacao_carta
  * @property string $itemcontratacao_tipocontrato
  * @property double $itemcontratacao_chsemanal
  * @property double $itemcontratacao_total
@@ -46,7 +45,7 @@ class PedidocontratacaoItens extends \yii\db\ActiveRecord
             [['itemcontratacao_unidade', 'itemcontratacao_cargo', 'itemcontratacao_area', 'itemcontratacao_nome', 'itemcontratacao_tipocontrato', 'itemcontratacao_chsemanal', 'itemcontratacao_total', 'itemcontratacao_justificativa'], 'required'],
             [['pedidocontratacao_id', 'contratacao_id', 'etapasprocesso_id'], 'integer'],
             [['itemcontratacao_chsemanal', 'itemcontratacao_total'], 'number'],
-            [['itemcontratacao_unidade', 'itemcontratacao_cargo', 'itemcontratacao_carta', 'itemcontratacao_area', 'itemcontratacao_tipocontrato', 'itemcontratacao_dataingresso'], 'string', 'max' => 45],
+            [['itemcontratacao_unidade', 'itemcontratacao_cargo', 'itemcontratacao_area', 'itemcontratacao_tipocontrato', 'itemcontratacao_dataingresso'], 'string', 'max' => 45],
             [['itemcontratacao_nome', 'itemcontratacao_justificativa'], 'string', 'max' => 255],
             [['contratacao_id'], 'exist', 'skipOnError' => true, 'targetClass' => Contratacao::className(), 'targetAttribute' => ['contratacao_id' => 'id']],
             [['pedidocontratacao_id'], 'exist', 'skipOnError' => true, 'targetClass' => PedidoContratacao::className(), 'targetAttribute' => ['pedidocontratacao_id' => 'pedcontratacao_id']],
@@ -68,12 +67,11 @@ class PedidocontratacaoItens extends \yii\db\ActiveRecord
             'itemcontratacao_cargo' => 'Cargo',
             'itemcontratacao_area' => 'Nível',
             'itemcontratacao_nome' => 'Nome',
-            'itemcontratacao_carta' => 'Carta',
             'itemcontratacao_tipocontrato' => 'Tipo Contrato',
             'itemcontratacao_chsemanal' =>'CH Semanal',
             'itemcontratacao_total' => 'Remuneração com Encargos',
             'itemcontratacao_justificativa' => 'Justificativa',
-            'itemcontratacao_dataingresso' => 'Data Prevista Início',
+            'itemcontratacao_dataingresso' => 'Data Admissão',
         ];
     }
 

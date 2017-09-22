@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use kartik\grid\GridView;
 use kartik\editable\Editable;
 use yii\widgets\Pjax;
+use kartik\widgets\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\processoseletivo\CargosSearch */
@@ -27,7 +28,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Criar Cargo', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Novo Cargo', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
 <?php
@@ -82,15 +83,61 @@ $gridColumns = [
                 'format' => 'Currency',
                 'attribute' => 'valor_total',
             ],
+            'descricao_cargo:ntext',
+            'homologacao',
             [
+                'attribute' => 'data_homologacao',
+                'format' => ['datetime', 'php:d/m/Y'],
+                'width' => '190px',
+                'hAlign' => 'center',
+                'filter'=> DatePicker::widget([
+                'model' => $searchModel, 
+                'attribute' => 'data_homologacao',
+                'pluginOptions' => [
+                     'autoclose'=>true,
+                     'format' => 'yyyy-mm-dd',
+                    ]
+                ])
+            ],
+            [
+            
                 'class'=>'kartik\grid\BooleanColumn',
                 'attribute'=>'status', 
                 'vAlign'=>'middle'
             ], 
                         
-            ['class' => 'yii\grid\ActionColumn','template' => '{update}'],
-    ]; 
-?>
+            ['class' => 'yii\grid\ActionColumn',
+                        'template' => '{update} {homologar}',
+                        'contentOptions' => ['style' => 'width: 7%;'],
+                        'buttons' => [
+
+                        //VISUALIZAR/IMPRIMIR
+                        'update' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-pencil"></span> ', $url, [
+                                        'class'=>'btn btn-default btn-xs',
+                                        'title' => Yii::t('app', 'Atualizar'),
+                       
+                            ]);
+                        },
+
+                        //HOMOLOGAR - Acesso somente para o Gerente do GGP 7 - ggp / 1 - responsavel setor
+                        'homologar' => function ($url, $model) {
+                            $session = Yii::$app->session;
+                           return  $session['sess_codunidade'] == 7 && $session['sess_responsavelsetor'] == 0  ?  Html::a('<span class="glyphicon glyphicon-ok"></span>', $url, [
+                                         'class'=>'btn btn-success btn-xs',
+                                         'title' => Yii::t('app', 'Homologar Cargo'),
+                                         'data' =>  [
+                                                         'confirm' => 'Você tem CERTEZA que deseja <b>HOMOLOGAR</b> esse item?',
+                                                         'method' => 'post',
+                                                    ],
+                                        ])
+                                     : 
+                                    '';
+                                },
+
+                        ],
+                ],
+        ]; ?>
 
 <?php Pjax::begin(); ?>
 
@@ -107,7 +154,7 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes de Cargos Cadastrados', 'options'=>['colspan'=>14, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes de Cargos Cadastrados', 'options'=>['colspan'=>17, 'class'=>'text-center warning']], 
                 ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]

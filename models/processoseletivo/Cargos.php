@@ -50,9 +50,10 @@ class Cargos extends \yii\db\ActiveRecord
             [['descricao_cargo'], 'string'],
             [['ch_semana'], 'compare', 'compareValue' => 0, 'operator' => '>', 'message'=>'Valores maiores que 0 e sem vírgulas.'],
             [['ch_semana', 'status'], 'integer'],
-            [['areasLabel'], 'safe'],
+            [['areasLabel', 'data_homologacao'], 'safe'],
             [['salario_valorhora', 'salario', 'salario_1sexto', 'salario_produtividade', 'salario_6horasfixas', 'salario_1sextofixas', 'salario_bruto', 'encargos', 'valor_total'], 'number'],
-            [['descricao'], 'string', 'max' => 100],
+            [['descricao', 'homologacao'], 'string', 'max' => 100],
+
         ];
     }
 
@@ -78,6 +79,8 @@ class Cargos extends \yii\db\ActiveRecord
             'status' => 'Status',
             'calculos' => 'Realizar cálculos para Docentes?',
             'areasLabel' => 'Níveis', 
+            'homologacao' => 'Homologado',
+            'data_homologacao' => 'Dt Homologação',
         ];
     }
 
