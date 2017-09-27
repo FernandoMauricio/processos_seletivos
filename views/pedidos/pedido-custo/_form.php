@@ -22,7 +22,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
 <div class="panel panel-primary">
 <div class="panel-heading">
-  <h3 class="panel-title"><span class="glyphicon glyphicon-book"></span>  Cadatrar Pedido de Custo</h3>
+  <h3 class="panel-title"><span class="glyphicon glyphicon-book"></span>  Cadastrar Pedido de Custo</h3>
 </div>
 
 <div class="panel-body">

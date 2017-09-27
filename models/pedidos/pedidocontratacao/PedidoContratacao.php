@@ -84,22 +84,14 @@ class PedidoContratacao extends \yii\db\ActiveRecord
         $sql = 'SELECT DISTINCT
                    `curriculos`.`nome` AS id,
                    concat(UPPER(`curriculos`.`nome`), " - ", `etapas_itens`.`itens_classificacao`) AS name
-                FROM 
-                    `curriculos`
-                INNER JOIN 
-                    `etapas_itens` ON  `etapas_itens`.`curriculos_id` = `curriculos`.`id`
-                INNER JOIN 
-                    `etapas_processo` ON `etapas_processo`.`etapa_id` = `etapas_itens`.`etapasprocesso_id`
-                INNER JOIN 
-                    `pedidocusto_itens` ON `pedidocusto_itens`.`pedidocusto_id` = `etapas_processo`.`pedidocusto_id`
-                WHERE
-                    `etapas_itens`.`itens_classificacao` NOT LIKE "%Desclassificado(a)%"
-                AND
-                    `etapas_itens`.`itens_classificacao` NOT LIKE ""
-                AND
-                    `etapas_processo`.`etapa_id` = '.$cat_id.'
-                ORDER BY 
-                    `etapas_itens`.`itens_pontuacaototal` DESC' ;
+                FROM `curriculos`
+                INNER JOIN `etapas_itens` ON  `etapas_itens`.`curriculos_id` = `curriculos`.`id`
+                INNER JOIN `etapas_processo` ON `etapas_processo`.`etapa_id` = `etapas_itens`.`etapasprocesso_id`
+                INNER JOIN `pedidocusto_itens` ON `pedidocusto_itens`.`pedidocusto_id` = `etapas_processo`.`pedidocusto_id`
+                WHERE `etapas_itens`.`itens_classificacao` NOT LIKE "%Desclassificado(a)%"
+                AND `etapas_itens`.`itens_classificacao` NOT LIKE ""
+                AND `etapas_processo`.`etapa_id` = '.$cat_id.'
+                ORDER BY `etapas_itens`.`itens_pontuacaototal` DESC' ;
 
         $data = \app\models\curriculos\Curriculos::findBySql($sql)->asArray()->all();
 

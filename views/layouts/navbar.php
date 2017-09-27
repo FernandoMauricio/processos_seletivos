@@ -51,6 +51,7 @@ if($session['sess_codunidade'] == 7 && $session['sess_coddepartamento'] == 82 &&
             ['label' => 'Pedidos', 'items' => [
                 '<li class="dropdown-header">Administração dos Pedidos</li>',
                 ['label' => 'Pedidos de Custo', 'url' => ['/pedidos/pedido-custo/index']],
+                ['label' => 'Pedidos de Homologação', 'url' => ['/pedidos/pedido-homologacao/index']],
                 ['label' => 'Pedidos de Contratação', 'url' => ['/pedidos/pedido-contratacao/index']],
 
             ]],
@@ -128,6 +129,7 @@ echo NavX::widget([
             ['label' => 'Pedidos', 'items' => [
                 '<li class="dropdown-header">Administração dos Pedidos</li>',
                 ['label' => 'Pedidos de Custo', 'url' => ['/pedidos/pedido-custo/index']],
+                ['label' => 'Pedidos de Homologação', 'url' => ['/pedidos/pedido-homologacao/index']],
                 ['label' => 'Pedidos de Contratação', 'url' => ['/pedidos/pedido-contratacao/index']],
 
             ]],
