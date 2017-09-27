@@ -47,8 +47,16 @@ use kartik\select2\Select2;
                                         ],
                                     'data' =>
                                       [
+                                        'Desclassificado(a) por nota na avaliação Escrita' => 'Desclassificado(a) por nota na avaliação Escrita',
+                                        'Desclassificado(a) por nota na avaliação Comportamental' => 'Desclassificado(a) por nota na avaliação Comportamental',
+                                        'Desclassificado(a) por nota na avaliação Didática' => 'Desclassificado(a) por nota na avaliação Didática',
                                         'Desclassificado(a) por nota na entrevista individual' => 'Desclassificado(a) por nota na entrevista individual',
-                                        'Desclassificado(a) por nota na avaliação comportamental' => 'Desclassificado(a) por nota na avaliação comportamental',
+                                        'Desclassificado(a) por nota na avaliação Prática' => 'Desclassificado(a) por nota na avaliação Prática',
+                                        'Aprovado(a) por nota na avaliação Escrita' => 'Aprovado(a) por nota na avaliação Escrita',
+                                        'Aprovado(a) por nota na avaliação Comportamental' => 'Aprovado(a) por nota na avaliação Comportamental',
+                                        'Aprovado(a) por nota na avaliação Didática' => 'Aprovado(a) por nota na avaliação Didática',
+                                        'Aprovado(a) por nota na Entrevista Individual' => 'Aprovado(a) por nota na Entrevista Individual',
+                                        'Aprovado(a) por nota na avaliação Prática' => 'Aprovado(a) por nota na avaliação Prática',
                                         '1º colocado(a)' => '1º colocado(a)', 
                                         '2º colocado(a)' => '2º colocado(a)', 
                                         '3º colocado(a)' => '3º colocado(a)', 

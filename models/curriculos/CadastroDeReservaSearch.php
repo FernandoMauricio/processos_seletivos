@@ -48,7 +48,8 @@ class CadastroDeReservaSearch extends EtapasItens
         ->innerJoinWith('etapasprocesso', `etapasprocesso_id` == `etapa_id`)
         ->innerJoinWith('curriculos', `curriculos.id` == `curriculos_id`)
         ->where(['<>','itens_classificacao', '%Desclassificado(a)%'])
-        ->andWhere(['<>','itens_classificacao', '']);
+        ->andWhere(['<>','itens_classificacao', ''])
+        ->andWhere(['=','itens_localcontratacao', 'CADASTRO DE RESERVA']);
 
         // add conditions that should always apply here
 

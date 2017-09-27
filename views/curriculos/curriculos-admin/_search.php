@@ -51,6 +51,12 @@ use kartik\select2\Select2;
             ?>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-2"><?php  echo $form->field($model, 'idadeInicial') ?></div>
+        <div class="col-md-2"><?php  echo $form->field($model, 'idadeFinal') ?></div>
+    </div>
+
 </div>
 
     <div class="form-group">

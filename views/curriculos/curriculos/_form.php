@@ -103,6 +103,12 @@ use wbraganca\dynamicform\DynamicFormWidget;
                         ?>
                              </div>
 
+
+                        <?php
+                            $list = ['Jornais' => 'Jornais', 'Internet' => 'Internet', 'Televisão' => 'Televisão', 'Redes Sociais' => 'Redes Sociais'];
+                            echo $form->field($model, 'marketing')->checkboxlist($list);
+                        ?> 
+
 <P style="text-align: center;"><b>DECLARAÇÃO</b></P>
 
   <?= $form->field($model, 'termoAceite[]')->checkboxList([ 1 => 'Li o Documento de Abertura e concordo em participar do processo de seleção desta instituição de acordo com o que foi estabelecido e proposto pelo mesmo.'])->label(false); ?>

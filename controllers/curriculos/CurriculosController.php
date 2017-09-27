@@ -134,6 +134,9 @@ class CurriculosController extends Controller
         if ($model->load(Yii::$app->request->post()) && $curriculosEndereco->load(Yii::$app->request->post()) && $curriculosFormacao->load(Yii::$app->request->post()) && Model::validateMultiple([$model, $curriculosEndereco, $curriculosFormacao]) ) 
         {
 
+        //checkbox marketing
+        $model->marketing = implode(", ",$model->marketing);
+
         //Calcular a idade do candidato
         $datetime1 = new \DateTime($model->datanascimento, new \DateTimeZone('UTC'));
         $datetime2 = new \DateTime();

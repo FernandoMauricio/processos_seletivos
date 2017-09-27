@@ -48,6 +48,7 @@ class CurriculosAdmin extends \yii\db\ActiveRecord
     public $idadeModel;
     public $termoAceite;
     public $sexoLabel;
+
     /**
      * @inheritdoc
      */

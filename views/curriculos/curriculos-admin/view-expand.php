@@ -180,6 +180,19 @@ $this->title = $model->numeroInscricao;
                         ],
                     ],
             ],
+
+            [
+              'columns' => [
+
+                        [
+                        'attribute' => 'marketing',
+                        'label'=>'Como ficou sabendo da vaga?',
+                        'format'=>'raw',
+                        'value'=>$model->marketing,
+                        'displayOnly'=>true,
+                        ],
+                    ],
+            ],
         ];
 
     echo DetailView::widget([

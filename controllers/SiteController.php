@@ -7,6 +7,9 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 
+use app\models\pedidos\pedidocusto\PedidoCusto;
+use app\models\pedidos\pedidocontratacao\PedidoContratacao;
+
 class SiteController extends Controller
 {
     /**
@@ -64,7 +67,19 @@ class SiteController extends Controller
 
     }else
 
-        return $this->render('index');
+        $countPedidoCustoGGP = PedidoCusto::find()->where(['custo_situacaoggp' => 1])->count();
+        $countPedidoCustoDAD = PedidoCusto::find()->where(['custo_situacaoggp' => 4])->andWhere(['custo_situacaodad' => 1])->count();
+
+        $countPedidoContratacaoGGP = PedidoContratacao::find()->where(['pedcontratacao_situacaoggp' => 1])->count();
+        $countPedidoContratacaoDAD = PedidoContratacao::find()->where(['pedcontratacao_situacaoggp' => 4])->andWhere(['pedcontratacao_situacaodad' => 1])->count();
+
+        return $this->render('index', 
+        [
+            'countPedidoCustoGGP' => $countPedidoCustoGGP,
+            'countPedidoCustoDAD' => $countPedidoCustoDAD,
+            'countPedidoContratacaoGGP' => $countPedidoContratacaoGGP,
+            'countPedidoContratacaoDAD' => $countPedidoContratacaoDAD,
+        ]);
     }
 
     public function actionVersao()

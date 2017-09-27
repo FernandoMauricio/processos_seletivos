@@ -56,6 +56,8 @@ class Curriculos extends \yii\db\ActiveRecord
     public $tecnicoLabel;
     public $posLabel;
     public $mestradoLabel;
+    public $idadeInicial;
+    public $idadeFinal;
 
     /**
      * @inheritdoc
@@ -74,9 +76,9 @@ class Curriculos extends \yii\db\ActiveRecord
             [['edital', 'numeroInscricao','cargo', 'nome', 'cpf', 'datanascimento', 'sexo', 'email', 'telefone', 'data', 'termoAceite', 'parentesco', 'termoAceite2'], 'required'],
             ['cpf', 'unique', 'targetAttribute' => ['edital', 'cpf', 'cargo'],'message' => '"{value} Já utilizado para o edital e cargo selecionado"'],
             ['cpf', CpfValidator::className()],
-            [['idade', 'deficiencia', 'unidade_aprovador', 'parentesco', 'situacao_ggp', 'situacao_aprovadorsolicitante'], 'integer'],
+            [['idade', 'deficiencia', 'unidade_aprovador', 'parentesco', 'situacao_ggp', 'situacao_aprovadorsolicitante', 'idadeInicial', 'idadeFinal'], 'integer'],
             [['datanascimento', 'data', 'idadeModel', 'classificado', 'dataaprovador_ggp', 'dataaprovador_solicitante', 'bairroLabel', 'cidadeLabel', 'posLabel', 'tecnicoLabel',
-'mestradoLabel'], 'safe'],
+'mestradoLabel','marketing'], 'safe'],
             [['edital', 'numeroInscricao', 'identidade', 'orgao_exped'], 'string', 'max' => 45],
             [['nome', 'cargo', 'email', 'emailAlt', 'aprovador_ggp', 'aprovador_solicitante'], 'string', 'max' => 100],
             [['curriculo_lattes'], 'string', 'max' => 255],
@@ -121,6 +123,7 @@ class Curriculos extends \yii\db\ActiveRecord
             'termoAceite' => 'Declaração 1',
             'parentesco' => 'Declaração 2',
             'termoAceite2' => 'Declaração 3',
+            'marketing' => 'Como ficou sabendo da vaga?',
 
             'bairroLabel' => 'Bairro',
             'cidadeLabel' => 'Cidade',
