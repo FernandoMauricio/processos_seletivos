@@ -43,7 +43,7 @@ use kartik\detail\DetailView;
             </tr>
             </tbody>
           </table>
-                        <!--    IETNS DO PEDIDO DE CUSTO  -->
+                        <!--    ITENS DO PEDIDO DE CUSTO  -->
 
           <table class="table table-condensed table-hover">
             <thead>
