@@ -165,7 +165,6 @@ class PedidoContratacaoController extends Controller
         $this->layout = 'main-imprimir';
         
         $model = $this->findModel($id);
-
         $modelsItens = $model->pedidocontratacaoItens;
 
         return $this->render('view', [

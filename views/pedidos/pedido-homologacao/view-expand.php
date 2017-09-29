@@ -9,21 +9,6 @@ use yii\widgets\DetailView;
 ?>
 <div class="pedido-homologacao-view">
 
-<table width="100%" border="0">
-  <tr> 
-    <td width="20%"><img src="css/img/logo.png"></td>
-    <td width="60%"><h4>PEDIDO DE HOMOLOGAÇÃO PROCESSO SELETIVO Nº /2017<br /><br />
-                        Homologação Nº <br /><br />
-                        <?php 
-                          setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
-                          date_default_timezone_set('America/Manaus'); 
-                          echo strftime('%A, %d de %B de %Y', strtotime('today'));
-                        ?>
-                      </h4>
-    </td>
-  </tr>
-</table>
-
   <div class="panel-body">
     <div class="row">
           <table class="table table-condensed table-hover">

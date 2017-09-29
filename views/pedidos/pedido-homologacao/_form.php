@@ -6,6 +6,8 @@ use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 use yii\helpers\Url;
 
+use faryshta\widgets\JqueryTagsInput;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\pedidos\pedidohomologacao\PedidoHomologacao */
 /* @var $form yii\widgets\ActiveForm */
@@ -41,7 +43,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
     </div>
 
     <div class="row">
-        <div class="col-md-2"><?= $form->field($model, 'homolog_tipo')->textInput(['maxlength' => true, 'readonly' => true]) ?></div>
+        <div class="col-md-2"><?= $form->field($model, 'homolog_tipo')->textInput(['value' => $model->homolog_tipo == 0 ? 'Inderterminado' : 'Determinado','maxlength' => true, 'readonly' => true]) ?></div>
 
         <div class="col-md-5"><?= $form->field($model, 'homolog_unidade')->textInput(['maxlength' => true, 'readonly' => true]) ?></div>
 
@@ -49,16 +51,43 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
     </div>
 
     <div class="row">
-        <div class="col-md-12"><?= $form->field($model, 'homolog_validade')->textInput() ?></div>
+        <div class="col-md-12"><?= $form->field($model, 'homolog_sintese')->textarea(['rows' => 6]) ?></div>
     </div>
 
     <div class="row">
-        <div class="col-md-12"><?= $form->field($model, 'homolog_sintese')->textarea(['rows' => 6]) ?></div>
+        <div class="col-md-12">
+                    <?= $form->field($model, 'homolog_fases')->widget(JqueryTagsInput::classname(), [
+                               'clientOptions' => [
+                               'defaultText' => '',
+                               'width' => '100%',
+                               'height' => '100%',
+                               'interactive' => true,
+                              ],
+                    ]) ?>
+        </div>
     </div>
-       
-</div>
 
+    <div class="row">
+        <div class="col-md-12"><?= $form->field($model, 'homolog_validade')->textInput() ?></div>
+    </div> 
 
+        <table class="table table-condensed table-hover">
+            <thead>
+            <tr class="info"><th colspan="12">Candidatos Aprovados</th></tr>
+              <tr>
+                <th>Classificação</th>
+                <th>Candidatos</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <?php foreach ($modelsItens as $i => $modelItens): ?>
+                  <td><?= $modelItens->pedhomolog_classificacao; ?></td>
+                  <td><span class="text-uppercase"><?= $modelItens->pedhomolog_candidato; ?></span></td>
+            </tr>
+              <?php endforeach; ?>
+        </table>
+    </div>
 </div>
 
     <div class="form-group">
@@ -68,37 +97,3 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
     <?php ActiveForm::end(); ?>
 
 </div>
-
-    <?php //echo $form->field($model, '')->textInput() ?>
-
-    <?php //echo $form->field($model, '')->textInput(['maxlength' => true]) ?>
-
-    <?php //echo $form->field($model, '')->textInput() ?>
-
-    <?php //echo $form->field($model, '')->textInput() ?>
-
-    <?php //echo $form->field($model, '')->textInput() ?>
-
-    <?php //echo $form->field($model, '')->textInput(['maxlength' => true]) ?>
-
-    <?php //echo $form->field($model, '')->textInput(['maxlength' => true]) ?>
-
-    <?php //echo $form->field($model, '')->textInput(['maxlength' => true]) ?>
-
-    <?php //echo $form->field($model, '')->textarea(['rows' => 6]) ?>
-
-    <?php //echo $form->field($model, '')->textInput(['maxlength' => true]) ?>
-
-    <?php //echo $form->field($model, 'homolog_aprovadorggp')->textInput(['maxlength' => true]) ?>
-
-    <?php //echo $form->field($model, 'homolog_situacaoggp')->textInput() ?>
-
-    <?php //echo $form->field($model, 'homolog_dataaprovacaoggp')->textInput() ?>
-
-    <?php //echo $form->field($model, 'homolog_aprovadordad')->textInput(['maxlength' => true]) ?>
-
-    <?php //echo $form->field($model, 'homolog_situacaodad')->textInput() ?>
-
-    <?php //echo $form->field($model, 'homolog_dataaprovacaodad')->textInput() ?>
-
-    <?php //echo $form->field($model, 'homolog_responsavel')->textInput(['maxlength' => true]) ?>

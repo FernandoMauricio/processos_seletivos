@@ -125,19 +125,23 @@ class EtapasProcessoController extends Controller
         $model->save();
 
         //Localiza somente os candidatos classificados para o edital escolhido
-        $sqlCandidatos = 'SELECT `curriculos`.`id`, `curriculos`.`edital` FROM `curriculos` LEFT JOIN `processo` ON `curriculos`.`edital` = `processo`.`numeroEdital` WHERE (`classificado`= 1) AND `curriculos`.`edital` = "'.$model->processo->numeroEdital.'" AND `curriculos`.`cargo` = "'.$model->etapa_cargo.'"';
+        $sqlCandidatos = '
+            SELECT `curriculos`.`id`, `curriculos`.`edital` 
+            FROM `curriculos` 
+            LEFT JOIN `processo` ON `curriculos`.`edital` = `processo`.`numeroEdital` 
+            WHERE (`classificado`= 1) 
+            AND `curriculos`.`edital` = "'.$model->processo->numeroEdital.'" 
+            AND `curriculos`.`cargo` = "'.$model->etapa_cargo.'"
+        ';
 
         $candidatos = CurriculosAdmin::findBySql($sqlCandidatos)->all();
 
         foreach ($candidatos as $candidato) {
-           $etapasprocesso_id  = $model->etapa_id;
-           $curriculos_id      = $candidato['id'];
-
         //Inclui as informações dos candidatos classificados
                 Yii::$app->db->createCommand()
                     ->insert('etapas_itens', [
-                             'etapasprocesso_id'    => $etapasprocesso_id,
-                             'curriculos_id'        => $curriculos_id,
+                             'etapasprocesso_id'    => $model->etapa_id,
+                             'curriculos_id'        => $candidato['id'],
                              'itens_escrita'        => 0,
                              'itens_didatica'       => 0,
                              'itens_comportamental' => 0,

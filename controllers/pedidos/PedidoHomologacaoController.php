@@ -4,8 +4,10 @@ namespace app\controllers\pedidos;
 
 use Yii;
 use app\models\contratacao\Contratacao;
+use app\models\pedidos\pedidohomologacao\PedidohomologacaoItens;
 use app\models\pedidos\pedidohomologacao\PedidoHomologacao;
 use app\models\pedidos\pedidohomologacao\PedidoHomologacaoSearch;
+use app\models\etapasprocesso\EtapasItens;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -53,67 +55,15 @@ class PedidoHomologacaoController extends Controller
      */
     public function actionView($id)
     {
+        $this->layout = 'main-imprimir';
+
+        $model = $this->findModel($id);
+        $modelsItens = $model->pedidohomologacaoItens;
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'modelsItens' => $modelsItens,
         ]);
-    }
-
-    //Localiza os dados da contratação
-    public function actionGetContratacaoCandidatosAprovados($contratacaoId){
-
-        $connection = Yii::$app->db;
-        $command = $connection->createCommand('
-             SELECT
-            `curriculos`.`nome`,
-            `pedidocusto_itens`.`contratacao_id`,
-            `contratacao`.`quant_pessoa`,
-            `contratacao`.`periodo`,
-            `contratacao`.`cargo_chsemanal`,
-            `contratacao`.`cargo_salario`,
-            `contratacao`.`cargo_encargos`,
-            `contratacao`.`cargo_valortotal`,
-            `contratacao`.`motivo`,
-            `contratacao`.`data_ingresso_prevista`
-            FROM
-            `etapas_itens`
-            INNER JOIN `etapas_processo` ON `etapas_itens`.`etapasprocesso_id` = `etapas_processo`.`etapa_id`
-            INNER JOIN `curriculos` ON `etapas_itens`.`curriculos_id` = `curriculos`.`id`
-            INNER JOIN `pedido_custo` ON `etapas_processo`.`pedidocusto_id` = `pedido_custo`.`custo_id`
-            INNER JOIN `pedidocusto_itens` ON `etapas_processo`.`pedidocusto_id` = `pedidocusto_itens`.`pedidocusto_id`
-            INNER JOIN `contratacao` ON `pedidocusto_itens`.`contratacao_id` = `contratacao`.`id`
-            WHERE `pedidocusto_itens`.`contratacao_id` ='.$contratacaoId.'
-            ');
-        $queryResult = $command->queryAll();
-        echo Json::encode($queryResult);
-
-        // $connection = Yii::$app->db;
-        // $command = $connection->createCommand('
-            //  SELECT
-            // `contratacao`.`unidade`,
-            // `pedidocontratacao_itens`.`itemcontratacao_nome`,
-            // `etapas_processo`.`etapa_local`,
-            // `etapas_itens`.`itens_escrita`,
-            // `cargos`.`descricao` AS `cargo_descricao`,
-            // `contratacao`.`quant_pessoa`,
-            // `contratacao`.`periodo`,
-            // `contratacao`.`cargo_area`,
-            // `contratacao`.`cargo_chsemanal`,
-            // `contratacao`.`cargo_salario`,
-            // `contratacao`.`cargo_encargos`,
-            // `contratacao`.`cargo_valortotal`,
-            // `contratacao`.`motivo`,
-            // `contratacao`.`data_ingresso_prevista`
-            // FROM
-            // `contratacao`
-            // INNER JOIN `cargos` ON `contratacao`.`cargo_id` = `cargos`.`idcargo`
-            // INNER JOIN `pedidocontratacao_itens` ON `contratacao`.`id` = `pedidocontratacao_itens`.`contratacao_id`
-            // INNER JOIN `etapas_processo` ON `pedidocontratacao_itens`.`etapasprocesso_id` = `etapas_processo`.`etapa_id`
-            // INNER JOIN `etapas_itens` ON `etapas_processo`.`etapa_id` = `etapas_itens`.`etapasprocesso_id`
-            // WHERE `contratacao`.`id`='.$contratacaoId.'
-
-        //     ');
-        // $queryResult = $command->queryOne();
-        // echo Json::encode($queryResult);
     }
 
     /**
@@ -143,7 +93,15 @@ class PedidoHomologacaoController extends Controller
         $model->homolog_situacaodad = 1; //Aguardando Autorização DAD
 
         //1 => Em elaboração / 2 => Em correção pelo setor / 3 => Recebido pelo GGP
-        $contratacoes = Contratacao::find()->where(['!=','situacao_id', 1])->andWhere(['!=','situacao_id', 2])->andWhere(['!=','situacao_id', 3])->orderBy('id')->all();
+        $subQuery = PedidoHomologacao::find()->select('contratacao_id')->all();
+        $contratacoes = Contratacao::find()
+        ->innerJoinWith('pedidocustoItens', `pedidocusto_itens.contratacao_id` == `contratacao.id`)
+        ->where(['!=','situacao_id', 1])
+        ->andWhere(['!=','situacao_id', 2])
+        ->andWhere(['!=','situacao_id', 3])
+        ->andWhere(['NOT IN','contratacao_id', $subQuery])
+        ->orderBy('id')
+        ->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
         $model->homolog_unidade     = $model->contratacao->unidade;
@@ -159,7 +117,38 @@ class PedidoHomologacaoController extends Controller
         $model->homolog_sintese     = 'Segue o processo de recrutamento e seleção para [CARGO], do [UNIDADE], em virtude da necessidade de acompanhamento nas turmas de saúde, especialmente os Técnicos em Estética e Podologia, conforme pedido no portal nº [SOLICITAÇÃO], em anexo. Para este processo foram recebidos 231 currículos, tendo sido selecionados 20 currículos, conforme as exigências do perfil solicitado pelo gerente da unidade. Ao finalizar o processo seletivo que teve a participação da Supervisora Pedagógica Daniele Lima, da Analista Administrativa Sra. Keila Neves e do Auxiliar Administrativo o Sr. Israel Galvão, o(a) candidato(a) classificado(a) com o melhor desempenho foi o(a) Sr.(ª) [CANDIDATO] conforme tabela de classificação ao lado. No total ficaram classificados no processo seletivo 03 candidatos, de acordo com a descrição ao lado. Com isso solicitamos homologação do processo de seleção para prosseguirmos os tramites de contratação dos candidatos.';
         $model->save();
 
-            return $this->redirect(['view', 'id' => $model->homolog_id]);
+        //Localiza somente os candidatos classificados nas etapas do processo
+        $sqlCandidatos = '
+            SELECT
+            `curriculos`.`nome`,
+            `etapas_itens`.`itens_classificacao`
+            FROM
+            `etapas_itens`
+            INNER JOIN `etapas_processo` ON `etapas_itens`.`etapasprocesso_id` = `etapas_processo`.`etapa_id`
+            INNER JOIN `curriculos` ON `etapas_itens`.`curriculos_id` = `curriculos`.`id`
+            INNER JOIN `pedido_custo` ON `etapas_processo`.`pedidocusto_id` = `pedido_custo`.`custo_id`
+            INNER JOIN `pedidocusto_itens` ON `etapas_processo`.`pedidocusto_id` = `pedidocusto_itens`.`pedidocusto_id`
+            INNER JOIN `contratacao` ON `pedidocusto_itens`.`contratacao_id` = `contratacao`.`id`
+            WHERE `etapas_itens`.`itens_classificacao` NOT LIKE "%Desclassificado(a)%"
+            AND `etapas_itens`.`itens_classificacao` NOT LIKE ""
+            AND `pedidocusto_itens`.`contratacao_id` = '.$model->contratacao_id.'
+            AND `curriculos`.`cargo` = "'.$model->homolog_cargo.'"
+            ORDER BY `etapas_itens`.`itens_pontuacaototal` DESC' ;
+
+        $candidatos = EtapasItens::findBySql($sqlCandidatos)->all();
+
+        foreach ($candidatos as $candidato) {
+                //Inclui as informações dos candidatos classificados
+                Yii::$app->db->createCommand()
+                    ->insert('pedidohomologacao_itens', [
+                             'pedidohomologacao_id'     => $model->homolog_id,
+                             'pedhomolog_classificacao' => $candidato['itens_classificacao'],
+                             'pedhomolog_candidato'     => $candidato['nome'],
+                             ])
+                    ->execute();
+            $model->save();
+        }
+            return $this->redirect(['index']);
         } else {
             return $this->renderAjax('gerar-pedido-homologacao', [
                 'model' => $model,
@@ -178,6 +167,7 @@ class PedidoHomologacaoController extends Controller
     {
         $session = Yii::$app->session;
         $model = $this->findModel($id);
+        $modelsItens = $model->pedidohomologacaoItens;
 
         $model->homolog_situacaoggp = 1; //Aguardando Autorização GPP
         $model->homolog_situacaodad = 1; //Aguardando Autorização DAD
@@ -188,11 +178,12 @@ class PedidoHomologacaoController extends Controller
         $contratacoes = Contratacao::find()->where(['!=','situacao_id', 1])->andWhere(['!=','situacao_id', 2])->andWhere(['!=','situacao_id', 3])->orderBy('id')->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->homolog_id]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,
                 'contratacoes' => $contratacoes,
+                'modelsItens' => $modelsItens,
             ]);
         }
     }
@@ -205,9 +196,12 @@ class PedidoHomologacaoController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
 
-        return $this->redirect(['index']);
+            PedidohomologacaoItens::deleteAll('pedidohomologacao_id = "'.$id.'"');
+            $model->delete(); //Exclui o pedido de homologação
+            Yii::$app->session->setFlash('success', '<b>SUCESSO! </b> Pedido de Homologação excluido!</b>');
+            return $this->redirect(['index']);
     }
 
     /**

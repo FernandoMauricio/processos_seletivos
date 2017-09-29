@@ -56,7 +56,7 @@ class PedidoHomologacao extends \yii\db\ActiveRecord
             [['homolog_salario', 'homolog_encargos', 'homolog_total'], 'number'],
             [['homolog_sintese', 'candidato'], 'string'],
             [['homolog_dataaprovacaoggp', 'homolog_dataaprovacaodad', 'homolog_data', 'homolog_tipo'], 'safe'],
-            [['homolog_cargo', 'homolog_unidade', 'homolog_motivo', 'homolog_validade'], 'string', 'max' => 255],
+            [['homolog_cargo', 'homolog_unidade', 'homolog_motivo', 'homolog_validade', 'homolog_fases'], 'string', 'max' => 255],
             [['homolog_aprovadorggp', 'homolog_aprovadordad', 'homolog_responsavel'], 'string', 'max' => 45],
             [['contratacao_id'], 'exist', 'skipOnError' => true, 'targetClass' => Contratacao::className(), 'targetAttribute' => ['contratacao_id' => 'id']],
             [['homolog_situacaoggp'], 'exist', 'skipOnError' => true, 'targetClass' => PedidocustoSituacao::className(), 'targetAttribute' => ['homolog_situacaoggp' => 'situacao_id']],
@@ -70,8 +70,9 @@ class PedidoHomologacao extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'homolog_id' => 'Homolog ID',
+            'homolog_id' => 'Cód. Homologação',
             'contratacao_id' => 'Solicitação',
+            'homolog_fases' => 'Fases Realizadas no Processo',
             'homolog_cargo' => 'Cargo',
             'homolog_salario' => 'Remuneração',
             'homolog_encargos' => 'Encargos',
@@ -82,12 +83,13 @@ class PedidoHomologacao extends \yii\db\ActiveRecord
             'homolog_sintese' => 'Sintese do Processo Seletivo',
             'homolog_validade' => 'Validade do Processo',
             'homolog_aprovadorggp' => 'Aprovadorggp',
-            'homolog_situacaoggp' => 'Situacaoggp',
+            'homolog_situacaoggp' => 'Situação GGP',
             'homolog_dataaprovacaoggp' => 'Dataaprovacaoggp',
             'homolog_aprovadordad' => 'Aprovadordad',
-            'homolog_situacaodad' => 'Situacaodad',
+            'homolog_situacaodad' => 'Situação DAD',
             'homolog_dataaprovacaodad' => 'Dataaprovacaodad',
             'homolog_responsavel' => 'Responsavel',
+            'homolog_data' => 'Data',
         ];
     }
 
@@ -113,5 +115,13 @@ class PedidoHomologacao extends \yii\db\ActiveRecord
     public function getHomologSituacaodad()
     {
         return $this->hasOne(PedidocustoSituacao::className(), ['situacao_id' => 'homolog_situacaodad']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPedidohomologacaoItens()
+    {
+        return $this->hasMany(PedidohomologacaoItens::className(), ['pedidohomologacao_id' => 'homolog_id']);
     }
 }

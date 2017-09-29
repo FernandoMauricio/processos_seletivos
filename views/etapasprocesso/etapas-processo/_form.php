@@ -95,7 +95,6 @@ use kartik\select2\Select2;
             'itens' => $itens,
         ]) ?>
 
-
     </div>
 
     <div class="form-group">

@@ -8,6 +8,8 @@ use kartik\depdrop\DepDrop;
 use yii\helpers\Url;
 use yii\helpers\Json;
 
+use faryshta\widgets\JqueryTagsInput;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\etapasprocesso\EtapasProcesso */
 /* @var $form yii\widgets\ActiveForm */
@@ -20,7 +22,7 @@ use yii\helpers\Json;
     <div class="panel-body">
         <div class="row">
             <div class="col-md-6">
-               <?php
+                <?php
                    $data_contratacoes = ArrayHelper::map($contratacoes, 'id', 'id');
                    echo $form->field($model, 'contratacao_id')->widget(Select2::classname(), [
                            'data' =>  $data_contratacoes,
@@ -29,8 +31,18 @@ use yii\helpers\Json;
                        ]);
                 ?>
             </div>
-        </div>
 
+            <div class="col-md-6">
+                <?= $form->field($model, 'homolog_fases')->widget(JqueryTagsInput::classname(), [
+                           'clientOptions' => [
+                           'defaultText' => '',
+                           'width' => '100%',
+                           'height' => '100%',
+                           'interactive' => true,
+                          ],
+                ]) ?>
+            </div>
+        </div>
     </div>
 
     <div class="form-group">

@@ -18,8 +18,8 @@ class PedidoHomologacaoSearch extends PedidoHomologacao
     public function rules()
     {
         return [
-            [['homolog_id', 'contratacao_id', 'homolog_situacaoggp', 'homolog_situacaodad'], 'integer'],
-            [['homolog_cargo', 'homolog_tipo', 'homolog_unidade', 'homolog_motivo', 'homolog_sintese', 'homolog_validade', 'homolog_aprovadorggp', 'homolog_dataaprovacaoggp', 'homolog_aprovadordad', 'homolog_dataaprovacaodad', 'homolog_responsavel'], 'safe'],
+            [['homolog_id', 'contratacao_id'], 'integer'],
+            [['homolog_cargo', 'homolog_tipo', 'homolog_unidade', 'homolog_motivo', 'homolog_sintese', 'homolog_validade', 'homolog_aprovadorggp', 'homolog_dataaprovacaoggp', 'homolog_aprovadordad', 'homolog_dataaprovacaodad', 'homolog_responsavel', 'homolog_situacaoggp', 'homolog_situacaodad'], 'safe'],
             [['homolog_salario', 'homolog_encargos', 'homolog_total'], 'number'],
         ];
     }
@@ -50,6 +50,9 @@ class PedidoHomologacaoSearch extends PedidoHomologacao
             'query' => $query,
         ]);
 
+        $query->joinWith('homologSituacaoggp');
+        $query->joinWith('homologSituacaodad as b');
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -65,9 +68,7 @@ class PedidoHomologacaoSearch extends PedidoHomologacao
             'homolog_salario' => $this->homolog_salario,
             'homolog_encargos' => $this->homolog_encargos,
             'homolog_total' => $this->homolog_total,
-            'homolog_situacaoggp' => $this->homolog_situacaoggp,
             'homolog_dataaprovacaoggp' => $this->homolog_dataaprovacaoggp,
-            'homolog_situacaodad' => $this->homolog_situacaodad,
             'homolog_dataaprovacaodad' => $this->homolog_dataaprovacaodad,
         ]);
 
@@ -78,7 +79,9 @@ class PedidoHomologacaoSearch extends PedidoHomologacao
             ->andFilterWhere(['like', 'homolog_sintese', $this->homolog_sintese])
             ->andFilterWhere(['like', 'homolog_validade', $this->homolog_validade])
             ->andFilterWhere(['like', 'homolog_aprovadorggp', $this->homolog_aprovadorggp])
+            ->andFilterWhere(['like', 'pedidocusto_situacao.situacao_descricao', $this->homolog_situacaoggp])
             ->andFilterWhere(['like', 'homolog_aprovadordad', $this->homolog_aprovadordad])
+            ->andFilterWhere(['like', 'b.situacao_descricao', $this->homolog_situacaodad])
             ->andFilterWhere(['like', 'homolog_responsavel', $this->homolog_responsavel]);
 
         return $dataProvider;
