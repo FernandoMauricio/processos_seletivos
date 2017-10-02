@@ -48,6 +48,7 @@ $gridColumns = [
             'itens_classificacao',
             'itens_localcontratacao',
             'cargo',
+            'homolog_data',
 
             ['class' => 'yii\grid\ActionColumn',
                         'template' => '{view}',
@@ -84,7 +85,7 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes do Cadastro de Reserva', 'options'=>['colspan'=>6, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes do Cadastro de Reserva', 'options'=>['colspan'=>7, 'class'=>'text-center warning']], 
                 ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]

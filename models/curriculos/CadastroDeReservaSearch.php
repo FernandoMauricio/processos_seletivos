@@ -43,7 +43,6 @@ class CadastroDeReservaSearch extends EtapasItens
      */
     public function search($params)
     {
-
         $query = EtapasItens::find()->select(['numeroInscricao', 'nome', 'curriculos_id', 'processo_id', 'itens_classificacao', 'itens_localcontratacao', 'etapa_cargo as cargo'])
         ->innerJoinWith('etapasprocesso', `etapasprocesso_id` == `etapa_id`)
         ->innerJoinWith('curriculos', `curriculos.id` == `curriculos_id`)
@@ -51,8 +50,9 @@ class CadastroDeReservaSearch extends EtapasItens
         ->andWhere(['<>','itens_classificacao', ''])
         ->andWhere(['=','itens_localcontratacao', 'CADASTRO DE RESERVA']);
 
-        // add conditions that should always apply here
+        //->andWhere(['between', 'homolog_data','2017-10-01', '2017-10-01'])
 
+        // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -76,6 +76,9 @@ class CadastroDeReservaSearch extends EtapasItens
         'asc' => ['etapas_processo.etapa_cargo' => SORT_ASC],
         'desc' => ['etapas_processo.etapa_cargo' => SORT_DESC],
         ];
+
+        //$query->joinWith('etapasprocesso.pedidocusto.pedidocustoItens.contratacao.pedidoHomologacao');
+        //$query->joinWith('etapasprocesso.pedidocusto.pedidocustoItens.contratacao.pedidoHomologacao');
 
         $this->load($params);
 

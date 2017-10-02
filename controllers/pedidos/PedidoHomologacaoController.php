@@ -215,8 +215,13 @@ class PedidoHomologacaoController extends Controller
         //Localiza somente os candidatos classificados nas etapas do processo
         $sqlCandidatos = '
             SELECT
+            `curriculos`.`edital`,
+            `curriculos`.`numeroInscricao`,
             `curriculos`.`nome`,
-            `etapas_itens`.`itens_classificacao`
+            `etapas_itens`.`itens_classificacao`,
+            `etapas_itens`.`curriculos_id`,
+            `etapas_itens`.`itens_localcontratacao`,
+            `etapas_processo`.`etapa_cargo`
             FROM
             `etapas_itens`
             INNER JOIN `etapas_processo` ON `etapas_itens`.`etapasprocesso_id` = `etapas_processo`.`etapa_id`
@@ -236,9 +241,14 @@ class PedidoHomologacaoController extends Controller
                 //Inclui as informações dos candidatos classificados
                 Yii::$app->db->createCommand()
                     ->insert('pedidohomologacao_itens', [
-                             'pedidohomologacao_id'     => $model->homolog_id,
-                             'pedhomolog_classificacao' => $candidato['itens_classificacao'],
-                             'pedhomolog_candidato'     => $candidato['nome'],
+                             'pedidohomologacao_id'        => $model->homolog_id,
+                             'curriculos_id'               => $candidato['curriculos_id'],
+                             //'pedhomolog_docabertura'      => $candidato['edital'],
+                             'pedhomolog_numeroInscricao'  => $candidato['numeroInscricao'],
+                             'pedhomolog_candidato'        => $candidato['nome'],
+                             'pedhomolog_classificacao'    => $candidato['itens_classificacao'],
+                             'pedhomolog_localcontratacao' => $candidato['itens_localcontratacao'],
+                             //'pedhomolog_cargo'            => $candidato['etapa_cargo'],
                              ])
                     ->execute();
             $model->save();

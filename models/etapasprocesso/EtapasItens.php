@@ -27,6 +27,7 @@ class EtapasItens extends \yii\db\ActiveRecord
     public $cargo;
     public $numeroInscricao;
     public $numeroEdital;
+    public $homolog_data;
 
     /**
      * @inheritdoc
@@ -46,7 +47,7 @@ class EtapasItens extends \yii\db\ActiveRecord
             [['etapasprocesso_id', 'curriculos_id', 'numeroInscricao'], 'integer'],
             [['itens_escrita', 'itens_comportamental', 'itens_didatica', 'itens_entrevista', 'itens_pratica', 'itens_pontuacaototal'], 'number'],
             [['itens_classificacao', 'itens_localcontratacao', 'nome', 'cargo', 'numeroEdital'], 'string', 'max' => 255],
-            [['itens_confirmacaocontato'], 'safe'],
+            [['itens_confirmacaocontato', 'homolog_data'], 'safe'],
             [['curriculos_id'], 'exist', 'skipOnError' => true, 'targetClass' => Curriculos::className(), 'targetAttribute' => ['curriculos_id' => 'id']],
             [['etapasprocesso_id'], 'exist', 'skipOnError' => true, 'targetClass' => EtapasProcesso::className(), 'targetAttribute' => ['etapasprocesso_id' => 'etapa_id']],
         ];
@@ -72,6 +73,7 @@ class EtapasItens extends \yii\db\ActiveRecord
             'itens_localcontratacao' => 'Destino',
             'numeroInscricao' => 'Número de Inscrição',
             'numeroEdital' => 'Documento de Abertura',
+            // 'homolog_data' => '',
         ];
     }
 
@@ -91,8 +93,4 @@ class EtapasItens extends \yii\db\ActiveRecord
         return $this->hasOne(EtapasProcesso::className(), ['etapa_id' => 'etapasprocesso_id']);
     }
 
-    public function getContratacao()
-    {
-        return $this->hasOne(Contratacao::className(), ['id' => 'contratacao_id']);
-    }
 }
