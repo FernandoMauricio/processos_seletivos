@@ -12,8 +12,8 @@ use yii\widgets\DetailView;
 <table width="100%" border="0">
   <tr> 
     <td width="20%"><img src="css/img/logo.png"></td>
-    <td width="60%"><h4>PEDIDO DE HOMOLOGAÇÃO PROCESSO SELETIVO Nº /2017<br /><br />
-                        Homologação Nº <br /><br />
+    <td width="60%"><h4>PEDIDO DE HOMOLOGAÇÃO PROCESSO SELETIVO Nº 55/2017<br /><br />
+                        Homologação Nº <?= $model->homolog_id . '/' . date('Y', strtotime($model->homolog_data)) ?><br /><br />
                         <?php 
                           setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
                           date_default_timezone_set('America/Manaus'); 
@@ -34,14 +34,16 @@ use yii\widgets\DetailView;
             <tr>
                   <th scope="row">Cargo:</th>
                   <td><?= $model->homolog_cargo ?></td>
+                  <th scope="row">Unidade:</th>
+                  <td colspan="6"><?= $model->homolog_unidade ?></td>
+            </tr>
+            <tr>
                   <th scope="row">Remuneração:</th>
                   <td><?= 'R$ ' . number_format($model->homolog_salario, 2, ',', '.'); ?></td>
                   <th scope="row">Encargos:</th>
                   <td><?= 'R$ ' . number_format($model->homolog_encargos, 2, ',', '.'); ?></td>
                   <th scope="row">Total:</th>
                   <td><?= 'R$ ' . number_format($model->homolog_total, 2, ',', '.'); ?></td>
-            </tr>
-            <tr>
                   <th scope="row">Tipo de Contrato:</th>
                   <td><?= $model->homolog_tipo == 0 ? 'Indeterminado' : 'Determinado';  ?></td>
                   <th scope="row">Solicitação:</th>

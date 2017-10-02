@@ -85,7 +85,7 @@ class PedidoCustoController extends Controller
         $session = Yii::$app->session;
         $model = $this->findModel($id);
 
-        //Classifica o candidato
+        //Aprovado o Pedido de Custo
         $connection = Yii::$app->db;
         $command = $connection->createCommand(
         "UPDATE `db_processos`.`pedido_custo` SET `custo_aprovadorggp` = '".$session['sess_nomeusuario']."', `custo_situacaoggp` = '4', `custo_dataaprovacaoggp` = ".date('"Y-m-d"')." WHERE `custo_id` = '".$model->custo_id."'");
@@ -101,7 +101,7 @@ class PedidoCustoController extends Controller
         $session = Yii::$app->session;
         $model = $this->findModel($id);
 
-        //Classifica o candidato
+        //Aprovado o Pedido de Custo
         $connection = Yii::$app->db;
         $command = $connection->createCommand(
         "UPDATE `db_processos`.`pedido_custo` SET `custo_aprovadordad` = '".$session['sess_nomeusuario']."', `custo_situacaodad` = '4', `custo_dataaprovacaodad` = ".date('"Y-m-d"')." WHERE `custo_id` = '".$model->custo_id."'");
@@ -112,13 +112,12 @@ class PedidoCustoController extends Controller
         return $this->redirect(['dad-index']);
     }
 
-
     public function actionReprovarGgp($id)
     {
         $session = Yii::$app->session;
         $model = $this->findModel($id);
 
-        //Classifica o candidato
+        //Reprova o Pedido de Custo
         $connection = Yii::$app->db;
         $command = $connection->createCommand(
         "UPDATE `db_processos`.`pedido_custo` SET `custo_aprovadorggp` = '".$session['sess_nomeusuario']."', `custo_situacaoggp` = '3', `custo_dataaprovacaoggp` = ".date('"Y-m-d"')." WHERE `custo_id` = '".$model->custo_id."'");
@@ -134,7 +133,7 @@ class PedidoCustoController extends Controller
         $session = Yii::$app->session;
         $model = $this->findModel($id);
 
-        //Classifica o candidato
+        //Reprova o Pedido de Custo
         $connection = Yii::$app->db;
         $command = $connection->createCommand(
         "UPDATE `db_processos`.`pedido_custo` SET `custo_aprovadordad` = '".$session['sess_nomeusuario']."', `custo_situacaodad` = '3', `custo_dataaprovacaodad` = ".date('"Y-m-d"')." WHERE `custo_id` = '".$model->custo_id."'");
@@ -142,7 +141,7 @@ class PedidoCustoController extends Controller
         
         Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Custo <b> '.$model->custo_id.' </b> foi Reprovado!</b>');
 
-        return $this->redirect(['ggp-index']);
+        return $this->redirect(['dad-index']);
     }
 
     /**

@@ -65,6 +65,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
                     'homolog_id',
                     'contratacao_id',
+                    'homolog_unidade',
                     'homolog_cargo',
                     [
                        'attribute' => 'homolog_total',
@@ -159,7 +160,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
         'beforeHeader'=>[
             [
                 'columns'=>[
-                    ['content'=>'Detalhes do Pedido de Homologação', 'options'=>['colspan'=>8, 'class'=>'text-center warning']], 
+                    ['content'=>'Detalhes do Pedido de Homologação', 'options'=>['colspan'=>9, 'class'=>'text-center warning']], 
                     ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
                 ],
             ]

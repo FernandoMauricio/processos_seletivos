@@ -7,6 +7,8 @@ use app\models\contratacao\Contratacao;
 use app\models\pedidos\pedidohomologacao\PedidohomologacaoItens;
 use app\models\pedidos\pedidohomologacao\PedidoHomologacao;
 use app\models\pedidos\pedidohomologacao\PedidoHomologacaoSearch;
+use app\models\pedidos\pedidohomologacao\PedidoHomologacaoAprovacaoGgpSearch;
+use app\models\pedidos\pedidohomologacao\PedidoHomologacaoAprovacaoDadSearch;
 use app\models\etapasprocesso\EtapasItens;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -39,6 +41,8 @@ class PedidoHomologacaoController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = 'main-full';
+
         $searchModel = new PedidoHomologacaoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -48,6 +52,97 @@ class PedidoHomologacaoController extends Controller
         ]);
     }
 
+    public function actionGgpIndex()
+    {
+        $this->layout = 'main-full';
+
+        $searchModel = new PedidoHomologacaoAprovacaoGgpSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('ggp-index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionDadIndex()
+    {
+        $this->layout = 'main-full';
+
+        $searchModel = new PedidoHomologacaoAprovacaoDadSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('dad-index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionAprovarGgp($id)
+    {
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
+
+        //Aprova o Pedido de Homologação
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`pedido_homologacao` SET `homolog_aprovadorggp` = '".$session['sess_nomeusuario']."', `homolog_situacaoggp` = '4', `homolog_dataaprovacaoggp` = ".date('"Y-m-d"')." WHERE `homolog_id` = '".$model->homolog_id."'");
+        $command->execute();
+        
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Homologação <b> '.$model->homolog_id.' </b> foi Aprovado!</b>');
+
+        return $this->redirect(['ggp-index']);
+    }
+
+    public function actionAprovarDad($id)
+    {
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
+
+        //Aprovado o Pedido de Custo
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`pedido_homologacao` SET `homolog_aprovadordad` = '".$session['sess_nomeusuario']."', `homolog_situacaodad` = '4', `homolog_dataaprovacaodad` = ".date('"Y-m-d"')." WHERE `homolog_id` = '".$model->homolog_id."'");
+        $command->execute();
+        
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Homologação <b> '.$model->homolog_id.' </b> foi Aprovado!</b>');
+
+        return $this->redirect(['dad-index']);
+    }
+
+
+    public function actionReprovarGgp($id)
+    {
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
+
+        //Reprova o Pedido de Homologação
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`pedido_homologacao` SET `homolog_aprovadorggp` = '".$session['sess_nomeusuario']."', `homolog_situacaoggp` = '3', `homolog_dataaprovacaoggp` = ".date('"Y-m-d"')." WHERE `homolog_id` = '".$model->homolog_id."'");
+        $command->execute();
+        
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Homologação <b> '.$model->homolog_id.' </b> foi Reprovado!</b>');
+
+        return $this->redirect(['ggp-index']);
+    }
+
+    public function actionReprovarDad($id)
+    {
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
+
+        //Reprova o Pedido de Homologação
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`pedido_homologacao` SET `homolog_aprovadordad` = '".$session['sess_nomeusuario']."', `homolog_situacaodad` = '3', `homolog_dataaprovacaodad` = ".date('"Y-m-d"')." WHERE `homolog_id` = '".$model->homolog_id."'");
+        $command->execute();
+        
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Homologação <b> '.$model->homolog_id.' </b> foi Reprovado!</b>');
+
+        return $this->redirect(['dad-index']);
+    }
+    
     /**
      * Displays a single PedidoHomologacao model.
      * @param integer $id

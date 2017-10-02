@@ -19,14 +19,16 @@ use yii\widgets\DetailView;
             <tr>
                   <th scope="row">Cargo:</th>
                   <td><?= $model->homolog_cargo ?></td>
+                  <th scope="row">Unidade:</th>
+                  <td colspan="6"><?= $model->homolog_unidade ?></td>
+            </tr>
+            <tr>
                   <th scope="row">Remuneração:</th>
                   <td><?= 'R$ ' . number_format($model->homolog_salario, 2, ',', '.'); ?></td>
                   <th scope="row">Encargos:</th>
                   <td><?= 'R$ ' . number_format($model->homolog_encargos, 2, ',', '.'); ?></td>
                   <th scope="row">Total:</th>
                   <td><?= 'R$ ' . number_format($model->homolog_total, 2, ',', '.'); ?></td>
-            </tr>
-            <tr>
                   <th scope="row">Tipo de Contrato:</th>
                   <td><?= $model->homolog_tipo == 0 ? 'Indeterminado' : 'Determinado';  ?></td>
                   <th scope="row">Solicitação:</th>

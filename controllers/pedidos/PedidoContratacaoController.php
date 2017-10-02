@@ -86,7 +86,7 @@ class PedidoContratacaoController extends Controller
         $session = Yii::$app->session;
         $model = $this->findModel($id);
 
-        //Classifica o candidato
+        //Aprova o Pedido de Contratação
         $connection = Yii::$app->db;
         $command = $connection->createCommand(
         "UPDATE `db_processos`.`pedido_contratacao` SET `pedcontratacao_aprovadorggp` = '".$session['sess_nomeusuario']."', `pedcontratacao_situacaoggp` = '4', `pedcontratacao_dataaprovacaoggp` = ".date('"Y-m-d"')." WHERE `pedcontratacao_id` = '".$model->pedcontratacao_id."'");
@@ -102,7 +102,7 @@ class PedidoContratacaoController extends Controller
         $session = Yii::$app->session;
         $model = $this->findModel($id);
 
-        //Classifica o candidato
+        //Aprova o Pedido de Contratação
         $connection = Yii::$app->db;
         $command = $connection->createCommand(
         "UPDATE `db_processos`.`pedido_contratacao` SET `pedcontratacao_aprovadordad` = '".$session['sess_nomeusuario']."', `pedcontratacao_situacaodad` = '4', `pedcontratacao_dataaprovacaodad` = ".date('"Y-m-d"')." WHERE `pedcontratacao_id` = '".$model->pedcontratacao_id."'");

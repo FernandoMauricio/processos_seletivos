@@ -12,7 +12,7 @@ use app\models\pedidos\pedidocusto\PedidocustoSituacao;
 /* @var $searchModel app\models\pedidos\pedidocusto\PedidoCustoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pedido de Custos';
+$this->title = 'Pedido de Custos em Aprovação';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pedido-custo-index">
@@ -133,7 +133,7 @@ $gridColumns = [
         'hover' => true,
         'panel' => [
         'type'=>GridView::TYPE_PRIMARY,
-        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem - Pedido de Custo Em Aprovação</h3>',
+        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem - Pedido de Custo em Aprovação</h3>',
     ],
 ]);
     ?>

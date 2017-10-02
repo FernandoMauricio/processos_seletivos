@@ -12,7 +12,7 @@ use app\models\pedidos\pedidocusto\PedidocustoSituacao;
 /* @var $searchModel app\models\pedidos\pedidocontratacao\PedidoContratacaoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pedido de Contratação em Aprovação';
+$this->title = 'Pedido de Homologação em Aprovação';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pedido-pedidocontratacao-index">
@@ -38,27 +38,26 @@ $gridColumns = [
                 return GridView::ROW_COLLAPSED;
             },
             'detail'=>function ($model, $key, $index, $column) {
-                return Yii::$app->controller->renderPartial('view-expand', ['model'=>$model, 'modelsItens' => $model->pedidocontratacaoItens]);
+                return Yii::$app->controller->renderPartial('view-expand', ['model'=>$model, 'modelsItens' => $model->pedidohomologacaoItens]);
             },
             'headerOptions'=>['class'=>'kartik-sheet-style'], 
             'expandOneOnly'=>true
             ],
 
-            'pedcontratacao_id',
-            'pedcontratacao_assunto',
-            'pedcontratacao_recursos',
-
+            'homolog_id',
+            'homolog_unidade',
+            'homolog_cargo',
             [
-               'attribute' => 'pedcontratacao_valortotal',
+               'attribute' => 'homolog_total',
                'contentOptions' => ['class' => 'col-lg-1'],
                'format' => ['decimal',2],
             ],
 
             [
-                'attribute'=>'pedcontratacao_situacaoggp', 
+                'attribute'=>'homolog_situacaoggp', 
                 'width'=>'310px',
                 'value'=>function ($model, $key, $index, $widget) { 
-                    return $model->pedcontratacaoSituacaoggp->situacao_descricao;
+                    return $model->homologSituacaoggp->situacao_descricao;
                 },
                 'filterType'=>GridView::FILTER_SELECT2,
                 'filter'=>ArrayHelper::map(PedidocustoSituacao::find()->orderBy('situacao_descricao')->asArray()->all(), 'situacao_descricao', 'situacao_descricao'), 
@@ -69,10 +68,10 @@ $gridColumns = [
             ],
 
             [
-                'attribute'=>'pedcontratacao_situacaodad', 
+                'attribute'=>'homolog_situacaodad', 
                 'width'=>'310px',
                 'value'=>function ($model, $key, $index, $widget) { 
-                    return $model->pedcontratacaoSituacaodad->situacao_descricao;
+                    return $model->homologSituacaodad->situacao_descricao;
                 },
                 'filterType'=>GridView::FILTER_SELECT2,
                 'filter'=>ArrayHelper::map(PedidocustoSituacao::find()->orderBy('situacao_descricao')->asArray()->all(), 'situacao_descricao', 'situacao_descricao'), 
@@ -82,7 +81,7 @@ $gridColumns = [
                     'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
             ],
 
-            'pedcontratacao_responsavel',
+            'homolog_responsavel',
             
             ['class' => 'yii\grid\ActionColumn',
                         'template' => '{aprovar-ggp} {reprovar-ggp}',
@@ -125,7 +124,7 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes do Pedido de Contratação', 'options'=>['colspan'=>8, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes do Pedido de Homologação', 'options'=>['colspan'=>8, 'class'=>'text-center warning']], 
                 ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]
@@ -133,7 +132,7 @@ $gridColumns = [
         'hover' => true,
         'panel' => [
         'type'=>GridView::TYPE_PRIMARY,
-        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem - Pedido de Contratação em Aprovação</h3>',
+        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem - Pedido de Homologação em Aprovação</h3>',
     ],
 ]);
     ?>
