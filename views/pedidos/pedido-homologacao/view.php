@@ -17,7 +17,7 @@ use yii\widgets\DetailView;
                         <?php 
                           setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
                           date_default_timezone_set('America/Manaus'); 
-                          echo strftime('%A, %d de %B de %Y', strtotime('today'));
+                          echo strftime('%A, %d de %B de %Y', strtotime($model->homolog_data));
                         ?>
                       </h4>
     </td>
@@ -35,7 +35,7 @@ use yii\widgets\DetailView;
                   <th scope="row">Cargo:</th>
                   <td><?= $model->homolog_cargo ?></td>
                   <th scope="row">Unidade:</th>
-                  <td colspan="6"><?= $model->homolog_unidade ?></td>
+                  <td colspan="2"><?= $model->homolog_unidade ?></td>
             </tr>
             <tr>
                   <th scope="row">Remuneração:</th>

@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 use yii\helpers\Url;
-
+use kartik\datecontrol\DateControl;
 use faryshta\widgets\JqueryTagsInput;
 
 /* @var $this yii\web\View */
@@ -31,7 +31,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
 <div class="panel-body">
     <div class="row">
-        <div class="col-md-2"><?= $form->field($model, 'contratacao_id')->textInput(['maxlength' => true, 'readonly' => true]) ?></div>
+        <div class="col-md-1"><?= $form->field($model, 'contratacao_id')->textInput(['maxlength' => true, 'readonly' => true]) ?></div>
 
         <div class="col-md-3"><?= $form->field($model, 'homolog_cargo')->textInput(['maxlength' => true, 'readonly' => true]) ?></div>
 
@@ -39,7 +39,20 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
         <div class="col-md-2"><?= $form->field($model, 'homolog_encargos')->textInput(['maxlength' => true, 'readonly' => true]) ?></div>
 
-        <div class="col-md-3"><?= $form->field($model, 'homolog_total')->textInput(['maxlength' => true, 'readonly' => true]) ?></div>
+        <div class="col-md-2"><?= $form->field($model, 'homolog_total')->textInput(['maxlength' => true, 'readonly' => true]) ?></div>
+
+        <div class="col-md-2">
+            <?= $form->field($model, 'homolog_data')->widget(DateControl::classname(), [
+                            'type'=>DateControl::FORMAT_DATE,
+                            'ajaxConversion'=>true,
+                            'widgetOptions' => [
+                                'pluginOptions' => [
+                                    'autoclose' => true
+                                ]
+                            ]
+                        ]);
+            ?>
+        </div>
     </div>
 
     <div class="row">

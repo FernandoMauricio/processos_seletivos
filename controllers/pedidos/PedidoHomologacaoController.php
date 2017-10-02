@@ -243,6 +243,9 @@ class PedidoHomologacaoController extends Controller
                     ->execute();
             $model->save();
         }
+
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Homologação Cadastrado!</b>');
+
             return $this->redirect(['index']);
         } else {
             return $this->renderAjax('gerar-pedido-homologacao', [
@@ -266,13 +269,15 @@ class PedidoHomologacaoController extends Controller
 
         $model->homolog_situacaoggp = 1; //Aguardando Autorização GPP
         $model->homolog_situacaodad = 1; //Aguardando Autorização DAD
-        $model->homolog_data        = date('Y-m-d');
         $model->homolog_responsavel = $session['sess_nomeusuario'];
 
         //1 => Em elaboração / 2 => Em correção pelo setor / 3 => Recebido pelo GGP
         $contratacoes = Contratacao::find()->where(['!=','situacao_id', 1])->andWhere(['!=','situacao_id', 2])->andWhere(['!=','situacao_id', 3])->orderBy('id')->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Homologação Atualizado!</b>');
+
             return $this->redirect(['index']);
         } else {
             return $this->render('update', [

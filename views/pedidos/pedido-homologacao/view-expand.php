@@ -20,7 +20,7 @@ use yii\widgets\DetailView;
                   <th scope="row">Cargo:</th>
                   <td><?= $model->homolog_cargo ?></td>
                   <th scope="row">Unidade:</th>
-                  <td colspan="6"><?= $model->homolog_unidade ?></td>
+                  <td colspan="2"><?= $model->homolog_unidade ?></td>
             </tr>
             <tr>
                   <th scope="row">Remuneração:</th>
