@@ -298,10 +298,16 @@ class PedidoHomologacaoController extends Controller
     {
         $model = $this->findModel($id);
 
+        //Verifica se já existe algum pedido de Contratação criado
+        if(isset($model->pedidocontratacaoItens->contratacao_id)) {
+            Yii::$app->session->setFlash('danger', '<b>ERRO! </b> Não é possível <b>EXCLUIR</b> pois já existe <b>Pedido de Contratação</b> criado para esse Pedido de Homologação.');
+            return $this->redirect(['index']);
+        }else{
             PedidohomologacaoItens::deleteAll('pedidohomologacao_id = "'.$id.'"');
-            $model->delete(); //Exclui o pedido de homologação
+            $model->delete(); //Exclui o pedido de custo
             Yii::$app->session->setFlash('success', '<b>SUCESSO! </b> Pedido de Homologação excluido!</b>');
             return $this->redirect(['index']);
+        }
     }
 
     /**

@@ -6,6 +6,7 @@ use Yii;
 
 use app\models\contratacao\Contratacao;
 use app\models\pedidos\pedidocusto\PedidocustoSituacao;
+use app\models\pedidos\pedidocontratacao\PedidocontratacaoItens;
 
 /**
  * This is the model class for table "pedido_homologacao".
@@ -123,5 +124,13 @@ class PedidoHomologacao extends \yii\db\ActiveRecord
     public function getPedidohomologacaoItens()
     {
         return $this->hasMany(PedidohomologacaoItens::className(), ['pedidohomologacao_id' => 'homolog_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPedidocontratacaoItens()
+    {
+        return $this->hasOne(PedidocontratacaoItens::className(), ['contratacao_id' => 'contratacao_id']);
     }
 }
