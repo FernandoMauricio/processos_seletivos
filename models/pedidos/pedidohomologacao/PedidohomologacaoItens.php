@@ -54,7 +54,7 @@ class PedidohomologacaoItens extends \yii\db\ActiveRecord
             'pedhomolog_classificacao' => 'Classificacao',
             'pedhomolog_cargo' => 'Cargo',
             'pedhomolog_localcontratacao' => 'Destino',
-            'pedhomolog_data' => 'Data',
+            'pedhomolog_data' => 'Data da Homologação',
         ];
     }
 

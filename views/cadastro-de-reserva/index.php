@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
 use yii\bootstrap\Modal;
 use yii\helpers\Url;
-
+use kartik\widgets\DatePicker;
 use app\models\etapasprocesso\EtapasItens;
 
 /* @var $this yii\web\View */
@@ -39,7 +39,20 @@ $gridColumns = [
             'pedhomolog_classificacao', 
             'pedhomolog_localcontratacao', 
             'pedhomolog_cargo', 
-            'pedhomolog_data',
+            [
+                'attribute' => 'pedhomolog_data',
+                'format' => ['datetime', 'php:d/m/Y'],
+                'width' => '190px',
+                'hAlign' => 'center',
+                'filter'=> DatePicker::widget([
+                'model' => $searchModel, 
+                'attribute' => 'pedhomolog_data',
+                'pluginOptions' => [
+                     'autoclose'=>true,
+                     'format' => 'yyyy-mm-dd',
+                    ]
+                ])
+            ],
 
             ['class' => 'yii\grid\ActionColumn',
                         'template' => '{view}',
