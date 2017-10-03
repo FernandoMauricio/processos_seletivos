@@ -4,7 +4,8 @@ namespace app\controllers\curriculos;
 
 use Yii;
 use app\models\Model;
-use app\models\curriculos\CadastroDeReservaSearch;
+use app\models\pedidos\pedidohomologacao\CadastroDeReservaSearch;
+use app\models\pedidos\pedidohomologacao\PedidoHomologacao;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

@@ -243,12 +243,13 @@ class PedidoHomologacaoController extends Controller
                     ->insert('pedidohomologacao_itens', [
                              'pedidohomologacao_id'        => $model->homolog_id,
                              'curriculos_id'               => $candidato['curriculos_id'],
-                             //'pedhomolog_docabertura'      => $candidato['edital'],
+                             'pedhomolog_docabertura'      => $candidato['curriculos']['edital'],
                              'pedhomolog_numeroInscricao'  => $candidato['numeroInscricao'],
                              'pedhomolog_candidato'        => $candidato['nome'],
                              'pedhomolog_classificacao'    => $candidato['itens_classificacao'],
                              'pedhomolog_localcontratacao' => $candidato['itens_localcontratacao'],
-                             //'pedhomolog_cargo'            => $candidato['etapa_cargo'],
+                             'pedhomolog_cargo'            => $model->homolog_cargo,
+                             'pedhomolog_data'             => $model->homolog_data,
                              ])
                     ->execute();
             $model->save();

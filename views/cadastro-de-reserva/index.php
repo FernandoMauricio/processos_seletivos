@@ -32,23 +32,14 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
 $gridColumns = [
 
-            [
-                'attribute' => 'numeroEdital',
-                'value' => 'curriculos.edital'
-            ],
-            
-            [
-                'attribute' => 'numeroInscricao',
-                'value' => 'curriculos.numeroInscricao'
-            ],
-            [
-                'attribute' => 'nome',
-                'value' => 'curriculos.nome'
-            ],
-            'itens_classificacao',
-            'itens_localcontratacao',
-            'cargo',
-            'homolog_data',
+            'pedidohomologacao_id', 
+            'pedhomolog_docabertura', 
+            'pedhomolog_numeroInscricao', 
+            'pedhomolog_candidato', 
+            'pedhomolog_classificacao', 
+            'pedhomolog_localcontratacao', 
+            'pedhomolog_cargo', 
+            'pedhomolog_data',
 
             ['class' => 'yii\grid\ActionColumn',
                         'template' => '{view}',
@@ -57,7 +48,7 @@ $gridColumns = [
 
                         //VISUALIZAR/IMPRIMIR
                         'view' => function ($url, $model) {
-                            $url = 'index.php?r=curriculos/curriculos-admin/imprimir&id=' . $model->curriculos->id;
+                            $url = 'index.php?r=curriculos/curriculos-admin/imprimir&id=' . $model->curriculos_id;
                             return Html::a('<span class="glyphicon glyphicon-print"></span> ', $url, [
                                         'target'=>'_blank', 
                                         'data-pjax'=>"0",
@@ -81,11 +72,15 @@ $gridColumns = [
     'containerOptions'=>['style'=>'overflow: auto'], // only set when $responsive = false
     'headerRowOptions'=>['class'=>'kartik-sheet-style'],
     'filterRowOptions'=>['class'=>'kartik-sheet-style'],
-    'pjax'=>false, // pjax is set to always true for this demo
+    'pjax'=>true,
+    'pjaxSettings'=>[
+        'neverTimeout'=>true,
+        'beforeGrid'=>'<em style="color:red;">Listagem de candidatos com validade até 1 ano a partir da <b>Data de Homologação</b>.</em>',
+    ],
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes do Cadastro de Reserva', 'options'=>['colspan'=>7, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes do Cadastro de Reserva', 'options'=>['colspan'=>8, 'class'=>'text-center warning']], 
                 ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]
