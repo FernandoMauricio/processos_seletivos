@@ -31,6 +31,16 @@ use kartik\select2\Select2;
             ?>
         </div>
         <div class="col-md-2">
+            <?php  echo $form->field($model, 'graduacaoLabel')->widget(Select2::classname(), [
+                                'data' =>  ['1' => 'Completo', '0' => 'Incompleto'],
+                                'options' => ['placeholder' => 'Completo/Incompleto...'],
+                                'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                ]);
+            ?>
+        </div>
+        <div class="col-md-2">
             <?php  echo $form->field($model, 'posLabel')->widget(Select2::classname(), [
                                 'data' =>  ['1' => 'Completo', '0' => 'Incompleto'],
                                 'options' => ['placeholder' => 'Completo/Incompleto...'],

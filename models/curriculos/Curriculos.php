@@ -54,6 +54,7 @@ class Curriculos extends \yii\db\ActiveRecord
     public $bairroLabel;
     public $cidadeLabel;
     public $tecnicoLabel;
+    public $graduacaoLabel;
     public $posLabel;
     public $mestradoLabel;
     public $idadeInicial;
@@ -77,7 +78,7 @@ class Curriculos extends \yii\db\ActiveRecord
             ['cpf', 'unique', 'targetAttribute' => ['edital', 'cpf', 'cargo'],'message' => '"{value} Já utilizado para o edital e cargo selecionado"'],
             ['cpf', CpfValidator::className()],
             [['idade', 'deficiencia', 'unidade_aprovador', 'parentesco', 'situacao_ggp', 'situacao_aprovadorsolicitante', 'idadeInicial', 'idadeFinal'], 'integer'],
-            [['datanascimento', 'data', 'idadeModel', 'classificado', 'dataaprovador_ggp', 'dataaprovador_solicitante', 'bairroLabel', 'cidadeLabel', 'posLabel', 'tecnicoLabel',
+            [['datanascimento', 'data', 'idadeModel', 'classificado', 'dataaprovador_ggp', 'dataaprovador_solicitante', 'bairroLabel', 'cidadeLabel', 'posLabel', 'tecnicoLabel', 'graduacaoLabel',
 'mestradoLabel','marketing'], 'safe'],
             [['edital', 'numeroInscricao', 'identidade', 'orgao_exped'], 'string', 'max' => 45],
             [['nome', 'cargo', 'email', 'emailAlt', 'aprovador_ggp', 'aprovador_solicitante'], 'string', 'max' => 100],
@@ -128,6 +129,7 @@ class Curriculos extends \yii\db\ActiveRecord
             'bairroLabel' => 'Bairro',
             'cidadeLabel' => 'Cidade',
             'tecnicoLabel' => 'Técnico',
+            'graduacaoLabel' => 'Graduação',
             'posLabel' => 'Pós Graduação',
             'mestradoLabel' => 'Mestrado',
         ];

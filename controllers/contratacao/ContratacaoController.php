@@ -178,7 +178,7 @@ class ContratacaoController extends Controller
 
         $model = new Contratacao();
 
-        $cargos = Cargos::find()->where(['status' => 1])->orderBy('descricao')->all();
+        $cargos = Cargos::find()->where(['status' => 1])->andWhere(['!=','homologacao', ''])->orderBy('descricao')->all();
         $sistemas = Sistemas::find()->where(['status' => 1])->all();
 
         $session = Yii::$app->session;
@@ -250,7 +250,7 @@ class ContratacaoController extends Controller
     
         $model = $this->findModel($id);
 
-       $cargos = Cargos::find()->where(['status' => 1])->orderBy('descricao')->all();
+       $cargos = Cargos::find()->where(['status' => 1])->andWhere(['!=','homologacao', ''])->orderBy('descricao')->all();
        $sistemas = Sistemas::find()->where(['status' => 1])->all();
 
         //Retrieve the stored checkboxes

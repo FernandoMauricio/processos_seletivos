@@ -82,7 +82,7 @@ use yii\widgets\DetailView;
                 foreach ($itens as $i => $etapa): ?>
                   <td><?= $etapa->itens_confirmacaocontato == 1 ? ' <span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: #54c51b;"></span>' : '<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: #a94442;"></span>'; ?></td>
                   <td><?= $etapa->curriculos->numeroInscricao; ?></td>
-                  <td><span class="text-uppercase"><?= $etapa->curriculos->nome; ?></span></td>
+                  <td><a href="<?php echo Yii::$app->request->baseUrl; ?>/index.php?r=curriculos%2Fcurriculos-admin%2Fimprimir&id=<?=$etapa->curriculos->id?>" target="_blank"><span class="text-uppercase"><?= $etapa->curriculos->nome; ?></span></a></td>
                   <td style="width: 80px;"><?= $etapa->itens_escrita; ?></td>
                   <td style="width: 80px;"><?= $etapa->itens_comportamental; ?></td>
                   <?php echo $model['etapa_perfil'] == 1 ? '<td style="width: 80px;"> '.$etapa->itens_didatica.' </td>' : ''; ?>
