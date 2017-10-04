@@ -33,15 +33,17 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
     <div class="row">
         <div class="col-md-1"><?= $form->field($model, 'contratacao_id')->textInput(['maxlength' => true, 'readonly' => true]) ?></div>
 
-        <div class="col-md-3"><?= $form->field($model, 'homolog_cargo')->textInput(['maxlength' => true, 'readonly' => true]) ?></div>
+        <div class="col-md-5"><?= $form->field($model, 'homolog_cargo')->textInput(['maxlength' => true, 'readonly' => true]) ?></div>
 
         <div class="col-md-2"><?= $form->field($model, 'homolog_salario')->textInput(['maxlength' => true, 'readonly' => true]) ?></div>
 
         <div class="col-md-2"><?= $form->field($model, 'homolog_encargos')->textInput(['maxlength' => true, 'readonly' => true]) ?></div>
 
         <div class="col-md-2"><?= $form->field($model, 'homolog_total')->textInput(['maxlength' => true, 'readonly' => true]) ?></div>
+    </div>
 
-        <div class="col-md-2">
+    <div class="row">
+        <div class="col-md-3">
             <?= $form->field($model, 'homolog_data')->widget(DateControl::classname(), [
                             'type'=>DateControl::FORMAT_DATE,
                             'ajaxConversion'=>true,
@@ -53,14 +55,24 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                         ]);
             ?>
         </div>
-    </div>
-
-    <div class="row">
+        <div class="col-md-3">
+            <?= $form->field($model, 'homolog_datahomologacao')->widget(DateControl::classname(), [
+                            'type'=>DateControl::FORMAT_DATE,
+                            'ajaxConversion'=>true,
+                            'widgetOptions' => [
+                                'pluginOptions' => [
+                                    'autoclose' => true
+                                ]
+                            ]
+                        ]);
+            ?>
+        </div>
         <div class="col-md-2"><?= $form->field($model, 'homolog_tipo')->textInput(['value' => $model->homolog_tipo == 0 ? 'Inderterminado' : 'Determinado','maxlength' => true, 'readonly' => true]) ?></div>
 
-        <div class="col-md-5"><?= $form->field($model, 'homolog_unidade')->textInput(['maxlength' => true, 'readonly' => true]) ?></div>
-
-        <div class="col-md-5"><?= $form->field($model, 'homolog_motivo')->textInput(['maxlength' => true]) ?></div>
+        <div class="col-md-4"><?= $form->field($model, 'homolog_unidade')->textInput(['maxlength' => true, 'readonly' => true]) ?></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12"><?= $form->field($model, 'homolog_motivo')->textInput(['maxlength' => true]) ?></div>
     </div>
 
     <div class="row">

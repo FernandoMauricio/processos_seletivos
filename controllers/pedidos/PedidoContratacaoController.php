@@ -155,6 +155,22 @@ class PedidoContratacaoController extends Controller
         return $this->redirect(['dad-index']);
     }
 
+    public function actionHomologarContratacao($id)
+    {
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
+
+        //Homologa o Pedido de Contratação e desclassifica o restante dos candidatos que não foram selecionados
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`pedido_contratacao` SET `pedcontratacao_homologador` = '".$session['sess_nomeusuario']."', `pedcontratacao_datahomologacao` = ".date('"Y-m-d"')." WHERE `pedcontratacao_id` = '".$model->pedcontratacao_id."'");
+        $command->execute();
+        
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação <strong> '.$model->pedcontratacao_id.' </strong> foi Homologado!</strong>');
+
+        return $this->redirect(['index']);
+    }
+
     /**
      * Displays a single PedidoContratacao model.
      * @param integer $id
@@ -285,6 +301,12 @@ class PedidoContratacaoController extends Controller
         $model->pedcontratacao_situacaodad = 1; //Aguardando Autorização DAD
         $model->pedcontratacao_data = date('Y-m-d');
         $model->pedcontratacao_responsavel = $session['sess_nomeusuario'];
+
+        //Verifica se o Pedido de Contratação já foi homologado
+        if(isset($model->pedcontratacao_homologador) || isset($model->pedcontratacao_datahomologacao)) {
+            Yii::$app->session->setFlash('danger', '<b>ERRO!</b> Pedido já Homologado. Não é possível executar esta ação!');
+            return $this->redirect(['index']);
+        }
 
         //1 => Em elaboração / 2 => Em correção pelo setor / 3 => Recebido pelo GGP
         $contratacoes = Contratacao::find()->where(['!=','situacao_id', 1])->andWhere(['!=','situacao_id', 2])->andWhere(['!=','situacao_id', 3])->orderBy('id')->all();

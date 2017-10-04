@@ -56,7 +56,7 @@ class PedidoHomologacao extends \yii\db\ActiveRecord
             [['contratacao_id', 'homolog_situacaoggp', 'homolog_situacaodad'], 'integer'],
             [['homolog_salario', 'homolog_encargos', 'homolog_total'], 'number'],
             [['homolog_sintese', 'candidato'], 'string'],
-            [['homolog_dataaprovacaoggp', 'homolog_dataaprovacaodad', 'homolog_data', 'homolog_tipo'], 'safe'],
+            [['homolog_dataaprovacaoggp', 'homolog_dataaprovacaodad', 'homolog_data', 'homolog_datahomologacao', 'homolog_tipo'], 'safe'],
             [['homolog_cargo', 'homolog_unidade', 'homolog_motivo', 'homolog_validade', 'homolog_fases'], 'string', 'max' => 255],
             [['homolog_aprovadorggp', 'homolog_aprovadordad', 'homolog_responsavel'], 'string', 'max' => 45],
             [['contratacao_id'], 'exist', 'skipOnError' => true, 'targetClass' => Contratacao::className(), 'targetAttribute' => ['contratacao_id' => 'id']],
@@ -91,6 +91,7 @@ class PedidoHomologacao extends \yii\db\ActiveRecord
             'homolog_dataaprovacaodad' => 'Dataaprovacaodad',
             'homolog_responsavel' => 'Responsavel',
             'homolog_data' => 'Data',
+            'homolog_datahomologacao' => 'Data da Homologação',
         ];
     }
 

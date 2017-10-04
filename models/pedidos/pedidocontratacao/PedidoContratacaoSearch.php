@@ -19,7 +19,7 @@ class PedidoContratacaoSearch extends PedidoContratacao
     {
         return [
             [['pedcontratacao_id', 'pedcontratacao_situacaoggp', 'pedcontratacao_situacaodad'], 'integer'],
-            [['pedcontratacao_assunto', 'pedcontratacao_recursos', 'pedcontratacao_data', 'pedcontratacao_aprovadorggp', 'pedcontratacao_dataaprovacaoggp', 'pedcontratacao_aprovadordad', 'pedcontratacao_dataaprovacaodad', 'pedcontratacao_responsavel', 'pedidocusto_id'], 'safe'],
+            [['pedcontratacao_assunto', 'pedcontratacao_recursos', 'pedcontratacao_data', 'pedcontratacao_aprovadorggp', 'pedcontratacao_dataaprovacaoggp', 'pedcontratacao_aprovadordad', 'pedcontratacao_dataaprovacaodad', 'pedcontratacao_responsavel', 'pedidocusto_id', 'pedcontratacao_homologador', 'pedcontratacao_datahomologacao'], 'safe'],
             [['pedcontratacao_valortotal'], 'number'],
         ];
     }
@@ -74,6 +74,7 @@ class PedidoContratacaoSearch extends PedidoContratacao
             'pedcontratacao_dataaprovacaoggp' => $this->pedcontratacao_dataaprovacaoggp,
             'pedcontratacao_situacaodad' => $this->pedcontratacao_situacaodad,
             'pedcontratacao_dataaprovacaodad' => $this->pedcontratacao_dataaprovacaodad,
+            'pedcontratacao_datahomologacao' => $this->pedcontratacao_datahomologacao,
         ]);
 
         $query->andFilterWhere(['like', 'pedcontratacao_assunto', $this->pedcontratacao_assunto])
@@ -81,7 +82,8 @@ class PedidoContratacaoSearch extends PedidoContratacao
             ->andFilterWhere(['like', 'pedcontratacao_aprovadorggp', $this->pedcontratacao_aprovadorggp])
             ->andFilterWhere(['like', 'pedcontratacao_aprovadordad', $this->pedcontratacao_aprovadordad])
             ->andFilterWhere(['like', 'pedcontratacao_responsavel', $this->pedcontratacao_responsavel])
-            ->andFilterWhere(['like', 'pedidocusto_id', $this->pedidocusto_id]);
+            ->andFilterWhere(['like', 'pedidocusto_id', $this->pedidocusto_id])
+            ->andFilterWhere(['like', 'pedcontratacao_homologador', $this->pedcontratacao_homologador]);
 
         return $dataProvider;
     }

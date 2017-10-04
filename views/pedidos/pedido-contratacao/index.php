@@ -5,14 +5,14 @@ use kartik\grid\GridView;
 use kartik\editable\Editable;
 use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
-
+use kartik\widgets\DatePicker;
 use app\models\pedidos\pedidocusto\PedidocustoSituacao;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\pedidos\pedidocontratacao\PedidoContratacaoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pedido de Contratação em Aprovação';
+$this->title = 'Pedido de Contratação';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pedido-contratacao-index">
@@ -91,12 +91,25 @@ $gridColumns = [
                     'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
             ],
 
-            'pedcontratacao_responsavel',
-            
+            'pedcontratacao_homologador',
+            [
+                'attribute' => 'pedcontratacao_datahomologacao',
+                'format' => ['datetime', 'php:d/m/Y'],
+                'width' => '190px',
+                'hAlign' => 'center',
+                'filter'=> DatePicker::widget([
+                'model' => $searchModel, 
+                'attribute' => 'pedcontratacao_datahomologacao',
+                'pluginOptions' => [
+                     'autoclose'=>true,
+                     'format' => 'yyyy-mm-dd',
+                    ]
+                ])
+            ],
 
             ['class' => 'yii\grid\ActionColumn',
-                        'template' => '{view} {update} {delete}',
-                        'contentOptions' => ['style' => 'width: 7%;'],
+                        'template' => '{view} {update} {homologar-contratacao} {delete}',
+                        'contentOptions' => ['style' => 'width: 10%;'],
                         'buttons' => [
 
                         //VISUALIZAR/IMPRIMIR
@@ -119,7 +132,20 @@ $gridColumns = [
                             ]);
                         },
 
-                         //DELETAR
+                        //HOMOLOGAÇÃO DO PEDIDO DE CONTRATAÇÃO
+                        'homologar-contratacao' => function ($url, $model) {
+                            return !isset($model->pedcontratacao_homologador) || !isset($model->pedcontratacao_datahomologacao) ? Html::a('<span class="glyphicon glyphicon-ok"></span> ', $url, [
+                                        'class'=>'btn btn-success btn-xs',
+                                        'title' => Yii::t('app', 'Homologar Processo'),
+                                        'data' =>  [
+                                                        'confirm' => '<b>Você tem CERTEZA que deseja HOMOLOGAR ESSE PEDIDO DE CONTRATAÇÃO</b>?
+                                                        <br><br>Ao realizar esta ação, o sistema modificará o status do 1º colocado no processo para <span style="color:#27cc27"><b>CONTRATADO</b></span> e para os demais, com excessão dos que estão no cadastro de reserva, ficarão como <span style="color:#ff2b2b"><b>DESCLASSIFICADOS</b></span> automaticamente.',
+                                                        'method' => 'post',
+                                                   ],
+                            ]): '';
+                        },
+
+                        //DELETAR
                         'delete' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-trash"></span> ', $url, [
                                         'class'=>'btn btn-danger btn-xs',
@@ -150,7 +176,7 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes do Pedido de Contratação', 'options'=>['colspan'=>9, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes do Pedido de Contratação', 'options'=>['colspan'=>10, 'class'=>'text-center warning']], 
                 ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]
@@ -158,7 +184,7 @@ $gridColumns = [
         'hover' => true,
         'panel' => [
         'type'=>GridView::TYPE_PRIMARY,
-        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem - Pedido de Contratação em Aprovação</h3>',
+        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem - Pedido de Contratação</h3>',
     ],
 ]);
     ?>

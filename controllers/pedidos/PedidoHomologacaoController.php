@@ -200,17 +200,18 @@ class PedidoHomologacaoController extends Controller
         ->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-        $model->homolog_unidade     = $model->contratacao->unidade;
-        $model->homolog_motivo      = $model->contratacao->motivo;
-        $model->homolog_cargo       = $model->contratacao->cargo0->descricao;
-        $model->homolog_salario     = $model->contratacao->cargo_salario;
-        $model->homolog_encargos    = $model->contratacao->cargo_encargos;
-        $model->homolog_total       = $model->contratacao->cargo_valortotal;
-        $model->homolog_tipo        = $model->contratacao->periodo;
-        $model->homolog_data        = date('Y-m-d');
-        $model->homolog_responsavel = $session['sess_nomeusuario'];
-        $model->homolog_validade    = 'O processo de seleção terá validade de 12 meses, podendo ser prorrogado por mais 12 meses, a valer da data de homologação.';
-        $model->homolog_sintese     = 'Segue o processo de recrutamento e seleção para [CARGO], do [UNIDADE], em virtude da necessidade de acompanhamento nas turmas de saúde, especialmente os Técnicos em Estética e Podologia, conforme pedido no portal nº [SOLICITAÇÃO], em anexo. Para este processo foram recebidos 231 currículos, tendo sido selecionados 20 currículos, conforme as exigências do perfil solicitado pelo gerente da unidade. Ao finalizar o processo seletivo que teve a participação da Supervisora Pedagógica Daniele Lima, da Analista Administrativa Sra. Keila Neves e do Auxiliar Administrativo o Sr. Israel Galvão, o(a) candidato(a) classificado(a) com o melhor desempenho foi o(a) Sr.(ª) [CANDIDATO] conforme tabela de classificação ao lado. No total ficaram classificados no processo seletivo 03 candidatos, de acordo com a descrição ao lado. Com isso solicitamos homologação do processo de seleção para prosseguirmos os tramites de contratação dos candidatos.';
+        $model->homolog_unidade         = $model->contratacao->unidade;
+        $model->homolog_motivo          = $model->contratacao->motivo;
+        $model->homolog_cargo           = $model->contratacao->cargo0->descricao;
+        $model->homolog_salario         = $model->contratacao->cargo_salario;
+        $model->homolog_encargos        = $model->contratacao->cargo_encargos;
+        $model->homolog_total           = $model->contratacao->cargo_valortotal;
+        $model->homolog_tipo            = $model->contratacao->periodo;
+        $model->homolog_data            = date('Y-m-d');
+        $model->homolog_datahomologacao = date('Y-m-d');
+        $model->homolog_responsavel     = $session['sess_nomeusuario'];
+        $model->homolog_validade        = 'O processo de seleção terá validade de 12 meses, podendo ser prorrogado por mais 12 meses, a valer da data de homologação.';
+        $model->homolog_sintese         = 'Segue o processo de recrutamento e seleção para [CARGO], do [UNIDADE], em virtude da necessidade de acompanhamento nas turmas de saúde, especialmente os Técnicos em Estética e Podologia, conforme pedido no portal nº [SOLICITAÇÃO], em anexo. Para este processo foram recebidos 231 currículos, tendo sido selecionados 20 currículos, conforme as exigências do perfil solicitado pelo gerente da unidade. Ao finalizar o processo seletivo que teve a participação da Supervisora Pedagógica Daniele Lima, da Analista Administrativa Sra. Keila Neves e do Auxiliar Administrativo o Sr. Israel Galvão, o(a) candidato(a) classificado(a) com o melhor desempenho foi o(a) Sr.(ª) [CANDIDATO] conforme tabela de classificação ao lado. No total ficaram classificados no processo seletivo 03 candidatos, de acordo com a descrição ao lado. Com isso solicitamos homologação do processo de seleção para prosseguirmos os tramites de contratação dos candidatos.';
         $model->save();
 
         //Localiza somente os candidatos classificados nas etapas do processo
@@ -238,6 +239,7 @@ class PedidoHomologacaoController extends Controller
 
         $candidatos = EtapasItens::findBySql($sqlCandidatos)->all();
 
+        //Calcula a data de expiração para 1 ano depois
         $data_expiracao = new Expression('DATE_ADD(NOW(), INTERVAL 1 YEAR)');
 
         foreach ($candidatos as $candidato) {
@@ -290,6 +292,17 @@ class PedidoHomologacaoController extends Controller
         $contratacoes = Contratacao::find()->where(['!=','situacao_id', 1])->andWhere(['!=','situacao_id', 2])->andWhere(['!=','situacao_id', 3])->orderBy('id')->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            //Atualiza a Data de Expiração 
+            $data_expiracao = new Expression('DATE_ADD("'.$model->homolog_datahomologacao.'", INTERVAL 1 YEAR)');
+
+            Yii::$app->db->createCommand()
+                    ->update('pedidohomologacao_itens', [
+                             'pedhomolog_expiracao' => $data_expiracao, //Atualiza a Data de Expiração de acordo com a Data de Homologação
+                             ], [//------WHERE
+                             'pedidohomologacao_id' => $model->homolog_id,
+                             ]) 
+                    ->execute();
 
             Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Homologação Atualizado!</b>');
 
