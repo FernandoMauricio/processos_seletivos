@@ -9,6 +9,7 @@ use yii\bootstrap\Modal;
 use yii\helpers\Url;
 use kartik\widgets\DatePicker;
 use app\models\etapasprocesso\EtapasItens;
+use yii\db\Expression;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\etapasprocesso\EtapasProcessoSearch */
@@ -40,13 +41,13 @@ $gridColumns = [
             'pedhomolog_localcontratacao', 
             'pedhomolog_cargo', 
             [
-                'attribute' => 'data_expiracao',
+                'attribute' => 'pedhomolog_expiracao',
                 'format' => ['datetime', 'php:d/m/Y'],
                 'width' => '190px',
                 'hAlign' => 'center',
                 'filter'=> DatePicker::widget([
                 'model' => $searchModel, 
-                'attribute' => 'data_expiracao',
+                'attribute' => 'pedhomolog_expiracao',
                 'pluginOptions' => [
                      'autoclose'=>true,
                      'format' => 'yyyy-mm-dd',

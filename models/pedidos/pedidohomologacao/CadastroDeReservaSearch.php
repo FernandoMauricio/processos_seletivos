@@ -20,7 +20,7 @@ class CadastroDeReservaSearch extends PedidohomologacaoItens
     {
         return [
             [['pedhomolog_id', 'pedidohomologacao_id', 'curriculos_id'], 'integer'],
-            [['pedhomolog_docabertura', 'pedhomolog_numeroInscricao', 'pedhomolog_candidato', 'pedhomolog_classificacao', 'pedhomolog_localcontratacao', 'pedhomolog_cargo', 'pedhomolog_data', 'data_expiracao'], 'safe'],
+            [['pedhomolog_docabertura', 'pedhomolog_numeroInscricao', 'pedhomolog_candidato', 'pedhomolog_classificacao', 'pedhomolog_localcontratacao', 'pedhomolog_cargo', 'pedhomolog_data', 'pedhomolog_expiracao'], 'safe'],
         ];
     }
 
@@ -44,9 +44,9 @@ class CadastroDeReservaSearch extends PedidohomologacaoItens
     {
         //Busca por candidatos que estejam com o pedido de homologação com validade de até 1 ano
         $query = PedidohomologacaoItens::find()
-        ->select(['pedidohomologacao_id', 'pedhomolog_docabertura', 'pedhomolog_numeroInscricao', 'pedhomolog_candidato', 'pedhomolog_classificacao', 'pedhomolog_localcontratacao', 'pedhomolog_cargo', 'pedhomolog_data', 'DATE_ADD(`pedhomolog_data`, INTERVAL 1 YEAR) as data_expiracao'])
+        ->select(['pedidohomologacao_id', 'pedhomolog_docabertura', 'pedhomolog_numeroInscricao', 'pedhomolog_candidato', 'pedhomolog_classificacao', 'pedhomolog_localcontratacao', 'pedhomolog_cargo', 'pedhomolog_data','pedhomolog_expiracao'])
         ->where(['=','pedhomolog_localcontratacao', 'CADASTRO DE RESERVA'])
-        ->Andwhere(['>', 'pedhomolog_data', new Expression('DATE_SUB(`pedhomolog_data`, INTERVAL 1 YEAR)')]);
+        ->Andwhere(['>', 'pedhomolog_data', 'pedhomolog_expiracao']);
 
         // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([
@@ -74,7 +74,8 @@ class CadastroDeReservaSearch extends PedidohomologacaoItens
             ->andFilterWhere(['like', 'pedhomolog_candidato', $this->pedhomolog_candidato])
             ->andFilterWhere(['like', 'pedhomolog_classificacao', $this->pedhomolog_classificacao])
             ->andFilterWhere(['like', 'pedhomolog_localcontratacao', $this->pedhomolog_localcontratacao])
-            ->andFilterWhere(['like', 'pedhomolog_cargo', $this->pedhomolog_cargo]);
+            ->andFilterWhere(['like', 'pedhomolog_cargo', $this->pedhomolog_cargo])
+            ->andFilterWhere(['<=', 'pedhomolog_expiracao', $this->pedhomolog_expiracao]);
 
         return $dataProvider;
     }

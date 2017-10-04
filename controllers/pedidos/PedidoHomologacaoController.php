@@ -14,6 +14,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use yii\db\Expression;
 
 /**
  * PedidoHomologacaoController implements the CRUD actions for PedidoHomologacao model.
@@ -237,6 +238,8 @@ class PedidoHomologacaoController extends Controller
 
         $candidatos = EtapasItens::findBySql($sqlCandidatos)->all();
 
+        $data_expiracao = new Expression('DATE_ADD(NOW(), INTERVAL 1 YEAR)');
+
         foreach ($candidatos as $candidato) {
                 //Inclui as informações dos candidatos classificados
                 Yii::$app->db->createCommand()
@@ -250,6 +253,7 @@ class PedidoHomologacaoController extends Controller
                              'pedhomolog_localcontratacao' => $candidato['itens_localcontratacao'],
                              'pedhomolog_cargo'            => $model->homolog_cargo,
                              'pedhomolog_data'             => $model->homolog_data,
+                             'pedhomolog_expiracao'        => $data_expiracao,
                              ])
                     ->execute();
             $model->save();
