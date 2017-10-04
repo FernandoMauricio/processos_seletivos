@@ -83,7 +83,7 @@ class PedidoContratacao extends \yii\db\ActiveRecord
     //Localiza os cargos vinculado ao Documento de Abertura
     public static function getCandidatosAprovadosSubCat($cat_id) {
 
-        $sql = 'SELECT DISTINCT
+        $sql = 'SELECT
                    `curriculos`.`nome` AS id,
                    concat(UPPER(`curriculos`.`nome`), " - ", `etapas_itens`.`itens_classificacao`) AS name
                 FROM `curriculos`
@@ -92,6 +92,7 @@ class PedidoContratacao extends \yii\db\ActiveRecord
                 INNER JOIN `pedidocusto_itens` ON `pedidocusto_itens`.`pedidocusto_id` = `etapas_processo`.`pedidocusto_id`
                 WHERE `etapas_itens`.`itens_classificacao` NOT LIKE "%Desclassificado(a)%"
                 AND `etapas_itens`.`itens_classificacao` NOT LIKE ""
+                AND `curriculos`.`cargo` = `pedidocusto_itens`.`itemcusto_cargo`
                 AND `etapas_processo`.`etapa_id` = '.$cat_id.'
                 ORDER BY `etapas_itens`.`itens_pontuacaototal` DESC' ;
 

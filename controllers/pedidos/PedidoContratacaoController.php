@@ -159,13 +159,24 @@ class PedidoContratacaoController extends Controller
     {
         $session = Yii::$app->session;
         $model = $this->findModel($id);
+        $modelsItens = $model->pedidocontratacaoItens;
 
+        foreach ($modelsItens as $modelItens) {
         //Homologa o Pedido de Contratação e desclassifica o restante dos candidatos que não foram selecionados
         $connection = Yii::$app->db;
         $command = $connection->createCommand(
-        "UPDATE `db_processos`.`pedido_contratacao` SET `pedcontratacao_homologador` = '".$session['sess_nomeusuario']."', `pedcontratacao_datahomologacao` = ".date('"Y-m-d"')." WHERE `pedcontratacao_id` = '".$model->pedcontratacao_id."'");
+        "SELECT *
+            FROM `curriculos`
+            LEFT JOIN `pedidohomologacao_itens` ON `pedidohomologacao_itens`.`curriculos_id` != `curriculos`.`id`
+            LEFT JOIN `etapas_itens` ON  `etapas_itens`.`curriculos_id` = `curriculos`.`id`
+            LEFT JOIN `etapas_processo` ON `etapas_processo`.`etapa_id` = `etapas_itens`.`etapasprocesso_id`
+            LEFT JOIN `pedidocusto_itens` ON `pedidocusto_itens`.`pedidocusto_id` = `etapas_processo`.`pedidocusto_id`
+            WHERE `classificado` IN(0,3,4,5)
+            AND `curriculos`.`edital` = '".$modelItens->etapasProcesso->processo->numeroEdital."'
+            AND `curriculos`.`cargo` = '".$modelItens->etapasProcesso->etapa_cargo."'");
         $command->execute();
-        
+        }
+
         Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação <strong> '.$model->pedcontratacao_id.' </strong> foi Homologado!</strong>');
 
         return $this->redirect(['index']);
