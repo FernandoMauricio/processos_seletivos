@@ -16,6 +16,7 @@ use Yii;
  */
 class PedidohomologacaoItens extends \yii\db\ActiveRecord
 {
+    public $data_expiracao;
     /**
      * @inheritdoc
      */
@@ -32,7 +33,7 @@ class PedidohomologacaoItens extends \yii\db\ActiveRecord
         return [
             [['pedidohomologacao_id'], 'required'],
             [['pedidohomologacao_id', 'curriculos_id'], 'integer'],
-            [['pedhomolog_data'], 'safe'],
+            [['pedhomolog_data', 'data_expiracao'], 'safe'],
             [['pedhomolog_candidato', 'pedhomolog_classificacao', 'pedhomolog_localcontratacao'], 'string', 'max' => 255],
             [['pedhomolog_cargo', 'pedhomolog_docabertura', 'pedhomolog_numeroInscricao'], 'string', 'max' => 45],
             [['pedidohomologacao_id'], 'exist', 'skipOnError' => true, 'targetClass' => PedidoHomologacao::className(), 'targetAttribute' => ['pedidohomologacao_id' => 'homolog_id']],
@@ -55,6 +56,7 @@ class PedidohomologacaoItens extends \yii\db\ActiveRecord
             'pedhomolog_cargo' => 'Cargo',
             'pedhomolog_localcontratacao' => 'Destino',
             'pedhomolog_data' => 'Data da Homologação',
+            'data_expiracao' => 'Data da Expiração',
         ];
     }
 

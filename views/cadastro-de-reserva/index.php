@@ -40,13 +40,13 @@ $gridColumns = [
             'pedhomolog_localcontratacao', 
             'pedhomolog_cargo', 
             [
-                'attribute' => 'pedhomolog_data',
+                'attribute' => 'data_expiracao',
                 'format' => ['datetime', 'php:d/m/Y'],
                 'width' => '190px',
                 'hAlign' => 'center',
                 'filter'=> DatePicker::widget([
                 'model' => $searchModel, 
-                'attribute' => 'pedhomolog_data',
+                'attribute' => 'data_expiracao',
                 'pluginOptions' => [
                      'autoclose'=>true,
                      'format' => 'yyyy-mm-dd',

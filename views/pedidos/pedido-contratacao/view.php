@@ -14,7 +14,7 @@ use yii\widgets\DetailView;
                          GERÊNCIA DE GESTÃO DE PESSOAS<br /><br />
                          PEDIDO DE CONTRATAÇÃO</h4>
     </td>
-    <td width="20%"><b>CC/RS/GGP  Nº </b> <?= $model->pedcontratacao_id . '/' . date('Y', strtotime($model->pedcontratacao_data)) ?><br /><br />
+    <td width="20%"><b>SC/RS/GGP  Nº </b> <?= $model->pedcontratacao_id . '/' . date('Y', strtotime($model->pedcontratacao_data)) ?><br /><br />
     <?=  date('d/m/Y', strtotime($model->pedcontratacao_data)); ?></td>
   </tr>
 </table>
