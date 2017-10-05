@@ -92,7 +92,7 @@ class PedidoContratacaoController extends Controller
         "UPDATE `db_processos`.`pedido_contratacao` SET `pedcontratacao_aprovadorggp` = '".$session['sess_nomeusuario']."', `pedcontratacao_situacaoggp` = '4', `pedcontratacao_dataaprovacaoggp` = ".date('"Y-m-d"')." WHERE `pedcontratacao_id` = '".$model->pedcontratacao_id."'");
         $command->execute();
         
-        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação <strong> '.$model->pedcontratacao_id.' </strong> foi Aprovado!</strong>');
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Contratação <b> '.$model->pedcontratacao_id.' </b> foi Aprovado!</b>');
 
         return $this->redirect(['ggp-index']);
     }
@@ -117,11 +117,10 @@ class PedidoContratacaoController extends Controller
         WHERE `pedidocontratacao_itens`.`contratacao_id` = `contratacao`.`id` AND `pedido_contratacao`.`pedcontratacao_id` = ".$model->pedcontratacao_id." ");
         $command->execute();
         
-        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação <strong> '.$model->pedcontratacao_id.' </strong> foi Aprovado!</strong>');
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Contratação <b> '.$model->pedcontratacao_id.' </b> foi Aprovado!</b>');
 
         return $this->redirect(['dad-index']);
     }
-
 
     public function actionReprovarGgp($id)
     {
@@ -134,7 +133,7 @@ class PedidoContratacaoController extends Controller
         "UPDATE `db_processos`.`pedido_contratacao` SET `pedcontratacao_aprovadorggp` = '".$session['sess_nomeusuario']."', `pedcontratacao_situacaoggp` = '3', `pedcontratacao_dataaprovacaoggp` = ".date('"Y-m-d"')." WHERE `pedcontratacao_id` = '".$model->pedcontratacao_id."'");
         $command->execute();
         
-        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação <strong> '.$model->pedcontratacao_id.' </strong> foi Reprovado!</strong>');
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Contratação <b> '.$model->pedcontratacao_id.' </b> foi Reprovado!</b>');
 
         return $this->redirect(['ggp-index']);
     }
@@ -150,7 +149,7 @@ class PedidoContratacaoController extends Controller
         "UPDATE `db_processos`.`pedido_contratacao` SET `pedcontratacao_aprovadordad` = '".$session['sess_nomeusuario']."', `pedcontratacao_situacaodad` = '3', `pedcontratacao_dataaprovacaodad` = ".date('"Y-m-d"')." WHERE `pedcontratacao_id` = '".$model->pedcontratacao_id."'");
         $command->execute();
 
-        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação <strong> '.$model->pedcontratacao_id.' </strong> foi Reprovado!</strong>');
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Contratação <b> '.$model->pedcontratacao_id.' </b> foi Reprovado!</b>');
 
         return $this->redirect(['dad-index']);
     }
@@ -162,22 +161,28 @@ class PedidoContratacaoController extends Controller
         $modelsItens = $model->pedidocontratacaoItens;
 
         foreach ($modelsItens as $modelItens) {
-        //Homologa o Pedido de Contratação e desclassifica o restante dos candidatos que não foram selecionados
+        //Desclassifica o restante dos candidatos que não foram selecionados
         $connection = Yii::$app->db;
         $command = $connection->createCommand(
-        "SELECT *
-            FROM `curriculos`
+        "UPDATE `curriculos`
             LEFT JOIN `pedidohomologacao_itens` ON `pedidohomologacao_itens`.`curriculos_id` != `curriculos`.`id`
             LEFT JOIN `etapas_itens` ON  `etapas_itens`.`curriculos_id` = `curriculos`.`id`
             LEFT JOIN `etapas_processo` ON `etapas_processo`.`etapa_id` = `etapas_itens`.`etapasprocesso_id`
             LEFT JOIN `pedidocusto_itens` ON `pedidocusto_itens`.`pedidocusto_id` = `etapas_processo`.`pedidocusto_id`
+            SET `classificado` = 0
             WHERE `classificado` IN(0,3,4,5)
-            AND `curriculos`.`edital` = '".$modelItens->etapasProcesso->processo->numeroEdital."'
+            AND `curriculos`.`edital` =  '".$modelItens->etapasProcesso->processo->numeroEdital."'
             AND `curriculos`.`cargo` = '".$modelItens->etapasProcesso->etapa_cargo."'");
         $command->execute();
         }
 
-        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação <strong> '.$model->pedcontratacao_id.' </strong> foi Homologado!</strong>');
+        //Homologa o Pedido de Contratação
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+         "UPDATE `db_processos`.`pedido_contratacao` SET `pedcontratacao_homologador` = '".$session['sess_nomeusuario']."', `pedcontratacao_datahomologacao` = ".date('"Y-m-d"')." WHERE `pedcontratacao_id` = '".$model->pedcontratacao_id."'");
+        $command->execute();
+
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Contratação <b> '.$model->pedcontratacao_id.' </b> foi Homologado!</b>');
 
         return $this->redirect(['index']);
     }
@@ -274,7 +279,7 @@ class PedidoContratacaoController extends Controller
                             }
                         $transaction->commit();
                             
-                        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação Cadastrado!</strong>');
+                        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Contratação Cadastrado!</b>');
                        return $this->redirect(['index']);
                     }
                 }
@@ -283,7 +288,7 @@ class PedidoContratacaoController extends Controller
                 }
             }
 
-            Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação Cadastrado!</strong>');
+            Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Contratação Cadastrado!</b>');
 
             return $this->redirect(['index']);
         } else {
@@ -368,7 +373,7 @@ class PedidoContratacaoController extends Controller
                             }
                         $transaction->commit();
 
-                        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação Atualizado!</strong>');
+                        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Contratação Atualizado!</b>');
                        return $this->redirect(['index']);
                     }
                 }catch (Exception $e) {
@@ -376,7 +381,7 @@ class PedidoContratacaoController extends Controller
                 }
             }
 
-            Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Pedido de Contratação Atualizado!</strong>');
+            Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Contratação Atualizado!</b>');
 
             return $this->redirect(['index']);
         } else {
@@ -401,7 +406,7 @@ class PedidoContratacaoController extends Controller
         PedidocontratacaoItens::deleteAll('pedidocontratacao_id = "'.$id.'"');
         $model->delete(); //Exclui a etapa do processo
 
-        Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Pedido de Contratação excluido!</strong>');
+        Yii::$app->session->setFlash('success', '<b>SUCESSO! </b> Pedido de Contratação excluido!</b>');
 
         return $this->redirect(['index']);
     }
