@@ -138,7 +138,7 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes do Processo Seletivo', 'options'=>['colspan'=>3, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes do Processo Seletivo', 'options'=>['colspan'=>5, 'class'=>'text-center warning']], 
                 ['content'=>'Área de Ações', 'options'=>['colspan'=>8, 'class'=>'text-center warning']], 
             ],
         ]

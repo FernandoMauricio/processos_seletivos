@@ -114,6 +114,7 @@ echo NavX::widget([
             ['label' => 'Processos Seletivos', 'items' => [
             '<li class="dropdown-header">Administração do Site</li>',
                 ['label' => 'Processos Seletivos', 'url' => ['/processoseletivo/processo-seletivo/index']],
+                ['label' => 'Geração de Arquivos', 'url' => ['/processoseletivo/geracao-arquivos/index']],
             ]],
 
 

@@ -52,6 +52,7 @@ class ProcessoSeletivoController extends Controller
         return $this->render('/site/acesso_negado');
 
     }else
+        $this->layout = 'main-full';
 
         $searchModel = new ProcessoSeletivoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
