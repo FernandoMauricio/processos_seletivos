@@ -419,12 +419,17 @@ class PedidoContratacaoController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        PedidocontratacaoItens::deleteAll('pedidocontratacao_id = "'.$id.'"');
-        $model->delete(); //Exclui a etapa do processo
 
-        Yii::$app->session->setFlash('success', '<b>SUCESSO! </b> Pedido de Contratação excluido!</b>');
-
-        return $this->redirect(['index']);
+        //Verifica se já existe alguma etapa de processo criada
+        if(isset($model->pedcontratacao_homologador) || isset($model->pedcontratacao_datahomologacao)) {
+            Yii::$app->session->setFlash('danger', '<b>ERRO!</b> Pedido já Homologado. Não é possível executar esta ação!');
+            return $this->redirect(['index']);
+        }else{
+            PedidocustoItens::deleteAll('pedidocontratacao_id = "'.$id.'"');
+            $model->delete(); //Exclui o pedido de custo
+            Yii::$app->session->setFlash('success', '<b>SUCESSO! </b> Pedido de Contratação excluido!</b>');
+            return $this->redirect(['index']);
+        }
     }
 
     /**
