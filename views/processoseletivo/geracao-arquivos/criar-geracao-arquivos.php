@@ -13,7 +13,7 @@ use yii\helpers\Json;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="criar-etapas-processo-form">
+<div class="geracao-arquivos-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -34,44 +34,16 @@ use yii\helpers\Json;
             </div>
             <div class="col-md-9">
                 <?php
-                    $data_pedidocusto = ArrayHelper::map($pedidoCusto, 'custo_id', 'custo_assunto');
-                    echo $form->field($model, 'pedidocusto_id')->widget(Select2::classname(), [
-                            'data' =>  $data_pedidocusto,
-                            'hideSearch' => true,
-                            'options' => ['placeholder' => 'Selecione o Pedido de Custo...'],
-                            'pluginOptions' => [
-                                    'allowClear' => true,
-                                ],
-                            ]);
-                ?>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-9">
-                <?php
-                    echo $form->field($model, 'etapa_cargo')->widget(DepDrop::classname(), [
+                    echo $form->field($model, 'etapasprocesso_id')->widget(DepDrop::classname(), [
                             'type'=>DepDrop::TYPE_SELECT2,
                             'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                             'pluginOptions'=>[
                                 'depends'=>['edital-id'],
-                                'placeholder'=>'Selecione o Cargo...',
+                                'placeholder'=>'Selecione as etapas do processo...',
                                 'initialize' => true,
-                                'url'=>Url::to(['/etapasprocesso/etapas-processo/cargos-etapas-processo'])
+                                'url'=>Url::to(['/processoseletivo/geracao-arquivos/etapas-processo'])
                             ]
                         ]);
-                ?>
-            </div>
-            <div class="col-md-3">
-                <?php
-                    echo $form->field($model, 'etapa_perfil')->widget(Select2::classname(), [
-                            'data' =>  ['0' => 'Administrativo', '1' => 'Docente/Motorista/Cozinha'],
-                            'hideSearch' => true,
-                            'options' => ['placeholder' => 'Selecione o Perfil...'],
-                            'pluginOptions' => [
-                                    'allowClear' => true,
-                                ],
-                            ]);
                 ?>
             </div>
         </div>

@@ -3,11 +3,14 @@
 namespace app\controllers\processoseletivo;
 
 use Yii;
+use app\models\processoseletivo\ProcessoSeletivo;
 use app\models\processoseletivo\geracaoarquivo\GeracaoArquivos;
-use app\models\processoseletivo\GeracaoArquivosSearch;
+use app\models\processoseletivo\geracaoarquivo\GeracaoArquivosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
+use yii\helpers\ArrayHelper;
 
 /**
  * GeracaoArquivosController implements the CRUD actions for GeracaoArquivos model.
@@ -27,6 +30,21 @@ class GeracaoArquivosController extends Controller
                 ],
             ],
         ];
+    }
+
+    //Localiza as Etapas de Processo Vinculados ao Documento de Abertura
+    public function actionEtapasProcesso() {
+                $out = [];
+                if (isset($_POST['depdrop_parents'])) {
+                    $parents = $_POST['depdrop_parents'];
+                    if ($parents != null) {
+                        $cat_id = $parents[0];
+                        $out = GeracaoArquivos::getEtapasProcessoSubCat($cat_id);
+                        echo Json::encode(['output'=>$out, 'selected'=>'']);
+                        return;
+                    }
+                }
+                echo Json::encode(['output'=>'', 'selected'=>'']);
     }
 
     /**
@@ -65,11 +83,14 @@ class GeracaoArquivosController extends Controller
     {
         $model = new GeracaoArquivos();
 
+        $processo = ProcessoSeletivo::find()->where(['situacao_id' => 1])->orWhere(['situacao_id' => 2])->all();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->gerarq_id]);
+            return $this->redirect(['update', 'id' => $model->gerarq_id]);
         } else {
-            return $this->render('create', [
+            return $this->renderAjax('criar-geracao-arquivos', [
                 'model' => $model,
+                'processo' => $processo,
             ]);
         }
     }
@@ -83,8 +104,14 @@ class GeracaoArquivosController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $processo = ProcessoSeletivo::find()->where(['situacao_id' => 1])->orWhere(['situacao_id' => 2])->all();
+
+        $model->gerarq_documentos = explode(", ",$model->gerarq_documentos);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            $model->gerarq_documentos = implode(", ",$model->gerarq_documentos);
+
             return $this->redirect(['view', 'id' => $model->gerarq_id]);
         } else {
             return $this->render('update', [

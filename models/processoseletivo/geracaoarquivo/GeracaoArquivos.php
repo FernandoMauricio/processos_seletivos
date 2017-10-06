@@ -3,8 +3,6 @@
 namespace app\models\processoseletivo\geracaoarquivo;
 
 use Yii;
-
-use app\models\curriculos\Curriculos;
 use app\models\etapasprocesso\EtapasProcesso;
 use app\models\processoseletivo\ProcessoSeletivo;
 
@@ -13,7 +11,6 @@ use app\models\processoseletivo\ProcessoSeletivo;
  *
  * @property integer $gerarq_id
  * @property integer $processo_id
- * @property integer $curriculos_id
  * @property integer $etapasprocesso_id
  * @property string $gerarq_titulo
  * @property string $gerarq_documentos
@@ -32,6 +29,8 @@ use app\models\processoseletivo\ProcessoSeletivo;
  */
 class GeracaoArquivos extends \yii\db\ActiveRecord
 {
+    public $processoSeletivo;
+    public $cargoLabel;
     /**
      * @inheritdoc
      */
@@ -46,17 +45,16 @@ class GeracaoArquivos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['gerarq_id', 'processo_id', 'curriculos_id', 'etapasprocesso_id', 'gerarq_titulo', 'gerarq_documentos', 'gerarq_emailconfirmacao', 'gerarq_datarealizacao', 'gerarq_horarealizacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_fase', 'gerarq_tempo', 'gerarq_responsavel'], 'required'],
-            [['gerarq_id', 'processo_id', 'curriculos_id', 'etapasprocesso_id'], 'integer'],
-            [['gerarq_documentos', 'gerarq_fase'], 'string'],
-            [['gerarq_datarealizacao', 'gerarq_horarealizacao'], 'safe'],
+            [['processo_id', 'etapasprocesso_id'], 'required'],
+            [['processo_id', 'etapasprocesso_id'], 'integer'],
+            [['gerarq_datarealizacao', 'gerarq_horarealizacao', 'processoSeletivo', 'cargoLabel', 'gerarq_documentos', 'gerarq_fase'], 'safe'],
             [['gerarq_titulo', 'gerarq_emailconfirmacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_tempo', 'gerarq_responsavel'], 'string', 'max' => 255],
-            [['curriculos_id'], 'exist', 'skipOnError' => true, 'targetClass' => Curriculos::className(), 'targetAttribute' => ['curriculos_id' => 'id']],
             [['etapasprocesso_id'], 'exist', 'skipOnError' => true, 'targetClass' => EtapasProcesso::className(), 'targetAttribute' => ['etapasprocesso_id' => 'etapa_id']],
             [['processo_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProcessoSeletivo::className(), 'targetAttribute' => ['processo_id' => 'id']],
         ];
     }
 
+//'gerarq_titulo', 'gerarq_documentos', 'gerarq_emailconfirmacao', 'gerarq_datarealizacao', 'gerarq_horarealizacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_fase', 'gerarq_tempo', 'gerarq_responsavel'
     /**
      * @inheritdoc
      */
@@ -64,28 +62,28 @@ class GeracaoArquivos extends \yii\db\ActiveRecord
     {
         return [
             'gerarq_id' => 'Gerarq ID',
-            'processo_id' => 'Processo ID',
-            'curriculos_id' => 'Curriculos ID',
-            'etapasprocesso_id' => 'Etapasprocesso ID',
-            'gerarq_titulo' => 'Gerarq Titulo',
-            'gerarq_documentos' => 'Gerarq Documentos',
-            'gerarq_emailconfirmacao' => 'Gerarq Emailconfirmacao',
-            'gerarq_datarealizacao' => 'Gerarq Datarealizacao',
-            'gerarq_horarealizacao' => 'Gerarq Horarealizacao',
-            'gerarq_local' => 'Gerarq Local',
-            'gerarq_endereco' => 'Gerarq Endereco',
-            'gerarq_fase' => 'Gerarq Fase',
-            'gerarq_tempo' => 'Gerarq Tempo',
-            'gerarq_responsavel' => 'Gerarq Responsavel',
+            'processo_id' => 'Documento de Abertura',
+            'etapasprocesso_id' => 'Listagem de Candidatos(cargo)',
+            'gerarq_titulo' => 'Título',
+            'gerarq_documentos' => 'Apresentação de Documentos',
+            'gerarq_emailconfirmacao' => 'Confirmar presença para e-mail',
+            'gerarq_datarealizacao' => 'Data',
+            'gerarq_horarealizacao' => 'Hora',
+            'gerarq_local' => 'Local',
+            'gerarq_endereco' => 'Endereçoo',
+            'gerarq_fase' => 'Fase',
+            'gerarq_tempo' => 'Tempo',
+            'gerarq_responsavel' => 'Responsavel',
+            'processoSeletivo' => 'Documento de Abertura',
+            'cargoLabel' => 'Listagem de Candidatos(cargo):',
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCurriculos()
-    {
-        return $this->hasOne(Curriculos::className(), ['id' => 'curriculos_id']);
+    //Localiza as etapas do processo vinculadas ao Documento de Abertura
+    public static function getEtapasProcessoSubCat($cat_id) {
+        $sql = 'SELECT `etapa_id` AS id, `etapa_cargo` AS name FROM `etapas_processo` WHERE `processo_id` = '.$cat_id.'';
+        $data = EtapasProcesso::findBySql($sql)->asArray()->all();
+        return $data;
     }
 
     /**
@@ -101,6 +99,6 @@ class GeracaoArquivos extends \yii\db\ActiveRecord
      */
     public function getProcesso()
     {
-        return $this->hasOne(Processo::className(), ['id' => 'processo_id']);
+        return $this->hasOne(ProcessoSeletivo::className(), ['id' => 'processo_id']);
     }
 }

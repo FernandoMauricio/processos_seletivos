@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models\processoseletivo;
+namespace app\models\processoseletivo\geracaoarquivo;
 
 use Yii;
 use yii\base\Model;
@@ -18,7 +18,7 @@ class GeracaoArquivosSearch extends GeracaoArquivos
     public function rules()
     {
         return [
-            [['gerarq_id', 'processo_id', 'curriculos_id', 'etapasprocesso_id'], 'integer'],
+            [['gerarq_id', 'processo_id', 'etapasprocesso_id'], 'integer'],
             [['gerarq_titulo', 'gerarq_documentos', 'gerarq_emailconfirmacao', 'gerarq_datarealizacao', 'gerarq_horarealizacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_fase', 'gerarq_tempo', 'gerarq_responsavel'], 'safe'],
         ];
     }
@@ -61,7 +61,6 @@ class GeracaoArquivosSearch extends GeracaoArquivos
         $query->andFilterWhere([
             'gerarq_id' => $this->gerarq_id,
             'processo_id' => $this->processo_id,
-            'curriculos_id' => $this->curriculos_id,
             'etapasprocesso_id' => $this->etapasprocesso_id,
             'gerarq_datarealizacao' => $this->gerarq_datarealizacao,
             'gerarq_horarealizacao' => $this->gerarq_horarealizacao,

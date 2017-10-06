@@ -7,7 +7,6 @@ use kartik\select2\Select2;
 use kartik\depdrop\DepDrop;
 use yii\helpers\Url;
 use yii\helpers\Json;
-
 use faryshta\widgets\JqueryTagsInput;
 
 /* @var $this yii\web\View */

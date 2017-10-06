@@ -21,7 +21,7 @@ use yii\helpers\Json;
                     echo $form->field($model, 'edital')->widget(Select2::classname(), [
                             'data' =>  $data_contratacao,
                             'hideSearch' => true,
-                            'options' => ['id'=>'edital-id', 'placeholder' => 'Selecione o Edital...'],
+                            'options' => ['id'=>'edital-id', 'placeholder' => 'Selecione o Documento de Abertura...'],
                             'pluginOptions' => [
                                     'allowClear' => true,
                                 ],

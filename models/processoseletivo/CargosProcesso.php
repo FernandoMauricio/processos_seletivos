@@ -64,7 +64,6 @@ class CargosProcesso extends \yii\db\ActiveRecord
         $data = \app\models\processoseletivo\CargosProcesso::findBySql($sql)->asArray()->all();
 
         return $data;
-
    }
 
     //Localiza os cargos vinculado ao Documento de Abertura

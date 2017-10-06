@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\processoseletivo\GeracaoArquivosSearch */
+/* @var $model app\models\processoseletivo\geracaoarquivo\GeracaoArquivosSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -18,8 +18,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'gerarq_id') ?>
 
     <?= $form->field($model, 'processo_id') ?>
-
-    <?= $form->field($model, 'curriculos_id') ?>
 
     <?= $form->field($model, 'etapasprocesso_id') ?>
 
