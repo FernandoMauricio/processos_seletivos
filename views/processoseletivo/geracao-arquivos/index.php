@@ -9,12 +9,17 @@ use yii\helpers\Url;
 /* @var $searchModel app\models\processoseletivo\geracaoarquivo\GeracaoArquivosSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Geracao Arquivos';
+$this->title = 'Geração de Arquivos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="geracao-arquivos-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<?php
+foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
+}
+?>
+    <h1><?= Html::encode($this->title) . ' <small>Resultados das Etapas / Resultados Finais</small>' ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>

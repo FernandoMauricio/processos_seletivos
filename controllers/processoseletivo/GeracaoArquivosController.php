@@ -3,14 +3,18 @@
 namespace app\controllers\processoseletivo;
 
 use Yii;
+use app\models\curriculos\CurriculosAdmin;
 use app\models\processoseletivo\ProcessoSeletivo;
 use app\models\processoseletivo\geracaoarquivo\GeracaoArquivos;
 use app\models\processoseletivo\geracaoarquivo\GeracaoArquivosSearch;
+use app\models\processoseletivo\geracaoarquivo\GeracaoarquivosItens;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
+use kartik\mpdf\Pdf;
+
 
 /**
  * GeracaoArquivosController implements the CRUD actions for GeracaoArquivos model.
@@ -47,6 +51,32 @@ class GeracaoArquivosController extends Controller
                 echo Json::encode(['output'=>'', 'selected'=>'']);
     }
 
+    public function actionImprimir($id) {
+
+        setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+        date_default_timezone_set('America/Manaus'); 
+
+        $model = $this->findModel($id);
+        $modelsItens = $model->geracaoarquivosItens;
+
+            $pdf = new Pdf([
+                'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
+                'content' => $this->renderPartial('imprimir', ['model' => $model, 'modelsItens' => $modelsItens]),
+                'options' => [
+                    'title' => 'Recrutamento e Seleção - Senac AM',
+                    //'subject' => 'Generating PDF files via yii2-mpdf extension has never been easy'
+                ],
+                'methods' => [
+                    'SetHeader' => ['RESULTADOS - SENAC AM|| Manaus, ' . strftime('%A, ') . strftime("%d de %B de %Y")],
+                    'SetFooter' => ['Recrutamento e Seleção - GGP||Página {PAGENO}'],
+                ]
+            ]);
+
+        return $pdf->render('imprimir', [
+            'model' => $model,
+        ]);
+    }
+
     /**
      * Lists all GeracaoArquivos models.
      * @return mixed
@@ -69,8 +99,12 @@ class GeracaoArquivosController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $modelsItens = $model->geracaoarquivosItens;
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'modelsItens' => $modelsItens
         ]);
     }
 
@@ -81,11 +115,39 @@ class GeracaoArquivosController extends Controller
      */
     public function actionCreate()
     {
+        $session = Yii::$app->session;
         $model = new GeracaoArquivos();
+
+        $model->gerarq_responsavel = $session['sess_nomeusuario'];
 
         $processo = ProcessoSeletivo::find()->where(['situacao_id' => 1])->orWhere(['situacao_id' => 2])->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+                //Localiza somente os candidatos classificados para o edital escolhido
+                $sqlCandidatos = '
+                    SELECT `curriculos`.`nome`, `curriculos`.`edital` 
+                    FROM `curriculos` 
+                    LEFT JOIN `processo` ON `curriculos`.`edital` = `processo`.`numeroEdital` 
+                    WHERE (`classificado`= 1) 
+                    AND `curriculos`.`edital` = "'.$model->processo->numeroEdital.'" 
+                    AND `curriculos`.`cargo` = "'.$model->etapasprocesso->etapa_cargo.'"
+                ';
+
+                $candidatos = CurriculosAdmin::findBySql($sqlCandidatos)->all();
+
+                foreach ($candidatos as $candidato) {
+                        //Inclui as informações dos candidatos classificados
+                        Yii::$app->db->createCommand()
+                            ->insert('geracaoarquivos_itens', [
+                                     'geracaoarquivos_id'    => $model->gerarq_id,
+                                     'gerarqitens_candidato' => $candidato['nome'],
+                                     'gerarqitens_horario'   => $model->gerarq_horarealizacao,
+                                     ])
+                            ->execute();
+                    $model->save();
+            }
+
             return $this->redirect(['update', 'id' => $model->gerarq_id]);
         } else {
             return $this->renderAjax('criar-geracao-arquivos', [
@@ -104,18 +166,22 @@ class GeracaoArquivosController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $modelsItens = $model->geracaoarquivosItens;
+
         $processo = ProcessoSeletivo::find()->where(['situacao_id' => 1])->orWhere(['situacao_id' => 2])->all();
 
         $model->gerarq_documentos = explode(", ",$model->gerarq_documentos);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
 
             $model->gerarq_documentos = implode(", ",$model->gerarq_documentos);
+            $model->save();
 
             return $this->redirect(['view', 'id' => $model->gerarq_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'modelsItens' => $modelsItens,
             ]);
         }
     }
@@ -128,8 +194,10 @@ class GeracaoArquivosController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        $model = $this->findModel($id);
+        GeracaoarquivosItens::deleteAll('geracaoarquivos_id = "'.$id.'"');
+        $model->delete(); //Exclui a etapa do processo
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Arquivo excluido!</strong>');
         return $this->redirect(['index']);
     }
 

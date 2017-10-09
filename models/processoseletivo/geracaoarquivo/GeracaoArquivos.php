@@ -45,8 +45,8 @@ class GeracaoArquivos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['processo_id', 'etapasprocesso_id'], 'required'],
-            [['processo_id', 'etapasprocesso_id'], 'integer'],
+            [['processo_id', 'etapasprocesso_id', 'gerarq_perfil'], 'required'],
+            [['processo_id', 'etapasprocesso_id', 'gerarq_perfil'], 'integer'],
             [['gerarq_datarealizacao', 'gerarq_horarealizacao', 'processoSeletivo', 'cargoLabel', 'gerarq_documentos', 'gerarq_fase'], 'safe'],
             [['gerarq_titulo', 'gerarq_emailconfirmacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_tempo', 'gerarq_responsavel'], 'string', 'max' => 255],
             [['etapasprocesso_id'], 'exist', 'skipOnError' => true, 'targetClass' => EtapasProcesso::className(), 'targetAttribute' => ['etapasprocesso_id' => 'etapa_id']],
@@ -63,7 +63,7 @@ class GeracaoArquivos extends \yii\db\ActiveRecord
         return [
             'gerarq_id' => 'Gerarq ID',
             'processo_id' => 'Documento de Abertura',
-            'etapasprocesso_id' => 'Listagem de Candidatos(cargo)',
+            'etapasprocesso_id' => 'Cargo',
             'gerarq_titulo' => 'Título',
             'gerarq_documentos' => 'Apresentação de Documentos',
             'gerarq_emailconfirmacao' => 'Confirmar presença para e-mail',
@@ -76,6 +76,7 @@ class GeracaoArquivos extends \yii\db\ActiveRecord
             'gerarq_responsavel' => 'Responsavel',
             'processoSeletivo' => 'Documento de Abertura',
             'cargoLabel' => 'Listagem de Candidatos(cargo):',
+            'gerarq_perfil' => 'Perfil do Formulário',
         ];
     }
 
@@ -100,5 +101,13 @@ class GeracaoArquivos extends \yii\db\ActiveRecord
     public function getProcesso()
     {
         return $this->hasOne(ProcessoSeletivo::className(), ['id' => 'processo_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGeracaoarquivosItens()
+    {
+        return $this->hasMany(GeracaoarquivosItens::className(), ['geracaoarquivos_id' => 'gerarq_id']);
     }
 }

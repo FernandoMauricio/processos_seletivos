@@ -5,6 +5,8 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 use kartik\depdrop\DepDrop;
+use kartik\datecontrol\DateControl;
+use kartik\widgets\TimePicker;
 use yii\helpers\Url;
 use yii\helpers\Json;
 
@@ -32,7 +34,7 @@ use yii\helpers\Json;
                             ]);
                 ?>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-3">
                 <?php
                     echo $form->field($model, 'etapasprocesso_id')->widget(DepDrop::classname(), [
                             'type'=>DepDrop::TYPE_SELECT2,
@@ -44,6 +46,36 @@ use yii\helpers\Json;
                                 'url'=>Url::to(['/processoseletivo/geracao-arquivos/etapas-processo'])
                             ]
                         ]);
+                ?>
+            </div>
+            <div class="col-md-3">
+                <?= $form->field($model, 'gerarq_datarealizacao')->widget(DateControl::classname(), [
+                            'type'=>DateControl::FORMAT_DATE,
+                            'ajaxConversion'=>true,
+                            'widgetOptions' => [
+                                'removeButton' => false,
+                                'pluginOptions' => [
+                                    'autoclose' => true,
+                                ],
+                            ]
+                        ]);
+                    ?>
+            </div>
+            <div class="col-md-3">
+                <?= $form->field($model, 'gerarq_horarealizacao')->widget(TimePicker::classname(), [ 'pluginOptions' => ['showSeconds' => false,'showMeridian' => false]]); ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <?php
+                    echo $form->field($model, 'gerarq_perfil')->widget(Select2::classname(), [
+                            'data' =>  ['0' => 'Administrativo', '1' => 'Docente'],
+                            'hideSearch' => true,
+                            'options' => ['placeholder' => 'Selecione o Perfil...'],
+                            'pluginOptions' => [
+                                    'allowClear' => true,
+                                ],
+                            ]);
                 ?>
             </div>
         </div>
