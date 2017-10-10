@@ -41,6 +41,7 @@ use faryshta\widgets\JqueryTagsInput;
                         <div class="tab-pane" id="tab2">
                            <?= $this->render('_form-candidatos', [
                                 'form' => $form,
+                                'model' => $model,
                                 'modelsItens' => $modelsItens,
                             ]) ?>
                         </div>

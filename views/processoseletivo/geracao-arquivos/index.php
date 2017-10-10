@@ -45,8 +45,8 @@ echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
             ['class' => 'yii\grid\SerialColumn'],
 
             'gerarq_id',
-            'processo_id',
-            'etapasprocesso_id',
+            'processo.numeroEdital',
+            'etapasprocesso.etapa_cargo',
             'gerarq_titulo',
             // 'gerarq_documentos:ntext',
             // 'gerarq_emailconfirmacao:email',

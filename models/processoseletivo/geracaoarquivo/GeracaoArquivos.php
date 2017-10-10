@@ -46,15 +46,23 @@ class GeracaoArquivos extends \yii\db\ActiveRecord
     {
         return [
             [['processo_id', 'etapasprocesso_id', 'gerarq_perfil'], 'required'],
+            [['gerarq_datarealizacao', 'gerarq_horarealizacao', 'gerarq_titulo', 'gerarq_documentos', 'gerarq_emailconfirmacao', 'gerarq_datarealizacao', 'gerarq_horarealizacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_fase', 'gerarq_tempo'], 'required', 'on' => 'update'],
             [['processo_id', 'etapasprocesso_id', 'gerarq_perfil'], 'integer'],
-            [['gerarq_datarealizacao', 'gerarq_horarealizacao', 'processoSeletivo', 'cargoLabel', 'gerarq_documentos', 'gerarq_fase'], 'safe'],
-            [['gerarq_titulo', 'gerarq_emailconfirmacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_tempo', 'gerarq_responsavel'], 'string', 'max' => 255],
+            [['gerarq_datarealizacao', 'gerarq_horarealizacao', 'processoSeletivo', 'cargoLabel', 'gerarq_documentos'], 'safe'],
+            [['gerarq_titulo', 'gerarq_emailconfirmacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_tempo', 'gerarq_responsavel', 'gerarq_fase'], 'string', 'max' => 255],
             [['etapasprocesso_id'], 'exist', 'skipOnError' => true, 'targetClass' => EtapasProcesso::className(), 'targetAttribute' => ['etapasprocesso_id' => 'etapa_id']],
             [['processo_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProcessoSeletivo::className(), 'targetAttribute' => ['processo_id' => 'id']],
         ];
     }
 
-//'gerarq_titulo', 'gerarq_documentos', 'gerarq_emailconfirmacao', 'gerarq_datarealizacao', 'gerarq_horarealizacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_fase', 'gerarq_tempo', 'gerarq_responsavel'
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios['update'] = ['gerarq_datarealizacao', 'gerarq_horarealizacao','gerarq_titulo', 'gerarq_documentos', 'gerarq_emailconfirmacao', 'gerarq_datarealizacao', 'gerarq_horarealizacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_fase', 'gerarq_tempo'];//Scenario Values Only Accepted
+        return $scenarios;
+    }
+
+// 'gerarq_responsavel'
     /**
      * @inheritdoc
      */
@@ -70,7 +78,7 @@ class GeracaoArquivos extends \yii\db\ActiveRecord
             'gerarq_datarealizacao' => 'Data',
             'gerarq_horarealizacao' => 'Hora',
             'gerarq_local' => 'Local',
-            'gerarq_endereco' => 'Endereçoo',
+            'gerarq_endereco' => 'Endereço',
             'gerarq_fase' => 'Fase',
             'gerarq_tempo' => 'Tempo',
             'gerarq_responsavel' => 'Responsavel',

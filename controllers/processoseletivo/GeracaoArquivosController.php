@@ -54,20 +54,19 @@ class GeracaoArquivosController extends Controller
     public function actionImprimir($id) {
 
         setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
-        date_default_timezone_set('America/Manaus'); 
 
         $model = $this->findModel($id);
         $modelsItens = $model->geracaoarquivosItens;
 
             $pdf = new Pdf([
                 'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
-                'content' => $this->renderPartial('imprimir', ['model' => $model, 'modelsItens' => $modelsItens]),
+                'content' => $this->renderPartial('imprimir', ['model' => $model, 'modelsItens' => $modelsItens], 'UTF-8', 'ISO-8859-1'),
                 'options' => [
                     'title' => 'Recrutamento e Seleção - Senac AM',
                     //'subject' => 'Generating PDF files via yii2-mpdf extension has never been easy'
                 ],
                 'methods' => [
-                    'SetHeader' => ['RESULTADOS - SENAC AM|| Manaus, ' . strftime('%A, ') . strftime("%d de %B de %Y")],
+                    'SetHeader' => ['RESULTADOS - SENAC AM|| Manaus, ' . utf8_encode(strftime('%A, ') . strftime("%d de %B de %Y"))],
                     'SetFooter' => ['Recrutamento e Seleção - GGP||Página {PAGENO}'],
                 ]
             ]);
@@ -132,6 +131,7 @@ class GeracaoArquivosController extends Controller
                     WHERE (`classificado`= 1) 
                     AND `curriculos`.`edital` = "'.$model->processo->numeroEdital.'" 
                     AND `curriculos`.`cargo` = "'.$model->etapasprocesso->etapa_cargo.'"
+                    ORDER BY `curriculos`.`nome` ASC
                 ';
 
                 $candidatos = CurriculosAdmin::findBySql($sqlCandidatos)->all();
@@ -166,6 +166,7 @@ class GeracaoArquivosController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->scenario = 'update'; //Validações obrigatórias na atualização
         $modelsItens = $model->geracaoarquivosItens;
 
         $processo = ProcessoSeletivo::find()->where(['situacao_id' => 1])->orWhere(['situacao_id' => 2])->all();

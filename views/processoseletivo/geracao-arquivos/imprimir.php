@@ -21,9 +21,9 @@ $this->params['breadcrumbs'][] = $this->title;
           <h5>GERÊNCIA DE GESTÃO DE PESSOAS – GGP</h5>
       </td>
     </tr>
-    <tr><td width="5%"></td><td width="90%" style="text-align: center;"><h5>LISTA DE CANDIDATOS SELECIONADOS PARA A 2ª FASE</h5></td></tr>
-    <tr><td width="5%"></td><td width="90%" style="text-align: center;"><h5><u>PS 021/2017</u></h5></td></tr>
-    <tr><td width="5%"></td><td width="90%" style="text-align: center;"><h5>AVALIAÇÃO DIDÁTICA / ENTREVISTA</h5></td></tr>
+    <tr><td width="5%"></td><td width="90%" style="text-align: center;"><h5><?= $model->gerarq_titulo ?></h5></td></tr>
+    <tr><td width="5%"></td><td width="90%" style="text-align: center;"><h5><u>PS <?= $model->processo->numeroEdital ?></u></h5></td></tr>
+    <tr><td width="5%"></td><td width="90%" style="text-align: center;"><h5 class="text-uppercase"><?= $model->gerarq_fase ?></h5></td></tr>
 </table>
 
 <table class="table table-condensed table-hover">
@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <tr><td width="1%"><b>Endereço:</b></td> <td width="99%"><?= $model->gerarq_endereco ?></td></tr>
     <tr><td width="1%"><b>Fase:</b></td><td width="99%"><?= $model->gerarq_fase ?></td></tr>
     <tr><td width="1%"><b>Tempo:</b></td><td width="99%"><?= $model->gerarq_tempo ?></td></tr>
-    <tr><td width="1%"><b>Responável:</b></td><td width="99%"><?= $model->gerarq_responsavel ?></td></tr>
+    <tr><td width="1%"><b>Responsável:</b></td><td width="99%" class="text-capitalize"><?= $model->gerarq_responsavel ?></td></tr>
 </table>
 
 <div><b color="red"><u>OBRIGATÓRIO:</u></b>
@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <tr>
       <th><font size="2">#</font></th>
       <th><font size="2">Nome Completo</font></th>
-      <th><font size="2">Horario</font></th>
+      <?php echo $model->gerarq_perfil == 1 ? '<th><font size="2"> Horario</font></th>' : ''; ?>
       <?php echo $model->gerarq_perfil == 1 ? '<th><font size="2"> Tema da Aula</font></th>' : ''; ?>
     </tr>
   </thead>
@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
   <tr>
         <td><font size="2"><?= $i+=1;?></font></td>
         <td><font size="2" class="text-uppercase"><?= $candidato->gerarqitens_candidato; ?></font></td>
-        <td><font size="2"><?= $candidato->gerarqitens_horario; ?></font></td>
+        <?php echo $model->gerarq_perfil == 1 ? '<td><font size="2"> '.$candidato->gerarqitens_horario.' </font></td>' : ''; ?>
         <?php echo $model->gerarq_perfil == 1 ? '<td><font size="2"> '.$candidato->gerarqitens_tema.' </font></td>' : ''; ?>
   </tr>
     <?php endforeach; ?>
