@@ -18,8 +18,8 @@ class GeracaoArquivosSearch extends GeracaoArquivos
     public function rules()
     {
         return [
-            [['gerarq_id', 'processo_id', 'etapasprocesso_id'], 'integer'],
-            [['gerarq_titulo', 'gerarq_documentos', 'gerarq_emailconfirmacao', 'gerarq_datarealizacao', 'gerarq_horarealizacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_fase', 'gerarq_tempo', 'gerarq_responsavel'], 'safe'],
+            [['gerarq_id'], 'integer'],
+            [['gerarq_titulo', 'gerarq_documentos', 'gerarq_emailconfirmacao', 'gerarq_datarealizacao', 'gerarq_horarealizacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_fase', 'gerarq_tempo', 'gerarq_responsavel', 'processo_id', 'etapasprocesso_id'], 'safe'],
         ];
     }
 
@@ -57,16 +57,19 @@ class GeracaoArquivosSearch extends GeracaoArquivos
             return $dataProvider;
         }
 
+        $query->joinWith('processo');
+        $query->joinWith('etapasprocesso');
+
         // grid filtering conditions
         $query->andFilterWhere([
             'gerarq_id' => $this->gerarq_id,
-            'processo_id' => $this->processo_id,
-            'etapasprocesso_id' => $this->etapasprocesso_id,
             'gerarq_datarealizacao' => $this->gerarq_datarealizacao,
             'gerarq_horarealizacao' => $this->gerarq_horarealizacao,
         ]);
 
         $query->andFilterWhere(['like', 'gerarq_titulo', $this->gerarq_titulo])
+            ->andFilterWhere(['like', 'processo.numeroEdital', $this->processo_id])
+            ->andFilterWhere(['like', 'etapas_processo.etapa_cargo', $this->etapasprocesso_id])
             ->andFilterWhere(['like', 'gerarq_documentos', $this->gerarq_documentos])
             ->andFilterWhere(['like', 'gerarq_emailconfirmacao', $this->gerarq_emailconfirmacao])
             ->andFilterWhere(['like', 'gerarq_local', $this->gerarq_local])

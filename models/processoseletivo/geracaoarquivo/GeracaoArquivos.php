@@ -69,7 +69,7 @@ class GeracaoArquivos extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'gerarq_id' => 'Gerarq ID',
+            'gerarq_id' => 'Cód.',
             'processo_id' => 'Documento de Abertura',
             'etapasprocesso_id' => 'Cargo',
             'gerarq_titulo' => 'Título',

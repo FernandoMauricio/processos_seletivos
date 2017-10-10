@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\processoseletivo\geracaoarquivo\GeracaoArquivos */
 
 $this->title = $model->gerarq_id;
-$this->params['breadcrumbs'][] = ['label' => 'Geracao Arquivos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Geração de Arquivos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="geracao-arquivos-view">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Deletar', ['delete', 'id' => $model->gerarq_id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Você tem certeza que deseja deletar este item?',
                 'method' => 'post',
             ],
         ]) ?>
