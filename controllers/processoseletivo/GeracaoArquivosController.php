@@ -3,6 +3,7 @@
 namespace app\controllers\processoseletivo;
 
 use Yii;
+use app\models\Model;
 use app\models\curriculos\CurriculosAdmin;
 use app\models\processoseletivo\ProcessoSeletivo;
 use app\models\processoseletivo\geracaoarquivo\GeracaoArquivos;
@@ -178,8 +179,46 @@ class GeracaoArquivosController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
+            //--------Listagem de Candidatos--------------
+            $oldIDsmodelsItens = ArrayHelper::map($modelsItens, 'id', 'id');
+            $modelsItens = Model::createMultiple(GeracaoarquivosItens::classname(), $modelsItens);
+            Model::loadMultiple($modelsItens, Yii::$app->request->post());
+            $deletedIDsmodelsItens = array_diff($oldIDsmodelsItens, array_filter(ArrayHelper::map($modelsItens, 'id', 'id')));
+
             $model->gerarq_documentos = implode(", ",$model->gerarq_documentos);
             $model->save();
+
+        // validate all models
+        $valid = $model->validate();
+        $valid = (Model::validateMultiple($modelsItens)) && $valid;
+
+                        if ($valid) {
+                            $transaction = \Yii::$app->db->beginTransaction();
+                            try {
+                                if ($flag = $model->save(false)) {
+                                    if (! empty($deletedIDsmodelsItens)) {
+                                        GeracaoarquivosItens::deleteAll(['id' => $deletedIDsmodelsItens]);
+                                    }
+                                    foreach ($modelsItens as $modelItens) {
+                                        $modelItens->geracaoarquivos_id = $model->gerarq_id;
+                                        if (! ($flag = $modelItens->save(false))) {
+                                            $transaction->rollBack();
+                                            break;
+                                        }
+                                    }
+                                }
+                                if ($flag) {
+                                    $transaction->commit();
+
+                                    Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Documento '.$id.' Atualizado !</strong>');
+                                    return $this->redirect(['view', 'id' => $model->gerarq_id]);
+                                }
+                            } catch (Exception $e) {
+                                $transaction->rollBack();
+                            }
+                        }
+
+            Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Documento '.$id.' Atualizado !</strong>');
 
             return $this->redirect(['view', 'id' => $model->gerarq_id]);
         } else {
