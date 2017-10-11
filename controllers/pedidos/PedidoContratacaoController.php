@@ -425,7 +425,7 @@ class PedidoContratacaoController extends Controller
             Yii::$app->session->setFlash('danger', '<b>ERRO!</b> Pedido já Homologado. Não é possível executar esta ação!');
             return $this->redirect(['index']);
         }else{
-            PedidocustoItens::deleteAll('pedidocontratacao_id = "'.$id.'"');
+            PedidocontratacaoItens::deleteAll('pedidocontratacao_id = "'.$id.'"');
             $model->delete(); //Exclui o pedido de custo
             Yii::$app->session->setFlash('success', '<b>SUCESSO! </b> Pedido de Contratação excluido!</b>');
             return $this->redirect(['index']);

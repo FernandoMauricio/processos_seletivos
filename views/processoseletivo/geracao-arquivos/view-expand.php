@@ -3,33 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\processoseletivo\geracaoarquivo\GeracaoArquivos */
-
-$this->title = $model->gerarq_id;
-$this->params['breadcrumbs'][] = ['label' => 'Geração de Arquivos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="geracao-arquivos-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Atualizar', ['update', 'id' => $model->gerarq_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Deletar', ['delete', 'id' => $model->gerarq_id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Você tem certeza que deseja deletar este item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-        <?= Html::a('<i class="fa glyphicon glyphicon-print"></i> Imprimir', ['imprimir','id' => $model->gerarq_id, 'modelsItens' => $modelsItens], [
-            'class'=>'btn pull-right btn-info', 
-            'target'=>'_blank', 
-            'data-toggle'=>'tooltip', 
-            'title'=>' Clique aqui para gerar um arquivo PDF'
-        ]); ?>
-    </p>
 
     <?= DetailView::widget([
         'model' => $model,

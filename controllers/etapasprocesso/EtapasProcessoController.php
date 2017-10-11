@@ -66,7 +66,7 @@ class EtapasProcessoController extends Controller
         $this->layout = 'main-imprimir';
         
         $model = $this->findModel($id);
-        $itens = EtapasItens::find()->where(['etapasprocesso_id' => $model->etapa_id])->orderBy(['itens_pontuacaototal' => SORT_DESC])->all();
+        $itens = EtapasItens::find()->innerJoinWith('curriculos')->where(['etapasprocesso_id' => $model->etapa_id])->orderBy(['itens_pontuacaototal' => SORT_DESC, 'nome' => SORT_ASC])->all();
 
         return $this->render('view', [
             'model' => $model,
@@ -126,12 +126,13 @@ class EtapasProcessoController extends Controller
 
         //Localiza somente os candidatos classificados para o edital escolhido
         $sqlCandidatos = '
-            SELECT `curriculos`.`id`, `curriculos`.`edital` 
+            SELECT `curriculos`.`id`, `curriculos`.`edital`, `curriculos`.`nome` 
             FROM `curriculos` 
             LEFT JOIN `processo` ON `curriculos`.`edital` = `processo`.`numeroEdital` 
             WHERE (`classificado`= 1) 
             AND `curriculos`.`edital` = "'.$model->processo->numeroEdital.'" 
             AND `curriculos`.`cargo` = "'.$model->etapa_cargo.'"
+            ORDER BY  `curriculos`.`nome` ASC
         ';
 
         $candidatos = CurriculosAdmin::findBySql($sqlCandidatos)->all();
@@ -178,7 +179,7 @@ class EtapasProcessoController extends Controller
         $model = $this->findModel($id);
         $model->scenario = 'update'; //Validações obrigatórias na atualização
 
-        $itens = EtapasItens::find()->where(['etapasprocesso_id' => $model->etapa_id])->orderBy(['itens_pontuacaototal' => SORT_DESC])->all();
+        $itens = EtapasItens::find()->innerJoinWith('curriculos')->where(['etapasprocesso_id' => $model->etapa_id])->orderBy(['itens_pontuacaototal' => SORT_DESC, 'nome' => SORT_ASC])->all();
         $selecionadores = Usuarios::find()->where(['usu_codsituacao' => 1, 'usu_codtipo' => 2])->orderBy(['usu_nomeusuario' => SORT_ASC])->all();
 
         //Mostrará os Selecionadores das etapas do processo

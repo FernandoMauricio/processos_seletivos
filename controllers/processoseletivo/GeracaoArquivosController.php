@@ -125,13 +125,16 @@ class GeracaoArquivosController extends Controller
 
                 //Localiza somente os candidatos classificados para o edital escolhido
                 $sqlCandidatos = '
-                    SELECT `curriculos`.`nome`, `curriculos`.`edital` 
+                SELECT `curriculos`.`nome`, `curriculos`.`edital` 
                     FROM `curriculos` 
-                    LEFT JOIN `processo` ON `curriculos`.`edital` = `processo`.`numeroEdital` 
-                    WHERE (`classificado`= 1) 
-                    AND `curriculos`.`edital` = "'.$model->processo->numeroEdital.'" 
+                    INNER JOIN `processo` ON `curriculos`.`edital` = `processo`.`numeroEdital`
+                    INNER JOIN `etapas_itens` ON `etapas_itens`.`curriculos_id` = `curriculos`.`id`
+                WHERE (`classificado`= 1) 
+                    AND `curriculos`.`edital` = "'.$model->processo->numeroEdital.'"
                     AND `curriculos`.`cargo` = "'.$model->etapasprocesso->etapa_cargo.'"
-                    ORDER BY `curriculos`.`nome` ASC
+                    AND `etapas_itens`.`itens_classificacao` NOT LIKE "%Desclassificado(a)%"
+                ORDER BY `curriculos`.`nome` ASC
+
                 ';
 
                 $candidatos = CurriculosAdmin::findBySql($sqlCandidatos)->all();

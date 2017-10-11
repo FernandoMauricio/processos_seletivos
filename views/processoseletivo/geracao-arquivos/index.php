@@ -1,9 +1,11 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
+use kartik\editable\Editable;
 use yii\bootstrap\Modal;
 use yii\helpers\Url;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\processoseletivo\geracaoarquivo\GeracaoArquivosSearch */
@@ -38,12 +40,24 @@ echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
         Modal::end();
     ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
+<?php
+
+$gridColumns = [
+            
+             [
+             'class'=>'kartik\grid\ExpandRowColumn',
+             'width'=>'50px',
+             'format' => 'raw',
+             'value'=>function ($model, $key, $index, $column) {
+                 return GridView::ROW_COLLAPSED;
+             },
+             'detail'=>function ($model, $key, $index, $column) {
+                 return Yii::$app->controller->renderPartial('view-expand', ['model'=>$model, 'modelsItens' => $model->geracaoarquivosItens]);
+             },
+             'headerOptions'=>['class'=>'kartik-sheet-style'], 
+             'expandOneOnly'=>true
+             ],
             'gerarq_id',
             [
                 'attribute' => 'processo_id',
@@ -54,17 +68,77 @@ echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
                 'value' => 'etapasprocesso.etapa_cargo',
             ],
             'gerarq_titulo',
-            // 'gerarq_documentos:ntext',
-            // 'gerarq_emailconfirmacao:email',
-            // 'gerarq_datarealizacao',
-            // 'gerarq_horarealizacao',
-            // 'gerarq_local',
-            // 'gerarq_endereco',
-            // 'gerarq_fase:ntext',
-            // 'gerarq_tempo',
-            // 'gerarq_responsavel',
+            'gerarq_fase:ntext',
+            'gerarq_local',
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+            ['class' => 'yii\grid\ActionColumn',
+                        'template' => '{imprimir} {update} {delete}',
+                        'contentOptions' => ['style' => 'width: 10%;'],
+                        'buttons' => [
+
+                        //VISUALIZAR/IMPRIMIR
+                        'imprimir' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-print"></span> ', $url, [
+                                        'target'=>'_blank', 
+                                        'data-pjax'=>"0",
+                                        'class'=>'btn btn-info btn-xs',
+                                        'title' => Yii::t('app', 'Imprimir'),
+                       
+                            ]);
+                        },
+
+                        //VISUALIZAR/IMPRIMIR
+                        'update' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-pencil"></span> ', $url, [
+                                        'class'=>'btn btn-default btn-xs',
+                                        'title' => Yii::t('app', 'Atualizar'),
+                       
+                            ]);
+                        },
+
+                        //DELETAR
+                        'delete' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-trash"></span> ', $url, [
+                                        'class'=>'btn btn-danger btn-xs',
+                                        'title' => Yii::t('app', 'Deletar'),
+                                        'data' =>  [
+                                                        'confirm' => 'Você tem CERTEZA que deseja EXCLUIR esse item?',
+                                                        'method' => 'post',
+                                                   ],
+                       
+                            ]);
+                        },
+                ],
+           ],
+    ];
+ ?>
+
+    <?php Pjax::begin(); ?>
+
+    <?php 
+    echo GridView::widget([
+    'dataProvider'=>$dataProvider,
+    'filterModel'=>$searchModel,
+    'columns'=>$gridColumns,
+    'containerOptions'=>['style'=>'overflow: auto'], // only set when $responsive = false
+    'headerRowOptions'=>['class'=>'kartik-sheet-style'],
+    'filterRowOptions'=>['class'=>'kartik-sheet-style'],
+    'pjax'=>false, // pjax is set to always true for this demo
+    'beforeHeader'=>[
+        [
+            'columns'=>[
+                ['content'=>'Detalhes das Gerações de Arquivos', 'options'=>['colspan'=>7, 'class'=>'text-center warning']], 
+                ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
+            ],
+        ]
+    ],
+        'hover' => true,
+        'panel' => [
+        'type'=>GridView::TYPE_PRIMARY,
+        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem - Geração de Arquivos</h3>',
+    ],
+]);
+    ?>
+    <?php Pjax::end(); ?>
+
 </div>
