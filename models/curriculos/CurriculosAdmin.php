@@ -133,17 +133,17 @@ class CurriculosAdmin extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCurriculosCurriculosComplementos()
+    public function getCurriculosComplementos()
     {
-        return $this->hasMany(CurriculosCurriculosComplementos::className(), ['curriculos_id' => 'id']);
+        return $this->hasMany(CurriculosComplementos::className(), ['curriculos_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCurriculosCurriculosEmpregos()
+    public function getCurriculosEmpregos()
     {
-        return $this->hasMany(CurriculosCurriculosEmpregos::className(), ['curriculos_id' => 'id']);
+        return $this->hasMany(CurriculosEmpregos::className(), ['curriculos_id' => 'id']);
     }
 
     /**
@@ -177,5 +177,4 @@ class CurriculosAdmin extends \yii\db\ActiveRecord
     {
         return $this->hasOne(ProcessoSeletivo::className(), ['numeroEdital' => 'edital']);
     }
-    
 }

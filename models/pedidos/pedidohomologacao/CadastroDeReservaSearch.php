@@ -44,7 +44,7 @@ class CadastroDeReservaSearch extends PedidohomologacaoItens
     {
         //Busca por candidatos que estejam com o pedido de homologação com validade de até 1 ano
         $query = PedidohomologacaoItens::find()
-        ->select(['pedidohomologacao_id', 'pedhomolog_docabertura', 'pedhomolog_numeroInscricao', 'pedhomolog_candidato', 'pedhomolog_classificacao', 'pedhomolog_localcontratacao', 'pedhomolog_cargo', 'pedhomolog_data','pedhomolog_expiracao'])
+        ->select(['pedidohomologacao_id', 'curriculos_id', 'pedhomolog_docabertura', 'pedhomolog_numeroInscricao', 'pedhomolog_candidato', 'pedhomolog_classificacao', 'pedhomolog_localcontratacao', 'pedhomolog_cargo', 'pedhomolog_data','pedhomolog_expiracao'])
         ->where(['=','pedhomolog_localcontratacao', 'CADASTRO DE RESERVA'])
         ->Andwhere(['>', 'pedhomolog_data', 'pedhomolog_expiracao']);
 
