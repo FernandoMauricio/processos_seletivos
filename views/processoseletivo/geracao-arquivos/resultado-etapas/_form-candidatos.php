@@ -20,12 +20,9 @@ use wbraganca\dynamicform\DynamicFormWidget;
     'formId' => 'dynamic-form',
     'formFields' => [
         'id',
-        'planodeacao_cod',
-        'materialaluno_cod',
-        'planmatalu_unidade',
-        'planmatalu_tipo',
-        'planmatalu_valor',
-        'planmatalu_quantidade',
+        'gerarqitens_candidato',
+        'gerarqitens_horario',
+        'gerarqitens_tema',
     ],
 ]); ?>
         <div class="panel panel-default">

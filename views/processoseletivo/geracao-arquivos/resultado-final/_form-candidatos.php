@@ -20,12 +20,8 @@ use wbraganca\dynamicform\DynamicFormWidget;
     'formId' => 'dynamic-form',
     'formFields' => [
         'id',
-        'planodeacao_cod',
-        'materialaluno_cod',
-        'planmatalu_unidade',
-        'planmatalu_tipo',
-        'planmatalu_valor',
-        'planmatalu_quantidade',
+        'gerarqitens_candidato',
+        'gerarqitens_classificacao',
     ],
 ]); ?>
         <div class="panel panel-default">
@@ -50,11 +46,10 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                         echo Html::activeHiddenInput($modelItens, "[{$i}]id");
                                     }
                                 ?>
-                                    <div class="col-sm-4"><?= $form->field($modelItens, "[{$i}]gerarqitens_candidato")->textInput(['readonly' => true, 'style' => 'text-transform: uppercase']) ?></div>
+                                    <div class="col-sm-6"><?= $form->field($modelItens, "[{$i}]gerarqitens_candidato")->textInput(['readonly' => true, 'style' => 'text-transform: uppercase']) ?></div>
 
-                                    <?= $model->gerarq_perfil == 1 ? '<div class="col-sm-2">'.$form->field($modelItens, "[{$i}]gerarqitens_horario")->widget(TimePicker::classname(), [ 'pluginOptions' => ['showSeconds' => false,'showMeridian' => false]]) .'</div>' : ''; ?>
+                                    <div class="col-sm-6"><?= $form->field($modelItens, "[{$i}]gerarqitens_classificacao")->textInput(['readonly' => true, 'style' => 'text-transform: uppercase']) ?></div>
 
-                                    <?= $model->gerarq_perfil == 1 ? '<div class="col-sm-6">'.$form->field($modelItens, "[{$i}]gerarqitens_tema")->textInput() .'</div>' : ''; ?>
                             </div>
                         </div>
                     <?php endforeach; ?>

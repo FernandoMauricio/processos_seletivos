@@ -76,7 +76,9 @@ class GeracaoArquivosSearch extends GeracaoArquivos
             ->andFilterWhere(['like', 'gerarq_endereco', $this->gerarq_endereco])
             ->andFilterWhere(['like', 'gerarq_fase', $this->gerarq_fase])
             ->andFilterWhere(['like', 'gerarq_tempo', $this->gerarq_tempo])
-            ->andFilterWhere(['like', 'gerarq_responsavel', $this->gerarq_responsavel]);
+            ->andFilterWhere(['like', 'gerarq_responsavel', $this->gerarq_responsavel])
+            ->andFilterWhere(['like', 'gerarq_perfil', $this->gerarq_perfil])
+            ->andFilterWhere(['like', 'gerarq_tipo', $this->gerarq_tipo]);
 
         return $dataProvider;
     }
