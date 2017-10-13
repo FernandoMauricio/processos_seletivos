@@ -4,7 +4,7 @@ namespace app\controllers\processoseletivo;
 
 use Yii;
 use app\models\Model;
-use app\models\curriculos\CurriculosAdmin;
+use app\models\etapasprocesso\EtapasItens;
 use app\models\processoseletivo\ProcessoSeletivo;
 use app\models\processoseletivo\geracaoarquivo\GeracaoArquivos;
 use app\models\processoseletivo\geracaoarquivo\GeracaoArquivosSearch;
@@ -126,8 +126,8 @@ class GeracaoArquivosController extends Controller
 
                 //Localiza somente os candidatos classificados para o edital escolhido
                 $sqlCandidatos = '
-                SELECT `curriculos`.`nome`, `curriculos`.`edital` 
-                    FROM `curriculos` 
+                SELECT `curriculos`.`nome`, `curriculos`.`edital`, `etapas_itens`.`itens_classificacao`
+                FROM `curriculos` 
                     INNER JOIN `processo` ON `curriculos`.`edital` = `processo`.`numeroEdital`
                     INNER JOIN `etapas_itens` ON `etapas_itens`.`curriculos_id` = `curriculos`.`id`
                 WHERE (`classificado`= 1) 
@@ -135,24 +135,29 @@ class GeracaoArquivosController extends Controller
                     AND `curriculos`.`cargo` = "'.$model->etapasprocesso->etapa_cargo.'"
                     AND `etapas_itens`.`itens_classificacao` NOT LIKE "%Desclassificado(a)%"
                 ORDER BY `curriculos`.`nome` ASC
-
                 ';
-
-                $candidatos = CurriculosAdmin::findBySql($sqlCandidatos)->all();
+                $candidatos = EtapasItens::findBySql($sqlCandidatos)->all();
 
                 foreach ($candidatos as $candidato) {
                         //Inclui as informações dos candidatos classificados
                         Yii::$app->db->createCommand()
                             ->insert('geracaoarquivos_itens', [
-                                     'geracaoarquivos_id'    => $model->gerarq_id,
-                                     'gerarqitens_candidato' => $candidato['nome'],
-                                     'gerarqitens_horario'   => $model->gerarq_horarealizacao,
+                                     'geracaoarquivos_id'        => $model->gerarq_id,
+                                     'gerarqitens_candidato'     => $candidato['nome'],
+                                     'gerarqitens_horario'       => $model->gerarq_horarealizacao,
+                                     'gerarqitens_classificacao' => $candidato['itens_classificacao'],
                                      ])
                             ->execute();
                     $model->save();
             }
 
-            return $this->redirect(['update', 'id' => $model->gerarq_id]);
+            if($model->gerarq_tipo == 0){
+                  return $this->redirect(['update', 'id' => $model->gerarq_id]);
+                }
+            else if($model->gerarq_tipo == 1){
+                  return $this->redirect(['update-resultado-final', 'id' => $model->gerarq_id]);
+                }
+
         } else {
             return $this->renderAjax('criar-geracao-arquivos', [
                 'model' => $model,
@@ -221,11 +226,18 @@ class GeracaoArquivosController extends Controller
             Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Documento '.$id.' Atualizado !</strong>');
 
             return $this->redirect(['view', 'id' => $model->gerarq_id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-                'modelsItens' => $modelsItens,
-            ]);
+        }else {
+             if($model->gerarq_tipo == 0) {
+                return $this->render('update', [
+                    'model' => $model,
+                    'modelsItens' => $modelsItens,
+                ]);
+            }else{
+                return $this->render('update-resultado-final', [
+                    'model' => $model,
+                    'modelsItens' => $modelsItens,
+                ]);
+            }
         }
     }
 

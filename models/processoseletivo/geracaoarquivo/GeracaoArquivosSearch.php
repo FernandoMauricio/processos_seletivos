@@ -19,7 +19,7 @@ class GeracaoArquivosSearch extends GeracaoArquivos
     {
         return [
             [['gerarq_id'], 'integer'],
-            [['gerarq_titulo', 'gerarq_documentos', 'gerarq_emailconfirmacao', 'gerarq_datarealizacao', 'gerarq_horarealizacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_fase', 'gerarq_tempo', 'gerarq_responsavel', 'processo_id', 'etapasprocesso_id'], 'safe'],
+            [['gerarq_titulo', 'gerarq_documentos', 'gerarq_emailconfirmacao', 'gerarq_datarealizacao', 'gerarq_horarealizacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_fase', 'gerarq_tempo', 'gerarq_responsavel', 'processo_id', 'etapasprocesso_id', 'gerarq_perfil', 'gerarq_tipo'], 'safe'],
         ];
     }
 

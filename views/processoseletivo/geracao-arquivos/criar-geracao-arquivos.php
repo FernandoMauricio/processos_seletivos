@@ -78,6 +78,19 @@ use yii\helpers\Json;
                             ]);
                 ?>
             </div>
+
+            <div class="col-md-3">
+                <?php
+                    echo $form->field($model, 'gerarq_tipo')->widget(Select2::classname(), [
+                            'data' =>  ['0' => 'Resultado das Etapas', '1' => 'Resultado Final'],
+                            'hideSearch' => true,
+                            'options' => ['placeholder' => 'Selecione o Perfil...'],
+                            'pluginOptions' => [
+                                    'allowClear' => true,
+                                ],
+                            ]);
+                ?>
+            </div>
         </div>
 
     </div>

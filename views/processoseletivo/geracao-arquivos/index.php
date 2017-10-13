@@ -40,7 +40,6 @@ echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
         Modal::end();
     ?>
 
-
 <?php
 
 $gridColumns = [
@@ -70,6 +69,26 @@ $gridColumns = [
             'gerarq_titulo',
             'gerarq_fase:ntext',
             'gerarq_local',
+            [
+                'attribute'=>'gerarq_perfil', 
+                'value' => function ($data) { return $data->gerarq_perfil == 0 ? 'Administrativo' : 'Docente'; },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=> ['0'=>'Administrativo','1'=>'Docente'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                    'filterInputOptions'=>['placeholder'=>'Selecione o Perfil'],
+            ],
+            [
+                'attribute'=>'gerarq_tipo', 
+                'value' => function ($data) { return $data->gerarq_tipo == 0 ? 'Resultados das Etapas' : 'Resultado Final'; },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=> ['0'=>'Resultados das Etapas','1'=>'Resultado Final'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                    'filterInputOptions'=>['placeholder'=>'Selecione o Tipo'],
+            ],
 
             ['class' => 'yii\grid\ActionColumn',
                         'template' => '{imprimir} {update} {delete}',
@@ -127,7 +146,7 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes das Gerações de Arquivos', 'options'=>['colspan'=>7, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes das Gerações de Arquivos', 'options'=>['colspan'=>9, 'class'=>'text-center warning']], 
                 ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]

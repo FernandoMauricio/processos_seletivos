@@ -34,7 +34,7 @@ class GeracaoarquivosItens extends \yii\db\ActiveRecord
             [['gerarqitens_candidato', 'geracaoarquivos_id'], 'required'],
             [['gerarqitens_horario'], 'safe'],
             [['geracaoarquivos_id'], 'integer'],
-            [['gerarqitens_candidato', 'gerarqitens_tema'], 'string', 'max' => 255],
+            [['gerarqitens_candidato', 'gerarqitens_tema', 'gerarqitens_classificacao'], 'string', 'max' => 255],
             [['geracaoarquivos_id'], 'exist', 'skipOnError' => true, 'targetClass' => GeracaoArquivos::className(), 'targetAttribute' => ['geracaoarquivos_id' => 'gerarq_id']],
         ];
     }
@@ -49,6 +49,7 @@ class GeracaoarquivosItens extends \yii\db\ActiveRecord
             'gerarqitens_candidato' => 'Candidatos',
             'gerarqitens_horario' => 'Horário',
             'gerarqitens_tema' => 'Tema da Aula',
+            'gerarqitens_classificacao' => 'Classificação',
             'geracaoarquivos_id' => 'Geracaoarquivos ID',
         ];
     }

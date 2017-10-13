@@ -45,9 +45,9 @@ class GeracaoArquivos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['processo_id', 'etapasprocesso_id', 'gerarq_perfil'], 'required'],
+            [['processo_id', 'etapasprocesso_id', 'gerarq_perfil', 'gerarq_tipo'], 'required'],
             [['gerarq_datarealizacao', 'gerarq_horarealizacao', 'gerarq_titulo', 'gerarq_documentos', 'gerarq_emailconfirmacao', 'gerarq_datarealizacao', 'gerarq_horarealizacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_fase', 'gerarq_tempo'], 'required', 'on' => 'update'],
-            [['processo_id', 'etapasprocesso_id', 'gerarq_perfil'], 'integer'],
+            [['processo_id', 'etapasprocesso_id', 'gerarq_perfil', 'gerarq_tipo'], 'integer'],
             [['gerarq_datarealizacao', 'gerarq_horarealizacao', 'processoSeletivo', 'cargoLabel', 'gerarq_documentos'], 'safe'],
             [['gerarq_titulo', 'gerarq_emailconfirmacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_tempo', 'gerarq_responsavel', 'gerarq_fase'], 'string', 'max' => 255],
             [['etapasprocesso_id'], 'exist', 'skipOnError' => true, 'targetClass' => EtapasProcesso::className(), 'targetAttribute' => ['etapasprocesso_id' => 'etapa_id']],
@@ -62,7 +62,6 @@ class GeracaoArquivos extends \yii\db\ActiveRecord
         return $scenarios;
     }
 
-// 'gerarq_responsavel'
     /**
      * @inheritdoc
      */
@@ -85,6 +84,7 @@ class GeracaoArquivos extends \yii\db\ActiveRecord
             'processoSeletivo' => 'Documento de Abertura',
             'cargoLabel' => 'Listagem de Candidatos(cargo):',
             'gerarq_perfil' => 'Perfil do Formulário',
+            'gerarq_tipo' => 'Tipo de Resultado',
         ];
     }
 
