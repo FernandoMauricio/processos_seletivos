@@ -90,11 +90,10 @@ class PedidoContratacao extends \yii\db\ActiveRecord
                 INNER JOIN `etapas_itens` ON  `etapas_itens`.`curriculos_id` = `curriculos`.`id`
                 INNER JOIN `etapas_processo` ON `etapas_processo`.`etapa_id` = `etapas_itens`.`etapasprocesso_id`
                 INNER JOIN `pedidocusto_itens` ON `pedidocusto_itens`.`pedidocusto_id` = `etapas_processo`.`pedidocusto_id`
-                INNER JOIN `pedidocontratacao_itens` ON `pedidocontratacao_itens`.`etapasprocesso_id` = `etapas_processo`.`etapa_id`
                 WHERE `etapas_itens`.`itens_classificacao` NOT LIKE "%Desclassificado(a)%"
                 AND `etapas_itens`.`itens_classificacao` NOT LIKE ""
                 AND `curriculos`.`cargo` = `pedidocusto_itens`.`itemcusto_cargo`
-                AND `curriculos`.`nome` != `pedidocontratacao_itens`.`itemcontratacao_nome`
+                AND `curriculos`.`nome` NOT IN(SELECT `pedidocontratacao_itens`.`itemcontratacao_nome` FROM `pedidocontratacao_itens`)
                 AND `etapas_processo`.`etapa_id` = '.$cat_id.'
                 ORDER BY `etapas_itens`.`itens_pontuacaototal` DESC' ;
 

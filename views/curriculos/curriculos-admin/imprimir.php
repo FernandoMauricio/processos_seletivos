@@ -386,7 +386,7 @@ $this->title = $model->numeroInscricao;
 
   <table width="100%" border="0">
           <tr><td align="right" style="padding-right: 40px;">______________________________________</td></tr>
-          <tr><td align="right" style="padding-right: 40px;"><?= $model->nome ?></td></tr>
+          <tr><td align="right" style="padding-right: 40px;" class="text-uppercase"><?= $model->nome ?></td></tr>
           <tr><td align="right" style="padding-right: 40px;"><?= $model->cpf ?></td></tr>
   </table>
 
