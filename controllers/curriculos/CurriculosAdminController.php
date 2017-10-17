@@ -24,10 +24,7 @@ use yii\filters\VerbFilter;
 use kartik\mpdf\Pdf;
 use yii\helpers\Json;
 use yii\db\Query;
-
 use mPDF;
-
-
 
 /**
  * CurriculosController implements the CRUD actions for Curriculos model.
@@ -39,9 +36,7 @@ class CurriculosAdminController extends Controller
      */
     public function behaviors()
     {
-
         $this->AccessAllow(); //Irá ser verificado se o usuário está logado no sistema
-
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -59,15 +54,11 @@ class CurriculosAdminController extends Controller
     public function actionIndex()
     {
         $this->layout = 'main-full';
-
-    $session = Yii::$app->session;
-    //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
-    if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
-
-        $this->layout = 'main-acesso-negado';
-        return $this->render('/site/acesso_negado');
-
-    }else
+        //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
+        $session = Yii::$app->session;
+        if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
+            return $this->AccessoAdministrador();
+        }
         $searchModel = new CurriculosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->sort = ['defaultOrder' => ['id'=>SORT_DESC]];
@@ -83,19 +74,15 @@ class CurriculosAdminController extends Controller
     public function actionBancoDeCurriculos()
     {
         $this->layout = 'main-full';
+        //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
+        $session = Yii::$app->session;
+        if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
+            return $this->AccessoAdministrador();
+        }
 
-    $session = Yii::$app->session;
-    //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
-    if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
-
-        $this->layout = 'main-acesso-negado';
-        return $this->render('/site/acesso_negado');
-
-    }else
         $searchModel = new BancoDeCurriculosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->sort = ['defaultOrder' => ['id'=>SORT_DESC]];
-
 
         $session['query'] = $_SERVER['QUERY_STRING'];
 
@@ -140,35 +127,25 @@ class CurriculosAdminController extends Controller
 
     public function actionImprimir($id) {
     {
-        $session = Yii::$app->session;
+        $this->layout = 'main-imprimir';
         $model = $this->findModel($id);
-
-        //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
-        if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
-
-            $this->layout = 'main-acesso-negado';
-            return $this->render('/site/acesso_negado');
-
-        }else
-            $this->layout = 'main-imprimir';
-
-            $curriculosEndereco     = $model->curriculosEnderecos; //busca endereço
-            $curriculosFormacao     = $model->curriculosFormacaos; //busca formação
-            $curriculosComplementos = $model->curriculosComplementos; //busca cursos complementares
-            $curriculosEmpregos     = $model->curriculosEmpregos; //busca empregos anteriores
+        $curriculosEndereco     = $model->curriculosEnderecos; //busca endereço
+        $curriculosFormacao     = $model->curriculosFormacaos; //busca formação
+        $curriculosComplementos = $model->curriculosComplementos; //busca cursos complementares
+        $curriculosEmpregos     = $model->curriculosEmpregos; //busca empregos anteriores
              
-                    if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                        return $this->redirect(['imprimir', 'id' => $model->id]);
-                    } else {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['imprimir', 'id' => $model->id]);
+        } else {
 
-                    return $this->render('imprimir', [
-                        'model' => $this->findModel($id),
-                        'curriculosEndereco' => $curriculosEndereco,
-                        'curriculosFormacao' => $curriculosFormacao,
-                        'curriculosComplementos' => $curriculosComplementos,
-                        'curriculosEmpregos' => $curriculosEmpregos,
-                    ]);
-                }
+        return $this->render('imprimir', [
+            'model' => $this->findModel($id),
+            'curriculosEndereco' => $curriculosEndereco,
+            'curriculosFormacao' => $curriculosFormacao,
+            'curriculosComplementos' => $curriculosComplementos,
+            'curriculosEmpregos' => $curriculosEmpregos,
+             ]);
+            }
         }
     }
 
@@ -182,15 +159,10 @@ class CurriculosAdminController extends Controller
     {
         $session = Yii::$app->session;
         $model = $this->findModel($id);
-
         //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
         if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
-
-            $this->layout = 'main-acesso-negado';
-            return $this->render('/site/acesso_negado');
-
-        }else
-
+            return $this->AccessoAdministrador();
+        }
             $curriculosEndereco     = $model->curriculosEnderecos; //busca endereço
             $curriculosFormacao     = $model->curriculosFormacaos; //busca formação
             $curriculosComplementos = $model->curriculosComplementos; //busca cursos complementares
@@ -238,11 +210,9 @@ class CurriculosAdminController extends Controller
         $modelsComplemento = [new CurriculosComplementos];
         $modelsEmpregos    = [new CurriculosEmpregos];
 
+        if (isset($_COOKIE['PHPSESSID']) && !empty($_COOKIE['PHPSESSID'])) session_id($_COOKIE['PHPSESSID']);
 
-if (isset($_COOKIE['PHPSESSID']) && !empty($_COOKIE['PHPSESSID'])) session_id($_COOKIE['PHPSESSID']);
-
-session_start();
-
+        session_start();
 
         //session numero de edital e do id do processo
         $session = Yii::$app->session;
@@ -569,10 +539,24 @@ session_start();
     public function AccessAllow()
     {
         $session = Yii::$app->session;
-        if (!isset($session['sess_codusuario']) && !isset($session['sess_codcolaborador']) && !isset($session['sess_codunidade']) && !isset($session['sess_nomeusuario']) && !isset($session['sess_coddepartamento']) && !isset($session['sess_codcargo']) && !isset($session['sess_cargo']) && !isset($session['sess_setor']) && !isset($session['sess_unidade']) && !isset($session['sess_responsavelsetor'])) 
+        if (!isset($session['sess_codusuario']) 
+            && !isset($session['sess_codcolaborador']) 
+            && !isset($session['sess_codunidade']) 
+            && !isset($session['sess_nomeusuario']) 
+            && !isset($session['sess_coddepartamento']) 
+            && !isset($session['sess_codcargo']) 
+            && !isset($session['sess_cargo']) 
+            && !isset($session['sess_setor']) 
+            && !isset($session['sess_unidade']) 
+            && !isset($session['sess_responsavelsetor'])) 
         {
            return $this->redirect('http://portalsenac.am.senac.br');
         }
     }
-}
 
+    public function AccessoAdministrador()
+    {
+            $this->layout = 'main-acesso-negado';
+            return $this->render('/site/acesso_negado');
+    }
+}

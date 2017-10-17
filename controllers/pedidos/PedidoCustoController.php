@@ -27,6 +27,7 @@ class PedidoCustoController extends Controller
      */
     public function behaviors()
     {
+        $this->AccessAllow(); //Irá ser verificado se o usuário está logado no sistema
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -44,7 +45,11 @@ class PedidoCustoController extends Controller
     public function actionIndex()
     {
         $this->layout = 'main-full';
-
+        //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
+        $session = Yii::$app->session;
+        if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
+            return $this->AccessoAdministrador();
+        }
         $searchModel = new PedidoCustoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -152,7 +157,11 @@ class PedidoCustoController extends Controller
     public function actionView($id)
     {
         $this->layout = 'main-imprimir';
-        
+        //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
+        $session = Yii::$app->session;
+        if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
+            return $this->AccessoAdministrador();
+        }
         $model = $this->findModel($id);
 
         $modelsItens = $model->pedidocustoItens;
@@ -197,7 +206,11 @@ class PedidoCustoController extends Controller
      */
     public function actionCreate()
     {
-        $session     = Yii::$app->session;
+        //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
+        $session = Yii::$app->session;
+        if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
+            return $this->AccessoAdministrador();
+        }
         $model       = new PedidoCusto();
         $modelsItens = [new PedidocustoItens];
 
@@ -271,7 +284,11 @@ class PedidoCustoController extends Controller
      */
     public function actionUpdate($id)
     {
+        //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
         $session = Yii::$app->session;
+        if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
+            return $this->AccessoAdministrador();
+        }
         $model = $this->findModel($id);
         $modelsItens = $model->pedidocustoItens;
 
@@ -384,5 +401,29 @@ class PedidoCustoController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function AccessAllow()
+    {
+        $session = Yii::$app->session;
+        if (!isset($session['sess_codusuario']) 
+            && !isset($session['sess_codcolaborador']) 
+            && !isset($session['sess_codunidade']) 
+            && !isset($session['sess_nomeusuario']) 
+            && !isset($session['sess_coddepartamento']) 
+            && !isset($session['sess_codcargo']) 
+            && !isset($session['sess_cargo']) 
+            && !isset($session['sess_setor']) 
+            && !isset($session['sess_unidade']) 
+            && !isset($session['sess_responsavelsetor'])) 
+        {
+           return $this->redirect('http://portalsenac.am.senac.br');
+        }
+    }
+
+    public function AccessoAdministrador()
+    {
+            $this->layout = 'main-acesso-negado';
+            return $this->render('/site/acesso_negado');
     }
 }

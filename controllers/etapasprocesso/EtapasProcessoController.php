@@ -29,6 +29,7 @@ class EtapasProcessoController extends Controller
      */
     public function behaviors()
     {
+        $this->AccessAllow(); //Irá ser verificado se o usuário está logado no sistema
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -46,7 +47,11 @@ class EtapasProcessoController extends Controller
     public function actionIndex()
     {
         $this->layout = 'main-full';
-
+        //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
+        $session = Yii::$app->session;
+        if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
+            return $this->AccessoAdministrador();
+        }
         $searchModel = new EtapasProcessoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -64,7 +69,11 @@ class EtapasProcessoController extends Controller
     public function actionView($id)
     {
         $this->layout = 'main-imprimir';
-        
+        //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
+        $session = Yii::$app->session;
+        if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
+            return $this->AccessoAdministrador();
+        }
         $model = $this->findModel($id);
         $itens = EtapasItens::find()->innerJoinWith('curriculos')->where(['etapasprocesso_id' => $model->etapa_id])->orderBy(['itens_pontuacaototal' => SORT_DESC, 'nome' => SORT_ASC])->all();
 
@@ -96,7 +105,11 @@ class EtapasProcessoController extends Controller
      */
     public function actionCreate()
     {
+        //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
         $session = Yii::$app->session;
+        if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
+            return $this->AccessoAdministrador();
+        }
 
         $model = new EtapasProcesso();
 
@@ -175,7 +188,11 @@ class EtapasProcessoController extends Controller
     {
         $this->layout = 'main-full';
         
+        //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
         $session = Yii::$app->session;
+        if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
+            return $this->AccessoAdministrador();
+        }
         $model = $this->findModel($id);
         $model->scenario = 'update'; //Validações obrigatórias na atualização
 
@@ -259,5 +276,29 @@ class EtapasProcessoController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function AccessAllow()
+    {
+        $session = Yii::$app->session;
+        if (!isset($session['sess_codusuario']) 
+            && !isset($session['sess_codcolaborador']) 
+            && !isset($session['sess_codunidade']) 
+            && !isset($session['sess_nomeusuario']) 
+            && !isset($session['sess_coddepartamento']) 
+            && !isset($session['sess_codcargo']) 
+            && !isset($session['sess_cargo']) 
+            && !isset($session['sess_setor']) 
+            && !isset($session['sess_unidade']) 
+            && !isset($session['sess_responsavelsetor'])) 
+        {
+           return $this->redirect('http://portalsenac.am.senac.br');
+        }
+    }
+
+    public function AccessoAdministrador()
+    {
+            $this->layout = 'main-acesso-negado';
+            return $this->render('/site/acesso_negado');
     }
 }
