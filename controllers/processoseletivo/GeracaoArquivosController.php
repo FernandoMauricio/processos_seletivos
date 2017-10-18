@@ -61,7 +61,7 @@ class GeracaoArquivosController extends Controller
 
             $pdf = new Pdf([
                 'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
-                'content' => $this->renderPartial('imprimir', ['model' => $model, 'modelsItens' => $modelsItens], 'UTF-8', 'ISO-8859-1'),
+                'content' => $model->gerarq_tipo == 0 ? $this->renderPartial('imprimir', ['model' => $model, 'modelsItens' => $modelsItens], 'UTF-8', 'ISO-8859-1') : $this->renderPartial('imprimir-resultado-final', ['model' => $model, 'modelsItens' => $modelsItens], 'UTF-8', 'ISO-8859-1'),
                 'options' => [
                     'title' => 'Recrutamento e Seleção - Senac AM',
                     //'subject' => 'Generating PDF files via yii2-mpdf extension has never been easy'
@@ -73,7 +73,7 @@ class GeracaoArquivosController extends Controller
             ]);
 
             if($model->gerarq_tipo == 0) {
-                return $pdf->render('imprimir-resultado-final', [
+                return $pdf->render('imprimir', [
                     'model' => $model,
                     'modelsItens' => $modelsItens,
                 ]);
@@ -84,7 +84,6 @@ class GeracaoArquivosController extends Controller
                 ]);
             }
     }
-
 
     /**
      * Lists all GeracaoArquivos models.
@@ -208,7 +207,7 @@ class GeracaoArquivosController extends Controller
             Model::loadMultiple($modelsItens, Yii::$app->request->post());
             $deletedIDsmodelsItens = array_diff($oldIDsmodelsItens, array_filter(ArrayHelper::map($modelsItens, 'id', 'id')));
 
-            $model->gerarq_documentos = implode(", ",$model->gerarq_documentos);
+            $model->gerarq_documentos = is_array($model->gerarq_documentos) ? implode(", ", $model->gerarq_documentos) : null;
             $model->save();
 
         // validate all models

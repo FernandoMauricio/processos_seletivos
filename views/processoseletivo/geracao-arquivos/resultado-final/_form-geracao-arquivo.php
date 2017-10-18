@@ -22,70 +22,10 @@ use faryshta\widgets\JqueryTagsInput;
                 <div class="col-md-3"><?= $form->field($model, 'processoSeletivo')->textInput(['value' => $model->processo->numeroEdital,'readonly' => true]) ?></div>
 
                 <div class="col-md-3"><?= $form->field($model, 'cargoLabel')->textInput(['value' => $model->etapasprocesso->etapa_cargo,'readonly' => true]) ?></div>
-
-                <div class="col-md-3">
-                    <?= $form->field($model, 'gerarq_datarealizacao')->widget(DateControl::classname(), [
-                            'type'=>DateControl::FORMAT_DATE,
-                            'ajaxConversion'=>true,
-                            'widgetOptions' => [
-                                'removeButton' => false,
-                                'pluginOptions' => [
-                                    'autoclose' => true,
-                                ],
-                            ]
-                        ]); ?>
-                </div>
-            
-                <div class="col-md-3"><?= $form->field($model, 'gerarq_horarealizacao')->widget(TimePicker::classname(), [ 'pluginOptions' => ['showSeconds' => false,'showMeridian' => false]]); ?></div>
-
             </div>
 
             <div class="row">
                 <div class="col-md-6"><?= $form->field($model, 'gerarq_titulo')->textInput(['maxlength' => true]) ?></div>
-
-                <div class="col-md-6"><?= $form->field($model, 'gerarq_fase')->textInput(['maxlength' => true]) ?></div>
-            </div>
-
-            <div class="row">
-
-                <div class="col-md-6"><?= $form->field($model, 'gerarq_local')->textInput(['maxlength' => true]) ?></div>
-
-                <div class="col-md-6"><?= $form->field($model, 'gerarq_endereco')->textInput(['maxlength' => true]) ?></div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-9"><?= $form->field($model, 'gerarq_tempo')->textInput(['maxlength' => true]) ?></div>
-
-                <div class="col-md-3">
-                    <?= $form->field($model, 'gerarq_emailconfirmacao')->widget(Select2::classname(), [
-                                'data' =>  [
-                                    'israel.galvao@am.senac.br' => 'israel.galvao@am.senac.br', 
-                                    'keila.neves@am.senac.br' => 'keila.neves@am.senac.br'
-                                ],
-                                'options' => ['placeholder' => 'E-mail de confirmação...'],
-                                'pluginOptions' => [
-                                    'allowClear' => true
-                                ],
-                            ]); ?>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <?= $form->field($model, 'gerarq_documentos')->widget(Select2::classname(), [
-                                'data' =>  [
-                                    'Identidade ou Carteira de Trabalho (original)' => 'Identidade ou Carteira de Trabalho (original)', 
-                                    'Certificado de escolaridade e histórico (cópia)' => 'Certificado de escolaridade e histórico (cópia)',
-                                    'Certificado dos cursos de capacitação (cópia)' => 'Certificado dos cursos de capacitação (cópia)',
-                                    'Currículo Atualizado' => 'Currículo Atualizado',
-                                    'Plano de aula impresso em 02 (duas) vias' => 'Plano de aula impresso em 02 (duas) vias',
-                                ],
-                                'options' => ['placeholder' => 'Informe os arquivos a serem apresentados...', 'multiple'=>true],
-                                'pluginOptions' => [
-                                    'allowClear' => true
-                                ],
-                            ]);  ?>
-                </div>
             </div>
     </div>
 
