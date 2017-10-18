@@ -7,6 +7,7 @@ use Yii;
 use app\models\processoseletivo\ProcessoSeletivo;
 use app\models\pedidos\pedidocusto\PedidoCusto;
 use app\models\pedidos\pedidocontratacao\PedidocontratacaoItens;
+use app\models\processoseletivo\geracaoarquivo\GeracaoArquivos;
 
 /**
  * This is the model class for table "etapas_processo".
@@ -118,6 +119,14 @@ class EtapasProcesso extends \yii\db\ActiveRecord
     public function getPedidocontratacaoItens()
     {
         return $this->hasMany(PedidocontratacaoItens::className(), ['etapasprocesso_id' => 'etapa_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGeracaoArquivos()
+    {
+        return $this->hasOne(GeracaoArquivos::className(), ['etapasprocesso_id' => 'etapa_id']);
     }
 
         /**

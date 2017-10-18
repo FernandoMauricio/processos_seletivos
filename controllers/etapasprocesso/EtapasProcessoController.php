@@ -254,6 +254,9 @@ class EtapasProcessoController extends Controller
         if(isset($model->pedidoContratacao->etapasprocesso_id)) {
             Yii::$app->session->setFlash('danger', '<b>ERRO! </b> Não é possível <b>EXCLUIR</b> pois já existe <b>Pedido de Contratação</b> criado.');
             return $this->redirect(['index']);
+        }elseif(isset($model->geracaoArquivos->etapasprocesso_id)) {//Verifica se já existe algum Resultado das Etapas ou Resultado Final criado na tela de Geração de Arquivos
+            Yii::$app->session->setFlash('danger', '<b>ERRO! </b> Não é possível <b>EXCLUIR</b> pois já existe <b>Resultado das Etapas ou Resultado Final</b> criado na tela de Geração de Arquivos.');
+            return $this->redirect(['index']);
         }else{
         EtapasItens::deleteAll('etapasprocesso_id = "'.$id.'"');
         $model->delete(); //Exclui a etapa do processo
