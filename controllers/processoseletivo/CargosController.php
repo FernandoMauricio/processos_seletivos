@@ -96,14 +96,14 @@ class CargosController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
             if($model->calculos == 1) { // Realiza os cálculos de Planejamento e Produtividade caso seja marcado a opção
-            $model->salario               = $model->salario_valorhor * $model->ch_semana;
+            $model->salario               = $model->salario_valorhora * ($model->ch_semana * 5); //Salário * (CH Semanal * 5)
             $model->salario_1sexto        = $model->salario / 6;
             $model->salario_produtividade = (($model->salario_valorhora * 45) / 100) * $model->ch_semana * 5;
             $model->salario_6horasfixas   = $model->salario_valorhora * 6;
             $model->salario_1sextofixas   = $model->salario_6horasfixas / 6;
             $model->salario_bruto         = $model->salario + $model->salario_1sexto + $model->salario_produtividade + $model->salario_6horasfixas + $model->salario_1sextofixas;
             $model->encargos              = ($model->salario_bruto * 32.7) / 100;
-            $model->valor_total           = $model->salario + $model->encargos;
+            $model->valor_total           = $model->salario_bruto + $model->encargos;
             $model->save();
         }else{
             $model->salario_valorhora     = 0;
@@ -113,7 +113,7 @@ class CargosController extends Controller
             $model->salario_1sextofixas   = 0;
             $model->salario_bruto         = $model->salario + $model->salario_1sexto + $model->salario_produtividade + $model->salario_6horasfixas + $model->salario_1sextofixas;
             $model->encargos              = ($model->salario_bruto * 32.7) / 100;
-            $model->valor_total           = $model->salario + $model->encargos;
+            $model->valor_total           = $model->salario_bruto + $model->encargos;
             $model->save();
         }
 
@@ -158,14 +158,14 @@ class CargosController extends Controller
         if ($model->load(Yii::$app->request->post()) ) {
 
             if($model->calculos == 1) { // Realiza os cálculos de Planejamento e Produtividade caso seja marcado a opção
-            $model->salario               = $model->salario_valorhora * $model->ch_semana;
+            $model->salario               = $model->salario_valorhora * ($model->ch_semana * 5); //Salário * (CH Semanal * 5)
             $model->salario_1sexto        = $model->salario / 6;
             $model->salario_produtividade = (($model->salario_valorhora * 45) / 100) * $model->ch_semana * 5;
             $model->salario_6horasfixas   = $model->salario_valorhora * 6;
             $model->salario_1sextofixas   = $model->salario_6horasfixas / 6;
             $model->salario_bruto         = $model->salario + $model->salario_1sexto + $model->salario_produtividade + $model->salario_6horasfixas + $model->salario_1sextofixas;
             $model->encargos              = ($model->salario_bruto * 32.7) / 100;
-            $model->valor_total           = $model->salario + $model->encargos;
+            $model->valor_total           = $model->salario_bruto + $model->encargos;
             $model->homologacao           = null;
             $model->data_homologacao      = null;
             $model->save();
@@ -177,7 +177,7 @@ class CargosController extends Controller
             $model->salario_1sextofixas   = 0;
             $model->salario_bruto         = $model->salario + $model->salario_1sexto + $model->salario_produtividade + $model->salario_6horasfixas + $model->salario_1sextofixas;
             $model->encargos              = ($model->salario_bruto * 32.7) / 100;
-            $model->valor_total           = $model->salario + $model->encargos;
+            $model->valor_total           = $model->salario_bruto + $model->encargos;
             $model->homologacao           = null;
             $model->data_homologacao      = null;
             $model->save();

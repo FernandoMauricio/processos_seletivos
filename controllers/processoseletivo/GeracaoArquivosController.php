@@ -72,10 +72,19 @@ class GeracaoArquivosController extends Controller
                 ]
             ]);
 
-        return $pdf->render('imprimir', [
-            'model' => $model,
-        ]);
+            if($model->gerarq_tipo == 0) {
+                return $pdf->render('imprimir-resultado-final', [
+                    'model' => $model,
+                    'modelsItens' => $modelsItens,
+                ]);
+            }else{
+                return $pdf->render('imprimir-resultado-final', [
+                    'model' => $model,
+                    'modelsItens' => $modelsItens,
+                ]);
+            }
     }
+
 
     /**
      * Lists all GeracaoArquivos models.

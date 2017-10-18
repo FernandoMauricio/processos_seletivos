@@ -78,7 +78,7 @@ class CargosSearch extends Cargos
             'salario_bruto' => $this->salario_bruto,
             'encargos' => $this->encargos,
             'valor_total' => $this->valor_total,
-            'status' => $this->status,
+            'cargos.status' => 1, //Cadastros ativos
         ]);
 
         $query->andFilterWhere(['like', 'cargos.descricao', $this->descricao])
