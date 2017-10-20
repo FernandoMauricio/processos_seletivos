@@ -222,7 +222,9 @@ class EtapasProcessoController extends Controller
             $etapa->itens_confirmacaocontato = $_POST['EtapasItens'][$i]['itens_confirmacaocontato'];
             $etapa->itens_escrita            = $_POST['EtapasItens'][$i]['itens_escrita'];
             $etapa->itens_comportamental     = $_POST['EtapasItens'][$i]['itens_comportamental'];
+            $etapa->itens_didatica           = $_POST['EtapasItens'][$i]['itens_didatica'];
             $etapa->itens_entrevista         = $_POST['EtapasItens'][$i]['itens_entrevista'];
+            $etapa->itens_pratica            = $_POST['EtapasItens'][$i]['itens_pratica'];
             $etapa->itens_pontuacaototal     = $_POST['EtapasItens'][$i]['itens_pontuacaototal'];
             $etapa->itens_classificacao      = $_POST['EtapasItens'][$i]['itens_classificacao'];
             $etapa->itens_localcontratacao   = $_POST['EtapasItens'][$i]['itens_localcontratacao'];
