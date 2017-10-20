@@ -127,7 +127,7 @@ use kartik\select2\Select2;
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-  jQuery('#etapasitens-<?=$i?>-itens_escrita, #etapasitens-<?=$i?>-itens_comportamental, #etapasitens-<?=$i?>-itens_entrevista').keyup(function(){   
+  jQuery('#etapasitens-<?=$i?>-itens_escrita, #etapasitens-<?=$i?>-itens_comportamental, #etapasitens-<?=$i?>-itens_didatica, #etapasitens-<?=$i?>-itens_entrevista, #etapasitens-<?=$i?>-itens_pratica').keyup(function(){   
    var total = 0; 
    var total = parseFloat($('#etapasitens-<?=$i?>-itens_escrita').val(), 0);
    $('#etapasitens-<?=$i?>-itens_pontuacaototal').val(total);
@@ -139,12 +139,28 @@ $(document).ready(function() {
        total += valor2;
        $('#etapasitens-<?=$i?>-itens_pontuacaototal').val(total);
    }
-   var valor3 = parseFloat($('#etapasitens-<?=$i?>-itens_entrevista').val(), 0);
+   var valor3 = parseFloat($('#etapasitens-<?=$i?>-itens_didatica').val(), 0);
    if (valor3 == 0){
        $('#etapasitens-<?=$i?>-itens_pontuacaototal').val(total);
    }
    else{
        total += valor3;
+       $('#etapasitens-<?=$i?>-itens_pontuacaototal').val(total);
+   }
+   var valor4 = parseFloat($('#etapasitens-<?=$i?>-itens_entrevista').val(), 0);
+   if (valor4 == 0){
+       $('#etapasitens-<?=$i?>-itens_pontuacaototal').val(total);
+   }
+   else{
+       total += valor4;
+       $('#etapasitens-<?=$i?>-itens_pontuacaototal').val(total);
+   }
+   var valor5 = parseFloat($('#etapasitens-<?=$i?>-itens_pratica').val(), 0);
+   if (valor5 == 0){
+       $('#etapasitens-<?=$i?>-itens_pontuacaototal').val(total);
+   }
+   else{
+       total += valor5;
        $('#etapasitens-<?=$i?>-itens_pontuacaototal').val(total);
    }
   });

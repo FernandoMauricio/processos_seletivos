@@ -123,7 +123,7 @@ $gridColumns = [
                         //HOMOLOGAR - Acesso somente para o Gerente do GGP 7 - ggp / 1 - responsavel setor
                         'homologar' => function ($url, $model) {
                             $session = Yii::$app->session;
-                           return  $session['sess_codunidade'] == 7 && $session['sess_responsavelsetor'] == 0  ?  Html::a('<span class="glyphicon glyphicon-ok"></span>', $url, [
+                           return  $session['sess_codunidade'] == 7 && $session['sess_responsavelsetor'] == 1  ?  Html::a('<span class="glyphicon glyphicon-ok"></span>', $url, [
                                          'class'=>'btn btn-success btn-xs',
                                          'title' => Yii::t('app', 'Homologar Cargo'),
                                          'data' =>  [

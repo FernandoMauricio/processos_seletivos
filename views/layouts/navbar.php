@@ -73,11 +73,25 @@ if($session['sess_codunidade'] == 7 && $session['sess_coddepartamento'] == 82 &&
         ]],
         ['label' => 'Solicitação de Contratação', 'url' => ['/contratacao/contratacao/index']],
 
-    ['label' => 'Aprovações Pendentes GGP', 'items' => [
+        ['label' => 'Aprovações Pendentes GGP', 'items' => [
 
-        ['label' => 'Pedido de Custo', 'url' => ['/pedidos/pedido-custo/ggp-index']],
+            '<li class="dropdown-header">Aprovações Pendentes GGP</li>',
+            ['label' => 'Pedido de Custo', 'url' => ['/pedidos/pedido-custo/ggp-index']],
+            ['label' => 'Pedido de Homologação', 'url' => ['/pedidos/pedido-homologacao/ggp-index']],
+            ['label' => 'Pedido de Contratação', 'url' => ['/pedidos/pedido-contratacao/ggp-index']],
 
-        ]],
+            ],
+        ],
+
+        ['label' => 'Aprovações Pendentes DAD', 'items' => [
+
+            '<li class="dropdown-header">Aprovações Pendentes DAD</li>',
+            ['label' => 'Pedido de Custo', 'url' => ['/pedidos/pedido-custo/dad-index']],
+            ['label' => 'Pedido de Homologação', 'url' => ['/pedidos/pedido-homologacao/dad-index']],
+            ['label' => 'Pedido de Contratação', 'url' => ['/pedidos/pedido-contratacao/dad-index']],
+
+            ],
+        ],
 
         [
             'label' => 'Usuário (' . utf8_encode(ucwords(strtolower($session['sess_nomeusuario']))) . ')',
@@ -200,7 +214,17 @@ echo NavX::widget([
 
         ['label' => 'Análise de Curriculos', 'url' => ['/curriculos/curriculos-admin/analise-gerencial']],
 
-        ['label' => 'Aprovações Pendentes DAD', 'url' => ['/pedidos/pedido-custo/dad-index']],
+        ['label' => 'Aprovações Pendentes DAD', 'items' => [
+
+            '<li class="dropdown-header">Aprovações Pendentes DAD</li>',
+            ['label' => 'Pedido de Custo', 'url' => ['/pedidos/pedido-custo/dad-index']],
+            ['label' => 'Pedido de Homologação', 'url' => ['/pedidos/pedido-homologacao/dad-index']],
+            ['label' => 'Pedido de Contratação', 'url' => ['/pedidos/pedido-contratacao/dad-index']],
+
+            ],
+        ],
+
+        ['label' => 'Cadastro de Reserva', 'url' => ['/curriculos/cadastro-de-reserva/index']],
 
         [
             'label' => 'Usuário (' . utf8_encode(ucwords(strtolower($session['sess_nomeusuario']))) . ')',
@@ -226,6 +250,8 @@ echo NavX::widget([
         ['label' => 'Solicitação de Contratação', 'url' => ['/contratacao/contratacao/index']],
 
         ['label' => 'Análise de Curriculos', 'url' => ['/curriculos/curriculos-admin/analise-gerencial']],
+
+        ['label' => 'Cadastro de Reserva', 'url' => ['/curriculos/cadastro-de-reserva/index']],
         
         ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
 

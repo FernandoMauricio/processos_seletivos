@@ -42,7 +42,7 @@ class PedidocustoItens extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['itemcusto_unidade', 'itemcusto_cargo', 'itemcusto_quantidade', 'itemcusto_tipocontrato', 'itemcusto_area', 'itemcusto_chsemanal', 'itemcusto_salario', 'itemcusto_encargos', 'itemcusto_total', 'itemcusto_justificativa'], 'required'],
+            [['itemcusto_unidade', 'itemcusto_cargo', 'itemcusto_quantidade', 'itemcusto_tipocontrato', 'itemcusto_chsemanal', 'itemcusto_salario', 'itemcusto_encargos', 'itemcusto_total', 'itemcusto_justificativa'], 'required'],
             [['pedidocusto_id', 'contratacao_id', 'itemcusto_quantidade'], 'integer'],
             [['itemcusto_chsemanal', 'itemcusto_salario', 'itemcusto_encargos', 'itemcusto_total'], 'number'],
             [['itemcusto_unidade', 'itemcusto_cargo', 'itemcusto_tipocontrato', 'itemcusto_area'], 'string', 'max' => 45],

@@ -121,9 +121,9 @@ class Curriculos extends \yii\db\ActiveRecord
             'dataaprovador_ggp' => 'Dataaprovador Ggp',
             'aprovador_solicitante' => 'Aprovador Solicitante',
             'dataaprovador_solicitante' => 'Dataaprovador Solicitante',
-            'termoAceite' => 'Declaração 1',
-            'parentesco' => 'Declaração 2',
-            'termoAceite2' => 'Declaração 3',
+            'termoAceite' => 'Declaração',
+            'parentesco' => 'Declaração',
+            'termoAceite2' => 'Declaração',
             'marketing' => 'Como ficou sabendo da vaga?',
 
             'bairroLabel' => 'Bairro',
