@@ -12,7 +12,7 @@ use yii\widgets\DetailView;
 <table width="100%" border="0">
   <tr> 
     <td width="20%"><img src="css/img/logo.png"></td>
-    <td width="60%"><h4>PEDIDO DE HOMOLOGAÇÃO PROCESSO SELETIVO Nº 55/2017<br /><br />
+    <td width="60%"><h4>PEDIDO DE HOMOLOGAÇÃO PROCESSO SELETIVO Nº <?= $model->pedidocontratacaoItens->etapasProcesso->processo->numeroEdital; ?><br /><br />
                         Homologação Nº <?= $model->homolog_id . '/' . date('Y', strtotime($model->homolog_data)) ?><br /><br />
                         <?php 
                           setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
@@ -170,7 +170,6 @@ use yii\widgets\DetailView;
 
           <div class="row">
               <div class="col-md-12" style="font-size: 10px;">
-                  CC/RS/GGP  Nº  <?= $model->homolog_id  ?><br />
                   <b>Serviço Nacional de Aprendizagem Comercial - Departamento Regional do Amazonas</b><br />
                   Rua Costa Azevedo, nº 09 Edificio Rio Madeira, 10º andar, Centro. Manaus/Amazonas  -  Telefones: (92)3216-5740 /3216-5769/ Fax: (92) 3216-5747<br />
               </div>

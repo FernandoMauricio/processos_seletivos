@@ -42,7 +42,7 @@ class PedidocontratacaoItens extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['itemcontratacao_unidade', 'itemcontratacao_cargo', 'itemcontratacao_area', 'itemcontratacao_nome', 'itemcontratacao_tipocontrato', 'itemcontratacao_chsemanal', 'itemcontratacao_total', 'itemcontratacao_justificativa'], 'required'],
+            [['itemcontratacao_unidade', 'itemcontratacao_cargo', 'itemcontratacao_nome', 'itemcontratacao_tipocontrato', 'itemcontratacao_chsemanal', 'itemcontratacao_total', 'itemcontratacao_justificativa'], 'required'],
             [['pedidocontratacao_id', 'contratacao_id', 'etapasprocesso_id'], 'integer'],
             [['itemcontratacao_chsemanal', 'itemcontratacao_total'], 'number'],
             [['itemcontratacao_unidade', 'itemcontratacao_cargo', 'itemcontratacao_area', 'itemcontratacao_tipocontrato', 'itemcontratacao_dataingresso'], 'string', 'max' => 45],
