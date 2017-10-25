@@ -203,10 +203,10 @@ class EtapasProcessoController extends Controller
         $model->etapa_selecionadores = explode(", ",$model->etapa_selecionadores);
 
         //Verifica se já existe algum Pedido de Contratação criado para essa Etapa de Processo
-        if(isset($model->pedidoContratacao->etapasprocesso_id)) {
-            Yii::$app->session->setFlash('danger', '<b>ERRO! </b> Não é possível <b>EDITAR</b> pois já existe <b>Pedido de Contratação</b> criado.');
-            return $this->redirect(['index']);
-        }
+        // if(isset($model->pedidoContratacao->etapasprocesso_id)) {
+        //     Yii::$app->session->setFlash('danger', '<b>ERRO! </b> Não é possível <b>EDITAR</b> pois já existe <b>Pedido de Contratação</b> criado.');
+        //     return $this->redirect(['index']);
+        // }
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -229,6 +229,15 @@ class EtapasProcessoController extends Controller
             $etapa->itens_classificacao      = $_POST['EtapasItens'][$i]['itens_classificacao'];
             $etapa->itens_localcontratacao   = $_POST['EtapasItens'][$i]['itens_localcontratacao'];
             $etapa->update(false); // skipping validation as no user input is involved
+
+            //Atualiza o local de contrtação do Pedido de Homologação
+            Yii::$app->db->createCommand()
+            ->update('pedidohomologacao_itens', [
+                     'pedhomolog_localcontratacao' => $etapa->itens_localcontratacao,
+                     ], [//------WHERE
+                     'curriculos_id' => $etapa->curriculos_id,
+                     ]) 
+            ->execute();
         }
 
         Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong>Dados Atualizados!</strong>');

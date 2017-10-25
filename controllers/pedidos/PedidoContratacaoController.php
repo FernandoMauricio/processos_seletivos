@@ -166,10 +166,10 @@ class PedidoContratacaoController extends Controller
             $connection = Yii::$app->db;
             $command = $connection->createCommand(
             "UPDATE `curriculos`
-                LEFT JOIN `pedidohomologacao_itens` ON `pedidohomologacao_itens`.`curriculos_id` != `curriculos`.`id`
-                LEFT JOIN `etapas_itens` ON  `etapas_itens`.`curriculos_id` = `curriculos`.`id`
-                LEFT JOIN `etapas_processo` ON `etapas_processo`.`etapa_id` = `etapas_itens`.`etapasprocesso_id`
-                LEFT JOIN `pedidocusto_itens` ON `pedidocusto_itens`.`pedidocusto_id` = `etapas_processo`.`pedidocusto_id`
+                INNER JOIN `pedidohomologacao_itens` ON `pedidohomologacao_itens`.`curriculos_id` != `curriculos`.`id`
+                INNER JOIN `etapas_itens` ON  `etapas_itens`.`curriculos_id` = `curriculos`.`id`
+                INNER JOIN `etapas_processo` ON `etapas_processo`.`etapa_id` = `etapas_itens`.`etapasprocesso_id`
+                INNER JOIN `pedidocusto_itens` ON `pedidocusto_itens`.`pedidocusto_id` = `etapas_processo`.`pedidocusto_id`
                 SET `classificado` = 0
                 WHERE `classificado` IN(0,3,4,5)
                 AND `curriculos`.`edital` =  '".$modelItens->etapasProcesso->processo->numeroEdital."'
@@ -180,14 +180,18 @@ class PedidoContratacaoController extends Controller
             $connection = Yii::$app->db;
             $command = $connection->createCommand(
              "UPDATE `curriculos`
-                LEFT JOIN `pedidohomologacao_itens` ON `pedidohomologacao_itens`.`curriculos_id` != `curriculos`.`id`
-                LEFT JOIN `etapas_itens` ON  `etapas_itens`.`curriculos_id` = `curriculos`.`id`
-                LEFT JOIN `etapas_processo` ON `etapas_processo`.`etapa_id` = `etapas_itens`.`etapasprocesso_id`
-                LEFT JOIN `pedidocusto_itens` ON `pedidocusto_itens`.`pedidocusto_id` = `etapas_processo`.`pedidocusto_id`
+                INNER JOIN `pedidohomologacao_itens` ON `pedidohomologacao_itens`.`curriculos_id` != `curriculos`.`id`
+                INNER JOIN `etapas_itens` ON  `etapas_itens`.`curriculos_id` = `curriculos`.`id`
+                INNER JOIN `etapas_processo` ON `etapas_processo`.`etapa_id` = `etapas_itens`.`etapasprocesso_id`
+                INNER JOIN `pedidocusto_itens` ON `pedidocusto_itens`.`pedidocusto_id` = `etapas_processo`.`pedidocusto_id`
+                INNER JOIN `pedido_homologacao` ON `pedidohomologacao_itens`.`pedidohomologacao_id` = `pedido_homologacao`.`homolog_id`
+                INNER JOIN `pedidocontratacao_itens` ON `pedido_homologacao`.`contratacao_id` = `pedidocontratacao_itens`.`contratacao_id`
                 SET `classificado` = 6
-                WHERE `itens_classificacao` = '1º colocado(a)'
-                AND `curriculos`.`edital` =  '".$modelItens->etapasProcesso->processo->numeroEdital."'
-                AND `curriculos`.`cargo` = '".$modelItens->etapasProcesso->etapa_cargo."'");
+                WHERE `curriculos`.`edital` =  '".$modelItens->etapasProcesso->processo->numeroEdital."'
+                AND `curriculos`.`cargo` = '".$modelItens->etapasProcesso->etapa_cargo."'
+                AND `pedidocontratacao_itens`.`itemcontratacao_nome` = `pedidohomologacao_itens`.`pedhomolog_candidato`
+                AND `curriculos`.`classificado` != 6 
+                AND `pedidohomologacao_itens`.`pedhomolog_candidato` = `pedidocontratacao_itens`.`itemcontratacao_nome`");
             $command->execute();
         }
 
