@@ -161,6 +161,12 @@ class PedidoContratacaoController extends Controller
         $model = $this->findModel($id);
         $modelsItens = $model->pedidocontratacaoItens;
 
+        //Se não existir as aprovações da GGP e DAD, não será possível homologar o processo
+        if($model->pedcontratacao_situacaoggp != 4 || $model->pedcontratacao_situacaodad != 4) {
+            Yii::$app->session->setFlash('danger', '<b>ERRO! </b>Solicitação sem aprovações!</b>');
+            return $this->redirect(['index']);
+            }
+
         foreach ($modelsItens as $modelItens) {
             //Desclassifica o restante dos candidatos que não foram selecionados
             $connection = Yii::$app->db;

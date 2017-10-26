@@ -165,27 +165,27 @@ echo NavX::widget([
             ]],
         ]
     ],
+//-------------------------------------------------------------
+    ['label' => 'Aprovações Pendentes GGP', 'items' => [
 
-    // ['label' => 'Aprovações Pendentes GGP', 'items' => [
+        '<li class="dropdown-header">Aprovações Pendentes GGP</li>',
+        ['label' => 'Pedido de Custo', 'url' => ['/pedidos/pedido-custo/ggp-index']],
+        ['label' => 'Pedido de Homologação', 'url' => ['/pedidos/pedido-homologacao/ggp-index']],
+        ['label' => 'Pedido de Contratação', 'url' => ['/pedidos/pedido-contratacao/ggp-index']],
 
-    //     '<li class="dropdown-header">Aprovações Pendentes GGP</li>',
-    //     ['label' => 'Pedido de Custo', 'url' => ['/pedidos/pedido-custo/ggp-index']],
-    //     ['label' => 'Pedido de Homologação', 'url' => ['/pedidos/pedido-homologacao/ggp-index']],
-    //     ['label' => 'Pedido de Contratação', 'url' => ['/pedidos/pedido-contratacao/ggp-index']],
+        ],
+    ],
 
-    //     ],
-    // ],
+    ['label' => 'Aprovações Pendentes DAD', 'items' => [
 
-    // ['label' => 'Aprovações Pendentes DAD', 'items' => [
+        '<li class="dropdown-header">Aprovações Pendentes DAD</li>',
+        ['label' => 'Pedido de Custo', 'url' => ['/pedidos/pedido-custo/dad-index']],
+        ['label' => 'Pedido de Homologação', 'url' => ['/pedidos/pedido-homologacao/dad-index']],
+        ['label' => 'Pedido de Contratação', 'url' => ['/pedidos/pedido-contratacao/dad-index']],
 
-    //     '<li class="dropdown-header">Aprovações Pendentes DAD</li>',
-    //     ['label' => 'Pedido de Custo', 'url' => ['/pedidos/pedido-custo/dad-index']],
-    //     ['label' => 'Pedido de Homologação', 'url' => ['/pedidos/pedido-homologacao/dad-index']],
-    //     ['label' => 'Pedido de Contratação', 'url' => ['/pedidos/pedido-contratacao/dad-index']],
-
-    //     ],
-    // ],
-
+        ],
+    ],
+//-------------------------------------------------------------
         ['label' => 'Solicitação de Contratação', 'url' => ['/contratacao/contratacao/index']],
 
         ['label' => 'Cadastro de Reserva', 'url' => ['/curriculos/cadastro-de-reserva/index']],

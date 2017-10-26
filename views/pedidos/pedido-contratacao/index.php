@@ -139,7 +139,7 @@ $gridColumns = [
                                         'title' => Yii::t('app', 'Homologar Processo'),
                                         'data' =>  [
                                                         'confirm' => '<b>Você tem CERTEZA que deseja HOMOLOGAR ESSE PEDIDO DE CONTRATAÇÃO</b>?
-                                                        <br><br>Ao realizar esta ação, o sistema modificará o status do 1º colocado no processo para <span style="color:#27cc27"><b>CONTRATADO</b></span> e para os demais, com excessão dos que estão no cadastro de reserva, ficarão como <span style="color:#ff2b2b"><b>DESCLASSIFICADOS</b></span> automaticamente.',
+                                                        <br>Ao realizar esta ação, o sistema modificará o status do 1º colocado no processo para <span style="color:#27cc27"><b>CONTRATADO</b></span> e para os demais, com excessão dos que estão no cadastro de reserva, ficarão como <span style="color:#ff2b2b"><b>DESCLASSIFICADOS</b></span> automaticamente.',
                                                         'method' => 'post',
                                                    ],
                             ]): '';

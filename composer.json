@@ -19,8 +19,8 @@
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
         "kartik-v/yii2-export": "*",
+        "kartik-v/yii2-krajee-base": "@dev",
         "kartik-v/yii2-grid": "@dev",
-		"kartik-v/yii2-krajee-base": "@dev",
         "kartik-v/yii2-mpdf": "*",
         "kartik-v/yii2-widget-activeform": "@dev",
         "kartik-v/yii2-widgets": "*",
@@ -32,7 +32,11 @@
         "yiibr/yii2-br-validator": "*",
         "yiibr/yii2-correios": "*",
         "kartik-v/yii2-builder": "@dev",
-        "wbraganca/yii2-dynamicform": "*"
+        "wbraganca/yii2-dynamicform": "dev-master",
+        "kartik-v/yii2-detail-view": "@dev",
+        "faryshta/yii2-disable-submit-buttons": "dev-master",
+        "2amigos/yii2-ckeditor-widget": "^2.1",
+        "faryshta/yii2-jquery-tagsinput": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
