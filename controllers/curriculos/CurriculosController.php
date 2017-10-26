@@ -87,16 +87,18 @@ class CurriculosController extends Controller
     {
         ini_set('session.cookie_domain','am.senac.br');
 
+        if (isset($_COOKIE['PHPSESSID']) && !empty($_COOKIE['PHPSESSID'])) session_id($_COOKIE['PHPSESSID']);
+
+        if(!isset($_SESSION)){
+            session_start();
+        }
+
         $this->layout = 'main-curriculos';
         $model = new Curriculos();
         $curriculosEndereco = new CurriculosEndereco();
         $curriculosFormacao = new CurriculosFormacao();
         $modelsComplementos = [new CurriculosComplementos];
         $modelsEmpregos    = [new CurriculosEmpregos];
-
-        if (isset($_COOKIE['PHPSESSID']) && !empty($_COOKIE['PHPSESSID'])) session_id($_COOKIE['PHPSESSID']);
-
-        session_start();
 
         //session numero de edital e do id do processo
         $session = Yii::$app->session;
