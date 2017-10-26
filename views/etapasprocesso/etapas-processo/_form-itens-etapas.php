@@ -10,9 +10,9 @@ use kartik\select2\Select2;
                             <th>Nome Completo</th>
                             <th>Escrita</th>
                             <th>Comportamental</th>
-                            <?php echo $model->etapa_perfil == 1 ? '<th>Didática</th>' : ''; ?>
+                            <?php echo $model->etapa_perfil == 1 ? '<th>Didática</th>' : '<th></th>'; ?>
                             <th>Entrevista</th>
-                            <?php echo $model->etapa_perfil == 1 ? '<th>Prática</th>' : ''; ?>
+                            <?php echo $model->etapa_perfil == 1 ? '<th>Prática</th>' : '<th></th>'; ?>
                             <th>Pontuação Total</th>
                             <th>Classificação</th>
                             <th>Destino</th>
@@ -30,11 +30,11 @@ use kartik\select2\Select2;
 
                             <td style="width: 50px;"><?= $form->field($etapa, "[{$i}]itens_comportamental")->textInput()->label(false); ?></td>
 
-                            <?= $model->etapa_perfil == 1 ? '<td style="width: 50px;"> '.$form->field($etapa, "[{$i}]itens_didatica")->textInput()->label(false).'' : ''; ?></td>
+                            <?= $model->etapa_perfil == 1 ? '<td style="width: 50px;"> '.$form->field($etapa, "[{$i}]itens_didatica")->textInput()->label(false).'' : '<td style="width: 50px;"> '.$form->field($etapa, "[{$i}]itens_didatica")->hiddenInput()->label(false).''; ?></td>
 
                             <td style="width: 50px;"><?= $form->field($etapa, "[{$i}]itens_entrevista")->textInput()->label(false); ?></td>
 
-                            <?= $model->etapa_perfil == 1 ? '<td style="width: 50px;"> '.$form->field($etapa, "[{$i}]itens_pratica")->textInput()->label(false).'' : ''; ?></td>
+                            <?= $model->etapa_perfil == 1 ? '<td style="width: 50px;"> '.$form->field($etapa, "[{$i}]itens_pratica")->textInput()->label(false).'' : '<td style="width: 50px;"> '.$form->field($etapa, "[{$i}]itens_pratica")->hiddenInput()->label(false).''; ?></td>
 
                             <td style="width: 50px;"><?= $form->field($etapa, "[{$i}]itens_pontuacaototal")->textInput(['readonly' => true])->label(false); ?></td>
 
@@ -124,7 +124,7 @@ use kartik\select2\Select2;
 
                         </tr> 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
   jQuery('#etapasitens-<?=$i?>-itens_escrita, #etapasitens-<?=$i?>-itens_comportamental, #etapasitens-<?=$i?>-itens_didatica, #etapasitens-<?=$i?>-itens_entrevista, #etapasitens-<?=$i?>-itens_pratica').keyup(function(){   
