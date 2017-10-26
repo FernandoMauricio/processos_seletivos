@@ -102,7 +102,34 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                     ],
 
                     'homolog_responsavel',
-                    
+                    [
+                        'class'=>'kartik\grid\EditableColumn',
+                        'attribute'=>'homolog_datahomologacao',    
+                        'hAlign'=>'center',
+                        'vAlign'=>'middle',
+                        'width'=>'9%',
+                        'format' => ['datetime', 'php:d/m/Y'],
+                        'xlFormat'=>"mmm\\-dd\\, \\-yyyy",
+                        'headerOptions'=>['class'=>'kv-sticky-column'],
+                        'contentOptions'=>['class'=>'kv-sticky-column'],
+                        'readonly'=>function($model, $key, $index, $widget) {
+                            return (isset($model->pedcontratacao_homologador)); // do not allow editing of inactive records
+                        },
+                        'editableOptions'=>[
+                            'inputType'=>\kartik\editable\Editable::INPUT_WIDGET,
+                            'widgetClass'=> 'kartik\datecontrol\DateControl',
+                            'options'=>[
+                                'type'=>\kartik\datecontrol\DateControl::FORMAT_DATE,
+                                'displayFormat'=>'dd/MM/yyyy',
+                                'saveFormat'=>'php:Y-m-d',
+                                'options'=>[
+                                    'pluginOptions'=>[
+                                        'autoclose'=>true
+                                    ]
+                                ]
+                            ]
+                        ],
+                    ],
 
                     ['class' => 'yii\grid\ActionColumn',
                                 'template' => '{view} {update} {delete}',
@@ -160,7 +187,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
         'beforeHeader'=>[
             [
                 'columns'=>[
-                    ['content'=>'Detalhes do Pedido de Homologação', 'options'=>['colspan'=>9, 'class'=>'text-center warning']], 
+                    ['content'=>'Detalhes do Pedido de Homologação', 'options'=>['colspan'=>10, 'class'=>'text-center warning']], 
                     ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
                 ],
             ]
