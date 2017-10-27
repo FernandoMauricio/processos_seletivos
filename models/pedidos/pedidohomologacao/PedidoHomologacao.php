@@ -130,6 +130,14 @@ class PedidoHomologacao extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getEtapasProcesso()
+    {
+        return $this->hasOne(PedidohomologacaoItens::className(), ['pedidohomologacao_id' => 'homolog_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getPedidocontratacaoItens()
     {
         return $this->hasOne(PedidocontratacaoItens::className(), ['contratacao_id' => 'contratacao_id']);

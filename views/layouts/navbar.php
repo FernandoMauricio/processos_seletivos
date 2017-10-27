@@ -73,7 +73,7 @@ if($session['sess_codunidade'] == 7 && $session['sess_coddepartamento'] == 82 &&
         ]],
         ['label' => 'Solicitação de Contratação', 'url' => ['/contratacao/contratacao/index']],
 
-        ['label' => 'Aprovações Pendentes GGP', 'items' => [
+        ['label' => 'Aprovações GGP', 'items' => [
 
             '<li class="dropdown-header">Aprovações Pendentes GGP</li>',
             ['label' => 'Pedido de Custo', 'url' => ['/pedidos/pedido-custo/ggp-index']],
@@ -83,7 +83,7 @@ if($session['sess_codunidade'] == 7 && $session['sess_coddepartamento'] == 82 &&
             ],
         ],
 
-        ['label' => 'Aprovações Pendentes DAD', 'items' => [
+        ['label' => 'Aprovações DAD', 'items' => [
 
             '<li class="dropdown-header">Aprovações Pendentes DAD</li>',
             ['label' => 'Pedido de Custo', 'url' => ['/pedidos/pedido-custo/dad-index']],
@@ -166,7 +166,7 @@ echo NavX::widget([
         ]
     ],
 //-------------------------------------------------------------
-    ['label' => 'Aprovações Pendentes GGP', 'items' => [
+    ['label' => 'Aprovações GGP', 'items' => [
 
         '<li class="dropdown-header">Aprovações Pendentes GGP</li>',
         ['label' => 'Pedido de Custo', 'url' => ['/pedidos/pedido-custo/ggp-index']],
@@ -176,7 +176,7 @@ echo NavX::widget([
         ],
     ],
 
-    ['label' => 'Aprovações Pendentes DAD', 'items' => [
+    ['label' => 'Aprovações DAD', 'items' => [
 
         '<li class="dropdown-header">Aprovações Pendentes DAD</li>',
         ['label' => 'Pedido de Custo', 'url' => ['/pedidos/pedido-custo/dad-index']],

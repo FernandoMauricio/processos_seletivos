@@ -12,7 +12,7 @@ use yii\widgets\DetailView;
 <table width="100%" border="0">
   <tr> 
     <td width="20%"><img src="css/img/logo.png"></td>
-    <td width="60%"><h4>PEDIDO DE HOMOLOGAÇÃO PROCESSO SELETIVO Nº <?= $model->pedidocontratacaoItens->etapasProcesso->etapa_id . '/' . date('Y', strtotime($model->homolog_data)); ?><br /><br />
+    <td width="60%"><h4>PEDIDO DE HOMOLOGAÇÃO PROCESSO SELETIVO Nº <?= $model->etapasProcesso->etapa_id . '/' . date('Y', strtotime($model->homolog_data)); ?><br /><br />
                         Homologação Nº <?= $model->homolog_id . '/' . date('Y', strtotime($model->homolog_data)) ?><br /><br />
                         <?php 
                           setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');

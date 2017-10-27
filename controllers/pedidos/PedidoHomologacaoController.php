@@ -277,6 +277,7 @@ class PedidoHomologacaoController extends Controller
             `etapas_itens`.`itens_classificacao`,
             `etapas_itens`.`curriculos_id`,
             `etapas_itens`.`itens_localcontratacao`,
+            `etapas_itens`.`etapasprocesso_id`,
             `etapas_processo`.`etapa_cargo`
             FROM
             `etapas_itens`
@@ -289,7 +290,7 @@ class PedidoHomologacaoController extends Controller
             AND `etapas_itens`.`itens_classificacao` NOT LIKE ""
             AND `pedidocusto_itens`.`contratacao_id` = '.$model->contratacao_id.'
             AND `curriculos`.`cargo` = "'.$model->homolog_cargo.'"
-            ORDER BY `etapas_itens`.`itens_pontuacaototal` DESC' ;
+            ORDER BY `etapas_itens`.`itens_pontuacaototal` DESC';
 
         $candidatos = EtapasItens::findBySql($sqlCandidatos)->all();
 
@@ -310,7 +311,8 @@ class PedidoHomologacaoController extends Controller
                              'pedhomolog_cargo'            => $model->homolog_cargo,
                              'pedhomolog_data'             => $model->homolog_data,
                              'pedhomolog_expiracao'        => $data_expiracao,
-                             ])
+                             'etapa_id'                    => $candidato['etapasprocesso_id'],
+                            ])
                     ->execute();
             $model->save();
         }
