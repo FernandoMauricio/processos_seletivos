@@ -62,7 +62,7 @@ use yii\widgets\DetailView;
                   <td><?= $modelItens->itemcontratacao_unidade; ?></td>
                   <td><?= $modelItens->itemcontratacao_cargo; ?></td>
                   <td><?= $modelItens->itemcontratacao_area; ?></td>
-                  <td><?= $modelItens->itemcontratacao_nome; ?></td>
+                  <td class="text-uppercase"><?= $modelItens->itemcontratacao_nome; ?></td>
                   <td><?= $modelItens->etapasProcesso->pedidocusto_id . '/'.date('Y', strtotime($model->pedcontratacao_data)); ?></td>
                   <td><?= $modelItens->itemcontratacao_tipocontrato; ?></td>
                   <td><?= $modelItens->itemcontratacao_chsemanal; ?></td>

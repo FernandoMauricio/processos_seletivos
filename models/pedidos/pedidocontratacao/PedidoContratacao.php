@@ -82,7 +82,6 @@ class PedidoContratacao extends \yii\db\ActiveRecord
 
     //Localiza os cargos vinculado ao Documento de Abertura
     public static function getCandidatosAprovadosSubCat($cat_id) {
-
         $sql = 'SELECT
                    DISTINCT(`curriculos`.`nome`) AS id,
                    concat(UPPER(`curriculos`.`nome`), " - ", `etapas_itens`.`itens_classificacao`) AS name
@@ -91,14 +90,13 @@ class PedidoContratacao extends \yii\db\ActiveRecord
                 INNER JOIN `etapas_processo` ON `etapas_processo`.`etapa_id` = `etapas_itens`.`etapasprocesso_id`
                 INNER JOIN `pedidocusto_itens` ON `pedidocusto_itens`.`pedidocusto_id` = `etapas_processo`.`pedidocusto_id`
                 WHERE `etapas_itens`.`itens_classificacao` NOT LIKE "%Desclassificado(a)%"
+                AND `etapas_itens`.`itens_localcontratacao` NOT LIKE "DESISTENTE"
                 AND `etapas_itens`.`itens_classificacao` NOT LIKE ""
                 AND `curriculos`.`cargo` = `pedidocusto_itens`.`itemcusto_cargo`
                 AND `curriculos`.`nome` NOT IN(SELECT `pedidocontratacao_itens`.`itemcontratacao_nome` FROM `pedidocontratacao_itens` INNER JOIN `pedido_contratacao` ON  `pedidocontratacao_itens`.`pedidocontratacao_id` = `pedido_contratacao`.`pedcontratacao_id` WHERE `pedcontratacao_homologador` IS NOT NULL AND `pedcontratacao_datahomologacao` IS NOT NULL)
                 AND `etapas_processo`.`etapa_id` = '.$cat_id.'
-                ORDER BY `etapas_itens`.`itens_pontuacaototal` DESC' ;
-
+                ORDER BY `etapas_itens`.`itens_classificacao` ASC' ;
         $data = \app\models\curriculos\Curriculos::findBySql($sql)->asArray()->all();
-
         return $data;
    }
 
