@@ -57,7 +57,10 @@ echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
             'gerarq_local',
             'gerarq_endereco',
             'gerarq_fase',
-            'gerarq_tempo',
+            [
+                'attribute'=>'gerarq_tempo', 
+                'visible' => $model->gerarq_perfil == 1 ? true : false,
+            ],
             'gerarq_responsavel',
         ],
     ]) ?>

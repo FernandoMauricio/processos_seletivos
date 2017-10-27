@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <tr><td width="1%"><b>Local:</b></td><td width="99%"><?= $model->gerarq_local ?></td></tr>
     <tr><td width="1%"><b>Endereço:</b></td> <td width="99%"><?= $model->gerarq_endereco ?></td></tr>
     <tr><td width="1%"><b>Fase:</b></td><td width="99%"><?= $model->gerarq_fase ?></td></tr>
-    <tr><td width="1%"><b>Tempo:</b></td><td width="99%"><?= $model->gerarq_tempo ?></td></tr>
+    <?= $model->gerarq_perfil == 1 ? '<tr><td width="1%"><b>Tempo:</b></td><td width="99%">'.$model->gerarq_tempo.'</td></tr>' : ''; ?>
     <tr><td width="1%"><b>Responsável:</b></td><td width="99%" class="text-capitalize"><?= $model->gerarq_responsavel ?></td></tr>
 </table>
 

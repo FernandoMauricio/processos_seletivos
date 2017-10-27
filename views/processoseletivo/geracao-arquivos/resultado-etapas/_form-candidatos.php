@@ -28,7 +28,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
         <div class="panel panel-default">
             <div class="panel-heading">
                 <i class="glyphicon glyphicon-list-alt"></i> Listagem de Candidatos
-                <button type="button" class="pull-right add-item-candidatos btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i> Adicionar Item</button>
                 <div class="clearfix"></div>
             </div>
                 <div class="panel-body container-items-candidatos"><!-- widgetContainer -->
@@ -37,7 +36,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
                             <div class="panel-heading">
                                 <span class="panel-title-candidatos">Item: <?= ($i + 1) ?></span>
                                 <button type="button" class="pull-right remove-item-candidatos btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
-                                <button type="button" class="pull-right add-item-candidatos btn btn-success btn-xs" style="margin-right: 12px;"><i class="glyphicon glyphicon-plus"></i></button>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="panel-body">
