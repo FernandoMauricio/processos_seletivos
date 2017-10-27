@@ -63,62 +63,59 @@ $gridColumns = [
             ], 
 
 
-                                ['class' => 'yii\grid\ActionColumn',
-                                'template' => '{view} {update} {edital} {anexos} {adendos} {resultados}',
-                                'contentOptions' => ['style' => 'width: 40%'],
-                                'buttons' => [
+            ['class' => 'yii\grid\ActionColumn',
+            'template' => '{view} {update} {edital} {adendos} {resultados}',
+            'contentOptions' => ['style' => 'width: 30%'],
+            'buttons' => [
+
+                //VISUALIZAR
+                'view' => function ($url, $model) {
+                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span> ', $url, [
+                                'class'=>'btn btn-primary btn-xs',
+               
+                    ]);
+                },
+
+                //EDITAR
+                'update' => function ($url, $model) {
+                    return Html::a('<span class="glyphicon glyphicon-pencil"></span> ', $url, [
+                                'class'=>'btn btn-primary btn-xs',
+               
+                    ]);
+                },
 
 
-                                //VISUALIZAR
-                                'view' => function ($url, $model) {
-                                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span> ', $url, [
-                                                'class'=>'btn btn-primary btn-xs',
-                               
-                                    ]);
-                                },
+                //EDITAIS
+                'edital' => function ($url, $model) {
+                    return Html::a('<span class="glyphicon glyphicon-plus"></span> Doc. Abertura', $url, [
+                                'class'=>'btn btn-primary btn-xs',
+               
+                    ]);
+                },
 
-                                //EDITAR
-                                'update' => function ($url, $model) {
-                                    return Html::a('<span class="glyphicon glyphicon-pencil"></span> ', $url, [
-                                                'class'=>'btn btn-primary btn-xs',
-                               
-                                    ]);
-                                },
+                //ANEXOS
+                // 'anexos' => function ($url, $model) {
+                //     return Html::a('<span class="glyphicon glyphicon-plus"></span> Anexos', $url, [
+                //                 'class'=>'btn btn-primary btn-xs',
+                //     ]);
+                // },
 
+                //INFORMATIVOS
+                'adendos' => function ($url, $model) {
+                    return Html::a('<span class="glyphicon glyphicon-plus"></span> Informativos', $url, [
+                                'class'=>'btn btn-primary btn-xs',
+                    ]);
+                },
 
-                                //EDITAIS
-                                'edital' => function ($url, $model) {
-                                    return Html::a('<span class="glyphicon glyphicon-plus"></span> Editais', $url, [
-                                                'class'=>'btn btn-primary btn-xs',
-                               
-                                    ]);
-                                },
+                //RESULTADOS
+                'resultados' => function ($url, $model) {
+                    return Html::a('<span class="glyphicon glyphicon-plus"></span> Resultados', $url, [
+                                'class'=>'btn btn-primary btn-xs',
+                    ]);
+                },
 
-
-                                //ANEXOS
-                                'anexos' => function ($url, $model) {
-                                    return Html::a('<span class="glyphicon glyphicon-plus"></span> Anexos', $url, [
-                                                'class'=>'btn btn-primary btn-xs',
-                                    ]);
-                                },
-
-                                //ADENDOS
-                                'adendos' => function ($url, $model) {
-                                    return Html::a('<span class="glyphicon glyphicon-plus"></span> Adendos', $url, [
-                                                'class'=>'btn btn-primary btn-xs',
-                                    ]);
-                                },
-
-                                //RESULTADOS
-                                'resultados' => function ($url, $model) {
-                                    return Html::a('<span class="glyphicon glyphicon-plus"></span> Resultados', $url, [
-                                                'class'=>'btn btn-primary btn-xs',
-                                    ]);
-                                },
-
-
-                            ],
-                            ],
+                ],
+            ],
         ]; 
 
     ?>
@@ -139,7 +136,7 @@ $gridColumns = [
         [
             'columns'=>[
                 ['content'=>'Detalhes do Processo Seletivo', 'options'=>['colspan'=>5, 'class'=>'text-center warning']], 
-                ['content'=>'Área de Ações', 'options'=>['colspan'=>8, 'class'=>'text-center warning']], 
+                ['content'=>'Área de Ações', 'options'=>['colspan'=>5, 'class'=>'text-center warning']], 
             ],
         ]
     ],

@@ -96,7 +96,7 @@ use kartik\depdrop\DepDrop;
                                                 items.each(function (index, elem) {
                                                     var priceValue = $(elem).find(".sumPart").val();
                                                     //Check if priceValue is numeric or something like that
-                                                    sum = parseInt(sum) + parseInt(priceValue);
+                                                    sum = parseFloat(sum) + parseFloat(priceValue);
                                                 });
                                                 //Assign the sum value to the field
                                                 $(".sum").val(sum);
@@ -169,7 +169,7 @@ $script = <<<EOD
         items.each(function (index, elem) {
             var priceValue = $(elem).find(".sumPart").val();
             //Check if priceValue is numeric or something like that
-            sum = parseInt(sum) + parseInt(priceValue);
+            sum = parseFloat(sum) + parseFloat(priceValue);
         });
         //Assign the sum value to the field
         $(".sum").val(sum);

@@ -51,7 +51,7 @@ $id = $model->id;
   <!-- Default panel contents -->
   <div class="panel-heading">Documentos para Download</div>
   <div class="panel-body">
-    <p><strong>LISTA DE EDITAIS</strong></p>
+    <p><strong>LISTA DE DOCUMENTOS DE ABERTURA</strong></p>
       <ul class="list-group">
       <li class='list-group-item'>
     <?php
@@ -76,33 +76,33 @@ $id = $model->id;
 </ul>
 
 
-    <p><strong>LISTA DE ANEXOS</strong></p>
+<!--     <p><strong>LISTA DE ANEXOS</strong></p>
     <ul class="list-group">
     <li class='list-group-item'>
         
     <?php
 
-  $query_anexo = "SELECT * FROM anexos WHERE processo_id = '".$id."' ";
-  $anexo = Anexos::findBySql($query_anexo)->all(); 
-  foreach ($anexo as $anexos) {
+  // $query_anexo = "SELECT * FROM anexos WHERE processo_id = '".$id."' ";
+  // $anexo = Anexos::findBySql($query_anexo)->all(); 
+  // foreach ($anexo as $anexos) {
      
-     $Anexos = $anexos["anexo"];
+  //    $Anexos = $anexos["anexo"];
 
-     $arquivoAnexos = substr($Anexos, strrpos($Anexos, '/') + 1);
+  //    $arquivoAnexos = substr($Anexos, strrpos($Anexos, '/') + 1);
 
-   ?>
-          <?php echo "<div class='row'>";?>
-          <?php echo '<a href="../web/uploads/anexos/'.$arquivoAnexos.'" target="_blank">';?>
-          <?php echo "<button type='button' class='btn btn-link'></button>"?><?php echo $arquivoAnexos; ?>
-          <?php echo "</div></a>";
+  //  ?>
+  //         <?php //echo "<div class='row'>";?>
+  //         <?php //echo '<a href="../web/uploads/anexos/'.$arquivoAnexos.'" target="_blank">';?>
+  //         <?php //echo "<button type='button' class='btn btn-link'></button>"?><?php //echo $arquivoAnexos; ?>
+  //         <?php //echo "</div></a>";
 
-            }
+  //           }
     ?>
     </li>
-    </ul>
+    </ul> -->
     
 
-    <p><strong>LISTA DE ADENDOS</strong></p>
+    <p><strong>LISTA DE INFORMATIVOS</strong></p>
     <ul class="list-group">
     <li class='list-group-item'>
         

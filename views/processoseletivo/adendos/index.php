@@ -10,7 +10,7 @@ use yii\grid\GridView;
 $session = Yii::$app->session;
 $processo_id = $session['sess_processo'];
 
-$this->title = 'Adendos';
+$this->title = 'Informativos';
 $this->params['breadcrumbs'][] = ['label' => 'Processos Seletivos', 'url' => ['processoseletivo/processo-seletivo/index']];
 $this->params['breadcrumbs'][] = ['label' => $processo_id, 'url' => ['processoseletivo/processo-seletivo/view', 'id' => $processo_id]];
 $this->params['breadcrumbs'][] = $this->title;
@@ -28,7 +28,7 @@ echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Inserir Adendo', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Inserir Informativo', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
