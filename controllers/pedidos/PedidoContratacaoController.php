@@ -195,9 +195,8 @@ class PedidoContratacaoController extends Controller
                 SET `classificado` = 6
                 WHERE `curriculos`.`edital` =  '".$modelItens->etapasProcesso->processo->numeroEdital."'
                 AND `curriculos`.`cargo` = '".$modelItens->etapasProcesso->etapa_cargo."'
-                AND `pedidocontratacao_itens`.`itemcontratacao_nome` = `pedidohomologacao_itens`.`pedhomolog_candidato`
-                AND `curriculos`.`classificado` != 6 
-                AND `pedidohomologacao_itens`.`pedhomolog_candidato` = `pedidocontratacao_itens`.`itemcontratacao_nome`");
+                AND `curriculos`.`nome` = '".$modelItens->itemcontratacao_nome."'
+                AND `curriculos`.`classificado` != 6 ");
             $command->execute();
         }
 
