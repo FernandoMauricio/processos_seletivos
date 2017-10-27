@@ -482,20 +482,9 @@ class ContratacaoEmAndamentoController extends Controller
                             ->send();
                         } 
         }
-
- //MENSAGEM DE CONFIRMAÇÃO DA SOLICITAÇÃO DE CONTRATAÇÃO ENCERRADA  
-                Yii::$app->getSession()->setFlash('success', [
-                         'type' => 'success',
-                         'duration' => 5000,
-                         'icon' => 'glyphicon glyphicon-ok',
-                         'message' => 'A solicitação de Contratação foi ENCERRADA',
-                         'title' => 'Solicitação de Contratação',
-                         'positonY' => 'top',
-                         'positonX' => 'right'
-                     ]);
-     
+        //MENSAGEM DE CONFIRMAÇÃO DA SOLICITAÇÃO DE CONTRATAÇÃO ENCERRADA  
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> A solicitação de Contratação foi <b>ENCERRADA</b>!');
       return $this->redirect(['index']);
-
     }
 
     public function actionCorrecao($id) 
@@ -545,20 +534,9 @@ class ContratacaoEmAndamentoController extends Controller
                             ->send();
                         }
         } 
-
-
          //MENSAGEM DE CONFIRMAÇÃO DA SOLICITAÇÃO DE CONTRATAÇÃO FOI CANCELADA
-                Yii::$app->getSession()->setFlash('success', [
-                         'type' => 'success',
-                         'duration' => 5000,
-                         'icon' => 'glyphicon glyphicon-ok',
-                         'message' => 'A solicitação de Contratação foi CANCELADA',
-                         'title' => 'Solicitação de Contratação',
-                         'positonY' => 'top',
-                         'positonX' => 'right'
-                     ]);
-     
-return $this->redirect(['index']);
+          Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> A solicitação de Contratação foi <b>CANCELADA</b>!');
+      return $this->redirect(['index']);
 
     }
 

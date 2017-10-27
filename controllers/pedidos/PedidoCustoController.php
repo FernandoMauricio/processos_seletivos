@@ -221,7 +221,7 @@ class PedidoCustoController extends Controller
         $model->custo_recursos    = 'PRÓPRIOS';
 
         //[4,7,8,9,10,11,12,13,14] -> Situações EM ANDAMENTO
-        $contratacoes = Contratacao::find()->where(['IN','situacao_id', [4,7,8,9,10,11,12,13,14]])->orderBy('id')->all();
+        $contratacoes = Contratacao::find()->where(['IN','situacao_id', [4,7,8,9,10,11,12,13,14,15,16,17]])->orderBy('id')->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
@@ -298,7 +298,7 @@ class PedidoCustoController extends Controller
         $model->custo_responsavel = $session['sess_nomeusuario'];
 
         //[4,7,8,9,10,11,12,13,14] -> Situações EM ANDAMENTO
-        $contratacoes = Contratacao::find()->where(['IN','situacao_id', [4,7,8,9,10,11,12,13,14]])->orderBy('id')->all();
+        $contratacoes = Contratacao::find()->where(['IN','situacao_id', [4,7,8,9,10,11,12,13,14,15,16,17]])->orderBy('id')->all();
 
         //Verifica se já existe alguma etapa de processo criada
         if(isset($model->etapasProcesso->pedidocusto_id)) {
