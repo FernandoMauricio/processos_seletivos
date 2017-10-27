@@ -348,8 +348,8 @@ class PedidoHomologacaoController extends Controller
         $model->homolog_situacaodad = 1; //Aguardando Autorização DAD
         $model->homolog_responsavel = $session['sess_nomeusuario'];
 
-        //1 => Em elaboração / 2 => Em correção pelo setor / 3 => Recebido pelo GGP
-        $contratacoes = Contratacao::find()->where(['!=','situacao_id', 1])->andWhere(['!=','situacao_id', 2])->andWhere(['!=','situacao_id', 3])->orderBy('id')->all();
+        //[4,7,8,9,10,11,12,13,14] -> Situações EM ANDAMENTO
+        $contratacoes = Contratacao::find()->where(['IN','situacao_id', [4,7,8,9,10,11,12,13,14]])->orderBy('id')->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 

@@ -271,8 +271,8 @@ class PedidoContratacaoController extends Controller
         $model->pedcontratacao_responsavel = $session['sess_nomeusuario'];
         $model->pedcontratacao_recursos    = 'PRÓPRIOS';
 
-        //1 => Em elaboração / 2 => Em correção pelo setor / 3 => Recebido pelo GGP
-        $contratacoes = Contratacao::find()->where(['!=','situacao_id', 1])->andWhere(['!=','situacao_id', 2])->andWhere(['!=','situacao_id', 3])->orderBy('id')->all();
+        //[4,7,8,9,10,11,12,13,14] -> Situações EM ANDAMENTO
+        $contratacoes = Contratacao::find()->where(['IN','situacao_id', [4,7,8,9,10,11,12,13,14]])->orderBy('id')->all();
 
         $processo = EtapasProcesso::find()->select(['etapa_id', new \yii\db\Expression("CONCAT(`processo`.`numeroEdital`, ' - ', `etapa_cargo`) as etapa_cargo")])->innerJoinWith('processo', `processo.id` == `etapasprocesso_id`)->where(['etapa_situacao' => 'Em Homologação'])->all();
 
@@ -362,8 +362,8 @@ class PedidoContratacaoController extends Controller
             return $this->redirect(['index']);
         }
 
-        //1 => Em elaboração / 2 => Em correção pelo setor / 3 => Recebido pelo GGP
-        $contratacoes = Contratacao::find()->where(['!=','situacao_id', 1])->andWhere(['!=','situacao_id', 2])->andWhere(['!=','situacao_id', 3])->orderBy('id')->all();
+        //[4,7,8,9,10,11,12,13,14] -> Situações EM ANDAMENTO
+        $contratacoes = Contratacao::find()->where(['IN','situacao_id', [4,7,8,9,10,11,12,13,14]])->orderBy('id')->all();
 
         $processo = EtapasProcesso::find()->select(['etapa_id', new \yii\db\Expression("CONCAT(`processo`.`numeroEdital`, ' - ', `etapa_cargo`) as etapa_cargo")])->innerJoinWith('processo', `processo.id` == `etapasprocesso_id`)->where(['etapa_situacao' => 'Em Homologação'])->all();
 

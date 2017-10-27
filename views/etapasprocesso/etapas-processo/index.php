@@ -28,7 +28,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::button('Criar Etapas do Processo', ['value'=> Url::to('index.php?r=etapasprocesso/etapas-processo/create'), 'class' => 'btn btn-primary', 'id'=>'modalButton']) ?>
+        <?= Html::button('Criar Etapas do Processo', ['value'=> Url::to('index.php?r=etapasprocesso/etapas-processo/create'), 'class' => 'btn btn-success', 'id'=>'modalButton']) ?>
     </p>
 
     <?php

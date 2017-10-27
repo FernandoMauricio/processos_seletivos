@@ -220,8 +220,8 @@ class PedidoCustoController extends Controller
         $model->custo_responsavel = $session['sess_nomeusuario'];
         $model->custo_recursos    = 'PRÓPRIOS';
 
-        //1 => Em elaboração / 2 => Em correção pelo setor / 3 => Recebido pelo GGP
-        $contratacoes = Contratacao::find()->where(['!=','situacao_id', 1])->andWhere(['!=','situacao_id', 2])->andWhere(['!=','situacao_id', 3])->orderBy('id')->all();
+        //[4,7,8,9,10,11,12,13,14] -> Situações EM ANDAMENTO
+        $contratacoes = Contratacao::find()->where(['IN','situacao_id', [4,7,8,9,10,11,12,13,14]])->orderBy('id')->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
@@ -297,8 +297,8 @@ class PedidoCustoController extends Controller
         $model->custo_data = date('Y-m-d');
         $model->custo_responsavel = $session['sess_nomeusuario'];
 
-        //1 => Em elaboração / 2 => Em correção pelo setor / 3 => Recebido pelo GGP
-        $contratacoes = Contratacao::find()->where(['!=','situacao_id', 1])->andWhere(['!=','situacao_id', 2])->andWhere(['!=','situacao_id', 3])->orderBy('id')->all();
+        //[4,7,8,9,10,11,12,13,14] -> Situações EM ANDAMENTO
+        $contratacoes = Contratacao::find()->where(['IN','situacao_id', [4,7,8,9,10,11,12,13,14]])->orderBy('id')->all();
 
         //Verifica se já existe alguma etapa de processo criada
         if(isset($model->etapasProcesso->pedidocusto_id)) {
