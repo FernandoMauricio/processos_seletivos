@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
  </table><br /><br />
 
 <h5 style="margin-left: 25px">A contratação dos(as) candidatos(as) aprovados(as) dependerá da disponibilidade de
-vagas no quadro do SENAC/AM. (Item 1.5 do PS 021/2017).</h5>
+vagas no quadro do SENAC/AM. (Item 1.5 do PS <?= $model->processo->numeroEdital ?>).</h5>
 <h5 style="margin-left: 25px">Por ocasião da Contratação, o(a) candidato(a) deverá entregar a documentação
 relacionada no <b>item 11.4</b> do mesmo Documento.</h5>
 

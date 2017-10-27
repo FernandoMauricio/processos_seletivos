@@ -13,19 +13,34 @@ use yii\widgets\DetailView;
             'processo.numeroEdital',
             'etapasprocesso.etapa_cargo',
             'gerarq_titulo',
-            'gerarq_documentos:ntext',
-            'gerarq_emailconfirmacao:email',
-             [ 
-              'attribute' => 'gerarq_datarealizacao',
-              'value' => date("d/m/Y",  strtotime($model->gerarq_datarealizacao)),
-             ],
-             [ 
-              'attribute' => 'gerarq_horarealizacao',
-              'value' => date("H:i",  strtotime($model->gerarq_horarealizacao)),
-             ],
-            'gerarq_local',
-            'gerarq_endereco',
-            'gerarq_fase',
+            [
+                'attribute'=>'gerarq_documentos', 
+                'visible' => $model->gerarq_tipo == 0 ? true : false,
+            ],
+            [
+                'attribute'=>'gerarq_emailconfirmacao', 
+                'visible' => $model->gerarq_tipo == 0 ? true : false,
+            ],
+            [ 
+             'attribute' => 'gerarq_datarealizacao',
+             'value' => date("d/m/Y",  strtotime($model->gerarq_datarealizacao)),
+            ],
+            [ 
+             'attribute' => 'gerarq_horarealizacao',
+             'value' => date("H:i",  strtotime($model->gerarq_horarealizacao)),
+            ],
+            [
+                'attribute'=>'gerarq_local', 
+                'visible' => $model->gerarq_tipo == 0 ? true : false,
+            ],
+            [
+                'attribute'=>'gerarq_endereco', 
+                'visible' => $model->gerarq_tipo == 0 ? true : false,
+            ],
+            [
+                'attribute'=>'gerarq_fase', 
+                'visible' => $model->gerarq_tipo == 0 ? true : false,
+            ],
             [
                 'attribute'=>'gerarq_tempo', 
                 'visible' => $model->gerarq_perfil == 1 ? true : false,

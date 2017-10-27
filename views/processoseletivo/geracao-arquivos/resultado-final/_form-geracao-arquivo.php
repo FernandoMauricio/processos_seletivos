@@ -22,9 +22,7 @@ use faryshta\widgets\JqueryTagsInput;
                 <div class="col-md-3"><?= $form->field($model, 'processoSeletivo')->textInput(['value' => $model->processo->numeroEdital,'readonly' => true]) ?></div>
 
                 <div class="col-md-3"><?= $form->field($model, 'cargoLabel')->textInput(['value' => $model->etapasprocesso->etapa_cargo,'readonly' => true]) ?></div>
-            </div>
 
-            <div class="row">
                 <div class="col-md-6"><?= $form->field($model, 'gerarq_titulo')->textInput(['maxlength' => true]) ?></div>
             </div>
     </div>

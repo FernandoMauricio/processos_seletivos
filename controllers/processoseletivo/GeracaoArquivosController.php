@@ -139,7 +139,7 @@ class GeracaoArquivosController extends Controller
                 FROM `curriculos` 
                     INNER JOIN `processo` ON `curriculos`.`edital` = `processo`.`numeroEdital`
                     INNER JOIN `etapas_itens` ON `etapas_itens`.`curriculos_id` = `curriculos`.`id`
-                WHERE (`classificado`= 1) 
+                WHERE `classificado`= 1
                     AND `curriculos`.`edital` = "'.$model->processo->numeroEdital.'"
                     AND `curriculos`.`cargo` = "'.$model->etapasprocesso->etapa_cargo.'"
                     AND `etapas_itens`.`itens_classificacao` NOT LIKE "%Desclassificado(a)%"
@@ -151,7 +151,7 @@ class GeracaoArquivosController extends Controller
                 FROM `curriculos` 
                     INNER JOIN `processo` ON `curriculos`.`edital` = `processo`.`numeroEdital`
                     INNER JOIN `etapas_itens` ON `etapas_itens`.`curriculos_id` = `curriculos`.`id`
-                WHERE (`classificado`= 1) 
+                WHERE `classificado`IN (1,6) 
                     AND `curriculos`.`edital` = "'.$model->processo->numeroEdital.'"
                     AND `curriculos`.`cargo` = "'.$model->etapasprocesso->etapa_cargo.'"
                     AND `etapas_itens`.`itens_classificacao` NOT LIKE "%Desclassificado(a)%"
