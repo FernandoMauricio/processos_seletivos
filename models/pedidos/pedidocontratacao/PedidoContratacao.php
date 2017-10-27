@@ -84,7 +84,7 @@ class PedidoContratacao extends \yii\db\ActiveRecord
     public static function getCandidatosAprovadosSubCat($cat_id) {
 
         $sql = 'SELECT
-                   `curriculos`.`nome` AS id,
+                   DISTINCT(`curriculos`.`nome`) AS id,
                    concat(UPPER(`curriculos`.`nome`), " - ", `etapas_itens`.`itens_classificacao`) AS name
                 FROM `curriculos`
                 INNER JOIN `etapas_itens` ON  `etapas_itens`.`curriculos_id` = `curriculos`.`id`
