@@ -18,7 +18,8 @@ use kartik\select2\Select2;
                             <th>Destino</th>
                         </tr> 
                     </thead>
-                    <tbody> 
+                    <tbody>  
+                          <td><p><label><input type="checkbox" id="checkAll"/> Marcar todos</label></p></td>
                         <?php foreach ($itens as $i => $etapa): ?>
                         <tr class="default<?= "$i" ?>"> 
 
@@ -125,6 +126,11 @@ use kartik\select2\Select2;
                         </tr> 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+$("#checkAll").change(function () {
+    $("input:checkbox").prop('checked', $(this).prop("checked"));
+});
+</script>
 <script type="text/javascript">
 $(document).ready(function() {
   jQuery('#etapasitens-<?=$i?>-itens_escrita, #etapasitens-<?=$i?>-itens_comportamental, #etapasitens-<?=$i?>-itens_didatica, #etapasitens-<?=$i?>-itens_entrevista, #etapasitens-<?=$i?>-itens_pratica').keyup(function(){   
