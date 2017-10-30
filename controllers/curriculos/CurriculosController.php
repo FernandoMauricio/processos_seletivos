@@ -98,7 +98,7 @@ class CurriculosController extends Controller
         $curriculosEndereco = new CurriculosEndereco();
         $curriculosFormacao = new CurriculosFormacao();
         $modelsComplementos = [new CurriculosComplementos];
-        $modelsEmpregos    = [new CurriculosEmpregos];
+        $modelsEmpregos     = [new CurriculosEmpregos];
 
         //session numero de edital e do id do processo
         $session = Yii::$app->session;
@@ -130,6 +130,11 @@ class CurriculosController extends Controller
 
         //Caso não tenha puxado nenhum edital, será redirecionado para a página de processo seletivo
         if($model->edital == NULL){
+            return $this->redirect('http://www.am.senac.br/trabsenac.php');
+        }
+
+        //Caso o processo seletivo esteja em andamento, será redirecionado para a página de processo seletivo
+        if($model->processoSeletivo->situacao_id == 2){
             return $this->redirect('http://www.am.senac.br/trabsenac.php');
         }
 

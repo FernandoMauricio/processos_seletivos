@@ -161,7 +161,6 @@ class ProcessoSeletivoController extends Controller
     public function actionEdital($id) 
     {
 
-
         $model = ProcessoSeletivo::findOne($id);
         $session = Yii::$app->session;
         $session->set('sess_processo', $model->id);
@@ -173,7 +172,6 @@ class ProcessoSeletivoController extends Controller
 
     public function actionAnexos($id) 
     {
-
 
         $model = ProcessoSeletivo::findOne($id);
         $session = Yii::$app->session;
@@ -187,7 +185,6 @@ class ProcessoSeletivoController extends Controller
     public function actionAdendos($id) 
     {
 
-
         $model = ProcessoSeletivo::findOne($id);
         $session = Yii::$app->session;
         $session->set('sess_processo', $model->id);
@@ -200,7 +197,6 @@ class ProcessoSeletivoController extends Controller
     public function actionResultados($id) 
     {
 
-
         $model = ProcessoSeletivo::findOne($id);
         $session = Yii::$app->session;
         $session->set('sess_processo', $model->id);
@@ -210,9 +206,13 @@ class ProcessoSeletivoController extends Controller
          ]);
     }
 
-
-
-
+    public function actionAtualizaProcessoSeletivoAutomaticamente() 
+    {
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE processo SET situacao_id = 2 WHERE situacao_id = 1 AND data_encer = ".date('"Y-m-d"')." ");
+        $command->execute();
+    }
 
     /**
      * Deletes an existing ProcessoSeletivo model.
