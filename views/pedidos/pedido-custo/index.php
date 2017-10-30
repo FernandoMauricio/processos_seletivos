@@ -7,6 +7,7 @@ use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
 
 use app\models\pedidos\pedidocusto\PedidocustoSituacao;
+use app\models\processoseletivo\Situacao;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\pedidos\pedidocusto\PedidoCustoSearch */
@@ -85,8 +86,33 @@ $gridColumns = [
                     'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
             ],
 
+            [
+                'class' => 'kartik\grid\EditableColumn',
+                'attribute' => 'custo_situacao',
+                'value'=>function ($model, $key, $index, $widget) { 
+                    return $model->custoSituacao->descricao;
+                },
+                'readonly'=>function($model, $key, $index, $widget) {
+                    return (!$model->custo_situacao); // do not allow editing of inactive records
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>ArrayHelper::map(Situacao::find()->orderBy('descricao')->asArray()->all(), 'descricao', 'descricao'), 
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
+                //CAIXA DE ALTERAÇÕES DA SITUAÇÃO
+                'editableOptions' => [
+                    'header' => 'Situação',
+                    'data'=>[
+                                2 => 'Em Processo',
+                                3 => 'Encerrado',
+                            ],
+                    'inputType' => \kartik\editable\Editable::INPUT_DROPDOWN_LIST,
+                ],          
+            ],
+
             'custo_responsavel',
-            
 
             ['class' => 'yii\grid\ActionColumn',
                         'template' => '{view} {update} {delete}',

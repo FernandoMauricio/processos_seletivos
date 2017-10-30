@@ -72,7 +72,7 @@ $nome_user    = $session['sess_nomeusuario'];
 
                 <h5><i class="glyphicon glyphicon-tag"></i><b> Etapas do Processo</b></h5>
                         <h5>- Inclusão de informações (local da realização do processo, data da realização, notas, classificação, destino, etc...) dos candidatos selecionados pelo GGP e Gerência solicitante</h5>
-                        <h5>- Rankeamento automático dos candidatos que estarão com a maior pontuação.</h5>
+                        <h5>- ranqueamento automático dos candidatos que estarão com a maior pontuação.</h5>
 
                 <h5><i class="glyphicon glyphicon-tag"></i><b> Cadastro de Reserva</b></h5>
                         <h5>- Inclusão de uma listagem de candidatos que ficaram como cadastro de reserva.</h5>

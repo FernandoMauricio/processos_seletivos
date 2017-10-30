@@ -41,7 +41,7 @@ use yii\helpers\Json;
                             'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                             'pluginOptions'=>[
                                 'depends'=>['edital-id'],
-                                'placeholder'=>'Selecione as etapas do processo...',
+                                'placeholder'=>'Selecione o Cargo da Etapa do Processo...',
                                 'initialize' => true,
                                 'url'=>Url::to(['/processoseletivo/geracao-arquivos/etapas-processo'])
                             ]

@@ -19,7 +19,7 @@ class PedidoCustoSearch extends PedidoCusto
     {
         return [
             [['custo_id'], 'integer'],
-            [['custo_assunto', 'custo_recursos', 'custo_data', 'custo_aprovadorggp', 'custo_situacaoggp', 'custo_situacaodad', 'custo_dataaprovacaoggp', 'custo_aprovadordad', 'custo_dataaprovacaodad', 'custo_responsavel', 'custo_valortotal'], 'safe'],
+            [['custo_assunto', 'custo_recursos', 'custo_data', 'custo_aprovadorggp', 'custo_situacaoggp', 'custo_situacaodad', 'custo_dataaprovacaoggp', 'custo_aprovadordad', 'custo_dataaprovacaodad', 'custo_responsavel', 'custo_valortotal', 'custo_situacao'], 'safe'],
         ];
     }
 
@@ -51,6 +51,7 @@ class PedidoCustoSearch extends PedidoCusto
 
         $query->joinWith('custoSituacaoggp');
         $query->joinWith('custoSituacaodad as b');
+        $query->joinWith('custoSituacao');
 
         $this->load($params);
 
@@ -75,6 +76,7 @@ class PedidoCustoSearch extends PedidoCusto
             ->andFilterWhere(['like', 'b.situacao_descricao', $this->custo_situacaodad])
             ->andFilterWhere(['like', 'custo_aprovadorggp', $this->custo_aprovadorggp])
             ->andFilterWhere(['like', 'custo_aprovadordad', $this->custo_aprovadordad])
+            ->andFilterWhere(['like', 'situacao.descricao', $this->custo_situacao])
             ->andFilterWhere(['like', 'custo_responsavel', $this->custo_responsavel]);
 
         return $dataProvider;

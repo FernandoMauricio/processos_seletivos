@@ -53,6 +53,31 @@ class PedidoCustoController extends Controller
         $searchModel = new PedidoCustoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        if (Yii::$app->request->post('hasEditable')) {
+                // instantiate your PedidoCusto model for saving
+                $pedidoCustoId = Yii::$app->request->post('editableKey');
+                $model = PedidoCusto::findOne($pedidoCustoId);
+
+                // store a default json response as desired by editable
+                $out = Json::encode(['output'=>'', 'message'=>'']);
+
+                $posted = current($_POST['PedidoCusto']);
+                $post = ['PedidoCusto' => $posted];
+
+                // load model like any single model validation
+                if ($model->load($post)) {
+                // can save model or do something before saving model
+                $model->save(false);
+
+                $output = '';
+
+                $out = Json::encode(['output'=>$output, 'message'=>'']);
+                }
+                // return ajax json encoded response and exit
+                echo $out;
+                return $this->redirect(['index']);
+            }
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

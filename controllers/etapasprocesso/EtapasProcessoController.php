@@ -119,7 +119,7 @@ class EtapasProcessoController extends Controller
         $model->etapa_situacao = 'Em Processo';
 
         $processo = ProcessoSeletivo::find()->where(['situacao_id' => 1])->orWhere(['situacao_id' => 2])->all();
-        $pedidoCusto = PedidoCusto::find()->select(['custo_id', new \yii\db\Expression("CONCAT(`custo_id`, ' - ', `custo_assunto`) as custo_assunto")])->where(['custo_situacaoggp' => 4, 'custo_situacaodad' => 4])->all(); //Aprovado pelo GGP e DAD
+        $pedidoCusto = PedidoCusto::find()->select(['custo_id', new \yii\db\Expression("CONCAT(`custo_id`, ' - ', `custo_assunto`) as custo_assunto")])->where(['custo_situacaoggp' => 4, 'custo_situacaodad' => 4])->andWhere(['custo_situacao' => 2])->all(); //Aprovado pelo GGP e DAD / Situação em processo
 
         if ($model->load(Yii::$app->request->post())) {
 
