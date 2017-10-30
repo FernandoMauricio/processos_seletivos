@@ -77,13 +77,10 @@ class ContratacaoController extends Controller
         
         $connection = Yii::$app->db;
         $command = $connection->createCommand('SELECT *
-                      FROM `db_processos`.`etapas_processo` 
+                       FROM `db_processos`.`etapas_processo` 
                       INNER JOIN `pedidocusto_itens` ON `pedidocusto_itens`.`pedidocusto_id` = `etapas_processo`.`pedidocusto_id`
-                      INNER JOIN `contratacao` ON `contratacao`.`id` = `pedidocusto_itens`.`contratacao_id`
-                      INNER JOIN `cargos` ON `cargos`.`idcargo` = `contratacao`.`cargo_id`
                       INNER JOIN `processo` ON `processo`.`id` = `etapas_processo`.`processo_id`
-                      WHERE `contratacao`.`id` = '.$id.'
-                      AND `etapas_processo`.`etapa_cargo` = `cargos`.`descricao`');
+                      WHERE `pedidocusto_itens`.`contratacao_id` = '.$id.'');
         $model = $command->queryOne();
 
         $itens = EtapasItens::find()->where(['etapasprocesso_id' => $model['etapa_id']])->orderBy(['itens_pontuacaototal' => SORT_DESC])->all();

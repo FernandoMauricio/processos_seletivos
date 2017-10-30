@@ -48,6 +48,7 @@ use kartik\select2\Select2;
                                         ],
                                     'data' =>
                                       [
+                                        'Desclassificado(a) por Falta' => 'Desclassificado(a) por Falta',
                                         'Desclassificado(a) por nota na avaliação Escrita' => 'Desclassificado(a) por nota na avaliação Escrita',
                                         'Desclassificado(a) por nota na avaliação Comportamental' => 'Desclassificado(a) por nota na avaliação Comportamental',
                                         'Desclassificado(a) por nota na avaliação Didática' => 'Desclassificado(a) por nota na avaliação Didática',
