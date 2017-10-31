@@ -53,8 +53,8 @@ class PedidoContratacaoSearch extends PedidoContratacao
         $query->joinWith(['pedidoCusto.etapasProcesso.pedidocusto']);
 
         $dataProvider->sort->attributes['pedidocusto_id'] = [
-        'asc' => ['pedido_custo.etapas_processo.pedidocusto_id' => SORT_ASC],
-        'desc' => ['apedido_custo.etapas_processo.pedidocusto_id' => SORT_DESC],
+        'asc' => ['etapas_processo.pedidocusto_id' => SORT_ASC],
+        'desc' => ['etapas_processo.pedidocusto_id' => SORT_DESC],
         ];
 
         $this->load($params);

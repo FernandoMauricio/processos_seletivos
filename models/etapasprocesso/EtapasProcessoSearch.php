@@ -18,7 +18,7 @@ class EtapasProcessoSearch extends EtapasProcesso
     public function rules()
     {
         return [
-            [['etapa_id'], 'integer'],
+            [['etapa_id', 'contratacao_id'], 'integer'],
             [['etapa_cargo', 'pedidocusto_id', 'etapa_data', 'etapa_atualizadopor', 'etapa_dataatualizacao', 'etapa_situacao', 'processo_id', 'etapa_perfil'], 'safe'],
         ];
     }
@@ -52,6 +52,12 @@ class EtapasProcessoSearch extends EtapasProcesso
         $this->load($params);
 
         $query->joinWith('processo');
+        $query->joinWith('pedidocusto.pedidocustoItens');
+        
+        $dataProvider->sort->attributes['contratacao_id'] = [
+        'asc' => ['pedidocusto_itens.contratacao_id' => SORT_ASC],
+        'desc' => ['pedidocusto_itens.contratacao_id' => SORT_DESC],
+        ];
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
@@ -64,6 +70,7 @@ class EtapasProcessoSearch extends EtapasProcesso
             'etapa_id' => $this->etapa_id,
             'etapa_data' => $this->etapa_data,
             'etapa_dataatualizacao' => $this->etapa_dataatualizacao,
+            'contratacao_id' => $this->contratacao_id,
         ]);
 
         $query->andFilterWhere(['like', 'processo.numeroEdital', $this->processo_id])

@@ -32,31 +32,29 @@ use kartik\select2\Select2;
         
         <div class="row">
             <div class="col-md-6">
-                    <?php
-
-                            echo $form->field($model, 'data')->widget(DateControl::classname(), [
-                                'type'=>DateControl::FORMAT_DATE,
-                                'ajaxConversion'=>true,
-                                'options' => [
-                                    'pluginOptions' => [
-                                        'autoclose' => true
-                                    ]
-                                ]
-                            ]);
-                    ?>
+                <?php
+                    echo $form->field($model, 'data')->widget(DateControl::classname(), [
+                        'type'=>DateControl::FORMAT_DATE,
+                        'ajaxConversion'=>true,
+                        'options' => [
+                            'pluginOptions' => [
+                                'autoclose' => true
+                            ]
+                        ]
+                    ]);
+                ?>
             </div>
             <div class="col-md-6">
-                    <?php
-
-                        echo $form->field($model, 'data_encer')->widget(DateControl::classname(), [
-                            'type'=>DateControl::FORMAT_DATE,
-                            'ajaxConversion'=>true,
-                            'options' => [
-                                'pluginOptions' => [
-                                    'autoclose' => true
-                                ]
-                            ]
-                        ]);
+               <?php
+                   echo $form->field($model, 'data_encer')->widget(DateControl::classname(), [
+                       'type'=>DateControl::FORMAT_DATE,
+                       'ajaxConversion'=>true,
+                       'options' => [
+                           'pluginOptions' => [
+                               'autoclose' => true
+                           ]
+                       ]
+                   ]);
                 ?>
             </div>
         </div>
@@ -64,16 +62,16 @@ use kartik\select2\Select2;
         <div class="row">
             <div class="col-md-4">
                 <?php
-                        $rows = Modalidade::find()->all();
-                        $data_modalidade = ArrayHelper::map($rows, 'id', 'descricao');
-                        echo $form->field($model, 'modalidade_id')->radiolist($data_modalidade);
+                     $rows = Modalidade::find()->all();
+                     $data_modalidade = ArrayHelper::map($rows, 'id', 'descricao');
+                     echo $form->field($model, 'modalidade_id')->radiolist($data_modalidade);
                 ?>
             </div>
             <div class="col-md-4">
                 <?php
-                        $rows = Situacao::find()->all();
-                        $data_situacao = ArrayHelper::map($rows, 'id', 'descricao');
-                        echo $form->field($model, 'situacao_id')->radiolist($data_situacao);
+                    $rows = Situacao::find()->all();
+                    $data_situacao = ArrayHelper::map($rows, 'id', 'descricao');
+                    echo $form->field($model, 'situacao_id')->radiolist($data_situacao);
                 ?>
             </div>
 
@@ -83,17 +81,16 @@ use kartik\select2\Select2;
 
         <div class="row">
             <div class="col-md-12">
-                    <?php 
-                        $options = \yii\helpers\ArrayHelper::map($cargos, 'idcargo', 'descricao');
-                                        echo $form->field($model, 'permissions')->widget(Select2::classname(), [
-                                            'data' => $options,
-                                            'options' => ['placeholder' => 'Selecione os Cargos...', 'multiple'=>true],
-                                            'pluginOptions' => [
-                                                'allowClear' => true
-                                            ],
-                                        ]);  
-
-                    ?>
+                <?php 
+                    $options = \yii\helpers\ArrayHelper::map($cargos, 'idcargo', 'descricao');
+                       echo $form->field($model, 'permissions')->widget(Select2::classname(), [
+                           'data' => $options,
+                           'options' => ['placeholder' => 'Selecione os Cargos...', 'multiple'=>true],
+                           'pluginOptions' => [
+                               'allowClear' => true
+                           ],
+                       ]);  
+                ?>
             </div>
    </div>  
 

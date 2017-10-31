@@ -102,7 +102,7 @@ class ProcessoSeletivoController extends Controller
 
         $model = new ProcessoSeletivo();
 
-        $cargos = Cargos::find()->all();
+        $cargos = Cargos::find()->where(['status' => 1])->andWhere(['!=','homologacao', ''])->orderBy('descricao')->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 

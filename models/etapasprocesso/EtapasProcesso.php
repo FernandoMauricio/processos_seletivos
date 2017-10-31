@@ -31,6 +31,7 @@ use app\models\processoseletivo\geracaoarquivo\GeracaoArquivos;
 class EtapasProcesso extends \yii\db\ActiveRecord
 {
     public $processoSeletivo;
+    public $contratacao_id;
 
     /**
      * @inheritdoc
@@ -48,7 +49,7 @@ class EtapasProcesso extends \yii\db\ActiveRecord
         return [
             [['processo_id', 'pedidocusto_id', 'etapa_cargo' ,'etapa_perfil'], 'required'],
             [['etapa_selecionadores','etapa_local', 'etapa_cidade', 'etapa_estado', 'etapa_situacao'], 'required', 'on' => 'update'],
-            [['processo_id', 'etapa_perfil'], 'integer'],
+            [['processo_id', 'etapa_perfil', 'contratacao_id'], 'integer'],
             [['etapa_data', 'etapa_dataatualizacao', 'etapa_selecionadores'], 'safe'],
             [['etapa_cargo', 'etapa_observacao'], 'string', 'max' => 255],
             [['etapa_datarealizacao', 'etapa_local', 'etapa_cidade', 'etapa_estado', 'etapa_atualizadopor', 'etapa_situacao'], 'string', 'max' => 45],
@@ -86,6 +87,7 @@ class EtapasProcesso extends \yii\db\ActiveRecord
             'etapa_observacao' => 'Cronograma das Etapas',
             'etapa_perfil' => 'Perfil das Etapas',
             'processoSeletivo' => 'Documento de Abertura',
+            'contratacao_id' => 'Solicitação',
         ];
     }
 

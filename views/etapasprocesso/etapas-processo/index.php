@@ -61,8 +61,17 @@ $gridColumns = [
              'headerOptions'=>['class'=>'kartik-sheet-style'], 
              'expandOneOnly'=>true
              ],
-
             'etapa_id',
+            [
+              'attribute' => 'contratacao_id',
+              'format' => 'raw',
+              'value' => function($data){
+               $query = (new \yii\db\Query())->select(['contratacao_id'])->from('pedidocusto_itens')->where(['itemcusto_cargo' => $data->etapa_cargo])->andWhere(['pedidocusto_id' => $data->pedidocusto_id]);
+                 $command = $query->createCommand();
+                 $data= $command->queryOne();
+                   return  Html::a($data['contratacao_id'], ['/contratacao/contratacao/view', 'id' => $data['contratacao_id']], ['target'=>'_blank', 'data-pjax'=>"0"]);
+               }
+            ],
             [
                    'attribute' => 'pedidocusto_id',
                    'format' => 'raw',
@@ -153,10 +162,19 @@ $gridColumns = [
     'headerRowOptions'=>['class'=>'kartik-sheet-style'],
     'filterRowOptions'=>['class'=>'kartik-sheet-style'],
     'pjax'=>false, // pjax is set to always true for this demo
+    'rowOptions' =>function($model){
+        if($model->etapa_situacao == 'Em Homologação'){
+            return['class'=>'warning'];                        
+        }else if($model->etapa_situacao == 'Em Processo'){
+            return['class'=>'info'];    
+        }else if($model->etapa_situacao == 'Encerrado' || $model->etapa_situacao == 'Encerrado sem Classificados'){
+            return['class'=>'success'];    
+        }
+    },
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes das Etapas do Processo', 'options'=>['colspan'=>7, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes das Etapas do Processo', 'options'=>['colspan'=>8, 'class'=>'text-center warning']], 
                 ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]
