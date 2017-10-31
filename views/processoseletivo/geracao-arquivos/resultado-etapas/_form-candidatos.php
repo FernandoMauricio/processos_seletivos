@@ -47,7 +47,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                 ?>
                                     <div class="col-sm-4"><?= $form->field($modelItens, "[{$i}]gerarqitens_candidato")->textInput(['readonly' => true, 'style' => 'text-transform: uppercase']) ?></div>
 
-                                    <?= $model->gerarq_perfil == 1 ? '<div class="col-sm-2">'.$form->field($modelItens, "[{$i}]gerarqitens_horario")->widget(TimePicker::classname(), [ 'pluginOptions' => ['showSeconds' => false,'showMeridian' => false]]) .'</div>' : ''; ?>
+                                    <div class="col-sm-2"><?= $form->field($modelItens, "[{$i}]gerarqitens_horario")->widget(TimePicker::classname(), [ 'pluginOptions' => ['showSeconds' => false,'showMeridian' => false]]) ?></div> 
 
                                     <?= $model->gerarq_perfil == 1 ? '<div class="col-sm-6">'.$form->field($modelItens, "[{$i}]gerarqitens_tema")->textInput() .'</div>' : ''; ?>
                             </div>

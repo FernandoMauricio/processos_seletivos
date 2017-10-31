@@ -86,7 +86,7 @@ echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
               <tr>
                 <th>#</th>
                 <th>Nome Completo</th>
-                <?php echo $model->gerarq_perfil == 1 ? '<th>Horario</th>' : ''; ?>
+                <th>Horario</th>
                 <?php echo $model->gerarq_perfil == 1 ? '<th>Tema da Aula</th>' : ''; ?>
               </tr>
             </thead>
@@ -96,7 +96,7 @@ echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
                 foreach ($modelsItens as $i => $candidato): ?>
                   <td><?= $i+=1;?></td>
                   <td><span class="text-uppercase"><?= $candidato->gerarqitens_candidato; ?></span></td>
-                  <?php echo $model->gerarq_perfil == 1 ? '<td> '.$candidato->gerarqitens_horario.' </td>' : ''; ?>
+                  <td><?= $candidato->gerarqitens_horario; ?> </td>
                   <?php echo $model->gerarq_perfil == 1 ? '<td> '.$candidato->gerarqitens_tema.' </td>' : ''; ?>
             </tr>
               <?php endforeach; ?>
