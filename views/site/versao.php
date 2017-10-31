@@ -14,7 +14,7 @@ $this->title = 'Processo Seletivo - Senac AM';
     <h1 class="text-center"> Histórico de Versões</h1>
         <div class="body-content">
                 <div class="panel panel-primary">
-                <div class="panel-heading"><i class="glyphicon glyphicon-star-empty"></i> Versão 1.9 - (ATUALMENTE) - Publicado em 01/11/2017</div>
+                <div class="panel-heading"><i class="glyphicon glyphicon-star-empty"></i> Versão 2.0 - (ATUALMENTE) - Publicado em 01/11/2017</div>
                  <div class="panel-body">
                    <h4><b style="color: #337ab7;">Implementações</b></h4>
                      <h5><i class="glyphicon glyphicon-tag"></i><b> Contratações</b></h5>
@@ -57,7 +57,7 @@ $this->title = 'Processo Seletivo - Senac AM';
            </div>
 
             <div class="panel panel-danger">
-            <div class="panel-heading"><i class="glyphicon glyphicon-folder-close"></i> Versão 2.0 - Publicado em 19/04/2017</div>
+            <div class="panel-heading"><i class="glyphicon glyphicon-folder-close"></i> Versão 1.1 - Publicado em 19/04/2017</div>
                 <div class="panel-body">
                   <h4><strong style="color: #337ab7;">Implementações</strong></h4>
                     <h5><i class="glyphicon glyphicon-tag"></i><strong> Curriculos</strong></h5>

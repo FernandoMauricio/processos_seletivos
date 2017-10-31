@@ -18,7 +18,8 @@ $session = Yii::$app->session;
 ]);
 
 if($session['sess_codunidade'] == 7 && $session['sess_coddepartamento'] == 82 && $session['sess_responsavelsetor'] == 1) { //ACESSOS GERENTE - GGP
-    echo NavX::widget([
+
+echo NavX::widget([
 
 'options' => ['class' => 'navbar-nav navbar-right'],
                 
@@ -36,6 +37,7 @@ if($session['sess_codunidade'] == 7 && $session['sess_coddepartamento'] == 82 &&
             ['label' => 'Processos Seletivos', 'items' => [
             '<li class="dropdown-header">Administração do Site</li>',
                 ['label' => 'Processos Seletivos', 'url' => ['/processoseletivo/processo-seletivo/index']],
+                ['label' => 'Geração de Arquivos', 'url' => ['/processoseletivo/geracao-arquivos/index']],
             ]],
 
 
@@ -70,42 +72,34 @@ if($session['sess_codunidade'] == 7 && $session['sess_coddepartamento'] == 82 &&
                 ['label' => 'Aprovadores', 'url' => ['/pedidos/aprovacoes/index']],
 
             ]],
-        ]],
-        ['label' => 'Solicitação de Contratação', 'url' => ['/contratacao/contratacao/index']],
+        ]
+    ],
+    ['label' => 'Aprovações GGP', 'items' => [
 
-        ['label' => 'Aprovações GGP', 'items' => [
+        '<li class="dropdown-header">Aprovações Pendentes GGP</li>',
+        ['label' => 'Pedido de Custo', 'url' => ['/pedidos/pedido-custo/ggp-index']],
+        ['label' => 'Pedido de Homologação', 'url' => ['/pedidos/pedido-homologacao/ggp-index']],
+        ['label' => 'Pedido de Contratação', 'url' => ['/pedidos/pedido-contratacao/ggp-index']],
 
-            '<li class="dropdown-header">Aprovações Pendentes GGP</li>',
-            ['label' => 'Pedido de Custo', 'url' => ['/pedidos/pedido-custo/ggp-index']],
-            ['label' => 'Pedido de Homologação', 'url' => ['/pedidos/pedido-homologacao/ggp-index']],
-            ['label' => 'Pedido de Contratação', 'url' => ['/pedidos/pedido-contratacao/ggp-index']],
-
-            ],
         ],
+    ],
 
-        ['label' => 'Aprovações DAD', 'items' => [
+     ['label' => 'Solicitação de Contratação', 'url' => ['/contratacao/contratacao/index']],
 
-            '<li class="dropdown-header">Aprovações Pendentes DAD</li>',
-            ['label' => 'Pedido de Custo', 'url' => ['/pedidos/pedido-custo/dad-index']],
-            ['label' => 'Pedido de Homologação', 'url' => ['/pedidos/pedido-homologacao/dad-index']],
-            ['label' => 'Pedido de Contratação', 'url' => ['/pedidos/pedido-contratacao/dad-index']],
+     ['label' => 'Cadastro de Reserva', 'url' => ['/curriculos/cadastro-de-reserva/index']],
 
-            ],
-        ],
-
-        [
-            'label' => 'Usuário (' . utf8_encode(ucwords(strtolower($session['sess_nomeusuario']))) . ')',
-            'items' => [
-                         '<li class="dropdown-header">Área Usuário</li>',
-                                //['label' => 'Alterar Senha', 'url' => ['usuario-usu/update', 'id' => $sess_codusuario]],
-                                ['label' => 'Versões Anteriores', 'url' => ['/site/versao']],
-                                ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
-                        ],
+     [
+        'label' => 'Usuário (' . utf8_encode(ucwords(strtolower($session['sess_nomeusuario']))) . ')',
+        'items' => [
+                    '<li class="dropdown-header">Área Usuário</li>',
+                        //['label' => 'Alterar Senha', 'url' => ['usuario-usu/update', 'id' => $sess_codusuario]],
+                        ['label' => 'Versões Anteriores', 'url' => ['/site/versao']],
+                        ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
+               ],
         ],
 
     ]
 ]); 
-
 
 } elseif($session['sess_codunidade'] == 7 && $session['sess_coddepartamento'] == 82 ){  //TEM QUE SER DO GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
 
@@ -166,25 +160,25 @@ echo NavX::widget([
         ]
     ],
 //-------------------------------------------------------------
-    ['label' => 'Aprovações GGP', 'items' => [
+    // ['label' => 'Aprovações GGP', 'items' => [
 
-        '<li class="dropdown-header">Aprovações Pendentes GGP</li>',
-        ['label' => 'Pedido de Custo', 'url' => ['/pedidos/pedido-custo/ggp-index']],
-        ['label' => 'Pedido de Homologação', 'url' => ['/pedidos/pedido-homologacao/ggp-index']],
-        ['label' => 'Pedido de Contratação', 'url' => ['/pedidos/pedido-contratacao/ggp-index']],
+    //     '<li class="dropdown-header">Aprovações Pendentes GGP</li>',
+    //     ['label' => 'Pedido de Custo', 'url' => ['/pedidos/pedido-custo/ggp-index']],
+    //     ['label' => 'Pedido de Homologação', 'url' => ['/pedidos/pedido-homologacao/ggp-index']],
+    //     ['label' => 'Pedido de Contratação', 'url' => ['/pedidos/pedido-contratacao/ggp-index']],
 
-        ],
-    ],
+    //     ],
+    // ],
 
-    ['label' => 'Aprovações DAD', 'items' => [
+    // ['label' => 'Aprovações DAD', 'items' => [
 
-        '<li class="dropdown-header">Aprovações Pendentes DAD</li>',
-        ['label' => 'Pedido de Custo', 'url' => ['/pedidos/pedido-custo/dad-index']],
-        ['label' => 'Pedido de Homologação', 'url' => ['/pedidos/pedido-homologacao/dad-index']],
-        ['label' => 'Pedido de Contratação', 'url' => ['/pedidos/pedido-contratacao/dad-index']],
+    //     '<li class="dropdown-header">Aprovações Pendentes DAD</li>',
+    //     ['label' => 'Pedido de Custo', 'url' => ['/pedidos/pedido-custo/dad-index']],
+    //     ['label' => 'Pedido de Homologação', 'url' => ['/pedidos/pedido-homologacao/dad-index']],
+    //     ['label' => 'Pedido de Contratação', 'url' => ['/pedidos/pedido-contratacao/dad-index']],
 
-        ],
-    ],
+    //     ],
+    // ],
 //-------------------------------------------------------------
         ['label' => 'Solicitação de Contratação', 'url' => ['/contratacao/contratacao/index']],
 
