@@ -241,6 +241,7 @@ class PedidoCustoController extends Controller
 
         $model->custo_situacaoggp = 1; //Aguardando Autorização GPP
         $model->custo_situacaodad = 1; //Aguardando Autorização DAD
+        $model->custo_situacao    = 2; //Em Processo
         $model->custo_data        = date('Y-m-d');
         $model->custo_responsavel = $session['sess_nomeusuario'];
         $model->custo_recursos    = 'PRÓPRIOS';
