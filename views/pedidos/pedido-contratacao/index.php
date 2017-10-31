@@ -50,10 +50,11 @@ $gridColumns = [
 
             'pedcontratacao_id',
             [
-                'attribute' => 'pedidocusto_id',
-                'value'=>function ($model, $key, $index, $widget) { 
-                    return $model->pedidoCusto->etapasProcesso->pedidocusto_id;
-                },
+                   'attribute' => 'pedidocusto_id',
+                   'format' => 'raw',
+                   'value' => function ($data) {
+                                 return Html::a($data->pedidoCusto->etapasProcesso->pedidocusto_id, ['/pedidos/pedido-custo/view', 'id' => $data->pedidoCusto->etapasProcesso->pedidocusto_id], ['target'=>'_blank', 'data-pjax'=>"0"]);
+                             },
             ],
             'pedcontratacao_assunto',
             'pedcontratacao_recursos',
@@ -173,6 +174,12 @@ $gridColumns = [
     'headerRowOptions'=>['class'=>'kartik-sheet-style'],
     'filterRowOptions'=>['class'=>'kartik-sheet-style'],
     'pjax'=>false, // pjax is set to always true for this demo
+    'rowOptions' =>function($model){
+                if(isset($model->pedcontratacao_homologador))
+                {
+                    return['class'=>'success'];                        
+                }
+    },
     'beforeHeader'=>[
         [
             'columns'=>[

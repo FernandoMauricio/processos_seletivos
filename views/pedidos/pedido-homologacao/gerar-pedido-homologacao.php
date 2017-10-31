@@ -30,23 +30,13 @@ use faryshta\widgets\JqueryTagsInput;
                        ]);
                 ?>
             </div>
-
-            <div class="col-md-6">
-                <?= $form->field($model, 'homolog_fases')->widget(JqueryTagsInput::classname(), [
-                           'clientOptions' => [
-                           'defaultText' => '',
-                           'width' => '100%',
-                           'height' => '100%',
-                           'interactive' => true,
-                          ],
-                ]) ?>
-            </div>
         </div>
-    </div>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
+    
+  </div>
 
     <?php ActiveForm::end(); ?>
 

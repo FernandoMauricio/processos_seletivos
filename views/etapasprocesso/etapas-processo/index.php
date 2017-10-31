@@ -63,10 +63,19 @@ $gridColumns = [
              ],
 
             'etapa_id',
-            'pedidocusto_id',
             [
-                'attribute' => 'processo_id',
-                'value' => 'processo.numeroEdital',
+                   'attribute' => 'pedidocusto_id',
+                   'format' => 'raw',
+                   'value' => function ($data) {
+                                 return Html::a($data->pedidocusto_id, ['/pedidos/pedido-custo/view', 'id' => $data->pedidocusto_id], ['target'=>'_blank', 'data-pjax'=>"0"]);
+                             },
+            ],
+            [
+                   'attribute' => 'processo_id',
+                   'format' => 'raw',
+                   'value' => function ($data) {
+                                 return Html::a($data->processo->numeroEdital, ['/processoseletivo/processo-seletivo/view', 'id' => $data->processo->numeroEdital], ['target'=>'_blank', 'data-pjax'=>"0"]);
+                             },
             ],
             'etapa_cargo',
             [

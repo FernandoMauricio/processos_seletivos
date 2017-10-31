@@ -167,6 +167,12 @@ $gridColumns = [
     'headerRowOptions'=>['class'=>'kartik-sheet-style'],
     'filterRowOptions'=>['class'=>'kartik-sheet-style'],
     'pjax'=>false, // pjax is set to always true for this demo
+    'rowOptions' =>function($model){
+                if($model->custo_situacaoggp == 4 && $model->custo_situacaodad == 4)
+                {
+                    return['class'=>'success'];                        
+                }
+    },
     'beforeHeader'=>[
         [
             'columns'=>[

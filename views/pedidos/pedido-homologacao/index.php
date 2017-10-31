@@ -64,7 +64,13 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                      ],
 
                     'homolog_id',
-                    'contratacao_id',
+                    [
+                           'attribute' => 'contratacao_id',
+                           'format' => 'raw',
+                           'value' => function ($data) {
+                                         return Html::a($data->contratacao_id, ['/contratacao/contratacao/view', 'id' => $data->contratacao_id], ['target'=>'_blank', 'data-pjax'=>"0"]);
+                                     },
+                    ],
                     'homolog_unidade',
                     'homolog_cargo',
                     [
@@ -184,6 +190,12 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
         'headerRowOptions'=>['class'=>'kartik-sheet-style'],
         'filterRowOptions'=>['class'=>'kartik-sheet-style'],
         'pjax'=>true, // pjax is set to always true for this demo
+        'rowOptions' =>function($model){
+                    if($model->homolog_situacaoggp == 4 && $model->homolog_situacaodad == 4)
+                    {
+                        return['class'=>'success'];                        
+                    }
+        },
         'beforeHeader'=>[
             [
                 'columns'=>[
