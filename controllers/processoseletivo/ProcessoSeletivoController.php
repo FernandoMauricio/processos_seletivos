@@ -208,6 +208,7 @@ class ProcessoSeletivoController extends Controller
 
     public function actionAtualizaProcessoSeletivoAutomaticamente() 
     {
+        $this->layout = 'main-imprimir';
         $connection = Yii::$app->db;
         $command = $connection->createCommand(
         "UPDATE processo SET situacao_id = 2 WHERE situacao_id = 1 AND data_encer = ".date('"Y-m-d"')." ");

@@ -17,6 +17,7 @@ use app\models\curriculos\SituacaoCandidato;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Análise de Curriculos';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="curriculos-admin-index">
 

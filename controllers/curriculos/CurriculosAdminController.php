@@ -61,7 +61,7 @@ class CurriculosAdminController extends Controller
         }
         $searchModel = new CurriculosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->sort = ['defaultOrder' => ['id'=>SORT_DESC]];
+        $dataProvider->sort = ['defaultOrder' => ['id'=>SORT_ASC]];
 
         $session['query'] = $_SERVER['QUERY_STRING'];
 
@@ -82,7 +82,7 @@ class CurriculosAdminController extends Controller
 
         $searchModel = new BancoDeCurriculosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->sort = ['defaultOrder' => ['id'=>SORT_DESC]];
+        $dataProvider->sort = ['defaultOrder' => ['id'=>SORT_ASC]];
 
         $session['query'] = $_SERVER['QUERY_STRING'];
 
@@ -99,7 +99,7 @@ class CurriculosAdminController extends Controller
 
         $searchModel = new AnaliseGerencialAdministradorSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->sort = ['defaultOrder' => ['id'=>SORT_DESC]];
+        $dataProvider->sort = ['defaultOrder' => ['id'=>SORT_ASC]];
 
         $session['query'] = $_SERVER['QUERY_STRING'];
 
@@ -115,7 +115,7 @@ class CurriculosAdminController extends Controller
 
         $searchModel = new AnaliseGerencialSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->sort = ['defaultOrder' => ['id'=>SORT_DESC]];
+        $dataProvider->sort = ['defaultOrder' => ['id'=>SORT_ASC]];
 
         $session['query'] = $_SERVER['QUERY_STRING'];
 
@@ -346,21 +346,21 @@ class CurriculosAdminController extends Controller
     public function actionAguardandoEnvioGerenciaImediata($id)
     {
 
-     $session = Yii::$app->session;
-     $model = $this->findModel($id);
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
 
-     $connection = Yii::$app->db;
-     $command = $connection->createCommand(
-     "UPDATE `db_processos`.`curriculos` SET `classificado` = '3' WHERE `id` = '".$model->id."'");
-     $command->execute();
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`curriculos` SET `classificado` = '3' WHERE `id` = '".$model->id."'");
+        $command->execute();
 
-     $countCurriculos = CurriculosAdmin::find()->where(['classificado' => 3, 'edital' => $model->edital])->count();
+        $countCurriculos = CurriculosAdmin::find()->where(['classificado' => 3, 'edital' => $model->edital])->count();
 
-     //Informação do Curriculo aguardando envio para gêrencia
-     Yii::$app->session->setFlash('success', 'SUCESSO! Curriculo de <strong>' .$model->nome.'</strong> está aguardando envio para Gerência Imediata!</strong>');
+        //Informação do Curriculo aguardando envio para gêrencia
+        Yii::$app->session->setFlash('success', 'SUCESSO! Curriculo de <strong>' .$model->nome.'</strong> está aguardando envio para Gerência Imediata!</strong>');
 
-     //Informação do quantitativo de curriculos já aprovados para envio para gerencia
-     Yii::$app->session->setFlash('info', 'SUCESSO! <strong>' .$countCurriculos.' Curriculos</strong> Pré-Selecionados do edital <strong>'.$model->edital.'</strong> aguardando envio para Gerência Imediata!</strong>');
+        //Informação do quantitativo de curriculos já aprovados para envio para gerencia
+        Yii::$app->session->setFlash('info', 'SUCESSO! <strong>' .$countCurriculos.' Curriculos</strong> Pré-Selecionados do edital <strong>'.$model->edital.'</strong> aguardando envio para Gerência Imediata!</strong>');
 
     return $this->redirect(Yii::$app->request->baseUrl. '/index.php?' . $session['query']);
 
@@ -434,16 +434,21 @@ class CurriculosAdminController extends Controller
     public function actionClassificar($id)
     {
 
-     $session = Yii::$app->session;
-     $model = $this->findModel($id);
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
 
-     //Classifica o candidato
-     $connection = Yii::$app->db;
-     $command = $connection->createCommand(
-     "UPDATE `db_processos`.`curriculos` SET `classificado` = '1', `aprovador_solicitante` = '".$session['sess_nomeusuario']."', `dataaprovador_solicitante` = ".date('"Y-m-d H:i:s"').", `situacao_aprovadorsolicitante` = '1' WHERE `id` = '".$model->id."'");
-     $command->execute();
-     
-      Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Candidato(a) <strong> '.$model->nome.' </strong> foi Classificado!</strong>');
+        //Classifica o candidato
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`curriculos` SET `classificado` = '1', `aprovador_solicitante` = '".$session['sess_nomeusuario']."', `dataaprovador_solicitante` = ".date('"Y-m-d H:i:s"').", `situacao_aprovadorsolicitante` = '1' WHERE `id` = '".$model->id."'");
+        $command->execute();
+        
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Candidato(a) <strong> '.$model->nome.' </strong> foi Classificado!</strong>');
+
+        $countCurriculos = CurriculosAdmin::find()->where(['classificado' => 1, 'edital' => $model->edital])->count();
+
+        //Informação do quantitativo de curriculos aguardando início das etapas do processo
+        Yii::$app->session->setFlash('info', 'SUCESSO! <strong>' .$countCurriculos.' Curriculos</strong> Classificados do edital <strong>'.$model->edital.'</strong> aguardando início das Etapas do Processo!</strong>');
 
     return $this->redirect(['analise-gerencial']);
 
@@ -452,16 +457,21 @@ class CurriculosAdminController extends Controller
     public function actionClassificarAdmin($id)
     {
 
-     $session = Yii::$app->session;
-     $model = $this->findModel($id);
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
 
-     //Classifica o candidato
-     $connection = Yii::$app->db;
-     $command = $connection->createCommand(
-     "UPDATE `db_processos`.`curriculos` SET `classificado` = '1', `aprovador_solicitante` = '".$session['sess_nomeusuario']."', `dataaprovador_solicitante` = ".date('"Y-m-d H:i:s"').", `situacao_aprovadorsolicitante` = '1' WHERE `id` = '".$model->id."'");
-     $command->execute();
-     
-      Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Candidato(a) <strong> '.$model->nome.' </strong> foi Classificado!</strong>');
+        //Classifica o candidato
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`curriculos` SET `classificado` = '1', `aprovador_solicitante` = '".$session['sess_nomeusuario']."', `dataaprovador_solicitante` = ".date('"Y-m-d H:i:s"').", `situacao_aprovadorsolicitante` = '1' WHERE `id` = '".$model->id."'");
+        $command->execute();
+        
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Candidato(a) <strong> '.$model->nome.' </strong> foi Classificado!</strong>');
+
+        $countCurriculos = CurriculosAdmin::find()->where(['classificado' => 1, 'edital' => $model->edital])->count();
+
+        //Informação do quantitativo de curriculos aguardando início das etapas do processo
+        Yii::$app->session->setFlash('info', 'SUCESSO! <strong>' .$countCurriculos.' Curriculos</strong> Classificados do edital <strong>'.$model->edital.'</strong> aguardando início das Etapas do Processo!</strong>');
 
     return $this->redirect(['analise-gerencial-administrador']);
 
@@ -470,34 +480,34 @@ class CurriculosAdminController extends Controller
     public function actionDesclassificar($id)
     {
 
-     $session = Yii::$app->session;
-     $model = $this->findModel($id);
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
 
-     //Desclassifica o candidato
-     $connection = Yii::$app->db;
-     $command = $connection->createCommand(
-     "UPDATE `db_processos`.`curriculos` SET `classificado` = '0', `aprovador_solicitante` = '".$session['sess_nomeusuario']."', `dataaprovador_solicitante` = ".date('"Y-m-d H:i:s"').", `situacao_aprovadorsolicitante` = '0' WHERE `id` = '".$model->id."'");
-     $command->execute();
+        //Desclassifica o candidato
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`curriculos` SET `classificado` = '0', `aprovador_solicitante` = '".$session['sess_nomeusuario']."', `dataaprovador_solicitante` = ".date('"Y-m-d H:i:s"').", `situacao_aprovadorsolicitante` = '0' WHERE `id` = '".$model->id."'");
+        $command->execute();
 
-     Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Candidato(a) <strong> '.$model->nome.' </strong> foi Desclassificado!</strong>');
-     
-     return $this->redirect(['analise-gerencial']);
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Candidato(a) <strong> '.$model->nome.' </strong> foi Desclassificado!</strong>');
+        
+    return $this->redirect(['analise-gerencial']);
 
     }
 
     public function actionDesclassificarAdmin($id)
     {
 
-     $session = Yii::$app->session;
-     $model = $this->findModel($id);
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
 
-     //Desclassifica o candidato
-     $connection = Yii::$app->db;
-     $command = $connection->createCommand(
-     "UPDATE `db_processos`.`curriculos` SET `classificado` = '0', `aprovador_solicitante` = '".$session['sess_nomeusuario']."', `dataaprovador_solicitante` = ".date('"Y-m-d H:i:s"').", `situacao_aprovadorsolicitante` = '0' WHERE `id` = '".$model->id."'");
-     $command->execute();
+        //Desclassifica o candidato
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`curriculos` SET `classificado` = '0', `aprovador_solicitante` = '".$session['sess_nomeusuario']."', `dataaprovador_solicitante` = ".date('"Y-m-d H:i:s"').", `situacao_aprovadorsolicitante` = '0' WHERE `id` = '".$model->id."'");
+        $command->execute();
 
-     Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Candidato(a) <strong> '.$model->nome.' </strong> foi Desclassificado!</strong>');
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Candidato(a) <strong> '.$model->nome.' </strong> foi Desclassificado!</strong>');
      
     return $this->redirect(['analise-gerencial-administrador']);
 
@@ -505,16 +515,16 @@ class CurriculosAdminController extends Controller
     public function actionDesclassificarggp($id)
     {
 
-     $session = Yii::$app->session;
-     $model = $this->findModel($id);
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
 
-     //Desclassifica o candidato
-     $connection = Yii::$app->db;
-     $command = $connection->createCommand(
-     "UPDATE `db_processos`.`curriculos` SET `classificado` = '0', `aprovador_ggp` = '".$session['sess_nomeusuario']."', `dataaprovador_ggp` = ".date('"Y-m-d H:i:s"').", `situacao_ggp` = '0' WHERE `id` = '".$model->id."'");
-     $command->execute();
+        //Desclassifica o candidato
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`curriculos` SET `classificado` = '0', `aprovador_ggp` = '".$session['sess_nomeusuario']."', `dataaprovador_ggp` = ".date('"Y-m-d H:i:s"').", `situacao_ggp` = '0' WHERE `id` = '".$model->id."'");
+        $command->execute();
 
-     Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Candidato(a) <strong> '.$model->nome.' </strong> foi Desclassificado!</strong>');
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Candidato(a) <strong> '.$model->nome.' </strong> foi Desclassificado!</strong>');
      
     return $this->redirect(Yii::$app->request->baseUrl. '/index.php?' . $session['query']);
 

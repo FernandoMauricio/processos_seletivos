@@ -85,6 +85,8 @@ class CurriculosController extends Controller
      */
     public function actionCreate()
     {
+        //session numero de edital e do id do processo
+        $session = Yii::$app->session;
         ini_set('session.cookie_domain','am.senac.br');
 
         if (isset($_COOKIE['PHPSESSID']) && !empty($_COOKIE['PHPSESSID'])) session_id($_COOKIE['PHPSESSID']);
@@ -100,8 +102,6 @@ class CurriculosController extends Controller
         $modelsComplementos = [new CurriculosComplementos];
         $modelsEmpregos     = [new CurriculosEmpregos];
 
-        //session numero de edital e do id do processo
-        $session = Yii::$app->session;
         $model->edital = $session["numeroEdital"];
         $model->classificado = 5; //Inscrito
         $id = $session["id"];
