@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <table class="table table-condensed table-hover">
     <tr><td width="1%"><b>Data:</b></td><td width="99%" color="red"><?= date('d/m/Y', strtotime($model->gerarq_datarealizacao)) . utf8_encode(strftime('(%A)', strtotime($model->gerarq_datarealizacao))); ?></td></tr>
-    <tr><td width="1%"><b>Horário:</b></td><td width="99%"><?= $model->gerarq_horarealizacao ?></td></tr>
+    <tr><td width="1%"><b>Horário:</b></td><td width="99%"><?= date('H:i', strtotime($model->gerarq_horarealizacao)) ?></td></tr>
     <tr><td width="1%"><b>Local:</b></td><td width="99%"><?= $model->gerarq_local ?></td></tr>
     <tr><td width="1%"><b>Endereço:</b></td> <td width="99%"><?= $model->gerarq_endereco ?></td></tr>
     <tr><td width="1%"><b>Fase:</b></td><td width="99%"><?= $model->gerarq_fase ?></td></tr>
@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
   <tr>
         <td><font size="2"><?= $i+=1;?></font></td>
         <td><font size="2" class="text-uppercase"><?= $candidato->gerarqitens_candidato; ?></font></td>
-        <td><font size="2"><?= $candidato->gerarqitens_horario ?></font></td>
+        <td><font size="2"><?= date('H:i', strtotime($candidato->gerarqitens_horario)) ?></font></td>
         <?php echo $model->gerarq_perfil == 1 ? '<td><font size="2"> '.$candidato->gerarqitens_tema.' </font></td>' : ''; ?>
   </tr>
     <?php endforeach; ?>
