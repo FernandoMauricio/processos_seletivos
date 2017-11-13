@@ -82,6 +82,10 @@ use faryshta\widgets\JqueryTagsInput;
                             ]);  ?>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-12"><?= $form->field($model, 'gerarq_responsavel')->textInput(['maxlength' => true]) ?></div>
+            </div>
     </div>
 
 </div>

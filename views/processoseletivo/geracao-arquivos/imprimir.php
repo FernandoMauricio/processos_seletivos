@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <tr>
       <th><font size="2">#</font></th>
       <th><font size="2">Nome Completo</font></th>
-      <?php echo $model->gerarq_perfil == 1 ? '<th><font size="2"> Horario</font></th>' : ''; ?>
+      <th><font size="2">Horario</font></th>
       <?php echo $model->gerarq_perfil == 1 ? '<th><font size="2"> Tema da Aula</font></th>' : ''; ?>
     </tr>
   </thead>
@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
   <tr>
         <td><font size="2"><?= $i+=1;?></font></td>
         <td><font size="2" class="text-uppercase"><?= $candidato->gerarqitens_candidato; ?></font></td>
-        <?php echo $model->gerarq_perfil == 1 ? '<td><font size="2"> '.$candidato->gerarqitens_horario.' </font></td>' : ''; ?>
+        <td><font size="2"><?= $candidato->gerarqitens_horario ?></font></td>
         <?php echo $model->gerarq_perfil == 1 ? '<td><font size="2"> '.$candidato->gerarqitens_tema.' </font></td>' : ''; ?>
   </tr>
     <?php endforeach; ?>
