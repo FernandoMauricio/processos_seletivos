@@ -65,7 +65,7 @@ use yii\widgets\DetailView;
                 foreach ($modelsItens as $i => $candidato): ?>
                   <td><?= $i+=1;?></td>
                   <td><span class="text-uppercase"><?= $candidato->gerarqitens_candidato; ?></span></td>
-                  <td><?= $candidato->gerarqitens_horario; ?> </td>
+                  <td><?= date('H:i', strtotime($candidato->gerarqitens_horario)); ?> </td>
                   <?php echo $model->gerarq_perfil == 1 ? '<td> '.$candidato->gerarqitens_tema.' </td>' : ''; ?>
             </tr>
               <?php endforeach; ?>
