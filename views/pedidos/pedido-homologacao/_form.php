@@ -7,6 +7,7 @@ use kartik\select2\Select2;
 use yii\helpers\Url;
 use kartik\datecontrol\DateControl;
 use faryshta\widgets\JqueryTagsInput;
+use app\models\contratacao\Areas;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\pedidos\pedidohomologacao\PedidoHomologacao */
@@ -92,6 +93,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
               <tr>
                 <th>Classificação</th>
                 <th>Candidatos</th>
+                <th>Nível</th>
               </tr>
             </thead>
             <tbody>
@@ -99,6 +101,17 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
               <?php foreach ($modelsItens as $i => $modelItens): ?>
                   <td><?= $modelItens->pedhomolog_classificacao; ?></td>
                   <td><span class="text-uppercase"><?= $modelItens->pedhomolog_candidato; ?></span></td>
+                  <td><?php 
+                            $areas = Areas::find()->where(['status' => 1])->orderBy('descricao')->all();
+                            $options = \yii\helpers\ArrayHelper::map($areas, 'descricao', 'descricao');
+                                echo $form->field($modelItens, "[{$i}]pedhomolog_nivel")->widget(Select2::classname(), [
+                                    'data' => $options,
+                                    'options' => ['placeholder' => 'Selecione o Nível...'],
+                                    'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                                ])->label(false);  
+                      ?>
             </tr>
               <?php endforeach; ?>
         </table>

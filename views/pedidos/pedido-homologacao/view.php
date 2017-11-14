@@ -96,6 +96,7 @@ use yii\widgets\DetailView;
               <tr>
                 <th>Classificação</th>
                 <th>Candidatos</th>
+                <th>Nível</th>
               </tr>
             </thead>
             <tbody>
@@ -103,6 +104,7 @@ use yii\widgets\DetailView;
               <?php foreach ($modelsItens as $i => $modelItens): ?>
                   <td><?= $modelItens->pedhomolog_classificacao; ?></td>
                   <td><span class="text-uppercase"><?= $modelItens->pedhomolog_candidato; ?></span></td>
+                  <td><?= $modelItens->pedhomolog_nivel; ?></td>
             </tr>
               <?php endforeach; ?>
 

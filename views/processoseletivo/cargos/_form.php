@@ -29,7 +29,6 @@ use kartik\select2\Select2;
                         ],
                     ]);  
             ?>
-
        </div>
 
         <div class="col-md-2"><?= $form->field($model, 'ch_semana')->textInput() ?></div>

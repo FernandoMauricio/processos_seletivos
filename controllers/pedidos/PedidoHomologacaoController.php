@@ -333,6 +333,12 @@ class PedidoHomologacaoController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
+            //Inclui os niveis de cada candidato
+            foreach ($modelsItens as $i => $modelItens) {
+            $modelItens->pedidohomologacao_id = $model->homolog_id;
+            $modelItens->pedhomolog_nivel     = $_POST['PedidohomologacaoItens'][$i]['pedhomolog_nivel'];
+            $modelItens->update(false); // skipping validation as no user input is involved
+            }
             //Atualiza a Data de Expiração 
             $data_expiracao = new Expression('DATE_ADD("'.$model->homolog_datahomologacao.'", INTERVAL 1 YEAR)');
 
