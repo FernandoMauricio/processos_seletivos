@@ -250,6 +250,25 @@ class PedidoContratacaoController extends Controller
                 echo Json::encode(['output'=>'', 'selected'=>'']);
     }
 
+    public function actionGerarPedidoContratacao()
+    {
+        $session = Yii::$app->session;
+        $model = new PedidoContratacao();
+        $model->pedcontratacao_situacaoggp = 1; //Aguardando Autorização GPP
+        $model->pedcontratacao_situacaodad = 1; //Aguardando Autorização DAD
+        $model->pedcontratacao_data        = date('Y-m-d');
+        $model->pedcontratacao_responsavel = $session['sess_nomeusuario'];
+        $model->pedcontratacao_recursos    = 'PRÓPRIOS';
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['update', 'id' => $model->pedcontratacao_id]);
+        } else {
+            return $this->renderAjax('gerar-pedido-contratacao', [
+                'model' => $model,
+            ]);
+        }
+    }
+
     /**
      * Creates a new PedidoContratacao model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -397,11 +416,13 @@ class PedidoContratacaoController extends Controller
 
                                if ($flag) {
                             foreach ($modelsItens as $i => $modelItens) {
-                           //Verifica se é o mesmo cargo escolhido na solicitação de Contratação  
-                           if($_POST['PedidocontratacaoItens'][$i]['itemcontratacao_cargo'] != $modelItens->etapasProcesso->etapa_cargo) {
-                                Yii::$app->session->setFlash('danger', '<b>ERRO!</b> Cargo <b>'.$modelItens['etapasProcesso']['etapa_cargo'].'</b> diferente do informado na Solicitação <b>'.$_POST['PedidocontratacaoItens'][$i]['contratacao_id'].'</b>');
-                                return $this->redirect(['update', 'id' => $model->pedcontratacao_id]);
-                                }
+                           //Verifica se é o mesmo cargo escolhido na solicitação de Contratação e se é diferente da contratação especial
+                           if($model->pedcontratacao_tipo == 0) {
+                               if($_POST['PedidocontratacaoItens'][$i]['itemcontratacao_cargo'] != $modelItens->etapasProcesso->etapa_cargo) {
+                                    Yii::$app->session->setFlash('danger', '<b>ERRO!</b> Cargo <b>'.$modelItens['etapasProcesso']['etapa_cargo'].'</b> diferente do informado na Solicitação <b>'.$_POST['PedidocontratacaoItens'][$i]['contratacao_id'].'</b>');
+                                    return $this->redirect(['update', 'id' => $model->pedcontratacao_id]);
+                                    }
+                            }
                             //Verifica se existe já a contratação inserida anterioemente em algum pedido de Contratação
                             // if(PedidocontratacaoItens::find()->where(['contratacao_id' => $_POST['PedidocontratacaoItens'][$i]['contratacao_id']])->count() >= 2) {
                             //     Yii::$app->session->setFlash('danger', '<b>ERRO! </b>Solicitação <b>'.$_POST['PedidocontratacaoItens'][$i]['contratacao_id'].'</b> já inserida no Pedido de Contratação!</b>');
@@ -422,13 +443,22 @@ class PedidoContratacaoController extends Controller
             Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Contratação Atualizado!</b>');
 
             return $this->redirect(['index']);
-        } else {
-            return $this->render('update', [
+        }else {
+             if($model->pedcontratacao_tipo == 0) {
+                return $this->render('update', [
                 'model' => $model,
                 'contratacoes' => $contratacoes,
                 'processo' => $processo,
                 'modelsItens' => (empty($modelsItens)) ? [new PedidocontratacaoItens] : $modelsItens,
-            ]);
+                ]);
+            }else{
+                return $this->render('update-especial', [
+                'model' => $model,
+                'contratacoes' => $contratacoes,
+                'processo' => $processo,
+                'modelsItens' => (empty($modelsItens)) ? [new PedidocontratacaoItens] : $modelsItens,
+                ]);
+            }
         }
     }
 

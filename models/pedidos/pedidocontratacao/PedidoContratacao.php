@@ -44,10 +44,10 @@ class PedidoContratacao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pedcontratacao_assunto', 'pedcontratacao_recursos', 'pedcontratacao_valortotal', 'pedcontratacao_situacaoggp', 'pedcontratacao_situacaodad'], 'required'],
+            [['pedcontratacao_assunto', 'pedcontratacao_recursos', 'pedcontratacao_situacaoggp', 'pedcontratacao_situacaodad'], 'required'],
             [['pedcontratacao_valortotal'], 'number'],
             [['pedcontratacao_data', 'pedcontratacao_dataaprovacaoggp', 'pedcontratacao_dataaprovacaodad', 'pedcontratacao_datahomologacao'], 'safe'],
-            [['pedcontratacao_situacaoggp', 'pedcontratacao_situacaodad', 'pedidocusto_id'], 'integer'],
+            [['pedcontratacao_situacaoggp', 'pedcontratacao_situacaodad', 'pedidocusto_id', 'pedcontratacao_tipo'], 'integer'],
             [['pedcontratacao_assunto'], 'string', 'max' => 255],
             [['pedcontratacao_recursos'], 'string', 'max' => 100],
             [['pedcontratacao_aprovadorggp', 'pedcontratacao_aprovadordad', 'pedcontratacao_responsavel','pedcontratacao_homologador'], 'string', 'max' => 45],
@@ -77,6 +77,7 @@ class PedidoContratacao extends \yii\db\ActiveRecord
             'pedidocusto_id' => 'Pedido de Custo',
             'pedcontratacao_homologador' => 'Homologado por',
             'pedcontratacao_datahomologacao' => 'Data Homologação',
+            'pedcontratacao_tipo' => 'Tipo de Contratação',
         ];
     }
 

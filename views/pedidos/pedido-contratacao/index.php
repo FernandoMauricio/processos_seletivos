@@ -6,6 +6,8 @@ use kartik\editable\Editable;
 use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
 use kartik\widgets\DatePicker;
+use yii\bootstrap\Modal;
+use yii\helpers\Url;
 use app\models\pedidos\pedidocusto\PedidocustoSituacao;
 
 /* @var $this yii\web\View */
@@ -27,8 +29,20 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Novo Pedido de Contratação', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::button('Novo Pedido de Contratação', ['value'=> Url::to('index.php?r=pedidos/pedido-contratacao/gerar-pedido-contratacao'), 'class' => 'btn btn-success', 'id'=>'modalButton']) ?>
     </p>
+
+    <?php
+        Modal::begin([
+            'header' => '<h4>Geração do Pedido de Contratação</h4>',
+            'id' => 'modal',
+            'size' => 'modal-lg',
+            ]);
+
+        echo "<div id='modalContent'></div>";
+
+        Modal::end();
+    ?>
 
 <?php
 
@@ -49,19 +63,30 @@ $gridColumns = [
              ],
 
             'pedcontratacao_id',
-            [
-                   'attribute' => 'pedidocusto_id',
-                   'format' => 'raw',
-                   'value' => function ($data) {
-                                 return Html::a($data->pedidoCusto->etapasProcesso->pedidocusto_id, ['/pedidos/pedido-custo/view', 'id' => $data->pedidoCusto->etapasProcesso->pedidocusto_id], ['target'=>'_blank', 'data-pjax'=>"0"]);
-                             },
-            ],
+            // [
+            //        'attribute' => 'pedidocusto_id',
+            //        'format' => 'raw',
+            //        'value' => function ($data) {
+            //                      return Html::a(isset($data->pedidoCusto->etapasProcesso->pedidocusto_id), ['/pedidos/pedido-custo/view', 'id' => isset($data->pedidoCusto->etapasProcesso->pedidocusto_id)], ['target'=>'_blank', 'data-pjax'=>"0"]);
+            //                  },
+            // ],
             'pedcontratacao_assunto',
             'pedcontratacao_recursos',
             [
                'attribute' => 'pedcontratacao_valortotal',
                'contentOptions' => ['class' => 'col-lg-1'],
                'format' => ['decimal',2],
+            ],
+
+            [
+                'attribute'=>'pedcontratacao_tipo', 
+                'value' => function ($data) { return $data->pedcontratacao_tipo == 0 ? 'Normal' : 'Especial'; },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=> ['0'=>'Normal','1'=>'Especial'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                    'filterInputOptions'=>['placeholder'=>'Selecione o Tipo'],
             ],
 
             [
@@ -183,7 +208,7 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes do Pedido de Contratação', 'options'=>['colspan'=>10, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes do Pedido de Contratação', 'options'=>['colspan'=>9, 'class'=>'text-center warning']], 
                 ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]

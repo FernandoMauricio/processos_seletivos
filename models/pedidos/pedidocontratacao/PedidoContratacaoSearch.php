@@ -19,7 +19,7 @@ class PedidoContratacaoSearch extends PedidoContratacao
     {
         return [
             [['pedcontratacao_id', 'pedcontratacao_situacaoggp', 'pedcontratacao_situacaodad'], 'integer'],
-            [['pedcontratacao_assunto', 'pedcontratacao_recursos', 'pedcontratacao_data', 'pedcontratacao_aprovadorggp', 'pedcontratacao_dataaprovacaoggp', 'pedcontratacao_aprovadordad', 'pedcontratacao_dataaprovacaodad', 'pedcontratacao_responsavel', 'pedidocusto_id', 'pedcontratacao_homologador', 'pedcontratacao_datahomologacao'], 'safe'],
+            [['pedcontratacao_assunto', 'pedcontratacao_recursos', 'pedcontratacao_data', 'pedcontratacao_aprovadorggp', 'pedcontratacao_dataaprovacaoggp', 'pedcontratacao_aprovadordad', 'pedcontratacao_dataaprovacaodad', 'pedcontratacao_responsavel', 'pedidocusto_id', 'pedcontratacao_homologador', 'pedcontratacao_datahomologacao', 'pedcontratacao_tipo'], 'safe'],
             [['pedcontratacao_valortotal'], 'number'],
         ];
     }
@@ -83,7 +83,8 @@ class PedidoContratacaoSearch extends PedidoContratacao
             ->andFilterWhere(['like', 'pedcontratacao_aprovadordad', $this->pedcontratacao_aprovadordad])
             ->andFilterWhere(['like', 'pedcontratacao_responsavel', $this->pedcontratacao_responsavel])
             ->andFilterWhere(['like', 'pedidocusto_id', $this->pedidocusto_id])
-            ->andFilterWhere(['like', 'pedcontratacao_homologador', $this->pedcontratacao_homologador]);
+            ->andFilterWhere(['like', 'pedcontratacao_homologador', $this->pedcontratacao_homologador])
+            ->andFilterWhere(['like', 'pedcontratacao_tipo', $this->pedcontratacao_tipo]);
 
         return $dataProvider;
     }
