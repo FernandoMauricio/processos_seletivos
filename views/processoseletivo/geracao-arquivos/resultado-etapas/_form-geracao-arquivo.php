@@ -36,8 +36,6 @@ use faryshta\widgets\JqueryTagsInput;
                         ]); ?>
                 </div>
             
-                <div class="col-md-2"><?= $form->field($model, 'gerarq_horarealizacao')->widget(TimePicker::classname(), [ 'pluginOptions' => ['showSeconds' => false,'showMeridian' => false]]); ?></div>
-               
                 <div class="col-md-3">
                     <?= $form->field($model, 'gerarq_emailconfirmacao')->widget(Select2::classname(), [
                                 'data' =>  [

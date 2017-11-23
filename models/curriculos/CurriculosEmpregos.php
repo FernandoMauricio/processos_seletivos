@@ -36,6 +36,7 @@ class CurriculosEmpregos extends \yii\db\ActiveRecord
         return [
             [['atividades'], 'string'],
             //[['inicio', 'termino'], 'safe'],
+            [['ultimo_salario'], 'number'],
             [['curriculos_id'], 'integer'],
             [['inicio', 'termino'], 'string', 'max' => 14],
             [['empresa', 'cidade', 'cargo'], 'string', 'max' => 100]
@@ -53,6 +54,7 @@ class CurriculosEmpregos extends \yii\db\ActiveRecord
             'cidade' => 'Cidade',
             'cargo' => 'Cargo',
             'atividades' => 'Atividades',
+            'ultimo_salario' => 'Salário',
             'inicio' => 'Inicio',
             'termino' => 'Termino',
             'curriculos_id' => 'Curriculos ID',

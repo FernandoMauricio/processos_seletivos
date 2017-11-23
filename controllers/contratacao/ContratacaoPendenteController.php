@@ -167,16 +167,15 @@ class ContratacaoPendenteController extends Controller
     {
 
      $model = $this->findModel($id);
-
-     //encerra a comunicacao que está em Circulação
+     //Pedido Recebido - Cód. 7
      $session = Yii::$app->session;
      $connection = Yii::$app->db;
      $command = $connection->createCommand(
-     "UPDATE `db_processos`.`contratacao` SET `situacao_id` = '4' WHERE `id` = '".$model->id."'");
-    $command->execute();
+     "UPDATE `db_processos`.`contratacao` SET `situacao_id` = '7' WHERE `id` = '".$model->id."'");
+     $command->execute();
 
-     $model->situacao_id = 4;
-     if($model->situacao_id == 4){
+     $model->situacao_id = 7;
+     if($model->situacao_id == 7){
 
          //ENVIANDO EMAIL PARA O GERENTE INFORMANDO SOBRE O PROCESSO  DE CONTRATAÇÃO QUE FOI INICIADO
           $sql_email = "SELECT emus_email FROM emailusuario_emus, colaborador_col, responsavelambiente_ream WHERE ream_codunidade = '".$model->cod_unidade_solic."' AND ream_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";

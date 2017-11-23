@@ -2,6 +2,7 @@
 use wbraganca\dynamicform\DynamicFormWidget;
 use kartik\datecontrol\DateControl;
 use yii\widgets\MaskedInput;
+use kartik\money\MaskMoney;
 ?>
 
 <div class="panel panel-default">
@@ -24,6 +25,7 @@ use yii\widgets\MaskedInput;
                                                     'atividades',
                                                     'inicio',
                                                     'termino',
+                                                    'ultimo_salario',
                                                     'curriculos_id',
                                                 ],
                                             ]); ?>
@@ -48,19 +50,26 @@ use yii\widgets\MaskedInput;
                                                             }
                                                         ?>
                                                         <div class="row">                                                         
-                                                            <div class="col-sm-8">
-                                                                <?= $form->field($modelEmpregos, "[{$i}]empresa")->textInput(['maxlength' => true]) ?>
-                                                            </div>
-                                                            <div class="col-sm-4">
-                                                                <?= $form->field($modelEmpregos, "[{$i}]cidade")->textInput(['maxlength' => true]) ?>
-                                                            </div>
+                                                            <div class="col-sm-8"><?= $form->field($modelEmpregos, "[{$i}]empresa")->textInput(['maxlength' => true]) ?></div>
+                                                            
+                                                            <div class="col-sm-4"><?= $form->field($modelEmpregos, "[{$i}]cidade")->textInput(['maxlength' => true]) ?></div>
                                                         </div><!-- .row -->
 
                                                         <div class="row">                                                         
-                                                            <div class="col-sm-6">
-                                                                <?= $form->field($modelEmpregos, "[{$i}]cargo")->textInput(['maxlength' => true]) ?>
+                                                            <div class="col-sm-6"><?= $form->field($modelEmpregos, "[{$i}]cargo")->textInput(['maxlength' => true]) ?></div>
+
+                                                            <div class="col-sm-2">
+                                                                    <?php
+                                                                        echo $form->field($modelEmpregos, "[{$i}]ultimo_salario")->widget(MaskMoney::classname(), [
+                                                                            'pluginOptions' => [
+                                                                                'prefix' => 'R$ ',
+                                                                                'suffix' => '',
+                                                                                'allowNegative' => false
+                                                                            ]
+                                                                        ]);
+                                                                    ?>
                                                             </div>
-                                                            
+                                                                
                                                             <div class="col-sm-2">                                                     
                                                             <?php
                                                                 echo '<label class="control-label">Data de Inicio</label>';
@@ -73,7 +82,7 @@ use yii\widgets\MaskedInput;
                                                             ?>
                                                             </div>
                                                             <div class="col-sm-2">
-                                                             <?php
+                                                            <?php
                                                                 echo '<label class="control-label">Data de Término</label>';
                                                                 echo MaskedInput::widget([
                                                                     'model' => $modelEmpregos,
@@ -85,12 +94,9 @@ use yii\widgets\MaskedInput;
                                                             </div>
                                                         </div><!-- .row -->
 
-                                                        <div class="row">                                                         
-                                                            <div class="col-sm-12">
-                                                                <?= $form->field($modelEmpregos, "[{$i}]atividades")->textarea(['rows'=>2]) ?>
-                                                            </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12"><?= $form->field($modelEmpregos, "[{$i}]atividades")->textarea(['rows'=>2]) ?></div>
                                                         </div><!-- .row -->
-
 
                                                     </div>
                                                 </div>

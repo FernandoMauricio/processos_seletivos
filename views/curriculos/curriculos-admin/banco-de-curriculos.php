@@ -98,14 +98,7 @@ $gridColumns = [
 
             [
                 'attribute' => 'sexo',
-                'value' => function ($data) {
-                                                if($data->sexo == 0)
-                                                {
-                                                    return 'Feminino';
-                                                }else{
-                                                    return 'Masculino';
-                                                }
-                                            },
+                'value' => function ($data) { return $data->sexo == 0 ? 'Feminino' :' Masculino'; },
             ],
  
             [

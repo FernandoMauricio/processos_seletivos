@@ -142,6 +142,7 @@ class GeracaoArquivosController extends Controller
         $model = new GeracaoArquivos();
 
         $model->gerarq_responsavel = $session['sess_nomeusuario'];
+        $model->gerarq_horarealizacao = date('H:i');
 
         $processo = ProcessoSeletivo::find()->where(['situacao_id' => 1])->orWhere(['situacao_id' => 2])->all();
 

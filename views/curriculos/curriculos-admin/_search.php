@@ -18,8 +18,16 @@ use kartik\select2\Select2;
 
 <div class="panel-body">
     <div class="row">
-        <div class="col-md-2"><?php  echo $form->field($model, 'bairroLabel') ?></div>
-        <div class="col-md-2"><?php  echo $form->field($model, 'cidadeLabel') ?></div>
+        <div class="col-md-2">
+            <?php  echo $form->field($model, 'medioLabel')->widget(Select2::classname(), [
+                                'data' =>  ['1' => 'Completo', '0' => 'Incompleto'],
+                                'options' => ['placeholder' => 'Completo/Incompleto...'],
+                                'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                ]);
+            ?>
+        </div>
         <div class="col-md-2">
             <?php  echo $form->field($model, 'tecnicoLabel')->widget(Select2::classname(), [
                                 'data' =>  ['1' => 'Completo', '0' => 'Incompleto'],
@@ -62,6 +70,11 @@ use kartik\select2\Select2;
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-md-2"><?php  echo $form->field($model, 'bairroLabel') ?></div>
+        <div class="col-md-2"><?php  echo $form->field($model, 'cidadeLabel') ?></div>
+    </div>
+    
     <div class="row">
         <div class="col-md-2"><?php  echo $form->field($model, 'idadeInicial') ?></div>
         <div class="col-md-2"><?php  echo $form->field($model, 'idadeFinal') ?></div>

@@ -222,13 +222,11 @@ class PedidoHomologacaoController extends Controller
         $model->homolog_situacaoggp = 1; //Aguardando Autorização GPP
         $model->homolog_situacaodad = 1; //Aguardando Autorização DAD
 
-        //1 => Em elaboração / 2 => Em correção pelo setor / 3 => Recebido pelo GGP
+        //1 => Em elaboração / 2 => Em correção pelo setor / 3 => Recebido pelo GGP / 5 - Finalizado
         $subQuery = PedidoHomologacao::find()->select('contratacao_id')->all();
         $contratacoes = Contratacao::find()
         ->innerJoinWith('pedidocustoItens', `pedidocusto_itens.contratacao_id` == `contratacao.id`)
-        ->where(['!=','situacao_id', 1])
-        ->andWhere(['!=','situacao_id', 2])
-        ->andWhere(['!=','situacao_id', 3])
+        ->where(['NOT IN','situacao_id', [1, 2, 3, 5]])
         ->andWhere(['NOT IN','contratacao_id', $subQuery])
         ->orderBy('id')
         ->all();

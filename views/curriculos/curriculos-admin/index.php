@@ -125,19 +125,32 @@ $gridColumns = [
             ],
 
             [
-                'attribute'=>'sexo', 
+                'attribute'=>'sexo',
+                'width'=>'6%',
                 'value' => function ($data) { return $data->sexo == 0 ? 'Feminino' : 'Masculino'; },
                 'filterType'=>GridView::FILTER_SELECT2,
                 'filter'=> ['0'=>'Feminino','1'=>'Masculino'],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
-                    'filterInputOptions'=>['placeholder'=>'Selecione o sexo'],
+                    'filterInputOptions'=>['placeholder'=>'Sexo'],
+            ],
+
+            [
+                'attribute' => 'deficiencia',
+                'label' => 'Deficiência',
+                'value' => function ($data) { return $data->deficiencia ? 'Sim' : 'Não'; },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=> ['0'=>'Não','1'=>'Sim'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                    'filterInputOptions'=>['placeholder'=>'Deficiência'],
             ],
 
             [
                 'attribute'=>'classificado', 
-                'width'=>'310px',
+                'width'=>'8%',
                 'value'=>function ($model, $key, $index, $widget) { 
                     return $model->situacaoCandidato->sitcan_descricao;
                 },
@@ -146,7 +159,7 @@ $gridColumns = [
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
-                    'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
+                    'filterInputOptions'=>['placeholder'=>'Situação'],
             ],
 
             ['class' => 'yii\grid\ActionColumn',
@@ -261,7 +274,7 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes de Curriculos Cadastrados', 'options'=>['colspan'=>13, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes de Curriculos Cadastrados', 'options'=>['colspan'=>14, 'class'=>'text-center warning']], 
                 ['content'=>'Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']],
             ],
         ]

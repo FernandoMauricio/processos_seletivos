@@ -246,8 +246,13 @@ class PedidoCustoController extends Controller
         $model->custo_responsavel = $session['sess_nomeusuario'];
         $model->custo_recursos    = 'PRÓPRIOS';
 
-        //[4,7,8,9,10,11,12,13,14] -> Situações EM ANDAMENTO
-        $contratacoes = Contratacao::find()->where(['IN','situacao_id', [4,7,8,9,10,11,12,13,14,15,16,17]])->orderBy('id')->all();
+        //1 => Em elaboração / 2 => Em correção pelo setor / 3 => Recebido pelo GGP / 5 - Finalizado
+        $subQuery = PedidocustoItens::find()->select('id', 'contratacao_id')->all();
+        $contratacoes = Contratacao::find()
+        ->where(['NOT IN','situacao_id', [1, 2, 3, 5]])
+        ->andWhere(['NOT IN','id', $subQuery])
+        ->orderBy('id')
+        ->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 

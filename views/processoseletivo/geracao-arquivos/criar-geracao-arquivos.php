@@ -61,9 +61,6 @@ use yii\helpers\Json;
                         ]);
                     ?>
             </div>
-            <div class="col-md-3">
-                <?= $form->field($model, 'gerarq_horarealizacao')->widget(TimePicker::classname(), [ 'pluginOptions' => ['showSeconds' => false,'showMeridian' => false]]); ?>
-            </div>
         </div>
         <div class="row">
             <div class="col-md-3">

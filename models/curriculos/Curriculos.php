@@ -53,6 +53,7 @@ class Curriculos extends \yii\db\ActiveRecord
     public $termoAceite2;
     public $bairroLabel;
     public $cidadeLabel;
+    public $medioLabel;
     public $tecnicoLabel;
     public $graduacaoLabel;
     public $posLabel;
@@ -74,11 +75,11 @@ class Curriculos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['edital', 'numeroInscricao','cargo', 'nome', 'cpf', 'datanascimento', 'sexo', 'email', 'telefone', 'data', 'termoAceite', 'parentesco', 'termoAceite2'], 'required'],
+            [['edital', 'numeroInscricao','cargo', 'nome', 'cpf', 'deficiencia', 'datanascimento', 'sexo', 'email', 'telefone', 'data', 'termoAceite', 'parentesco', 'termoAceite2', 'marketing'], 'required'],
             ['cpf', 'unique', 'targetAttribute' => ['edital', 'cpf', 'cargo'],'message' => '"{value} Já utilizado para o edital e cargo selecionado"'],
             ['cpf', CpfValidator::className()],
             [['idade', 'deficiencia', 'unidade_aprovador', 'parentesco', 'situacao_ggp', 'situacao_aprovadorsolicitante', 'idadeInicial', 'idadeFinal'], 'integer'],
-            [['datanascimento', 'data', 'idadeModel', 'classificado', 'dataaprovador_ggp', 'dataaprovador_solicitante', 'bairroLabel', 'cidadeLabel', 'posLabel', 'tecnicoLabel', 'graduacaoLabel',
+            [['datanascimento', 'data', 'idadeModel', 'classificado', 'dataaprovador_ggp', 'dataaprovador_solicitante', 'bairroLabel', 'cidadeLabel', 'medioLabel', 'posLabel', 'tecnicoLabel', 'graduacaoLabel',
 'mestradoLabel','marketing'], 'safe'],
             [['edital', 'numeroInscricao', 'identidade', 'orgao_exped'], 'string', 'max' => 45],
             [['nome', 'cargo', 'email', 'emailAlt', 'aprovador_ggp', 'aprovador_solicitante'], 'string', 'max' => 100],
@@ -97,7 +98,7 @@ class Curriculos extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'Código',
-            'edital' => 'Documento de Abertura',
+            'edital' => 'Doc. Abertura',
             'numeroInscricao' => 'Inscrição',
             'cargo' => 'Cargo',
             'nome' => 'Nome',
@@ -128,6 +129,7 @@ class Curriculos extends \yii\db\ActiveRecord
 
             'bairroLabel' => 'Bairro',
             'cidadeLabel' => 'Cidade',
+            'medioLabel' => 'Ensino Médio',
             'tecnicoLabel' => 'Técnico',
             'graduacaoLabel' => 'Graduação',
             'posLabel' => 'Pós Graduação',

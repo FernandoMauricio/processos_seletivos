@@ -208,7 +208,7 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes do Pedido de Contratação', 'options'=>['colspan'=>9, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes do Pedido de Contratação', 'options'=>['colspan'=>10, 'class'=>'text-center warning']], 
                 ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]
