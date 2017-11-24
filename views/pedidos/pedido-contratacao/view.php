@@ -27,8 +27,6 @@ use yii\widgets\DetailView;
             </thead>
             <tbody>
             <tr>
-                  <th scope="row">Pedido de Custo:</th>
-                  <td><?= $model->pedidoCusto->etapasProcesso->pedidocusto_id ?></td>
                   <th scope="row">Unidade:</th>
                   <td colspan="8"> Pedido de contratação para atender a unidade/setor do: <b style="color: #0823f3;"><?= $model->pedcontratacao_assunto ?></b></td>
             </tr>
@@ -56,7 +54,7 @@ use yii\widgets\DetailView;
                 <th>Cargo</th>
                 <th>Área</th>
                 <th>Nome</th>
-                <th>Nº da Autorização de Custo</th>
+                <?php echo $model->pedcontratacao_tipo == 0 ?  '<th>Nº da Autorização de Custo</th>' : ''; ?>
                 <th>Tipo Contrato</th>
                 <th>CH. Semanal</th>
                 <th>Remuneração com Encargos</th>
@@ -76,7 +74,7 @@ use yii\widgets\DetailView;
                   <td><?= $modelItens->itemcontratacao_cargo; ?></td>
                   <td><?= $modelItens->itemcontratacao_area; ?></td>
                   <td class="text-uppercase"><?= $modelItens->itemcontratacao_nome; ?></td>
-                  <td><?= $modelItens->etapasProcesso->pedidocusto_id . '/'.date('Y', strtotime($model->pedcontratacao_data)); ?></td>
+                  <?php echo $model->pedcontratacao_tipo == 0 ?  '<td>'. $modelItens->etapasProcesso->pedidocusto_id . '/'.date('Y', strtotime($model->pedcontratacao_data)) . '</td>' : ''; ?>
                   <td><?= $modelItens->itemcontratacao_tipocontrato; ?></td>
                   <td><?= $modelItens->itemcontratacao_chsemanal; ?></td>
                   <td style="width: 100px;"><?= 'R$ ' . number_format($modelItens->itemcontratacao_total, 2, ',', '.'); ?></td>

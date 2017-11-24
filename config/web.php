@@ -87,6 +87,11 @@ $config = [
             //     'encryption' => 'ssl',
             //     ],
         ],
+        'formatter' => [
+                    'class' => 'yii\i18n\formatter',
+                    'thousandSeparator' => '.',
+                    'decimalSeparator' => ',',
+                 ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [

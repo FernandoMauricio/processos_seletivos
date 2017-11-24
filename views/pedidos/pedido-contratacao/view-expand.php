@@ -14,8 +14,6 @@ use yii\widgets\DetailView;
             </thead>
             <tbody>
             <tr>
-                  <!-- <th scope="row">Pedido de Custo:</th> -->
-                  <!-- <td><?= isset($model->pedidoCusto->etapasProcesso->pedidocusto_id) ?></td> -->
                   <th scope="row">Unidade:</th>
                   <td colspan="8"> Pedido de contratação para atender a unidade/setor do: <b style="color: #0823f3;"><?= $model->pedcontratacao_assunto ?></b></td>
             </tr>
