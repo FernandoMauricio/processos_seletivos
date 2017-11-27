@@ -182,6 +182,7 @@ class PedidoHomologacaoController extends Controller
     public function actionView($id)
     {
         $this->layout = 'main-imprimir';
+        setlocale(LC_ALL, "pt_BR", "pt_BR.ISO-8859-1", "pt_BR.UTF-8", "portuguese");
 
         $model = $this->findModel($id);
         $modelsItens = $model->pedidohomologacaoItens;

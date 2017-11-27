@@ -12,15 +12,14 @@ use yii\widgets\DetailView;
 <table width="100%" border="0">
   <tr> 
     <td width="20%"><img src="css/img/logo.png"></td>
-    <td width="60%"><h4>PEDIDO DE HOMOLOGAÇÃO PROCESSO SELETIVO Nº <?= $model->etapasProcesso->etapa_id . '/' . date('Y', strtotime($model->homolog_data)); ?><br /><br />
-                        Homologação Nº <?= $model->homolog_id . '/' . date('Y', strtotime($model->homolog_data)) ?><br /><br />
-                        <?php 
-                          setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
-                          date_default_timezone_set('America/Manaus'); 
-                          echo strftime('%A, %d de %B de %Y', strtotime($model->homolog_data));
-                        ?>
+    <td width="60%"><h4>SERVIÇO NACIONAL DE APRENDIZAGEM COMERCIAL - SENAC<br /><br />
+                        DEPARTAMENTO REGIONAL NO AMAZONAS<br /><br />
+                        GERÊNCIA DE GESTÃO DE PESSOAS<br /><br />
+                        PEDIDO DE HOMOLOGAÇÃO PROCESSO SELETIVO Nº <?= $model->etapasProcesso->etapa_id . '/' . date('Y', strtotime($model->homolog_data)); ?><br /><br />
+                        <?= strftime('%A, %d de %B de %Y', strtotime($model->homolog_data)); ?>
                       </h4>
     </td>
+    <td width="20%"><b>Homologação Nº <?= $model->homolog_id . '/' . date('Y', strtotime($model->homolog_data)) ?><br /><br />
   </tr>
 </table>
 
