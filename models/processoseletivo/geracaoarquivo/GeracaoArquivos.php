@@ -58,7 +58,7 @@ class GeracaoArquivos extends \yii\db\ActiveRecord
     public function scenarios()
     {
         $scenarios = parent::scenarios();
-        $scenarios['update'] = ['gerarq_datarealizacao', 'gerarq_horarealizacao','gerarq_titulo', 'gerarq_documentos', 'gerarq_emailconfirmacao', 'gerarq_datarealizacao', 'gerarq_horarealizacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_fase', 'gerarq_tempo'];//Scenario Values Only Accepted
+        $scenarios['update'] = ['gerarq_datarealizacao', 'gerarq_horarealizacao','gerarq_titulo', 'gerarq_documentos', 'gerarq_emailconfirmacao', 'gerarq_datarealizacao', 'gerarq_horarealizacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_fase', 'gerarq_tempo', 'gerarq_responsavel'];//Scenario Values Only Accepted
         return $scenarios;
     }
 
@@ -80,7 +80,7 @@ class GeracaoArquivos extends \yii\db\ActiveRecord
             'gerarq_endereco' => 'Endereço',
             'gerarq_fase' => 'Fase',
             'gerarq_tempo' => 'Tempo',
-            'gerarq_responsavel' => 'Responsavel',
+            'gerarq_responsavel' => 'Responsável',
             'processoSeletivo' => 'Documento de Abertura',
             'cargoLabel' => 'Listagem de Candidatos(cargo):',
             'gerarq_perfil' => 'Perfil do Formulário',

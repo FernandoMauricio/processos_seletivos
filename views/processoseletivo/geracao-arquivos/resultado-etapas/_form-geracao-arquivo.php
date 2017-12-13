@@ -63,6 +63,8 @@ use faryshta\widgets\JqueryTagsInput;
                 <div class="col-md-6"><?= $form->field($model, 'gerarq_endereco')->textInput(['maxlength' => true]) ?></div>
             </div>
 
+            <?= $model->gerarq_perfil == 1 ? '<div class="row"><div class="col-md-12">'.$form->field($model, 'gerarq_tempo')->textInput(['maxlength' => true]) .'</div></div>' : ''; ?>
+
             <div class="row">
                 <div class="col-md-12">
                     <?= $form->field($model, 'gerarq_documentos')->widget(Select2::classname(), [
