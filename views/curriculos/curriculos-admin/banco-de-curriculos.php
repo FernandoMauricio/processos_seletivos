@@ -106,6 +106,24 @@ $gridColumns = [
                 'value' => 'situacaoCandidato.sitcan_descricao'
             ],
 
+            ['class' => 'yii\grid\ActionColumn',
+                        'template' => '{imprimir}',
+                        'contentOptions' => ['style' => 'width: 10%;'],
+                        'buttons' => [
+
+                        //IMPRIMIR
+                        'imprimir' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-print"></span> ', $url, [
+                                        'target'=>'_blank', 
+                                        'data-pjax'=>"0",
+                                        'class'=>'btn btn-info btn-xs',
+                                        'title' => Yii::t('app', 'Imprimir'),
+                       
+                            ]);
+                        },
+            ],
+       ],
+
     ]; 
 
 ?>
@@ -141,6 +159,7 @@ $gridColumns = [
         [
             'columns'=>[
                 ['content'=>'Detalhes de Curriculos Cadastrados', 'options'=>['colspan'=>13, 'class'=>'text-center warning']], 
+                ['content'=>'Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']],
             ],
         ]
     ],
