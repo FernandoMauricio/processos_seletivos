@@ -30,6 +30,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
         'model' => $model,
         'itens' => $itens,
         'selecionadores' => $selecionadores,
+        'unidades' => $unidades,
     ]) ?>
 
 </div>

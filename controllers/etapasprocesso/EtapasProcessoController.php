@@ -4,6 +4,7 @@ namespace app\controllers\etapasprocesso;
 
 use Yii;
 use app\models\Model;
+use app\models\curriculos\Unidades;
 use app\models\curriculos\CurriculosAdmin;
 use app\models\processoseletivo\CargosProcesso;
 use app\models\processoseletivo\ProcessoSeletivo;
@@ -196,8 +197,9 @@ class EtapasProcessoController extends Controller
         $model = $this->findModel($id);
         $model->scenario = 'update'; //Validações obrigatórias na atualização
 
-        $itens = EtapasItens::find()->innerJoinWith('curriculos')->where(['etapasprocesso_id' => $model->etapa_id])->orderBy(['itens_pontuacaototal' => SORT_DESC, 'nome' => SORT_ASC])->all();
+        $itens          = EtapasItens::find()->innerJoinWith('curriculos')->where(['etapasprocesso_id' => $model->etapa_id])->orderBy(['itens_pontuacaototal' => SORT_DESC, 'nome' => SORT_ASC])->all();
         $selecionadores = Usuarios::find()->where(['usu_codsituacao' => 1, 'usu_codtipo' => 2])->orderBy(['usu_nomeusuario' => SORT_ASC])->all();
+        $unidades       = Unidades::find()->where(['uni_codsituacao' => 1])->orderBy('uni_nomeabreviado')->all();
 
         //Mostrará os Selecionadores das etapas do processo
         $model->etapa_selecionadores = explode(", ",$model->etapa_selecionadores);
@@ -248,6 +250,7 @@ class EtapasProcessoController extends Controller
                 'model' => $model,
                 'itens' => $itens,
                 'selecionadores' => $selecionadores,
+                'unidades' => $unidades,
             ]);
         }
     }

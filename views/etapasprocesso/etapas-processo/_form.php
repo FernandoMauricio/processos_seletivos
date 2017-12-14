@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\etapasprocesso\EtapasProcesso */
@@ -44,7 +45,17 @@ use kartik\select2\Select2;
             <div class="row">
                 <div class="col-md-3"><?= $form->field($model, 'etapa_datarealizacao')->textInput(['maxlength' => true]) ?></div>
                     
-                <div class="col-md-3"><?= $form->field($model, 'etapa_local')->textInput(['maxlength' => true]) ?></div>
+                <div class="col-md-3">
+                    <?php
+                        $data_unidades = ArrayHelper::map($unidades, 'uni_nomeabreviado', 'uni_nomeabreviado');
+                        echo $form->field($model, 'etapa_local')->widget(Select2::classname(), [
+                                'data' =>  $data_unidades,
+                                'options' => ['placeholder' => 'Selecione o Local...'],
+                                'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                                ]); ?>
+                </div>
                     
                 <div class="col-md-3"><?= $form->field($model, 'etapa_cidade')->textInput(['maxlength' => true]) ?></div>
                     
