@@ -44,11 +44,11 @@ class PedidoContratacao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pedcontratacao_assunto', 'pedcontratacao_recursos', 'pedcontratacao_situacaoggp', 'pedcontratacao_situacaodad'], 'required'],
+            [['pedcontratacao_recursos', 'pedcontratacao_situacaoggp', 'pedcontratacao_situacaodad'], 'required'],
             [['pedcontratacao_valortotal'], 'number'],
             [['pedcontratacao_data', 'pedcontratacao_dataaprovacaoggp', 'pedcontratacao_dataaprovacaodad', 'pedcontratacao_datahomologacao'], 'safe'],
             [['pedcontratacao_situacaoggp', 'pedcontratacao_situacaodad', 'pedidocusto_id', 'pedcontratacao_tipo'], 'integer'],
-            [['pedcontratacao_assunto'], 'string', 'max' => 255],
+            [['pedcontratacao_assunto', 'pedcontratacao_assunto'], 'string', 'max' => 255],
             [['pedcontratacao_recursos'], 'string', 'max' => 100],
             [['pedcontratacao_aprovadorggp', 'pedcontratacao_aprovadordad', 'pedcontratacao_responsavel','pedcontratacao_homologador'], 'string', 'max' => 45],
             [['pedcontratacao_situacaoggp'], 'exist', 'skipOnError' => true, 'targetClass' => PedidocustoSituacao::className(), 'targetAttribute' => ['pedcontratacao_situacaoggp' => 'situacao_id']],
