@@ -8,6 +8,8 @@ use yiibr\brvalidator\CpfValidator;
 use yiibr\brvalidator\CnpjValidator;
 use yiibr\brvalidator\CeiValidator;
 
+use app\models\etapasprocesso\EtapasItens;
+
 /**
  * This is the model class for table "curriculos".
  *
@@ -176,5 +178,13 @@ class CurriculosAdmin extends \yii\db\ActiveRecord
     public function getProcessoSeletivo()
     {
         return $this->hasOne(ProcessoSeletivo::className(), ['numeroEdital' => 'edital']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEtapasItens()
+    {
+        return $this->hasOne(EtapasItens::className(), ['curriculos_id' => 'id']);
     }
 }

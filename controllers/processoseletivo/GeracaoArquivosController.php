@@ -183,7 +183,7 @@ class GeracaoArquivosController extends Controller
                 $candidatos = EtapasItens::findBySql($sqlCandidatos)->all();
 
             //Verifica se existe algum candiadto selecionado para o cargo, edital e cidade
-            if(CurriculosAdmin::find()->innerJoinWith('curriculosEnderecos')->where(['classificado'=> 1, 'edital' => $model->processo->numeroEdital, 'cargo' => $model->etapasprocesso->etapa_cargo, 'cidade' => $model->etapasprocesso->etapa_cidade])->count() == 0) {
+            if(CurriculosAdmin::find()->innerJoinWith('curriculosEnderecos')->innerJoinWith('etapasItens')->where(['classificado'=> 1, 'edital' => $model->processo->numeroEdital, 'cargo' => $model->etapasprocesso->etapa_cargo, 'cidade' => $model->etapasprocesso->etapa_cidade])->andWhere(['NOT LIKE', 'itens_classificacao', ""])->count() == 0) {
                 Yii::$app->session->setFlash('warning', '<b>AVISO! </b>Não existem candidatos selecionados nas Etapas do Processos!</b>');
                 return $this->redirect(['index']);
             }
