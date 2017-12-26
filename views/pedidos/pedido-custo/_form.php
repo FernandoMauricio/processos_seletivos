@@ -46,7 +46,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
     'form' => $form,
     'model' => $model,
     'contratacoes' => $contratacoes,
-    'modelsItens' => (empty($modelsItens)) ? [new PedidocustoItens] : $modelsItens,
+    'modelsItens' => $modelsItens,
 ]) ?>
 
     </div>

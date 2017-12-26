@@ -32,13 +32,25 @@ use yii\helpers\Json;
                             ]);
                 ?>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-6">
                 <?php
                     $data_pedidocusto = ArrayHelper::map($pedidoCusto, 'custo_id', 'custo_assunto');
                     echo $form->field($model, 'pedidocusto_id')->widget(Select2::classname(), [
                             'data' =>  $data_pedidocusto,
                             'hideSearch' => true,
                             'options' => ['placeholder' => 'Selecione o Pedido de Custo...'],
+                            'pluginOptions' => [
+                                    'allowClear' => true,
+                                ],
+                            ]);
+                ?>
+            </div>
+            <div class="col-md-3">
+                <?php
+                    echo $form->field($model, 'etapa_cidade')->widget(Select2::classname(), [
+                            'data' =>  ['Manaus' => 'Manaus', 'Manacapuru' => 'Manacapuru', 'Itacoatiara' => 'Itacoatiara', 'Tefé' => 'Tefé', 'Parintins' => 'Parintins', 'Coari' => 'Coari'],
+                            'hideSearch' => true,
+                            'options' => ['placeholder' => 'Selecione a cidade...'],
                             'pluginOptions' => [
                                     'allowClear' => true,
                                 ],

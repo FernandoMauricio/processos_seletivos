@@ -57,9 +57,9 @@ use yii\helpers\ArrayHelper;
                                 ]); ?>
                 </div>
                     
-                <div class="col-md-3"><?= $form->field($model, 'etapa_cidade')->textInput(['maxlength' => true]) ?></div>
+                <div class="col-md-3"><?= $form->field($model, 'etapa_cidade')->textInput(['maxlength' => true, 'readonly' => true]) ?></div>
                     
-                <div class="col-md-3"><?= $form->field($model, 'etapa_estado')->textInput(['value' => 'AM', 'maxlength' => true]) ?></div>
+                <div class="col-md-3"><?= $form->field($model, 'etapa_estado')->textInput(['value' => 'AM', 'maxlength' => true, 'readonly' => true]) ?></div>
             </div>
 
             <div class="row">

@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </table>
 
 <table class="table table-condensed table-hover">
-    <tr><td width="1%"><b>Data:</b></td><td width="99%" color="red"><?= date('d/m/Y', strtotime($model->gerarq_datarealizacao)) . utf8_encode(strftime('(%A)', strtotime($model->gerarq_datarealizacao))); ?></td></tr>
+    <tr><td width="1%"><b>Data:</b></td><td width="99%" color="red"><?= date('d/m/Y', strtotime($model->gerarq_datarealizacao)) . strftime('(%A)', strtotime($model->gerarq_datarealizacao)); ?></td></tr>
     <tr><td width="1%"><b>Horário:</b></td><td color="red" width="99%">Vide abaixo</td></tr>
     <tr><td width="1%"><b>Local:</b></td><td width="99%"><?= $model->gerarq_local ?></td></tr>
     <tr><td width="1%"><b>Endereço:</b></td> <td width="99%"><?= $model->gerarq_endereco ?></td></tr>

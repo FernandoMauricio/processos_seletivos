@@ -124,14 +124,14 @@ class EtapasProcessoController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-            //Verifica se existe alguma etapa do proecsso criada do processo e cargo selecionado
-            if(EtapasProcesso::find()->where(['processo_id' => $model->processo_id, 'etapa_cargo' => $model->etapa_cargo])->count() > 0) {
-                Yii::$app->session->setFlash('danger', '<b>ERRO! </b>Etapas do Processo Seletivo <b>'.$model->processo->numeroEdital.'</b> para o cargo <b>' .$model->etapa_cargo. '</b> já criado!</b>');
+            //Verifica se existe alguma etapa do proecsso criada do processo, cargo selecionado e cidade
+            if(EtapasProcesso::find()->where(['processo_id' => $model->processo_id, 'etapa_cargo' => $model->etapa_cargo, 'etapa_cidade' => $model->etapa_cidade])->count() > 0) {
+                Yii::$app->session->setFlash('danger', '<b>ERRO! </b>Etapas do Processo Seletivo <b>'.$model->processo->numeroEdital.'</b> para o cargo <b>' .$model->etapa_cargo. '</b> e cidade <b>' .$model->etapa_cidade. '</b> já criado!</b>');
                 return $this->redirect(['index']);
             }
 
-            //Verifica se existe algum candiadto selecionado
-            if(CurriculosAdmin::find()->where(['classificado'=> 1, 'edital' => $model->processo->numeroEdital, 'cargo' => $model->etapa_cargo])->count() == 0) {
+            //Verifica se existe algum candiadto selecionado para o cargo, edital e cidade
+            if(CurriculosAdmin::find()->innerJoinWith('curriculosEnderecos')->where(['classificado'=> 1, 'edital' => $model->processo->numeroEdital, 'cargo' => $model->etapa_cargo, 'cidade' => $model->etapa_cidade])->count() == 0) {
                 Yii::$app->session->setFlash('warning', '<b>AVISO! </b>Não existem candidatos selecionados!</b>');
                 return $this->redirect(['index']);
             }
@@ -143,9 +143,11 @@ class EtapasProcessoController extends Controller
             SELECT `curriculos`.`id`, `curriculos`.`edital`, `curriculos`.`nome` 
             FROM `curriculos` 
             LEFT JOIN `processo` ON `curriculos`.`edital` = `processo`.`numeroEdital` 
+            INNER JOIN `curriculos_endereco` ON `curriculos`.`id` = `curriculos_endereco`.`curriculos_id` 
             WHERE (`classificado`= 1) 
             AND `curriculos`.`edital` = "'.$model->processo->numeroEdital.'" 
             AND `curriculos`.`cargo` = "'.$model->etapa_cargo.'"
+            AND `curriculos_endereco`.`cidade` = "'.$model->etapa_cidade.'"
             ORDER BY  `curriculos`.`nome` ASC
         ';
 
