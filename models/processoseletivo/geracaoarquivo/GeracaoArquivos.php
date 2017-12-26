@@ -31,6 +31,8 @@ class GeracaoArquivos extends \yii\db\ActiveRecord
 {
     public $processoSeletivo;
     public $cargoLabel;
+    public $gerarq_cidade;
+
     /**
      * @inheritdoc
      */
@@ -49,7 +51,7 @@ class GeracaoArquivos extends \yii\db\ActiveRecord
             //[['gerarq_datarealizacao', 'gerarq_horarealizacao', 'gerarq_titulo', 'gerarq_documentos', 'gerarq_emailconfirmacao', 'gerarq_datarealizacao', 'gerarq_horarealizacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_fase', 'gerarq_tempo'], 'required', 'on' => 'update'],
             [['processo_id', 'etapasprocesso_id', 'gerarq_perfil', 'gerarq_tipo'], 'integer'],
             [['gerarq_datarealizacao', 'gerarq_horarealizacao', 'processoSeletivo', 'cargoLabel', 'gerarq_documentos'], 'safe'],
-            [['gerarq_titulo', 'gerarq_emailconfirmacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_tempo', 'gerarq_responsavel', 'gerarq_fase'], 'string', 'max' => 255],
+            [['gerarq_titulo', 'gerarq_emailconfirmacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_tempo', 'gerarq_responsavel', 'gerarq_fase', 'gerarq_cidade'], 'string', 'max' => 255],
             [['etapasprocesso_id'], 'exist', 'skipOnError' => true, 'targetClass' => EtapasProcesso::className(), 'targetAttribute' => ['etapasprocesso_id' => 'etapa_id']],
             [['processo_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProcessoSeletivo::className(), 'targetAttribute' => ['processo_id' => 'id']],
         ];
@@ -85,12 +87,13 @@ class GeracaoArquivos extends \yii\db\ActiveRecord
             'cargoLabel' => 'Listagem de Candidatos(cargo):',
             'gerarq_perfil' => 'Perfil do Formulário',
             'gerarq_tipo' => 'Tipo de Resultado',
+            'gerarq_cidade' => 'Cidade',
         ];
     }
 
     //Localiza as etapas do processo vinculadas ao Documento de Abertura
     public static function getEtapasProcessoSubCat($cat_id) {
-        $sql = 'SELECT `etapa_id` AS id, `etapa_cargo` AS name FROM `etapas_processo` WHERE `processo_id` = '.$cat_id.'';
+        $sql = 'SELECT `etapa_id` AS id, CONCAT("PC ",`etapa_id`, " - " ,`etapa_cargo`) AS name FROM `etapas_processo` WHERE `processo_id` = '.$cat_id.'';
         $data = EtapasProcesso::findBySql($sql)->asArray()->all();
         return $data;
     }

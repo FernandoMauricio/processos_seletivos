@@ -9,6 +9,7 @@ use app\models\processoseletivo\ProcessoSeletivo;
 use app\models\processoseletivo\geracaoarquivo\GeracaoArquivos;
 use app\models\processoseletivo\geracaoarquivo\GeracaoArquivosSearch;
 use app\models\processoseletivo\geracaoarquivo\GeracaoarquivosItens;
+use app\models\curriculos\CurriculosAdmin;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -151,31 +152,41 @@ class GeracaoArquivosController extends Controller
             if($model->gerarq_tipo == 0){
                 //Localiza somente os candidatos classificados para o edital escolhido
                 $sqlCandidatos = '
-                SELECT `curriculos`.`nome`, `curriculos`.`edital`, `etapas_itens`.`itens_classificacao`, `etapas_itens`.`itens_pontuacaototal`
+                SELECT `curriculos`.`nome`, `curriculos`.`edital`,`curriculos_endereco`.`cidade`, `etapas_itens`.`itens_classificacao`, `etapas_itens`.`itens_pontuacaototal`
                 FROM `curriculos` 
                     INNER JOIN `processo` ON `curriculos`.`edital` = `processo`.`numeroEdital`
                     INNER JOIN `etapas_itens` ON `etapas_itens`.`curriculos_id` = `curriculos`.`id`
+                    INNER JOIN `curriculos_endereco` ON `curriculos`.`id` = `curriculos_endereco`.`curriculos_id`
                 WHERE `classificado`= 1
                     AND `curriculos`.`edital` = "'.$model->processo->numeroEdital.'"
                     AND `curriculos`.`cargo` = "'.$model->etapasprocesso->etapa_cargo.'"
+                    AND `curriculos_endereco`.`cidade` = "'.$model->etapasprocesso->etapa_cidade.'"
                     AND `etapas_itens`.`itens_classificacao` NOT LIKE "%Desclassificado(a)%"
                 ORDER BY `curriculos`.`nome` ASC
                 ';
             }else{//Localiza os candidatos para listagem do Resultado Final
                 $sqlCandidatos = '
-                SELECT `curriculos`.`nome`, `curriculos`.`edital`, `etapas_itens`.`itens_classificacao`, `etapas_itens`.`itens_pontuacaototal`
+                SELECT `curriculos`.`nome`, `curriculos`.`edital`,`curriculos_endereco`.`cidade`,`etapas_itens`.`itens_classificacao`, `etapas_itens`.`itens_pontuacaototal`
                 FROM `curriculos` 
                     INNER JOIN `processo` ON `curriculos`.`edital` = `processo`.`numeroEdital`
                     INNER JOIN `etapas_itens` ON `etapas_itens`.`curriculos_id` = `curriculos`.`id`
+                    INNER JOIN `curriculos_endereco` ON `curriculos`.`id` = `curriculos_endereco`.`curriculos_id`
                 WHERE `classificado`IN (1,6) 
                     AND `curriculos`.`edital` = "'.$model->processo->numeroEdital.'"
                     AND `curriculos`.`cargo` = "'.$model->etapasprocesso->etapa_cargo.'"
+                    AND `curriculos_endereco`.`cidade` = "'.$model->etapasprocesso->etapa_cidade.'"
                     AND `etapas_itens`.`itens_classificacao` NOT LIKE "%Desclassificado(a)%"
                     AND `etapas_itens`.`itens_classificacao` NOT LIKE ""
                 ORDER BY `etapas_itens`.`itens_pontuacaototal` DESC, `curriculos`.`nome` ASC
                 ';
             }
                 $candidatos = EtapasItens::findBySql($sqlCandidatos)->all();
+
+            //Verifica se existe algum candiadto selecionado para o cargo, edital e cidade
+            if(CurriculosAdmin::find()->innerJoinWith('curriculosEnderecos')->where(['classificado'=> 1, 'edital' => $model->processo->numeroEdital, 'cargo' => $model->etapasprocesso->etapa_cargo, 'cidade' => $model->etapasprocesso->etapa_cidade])->count() == 0) {
+                Yii::$app->session->setFlash('warning', '<b>AVISO! </b>Não existem candidatos selecionados nas Etapas do Processos!</b>');
+                return $this->redirect(['index']);
+            }
 
                 foreach ($candidatos as $candidato) {
                         //Inclui as informações dos candidatos classificados

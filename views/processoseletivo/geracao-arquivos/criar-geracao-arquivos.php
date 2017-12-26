@@ -34,7 +34,7 @@ use yii\helpers\Json;
                             ]);
                 ?>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-6">
                 <?php
                     echo $form->field($model, 'etapasprocesso_id')->widget(DepDrop::classname(), [
                             'type'=>DepDrop::TYPE_SELECT2,
@@ -49,17 +49,16 @@ use yii\helpers\Json;
                 ?>
             </div>
             <div class="col-md-3">
-                <?= $form->field($model, 'gerarq_datarealizacao')->widget(DateControl::classname(), [
-                            'type'=>DateControl::FORMAT_DATE,
-                            'ajaxConversion'=>true,
-                            'widgetOptions' => [
-                                'removeButton' => false,
-                                'pluginOptions' => [
-                                    'autoclose' => true,
+                <?php
+                    echo $form->field($model, 'gerarq_cidade')->widget(Select2::classname(), [
+                            'data' =>  ['Manaus' => 'Manaus', 'Manacapuru' => 'Manacapuru', 'Itacoatiara' => 'Itacoatiara', 'Tefé' => 'Tefé', 'Parintins' => 'Parintins', 'Coari' => 'Coari'],
+                            'hideSearch' => true,
+                            'options' => ['placeholder' => 'Selecione a cidade...'],
+                            'pluginOptions' => [
+                                    'allowClear' => true,
                                 ],
-                            ]
-                        ]);
-                    ?>
+                            ]);
+                ?>
             </div>
         </div>
         <div class="row">
@@ -75,7 +74,6 @@ use yii\helpers\Json;
                             ]);
                 ?>
             </div>
-
             <div class="col-md-3">
                 <?php
                     echo $form->field($model, 'gerarq_tipo')->widget(Select2::classname(), [
@@ -87,6 +85,19 @@ use yii\helpers\Json;
                                 ],
                             ]);
                 ?>
+            </div>
+            <div class="col-md-3">
+                <?= $form->field($model, 'gerarq_datarealizacao')->widget(DateControl::classname(), [
+                            'type'=>DateControl::FORMAT_DATE,
+                            'ajaxConversion'=>true,
+                            'widgetOptions' => [
+                                'removeButton' => false,
+                                'pluginOptions' => [
+                                    'autoclose' => true,
+                                ],
+                            ]
+                        ]);
+                    ?>
             </div>
         </div>
 
