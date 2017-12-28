@@ -46,7 +46,7 @@ class CadastroDeReservaSearch extends PedidohomologacaoItens
         $query = PedidohomologacaoItens::find()
         ->select(['pedidohomologacao_id', 'curriculos_id', 'pedhomolog_docabertura', 'pedhomolog_numeroInscricao', 'pedhomolog_candidato', 'pedhomolog_classificacao', 'pedhomolog_localcontratacao', 'pedhomolog_cargo', 'pedhomolog_data','pedhomolog_expiracao'])
         ->where(['=','pedhomolog_localcontratacao', 'CADASTRO DE RESERVA'])
-        ->Andwhere(['>', 'pedhomolog_data', 'pedhomolog_expiracao']);
+        ->Andwhere(['>', 'pedhomolog_expiracao', date('Y-m-d')]);
 
         // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([
