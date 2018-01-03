@@ -22,7 +22,7 @@ use faryshta\widgets\JqueryTagsInput;
         <div class="row">
             <div class="col-md-3">
                 <?php
-                    $data_contratacao = ArrayHelper::map($processo, 'id', 'numeroEdital');
+                    $data_contratacao = ArrayHelper::map($processo, 'numeroEdital', 'numeroEdital');
                     echo $form->field($model, 'edital')->widget(Select2::classname(), [
                             'data' =>  $data_contratacao,
                             'hideSearch' => true,
