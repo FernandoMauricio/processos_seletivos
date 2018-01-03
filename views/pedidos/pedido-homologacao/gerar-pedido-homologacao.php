@@ -20,6 +20,19 @@ use faryshta\widgets\JqueryTagsInput;
 
     <div class="panel-body">
         <div class="row">
+            <div class="col-md-3">
+                <?php
+                    $data_contratacao = ArrayHelper::map($processo, 'id', 'numeroEdital');
+                    echo $form->field($model, 'edital')->widget(Select2::classname(), [
+                            'data' =>  $data_contratacao,
+                            'hideSearch' => true,
+                            'options' => ['id'=>'edital-id', 'placeholder' => 'Selecione o Documento de Abertura...'],
+                            'pluginOptions' => [
+                                    'allowClear' => true,
+                                ],
+                            ]);
+                ?>
+            </div>
             <div class="col-md-6">
                 <?php
                    $data_contratacoes = ArrayHelper::map($contratacoes, 'id', 'id');

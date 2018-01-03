@@ -4,6 +4,7 @@ namespace app\controllers\pedidos;
 
 use Yii;
 use app\models\contratacao\Contratacao;
+use app\models\processoseletivo\ProcessoSeletivo;
 use app\models\pedidos\pedidohomologacao\PedidohomologacaoItens;
 use app\models\pedidos\pedidohomologacao\PedidoHomologacao;
 use app\models\pedidos\pedidohomologacao\PedidoHomologacaoSearch;
@@ -220,6 +221,8 @@ class PedidoHomologacaoController extends Controller
         }
         $model = new PedidoHomologacao();
 
+        $processo = ProcessoSeletivo::find()->where(['situacao_id' => 1])->orWhere(['situacao_id' => 2])->all();
+
         $model->homolog_situacaoggp = 1; //Aguardando Autorização GPP
         $model->homolog_situacaodad = 1; //Aguardando Autorização DAD
 
@@ -269,6 +272,7 @@ class PedidoHomologacaoController extends Controller
             AND `etapas_itens`.`itens_classificacao` NOT LIKE ""
             AND `pedidocusto_itens`.`contratacao_id` = '.$model->contratacao_id.'
             AND `curriculos`.`cargo` = "'.$model->homolog_cargo.'"
+            AND `curriculos`.`edital` = "'.$model->edital.'"
             ORDER BY `etapas_itens`.`itens_pontuacaototal` DESC';
 
         $candidatos = EtapasItens::findBySql($sqlCandidatos)->all();
@@ -303,6 +307,7 @@ class PedidoHomologacaoController extends Controller
             return $this->renderAjax('gerar-pedido-homologacao', [
                 'model' => $model,
                 'contratacoes' => $contratacoes,
+                'processo' => $processo,
             ]);
         }
     }
