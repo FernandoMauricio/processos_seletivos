@@ -254,7 +254,7 @@ class PedidoCustoController extends Controller
         ->orderBy('id')
         ->all();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
 
             //Inserir vários itens
             $modelsItens = Model::createMultiple(PedidocustoItens::classname());
@@ -280,7 +280,7 @@ class PedidoCustoController extends Controller
                             foreach ($modelsItens as $i => $modelItens) {
                             if(PedidocustoItens::find()->where(['contratacao_id' => $_POST['PedidocustoItens'][$i]['contratacao_id']])->count() >= 2) {
                                 Yii::$app->session->setFlash('danger', '<b>ERRO! </b>Solicitação <b>'.$_POST['PedidocustoItens'][$i]['contratacao_id'].'</b> já inserida no Pedido de Custo!</b>');
-                                return $this->redirect(['update', 'id' => $model->custo_id]);
+                                return $this->redirect(['index']);
                                 }
                             }
                     $model->save();
