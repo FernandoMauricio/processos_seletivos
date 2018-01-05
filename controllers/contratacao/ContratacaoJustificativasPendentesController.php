@@ -134,15 +134,7 @@ class ContratacaoJustificativasPendentesController extends Controller
         }
 
          //MENSAGEM DE CONFIRMAÇÃO DA SOLICITAÇÃO DE CONTRATAÇÃO ENVIADA PARA CORRECAO  
-                Yii::$app->getSession()->setFlash('success', [
-                         'type' => 'success',
-                         'duration' => 5000,
-                         'icon' => 'glyphicon glyphicon-ok',
-                         'message' => 'A solicitação de Contratação foi ENVIADA PARA CORREÇÃO',
-                         'title' => 'Solicitação de Contratação',
-                         'positonY' => 'top',
-                         'positonX' => 'right'
-                     ]);
+         Yii::$app->session->setFlash('info', '<b>SUCESSO!</b> A solicitação de Contratação foi ENVIADA PARA CORREÇÃO.</b>');
 
             return $this->redirect(['contratacao/contratacao-pendente/index']);
         } else {

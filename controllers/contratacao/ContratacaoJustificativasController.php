@@ -115,23 +115,13 @@ class ContratacaoJustificativasController extends Controller
                                     ->setTo($email_gerente)
                                     ->setSubject('Solicitação de Contratação '.$contratacao->id.' - ' . $contratacao->situacao->descricao)
                                     ->setTextBody('A solicitação de contratação de código: '.$contratacao->id.' está com status de '.$contratacao->situacao->descricao.' ')
-                                    ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$contratacao->id.'</strong> com status de '.$contratacao->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                                    ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <b style="color: #337ab7"">código: '.$contratacao->id.'</b> com status de '.$contratacao->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
                                     ->send();
                  } 
         }
 
          //MENSAGEM DE CONFIRMAÇÃO DA SOLICITAÇÃO DE CONTRATAÇÃO ENVIADA PARA CORRECAO  
-                Yii::$app->getSession()->setFlash('success', [
-                         'type' => 'success',
-                         'duration' => 5000,
-                         'icon' => 'glyphicon glyphicon-ok',
-                         'message' => 'A solicitação de Contratação foi ENVIADA PARA CORREÇÃO',
-                         'title' => 'Solicitação de Contratação',
-                         'positonY' => 'top',
-                         'positonX' => 'right'
-                     ]);
-
-
+         Yii::$app->session->setFlash('info', '<b>SUCESSO!</b> A solicitação de Contratação foi ENVIADA PARA CORREÇÃO.</b>');
 
             return $this->redirect(['contratacao/contratacao-em-andamento/index']);
         } else {
