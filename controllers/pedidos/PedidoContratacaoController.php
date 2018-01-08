@@ -166,7 +166,7 @@ class PedidoContratacaoController extends Controller
             Yii::$app->session->setFlash('danger', '<b>ERRO! </b>Solicitação sem aprovações!</b>');
             return $this->redirect(['index']);
             }
-
+    if($model->pedcontratacao_tipo == 0) { //Somente se não for contratação especial
         foreach ($modelsItens as $modelItens) {
             //Desclassifica o restante dos candidatos que não foram selecionados
             $connection = Yii::$app->db;
@@ -199,6 +199,7 @@ class PedidoContratacaoController extends Controller
                 AND `curriculos`.`classificado` != 6 ");
             $command->execute();
         }
+    }
 
         //Homologa o Pedido de Contratação
         $connection = Yii::$app->db;
