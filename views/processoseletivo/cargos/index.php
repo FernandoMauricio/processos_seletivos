@@ -59,10 +59,10 @@ $gridColumns = [
                 'format' => 'Currency',
                 'attribute' => 'salario_1sexto',
             ],
-            // [
-            //     'format' => 'Currency',
-            //     'attribute' => 'salario_produtividade',
-            // ],
+            [
+                'format' => 'Currency',
+                'attribute' => 'salario_produtividade',
+            ],
             [
                 'format' => 'Currency',
                 'attribute' => 'salario_6horasfixas',
@@ -154,7 +154,7 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes de Cargos Cadastrados', 'options'=>['colspan'=>16, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes de Cargos Cadastrados', 'options'=>['colspan'=>17, 'class'=>'text-center warning']], 
                 ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]
