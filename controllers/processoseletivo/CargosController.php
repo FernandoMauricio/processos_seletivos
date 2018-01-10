@@ -99,7 +99,7 @@ class CargosController extends Controller
             $model->salario               = $model->salario_valorhora * ($model->ch_semana * 5); //Salário * (CH Semanal * 5)
             $model->salario_1sexto        = $model->salario / 6;
             $model->salario_produtividade = (($model->salario_valorhora * 0) / 100) * $model->ch_semana * 5;
-            $model->salario_6horasfixas   = $model->salario_valorhora * 6;
+            $model->salario_6horasfixas   = 16.20; //Valor fixo para todos os docentes
             $model->salario_1sextofixas   = $model->salario_6horasfixas / 6;
             $model->salario_bruto         = $model->salario + $model->salario_1sexto + $model->salario_produtividade + $model->salario_6horasfixas + $model->salario_1sextofixas;
             $model->encargos              = ($model->salario_bruto * 32.7) / 100;
@@ -161,7 +161,7 @@ class CargosController extends Controller
             $model->salario               = $model->salario_valorhora * ($model->ch_semana * 5); //Salário * (CH Semanal * 5)
             $model->salario_1sexto        = $model->salario / 6;
             $model->salario_produtividade = (($model->salario_valorhora * 0) / 100) * $model->ch_semana * 5;
-            $model->salario_6horasfixas   = $model->salario_valorhora * 6;
+            $model->salario_6horasfixas   = 16.20; //Valor fixo para todos os docentes
             $model->salario_1sextofixas   = $model->salario_6horasfixas / 6;
             $model->salario_bruto         = $model->salario + $model->salario_1sexto + $model->salario_produtividade + $model->salario_6horasfixas + $model->salario_1sextofixas;
             $model->encargos              = ($model->salario_bruto * 32.7) / 100;
