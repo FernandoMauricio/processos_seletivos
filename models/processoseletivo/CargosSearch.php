@@ -78,14 +78,15 @@ class CargosSearch extends Cargos
             'salario_bruto' => $this->salario_bruto,
             'encargos' => $this->encargos,
             'valor_total' => $this->valor_total,
-            'cargos.status' => 1, //Cadastros ativos
+            //'cargos.status' => 1, //Cadastros ativos
         ]);
 
         $query->andFilterWhere(['like', 'cargos.descricao', $this->descricao])
               ->andFilterWhere(['like', 'areas.descricao', $this->areasLabel])
               ->andFilterWhere(['like', 'descricao_cargo', $this->descricao_cargo])
               ->andFilterWhere(['like', 'homologacao', $this->homologacao])
-              ->andFilterWhere(['like', 'data_homologacao', $this->data_homologacao]);
+              ->andFilterWhere(['like', 'data_homologacao', $this->data_homologacao])
+              ->andFilterWhere(['like', 'cargos.status', $this->status]);
 
         return $dataProvider;
     }
