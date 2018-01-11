@@ -149,6 +149,21 @@ class GeracaoArquivosController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
+            //Verifica se existe algum candiadto selecionado para o cargo, edital e cidade
+            if(CurriculosAdmin::find()
+                ->innerJoinWith('curriculosEnderecos')
+                ->innerJoinWith('etapasItens')
+                ->where([
+                    'classificado'=> [1,6], 
+                    'edital' => $model->processo->numeroEdital, 
+                    'cargo' => $model->etapasprocesso->etapa_cargo, 
+                    'cidade' => $model->etapasprocesso->etapa_cidade
+                ])
+                ->count() == 0) {
+                Yii::$app->session->setFlash('warning', '<b>AVISO! </b>Não existem candidatos selecionados nas Etapas do Processos!</b>');
+                return $this->redirect(['index']);
+            }
+
             if($model->gerarq_tipo == 0){
                 //Localiza somente os candidatos classificados para o edital escolhido
                 $sqlCandidatos = '
@@ -182,12 +197,6 @@ class GeracaoArquivosController extends Controller
             }
                 $candidatos = EtapasItens::findBySql($sqlCandidatos)->all();
 
-            //Verifica se existe algum candiadto selecionado para o cargo, edital e cidade
-            if(CurriculosAdmin::find()->innerJoinWith('curriculosEnderecos')->innerJoinWith('etapasItens')->where(['classificado'=> 1, 'edital' => $model->processo->numeroEdital, 'cargo' => $model->etapasprocesso->etapa_cargo, 'cidade' => $model->etapasprocesso->etapa_cidade])->andWhere(['NOT LIKE', 'itens_classificacao', ""])->count() == 0) {
-                Yii::$app->session->setFlash('warning', '<b>AVISO! </b>Não existem candidatos selecionados nas Etapas do Processos!</b>');
-                return $this->redirect(['index']);
-            }
-
                 foreach ($candidatos as $candidato) {
                         //Inclui as informações dos candidatos classificados
                         Yii::$app->db->createCommand()
@@ -199,8 +208,8 @@ class GeracaoArquivosController extends Controller
                                      'gerarqitens_classificacao' => $candidato['itens_classificacao'],
                                      ])
                             ->execute();
-                    $model->save();
             }
+            $model->save();
                   return $this->redirect(['update', 'id' => $model->gerarq_id]);
         } else {
             return $this->renderAjax('criar-geracao-arquivos', [
