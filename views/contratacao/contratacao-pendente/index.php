@@ -46,10 +46,17 @@ $gridColumns = [
              ],
 
             'id',
+
+            [
+                'attribute' => 'cargo_id',
+                'value' => 'cargo0.descricao',
+            ],
+            
             [
                 'attribute' => 'data_solicitacao',
                 'format' => ['date', 'php:d/m/Y'],
             ],
+
             'colaborador',
             
             [

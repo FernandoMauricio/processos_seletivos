@@ -19,7 +19,7 @@ class ContratacaoSearch extends Contratacao
     {
         return [
             [['id', 'cod_colaborador', 'cod_unidade_solic', 'quant_pessoa', 'substituicao', 'periodo', 'tempo_periodo', 'aumento_quadro', 'deficiencia', 'fundamental_comp', 'fundamental_inc', 'medio_comp', 'medio_inc', 'tecnico_comp', 'tecnico_inc', 'superior_comp', 'superior_inc', 'pos_comp', 'pos_inc', 'windows', 'word', 'excel', 'internet', 'experiencia', 'jornada_horas', 'recrutamento_id', 'selec_curriculo', 'selec_dinamica', 'selec_prova', 'selec_entrevista'], 'integer'],
-            [['data_ingresso', 'data_solicitacao', 'hora_solicitacao', 'colaborador','cargo','obs_aumento' , 'unidade', 'motivo', 'nome_substituicao', 'obs_deficiencia', 'data_ingresso_prevista', 'tecnico_area', 'superior_area', 'pos_area', 'dominio_atividade', 'experiencia_tempo', 'experiencia_atividade', 'jornada_obs', 'principais_atividades', 'selec_teste', 'situacao_id'], 'safe'],
+            [['data_ingresso', 'data_solicitacao', 'hora_solicitacao', 'colaborador','cargo','obs_aumento' , 'unidade', 'motivo', 'nome_substituicao', 'obs_deficiencia', 'data_ingresso_prevista', 'tecnico_area', 'superior_area', 'pos_area', 'dominio_atividade', 'experiencia_tempo', 'experiencia_atividade', 'jornada_obs', 'principais_atividades', 'selec_teste', 'situacao_id', 'cargo_id'], 'safe'],
         ];
     }
 
@@ -99,6 +99,8 @@ class ContratacaoSearch extends Contratacao
 
         $session = Yii::$app->session;
 
+        $query->joinWith('cargo0');
+
         $query->andFilterWhere(['cod_unidade_solic' => $session['sess_codunidade']])
             ->andFilterWhere(['like', 'situacao_contratacao.descricao', $this->situacao_id])
             ->andFilterWhere(['like', 'colaborador', $this->colaborador])
@@ -118,7 +120,8 @@ class ContratacaoSearch extends Contratacao
             ->andFilterWhere(['like', 'experiencia_atividade', $this->experiencia_atividade])
             ->andFilterWhere(['like', 'jornada_obs', $this->jornada_obs])
             ->andFilterWhere(['like', 'principais_atividades', $this->principais_atividades])
-            ->andFilterWhere(['like', 'selec_teste', $this->selec_teste]);
+            ->andFilterWhere(['like', 'selec_teste', $this->selec_teste])
+            ->andFilterWhere(['like', 'cargos.descricao', $this->cargo_id]);
 
         return $dataProvider;
     }
