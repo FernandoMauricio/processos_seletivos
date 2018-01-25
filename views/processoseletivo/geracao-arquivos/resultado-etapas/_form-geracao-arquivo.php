@@ -40,7 +40,7 @@ use faryshta\widgets\JqueryTagsInput;
                     <?= $form->field($model, 'gerarq_emailconfirmacao')->widget(Select2::classname(), [
                                 'data' =>  [
                                     'israel.galvao@am.senac.br' => 'israel.galvao@am.senac.br', 
-                                    'keila.neves@am.senac.br' => 'keila.neves@am.senac.br'
+                                    'luiza.silvas@am.senac.br' => 'luiza.silvas@am.senac.br'
                                 ],
                                 'options' => ['placeholder' => 'E-mail de confirmação...'],
                                 'pluginOptions' => [
