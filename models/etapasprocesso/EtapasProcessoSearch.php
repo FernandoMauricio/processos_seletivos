@@ -49,6 +49,8 @@ class EtapasProcessoSearch extends EtapasProcesso
             'query' => $query,
         ]);
 
+        $query->joinWith(['processo']);
+
         $this->load($params);
 
         // $query->joinWith('processo');
