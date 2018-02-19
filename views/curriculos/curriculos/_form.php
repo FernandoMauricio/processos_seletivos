@@ -115,7 +115,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
 <div class="row">
     <div class="col-md-2">
-  <?= $form->field($model, 'parentesco')->radiolist(['1' => 'Sim', '0' => 'Não'], ['inline'=>true])->label(false); ?>
+  <?= $form->field($model, 'parentesco')->radiolist(['0' => 'Não', '1' => 'Sim'], ['inline'=>true])->label(false); ?>
     </div>
 
     <div class="col-md-10">
