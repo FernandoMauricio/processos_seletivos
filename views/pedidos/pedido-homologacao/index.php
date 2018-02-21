@@ -114,8 +114,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                         'hAlign'=>'center',
                         'vAlign'=>'middle',
                         'width'=>'9%',
-                        'format' => ['datetime', 'php:d/m/Y'],
-                        'xlFormat'=>"mmm\\-dd\\, \\-yyyy",
+                        'format' => ['date', 'php:d/m/Y'],
                         'headerOptions'=>['class'=>'kv-sticky-column'],
                         'contentOptions'=>['class'=>'kv-sticky-column'],
                         'readonly'=>function($model, $key, $index, $widget) {
