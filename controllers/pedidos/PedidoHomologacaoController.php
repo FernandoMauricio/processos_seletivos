@@ -66,6 +66,18 @@ class PedidoHomologacaoController extends Controller
 
                 // load model like any single model validation
                 if ($model->load($post)) {
+                    
+                    //Atualiza a Data de Expiração 
+                    $data_expiracao = new Expression('DATE_ADD("'.$model->homolog_datahomologacao.'", INTERVAL 1 YEAR)');
+
+                    Yii::$app->db->createCommand()
+                            ->update('pedidohomologacao_itens', [
+                                     'pedhomolog_expiracao' => $data_expiracao, //Atualiza a Data de Expiração de acordo com a Data de Homologação
+                                     ], [//------WHERE
+                                     'pedidohomologacao_id' => $model->homolog_id,
+                                     ]) 
+                            ->execute();
+
                 // can save model or do something before saving model
                 $model->save(false);
 
