@@ -7,6 +7,7 @@ use Yii;
 use app\models\Model;
 use app\models\processoseletivo\Cargos;
 use app\models\processoseletivo\CargosProcesso;
+use app\models\processoseletivo\ProcessoSeletivo;
 use app\models\curriculos\Curriculos;
 use app\models\curriculos\CurriculosSearch;
 use app\models\curriculos\CurriculosEndereco;
@@ -83,7 +84,7 @@ class CurriculosController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
         //session numero de edital e do id do processo
         $session = Yii::$app->session;
@@ -102,9 +103,11 @@ class CurriculosController extends Controller
         $modelsComplementos = [new CurriculosComplementos];
         $modelsEmpregos     = [new CurriculosEmpregos];
 
-        $model->edital = $session["numeroEdital"];
+        $processo = ProcessoSeletivo::find()->where(['id' => $id])->one();
+
+        $model->edital = $processo->numeroEdital;
         $model->classificado = 5; //Inscrito
-        $id = $session["id"];
+        //$id = $session["id"];
 
         $model->data  = date('Y-m-d H:i:s');
 
