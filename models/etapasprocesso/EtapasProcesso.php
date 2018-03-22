@@ -50,9 +50,9 @@ class EtapasProcesso extends \yii\db\ActiveRecord
             [['processo_id', 'pedidocusto_id', 'etapa_cargo' ,'etapa_perfil', 'etapa_cidade'], 'required'],
             [['etapa_selecionadores','etapa_local', 'etapa_cidade', 'etapa_estado', 'etapa_situacao'], 'required', 'on' => 'update'],
             [['processo_id', 'etapa_perfil', 'contratacao_id'], 'integer'],
-            [['etapa_data', 'etapa_dataatualizacao', 'etapa_selecionadores'], 'safe'],
+            [['etapa_data', 'etapa_dataatualizacao', 'etapa_selecionadores', 'etapa_cidade'], 'safe'],
             [['etapa_cargo', 'etapa_observacao', 'etapa_local'], 'string', 'max' => 255],
-            [['etapa_datarealizacao', 'etapa_cidade', 'etapa_estado', 'etapa_atualizadopor', 'etapa_situacao'], 'string', 'max' => 45],
+            [['etapa_datarealizacao', 'etapa_estado', 'etapa_atualizadopor', 'etapa_situacao'], 'string', 'max' => 45],
             [['pedidocusto_id'], 'exist', 'skipOnError' => true, 'targetClass' => PedidoCusto::className(), 'targetAttribute' => ['pedidocusto_id' => 'custo_id']],
             [['processo_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProcessoSeletivo::className(), 'targetAttribute' => ['processo_id' => 'id']],
         ];

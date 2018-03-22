@@ -143,7 +143,7 @@ $this->title = $model->numeroInscricao;
 
                         [
                             'attribute' => 'data',
-                            'format'=>['datetime', 'php:d/m/Y H:i:s'],
+                            //'format'=>['datetime', 'php:d/m/Y H:i:s'],
                             'displayOnly'=>true,
                         ],
                     ],

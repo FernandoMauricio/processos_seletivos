@@ -156,7 +156,7 @@ $this->params['breadcrumbs'][] =  $this->title;
 
                         [
                             'attribute' => 'data',
-                            'format'=>['datetime', 'php:d/m/Y H:i:s'],
+                            'format'=>['date', 'php:d/m/Y H:i:s'],
                             'displayOnly'=>true,
                         ],
                     ],

@@ -175,7 +175,7 @@ class GeracaoArquivosController extends Controller
                 WHERE `classificado`= 1
                     AND `curriculos`.`edital` = "'.$model->processo->numeroEdital.'"
                     AND `curriculos`.`cargo` = "'.$model->etapasprocesso->etapa_cargo.'"
-                    AND `curriculos_endereco`.`cidade` = "'.$model->etapasprocesso->etapa_cidade.'"
+                    AND `curriculos_endereco`.`cidade` IN ("'.str_replace(',', '","', $model->etapasprocesso->etapa_cidade).'")
                     AND `etapas_itens`.`itens_classificacao` NOT LIKE "%Desclassificado(a)%"
                 ORDER BY `curriculos`.`nome` ASC
                 ';
@@ -189,7 +189,7 @@ class GeracaoArquivosController extends Controller
                 WHERE `classificado`IN (1,6) 
                     AND `curriculos`.`edital` = "'.$model->processo->numeroEdital.'"
                     AND `curriculos`.`cargo` = "'.$model->etapasprocesso->etapa_cargo.'"
-                    AND `curriculos_endereco`.`cidade` = "'.$model->etapasprocesso->etapa_cidade.'"
+                    AND `curriculos_endereco`.`cidade` = IN ("'.str_replace(',', '","', $model->etapasprocesso->etapa_cidade).'")
                     AND `etapas_itens`.`itens_classificacao` NOT LIKE "%Desclassificado(a)%"
                     AND `etapas_itens`.`itens_classificacao` NOT LIKE ""
                 ORDER BY `etapas_itens`.`itens_pontuacaototal` DESC, `curriculos`.`nome` ASC

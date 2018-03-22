@@ -124,9 +124,9 @@ class EtapasProcessoController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-            //Verifica se existe alguma etapa do proecsso criada do processo, cargo selecionado e cidade
-            if(EtapasProcesso::find()->where(['processo_id' => $model->processo_id, 'etapa_cargo' => $model->etapa_cargo, 'etapa_cidade' => $model->etapa_cidade])->count() > 0) {
-                Yii::$app->session->setFlash('danger', '<b>ERRO! </b>Etapas do Processo Seletivo <b>'.$model->processo->numeroEdital.'</b> para o cargo <b>' .$model->etapa_cargo. '</b> e cidade <b>' .$model->etapa_cidade. '</b> já criado!</b>');
+            //Verifica se existe alguma etapa do proecsso criada do processo, cargo selecionado
+            if(EtapasProcesso::find()->where(['processo_id' => $model->processo_id, 'etapa_cargo' => $model->etapa_cargo])->count() > 0) {
+                Yii::$app->session->setFlash('danger', '<b>ERRO! </b>Etapas do Processo Seletivo <b>'.$model->processo->numeroEdital.'</b> para o cargo <b>' .$model->etapa_cargo. '</b> já criado!</b>');
                 return $this->redirect(['index']);
             }
 
@@ -135,6 +135,8 @@ class EtapasProcessoController extends Controller
                 Yii::$app->session->setFlash('warning', '<b>AVISO! </b>Não existem candidatos selecionados!</b>');
                 return $this->redirect(['index']);
             }
+
+        $model->etapa_cidade = implode(',', $model->etapa_cidade);
 
         $model->save();
 
@@ -147,7 +149,7 @@ class EtapasProcessoController extends Controller
             WHERE (`classificado`= 1) 
             AND `curriculos`.`edital` = "'.$model->processo->numeroEdital.'" 
             AND `curriculos`.`cargo` = "'.$model->etapa_cargo.'"
-            AND `curriculos_endereco`.`cidade` = "'.$model->etapa_cidade.'"
+            AND `curriculos_endereco`.`cidade` IN ("'.str_replace(',', '","', $model->etapa_cidade).'")
             ORDER BY  `curriculos`.`nome` ASC
         ';
 
