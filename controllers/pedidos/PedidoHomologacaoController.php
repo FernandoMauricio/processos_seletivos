@@ -237,6 +237,11 @@ class PedidoHomologacaoController extends Controller
 
         $model->homolog_situacaoggp = 1; //Aguardando Autorização GPP
         $model->homolog_situacaodad = 1; //Aguardando Autorização DAD
+        $model->homolog_data            = date('Y-m-d');
+        $model->homolog_datahomologacao = date('Y-m-d');
+        $model->homolog_responsavel     = $session['sess_nomeusuario'];
+        $model->homolog_validade        = 'O processo de seleção terá validade de 12 meses, podendo ser prorrogado por mais 12 meses, a valer da data de homologação.';
+        $model->homolog_sintese         = 'Finalizado o processo de recrutamento e seleção para o [CARGO], do(a) [UNIDADE/SETOR], [MOTIVO DA CONTRATAÇÃO], conforme pedido no portal nº [SOLICITAÇÃO], em anexo. Para este processo foram recebidos [000] inscrições, tendo sido selecionados [000] inscrições, conforme as exigências do perfil solicitado pelo gerente da unidade/setor. Ao finalizar o processo seletivo que teve a participação do(a) [CARGO/SETOR, NOME DOS PARTICIPANTES], o(a) candidato(a) classificado(a) com o melhor desempenho foi o(a) Sr.(ª) [CANDIDATO]. No total ficaram classificados no processo seletivo [00] candidatos, de acordo com a tabela abaixo. Com isso solicitamos homologação do processo de seleção para prosseguirmos os tramites de contratação dos candidatos.';
 
         //1 => Em elaboração / 2 => Em correção pelo setor / 3 => Recebido pelo GGP / 5 - Finalizado
         $subQuery = PedidoHomologacao::find()->select('contratacao_id')->all();
@@ -248,20 +253,14 @@ class PedidoHomologacaoController extends Controller
         ->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-        $model->homolog_unidade         = $model->contratacao->unidade;
-        $model->homolog_motivo          = $model->contratacao->motivo;
-        $model->homolog_cargo           = $model->contratacao->cargo0->descricao;
-        $model->homolog_salario         = $model->contratacao->cargo_salario;
-        $model->homolog_encargos        = $model->contratacao->cargo_encargos;
-        $model->homolog_total           = $model->contratacao->cargo_valortotal;
-        $model->homolog_tipo            = $model->contratacao->periodo;
-        $model->homolog_data            = date('Y-m-d');
-        $model->homolog_datahomologacao = date('Y-m-d');
-        $model->homolog_responsavel     = $session['sess_nomeusuario'];
-        $model->homolog_validade        = 'O processo de seleção terá validade de 12 meses, podendo ser prorrogado por mais 12 meses, a valer da data de homologação.';
-        $model->homolog_sintese         = 'Finalizado o processo de recrutamento e seleção para o [CARGO], do(a) [UNIDADE/SETOR], [MOTIVO DA CONTRATAÇÃO], conforme pedido no portal nº [SOLICITAÇÃO], em anexo. Para este processo foram recebidos [000] inscrições, tendo sido selecionados [000] inscrições, conforme as exigências do perfil solicitado pelo gerente da unidade/setor. Ao finalizar o processo seletivo que teve a participação do(a) [CARGO/SETOR, NOME DOS PARTICIPANTES], o(a) candidato(a) classificado(a) com o melhor desempenho foi o(a) Sr.(ª) [CANDIDATO]. No total ficaram classificados no processo seletivo [00] candidatos, de acordo com a tabela abaixo. Com isso solicitamos homologação do processo de seleção para prosseguirmos os tramites de contratação dos candidatos.';
+        $model->homolog_unidade  = $model->contratacao->unidade;
+        $model->homolog_motivo   = $model->contratacao->motivo;
+        $model->homolog_cargo    = $model->contratacao->cargo0->descricao;
+        $model->homolog_salario  = $model->contratacao->cargo_salario;
+        $model->homolog_encargos = $model->contratacao->cargo_encargos;
+        $model->homolog_total    = $model->contratacao->cargo_valortotal;
+        $model->homolog_tipo     = $model->contratacao->periodo;
         $model->save();
-
         //Localiza somente os candidatos classificados nas etapas do processo
         $sqlCandidatos = '
             SELECT

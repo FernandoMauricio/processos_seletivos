@@ -259,6 +259,67 @@ class EtapasProcessoController extends Controller
         }
     }
 
+    public function actionAtualizarCandidatos($id) {
+
+        $connection = \Yii::$app->db;
+        $model = $this->findModel($id);
+
+        $sqlCandidatosInseridos = $connection->createCommand("SELECT GROUP_CONCAT(`etapas_itens`.`curriculos_id` SEPARATOR ',' ) as `curriculos_id` FROM `etapas_itens` WHERE `etapasprocesso_id` = '".$model->etapa_id."'");
+        $candidatosInseridos = $sqlCandidatosInseridos->queryOne();
+
+        if($candidatosInseridos['curriculos_id'] == NULL) {
+        //Localiza somente os candidatos classificados para o edital escolhido
+            $sqlCandidatos = '
+                SELECT `curriculos`.`id`, `curriculos`.`edital`, `curriculos`.`nome`
+                FROM `curriculos` 
+                LEFT JOIN `processo` ON `curriculos`.`edital` = `processo`.`numeroEdital` 
+                INNER JOIN `curriculos_endereco` ON `curriculos`.`id` = `curriculos_endereco`.`curriculos_id`
+                LEFT JOIN `etapas_itens` ON `etapas_itens`.`curriculos_id` = `curriculos`.`id` 
+                WHERE (`classificado`= 1) 
+                AND `curriculos`.`edital` = "'.$model->processo->numeroEdital.'" 
+                AND `curriculos`.`cargo` = "'.$model->etapa_cargo.'"
+                AND `curriculos_endereco`.`cidade` IN ("'.str_replace(',', '","', $model->etapa_cidade).'")
+                ORDER BY  `curriculos`.`nome` ASC
+            ';
+        }else{
+            //Localiza candidatos aprovados após a criação das etapas do processo
+            $sqlCandidatos = '
+                    SELECT `curriculos`.`id`, `curriculos`.`edital`, `curriculos`.`nome`
+                    FROM `curriculos` 
+                    LEFT JOIN `processo` ON `curriculos`.`edital` = `processo`.`numeroEdital` 
+                    INNER JOIN `curriculos_endereco` ON `curriculos`.`id` = `curriculos_endereco`.`curriculos_id`
+                    LEFT JOIN `etapas_itens` ON `etapas_itens`.`curriculos_id` = `curriculos`.`id` 
+                    WHERE (`classificado`= 1) 
+                    AND `curriculos`.`edital` = "'.$model->processo->numeroEdital.'" 
+                    AND `curriculos`.`cargo` = "'.$model->etapa_cargo.'"
+                    AND `curriculos_endereco`.`cidade` IN ("'.str_replace(',', '","', $model->etapa_cidade).'")
+                    AND `curriculos`.`id` NOT IN ('.$candidatosInseridos['curriculos_id'].')
+                    ORDER BY  `curriculos`.`nome` ASC
+                ';
+        }
+
+        $candidatos = CurriculosAdmin::findBySql($sqlCandidatos)->all();
+
+        foreach ($candidatos as $candidato) {
+        //Inclui as informações dos candidatos classificados
+                Yii::$app->db->createCommand()
+                    ->insert('etapas_itens', [
+                             'etapasprocesso_id'    => $model->etapa_id,
+                             'curriculos_id'        => $candidato['id'],
+                             'itens_escrita'        => 0,
+                             'itens_didatica'       => 0,
+                             'itens_comportamental' => 0,
+                             'itens_entrevista'     => 0,
+                             'itens_pratica'        => 0,
+                             ])
+                    ->execute();
+            $model->save();
+        }
+
+        return $this->redirect(['update', 'id' => $model->etapa_id]);
+
+    }
+
     /**
      * Deletes an existing EtapasProcesso model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

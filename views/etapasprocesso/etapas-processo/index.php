@@ -66,7 +66,7 @@ $gridColumns = [
               'attribute' => 'contratacao_id',
               'format' => 'raw',
               'value' => function($data){
-               $query = (new \yii\db\Query())->select(['contratacao_id'])->from('pedidocusto_itens')->where(['itemcusto_cargo' => $data->etapa_cargo])->andWhere(['pedidocusto_id' => $data->pedidocusto_id])->andWhere(['itemcusto_unidade' => $data->etapa_local]);
+               $query = (new \yii\db\Query())->select(['contratacao_id'])->from('pedidocusto_itens')->where(['itemcusto_cargo' => $data->etapa_cargo])->andWhere(['pedidocusto_id' => $data->pedidocusto_id]);//->andWhere(['itemcusto_unidade' => $data->etapa_local]);
                  $command = $query->createCommand();
                  $data= $command->queryOne();
                    return  Html::a($data['contratacao_id'], ['/contratacao/contratacao/view', 'id' => $data['contratacao_id']], ['target'=>'_blank', 'data-pjax'=>"0"]);

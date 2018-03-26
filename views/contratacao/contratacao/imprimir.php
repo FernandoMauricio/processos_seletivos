@@ -84,7 +84,6 @@ use app\models\processoseletivo\Cargos;
 
     <tr>
         
-        <td colspan="12"><strong>Motivo da contratação: </strong><?php echo $model->motivo; ?></td>
         <td></td>
     </tr> 
 </tbody>

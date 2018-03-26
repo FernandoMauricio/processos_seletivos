@@ -20,9 +20,9 @@ foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
 echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 }
 ?>
-
     <p>
    		<?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Retornar', ['index'], ['class' => 'btn btn-default']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-refresh"></span> Atualizar Candidatos', ['atualizar-candidatos', 'id' => $model->etapa_id], ['class' => 'btn btn-success']) ?>
         <?= Html::a('<span class="glyphicon glyphicon-print"></span> Imprimir', ['view', 'id' => $model->etapa_id], ['class' => 'btn btn-info', 'target'=>'_blank']) ?>
     </p>
 
