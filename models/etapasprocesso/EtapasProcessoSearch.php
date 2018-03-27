@@ -47,9 +47,13 @@ class EtapasProcessoSearch extends EtapasProcesso
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 100,
+            ],
         ]);
 
         $query->joinWith(['processo']);
+        $query->joinWith('pedidocusto.pedidocustoItens');
 
         $this->load($params);
 
@@ -72,6 +76,7 @@ class EtapasProcessoSearch extends EtapasProcesso
             'etapa_id' => $this->etapa_id,
             'etapa_data' => $this->etapa_data,
             'etapa_dataatualizacao' => $this->etapa_dataatualizacao,
+            'etapas_processo.pedidocusto_id' => $this->pedidocusto_id,
             'contratacao_id' => $this->contratacao_id,
         ]);
 
