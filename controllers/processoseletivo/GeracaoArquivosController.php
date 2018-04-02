@@ -147,19 +147,20 @@ class GeracaoArquivosController extends Controller
 
         $processo = ProcessoSeletivo::find()->where(['situacao_id' => 1])->orWhere(['situacao_id' => 2])->all();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
 
             //Verifica se existe algum candiadto selecionado para o cargo, edital e cidade
-            if(CurriculosAdmin::find()
-                ->innerJoinWith('curriculosEnderecos')
-                ->innerJoinWith('etapasItens')
-                ->where([
-                    'classificado'=> [1,6], 
-                    'edital' => $model->processo->numeroEdital, 
-                    'cargo' => $model->etapasprocesso->etapa_cargo, 
-                    'cidade' => $model->etapasprocesso->etapa_cidade
-                ])
-                ->count() == 0) {
+            $countCurriculos = CurriculosAdmin::find()
+                            ->innerJoinWith('curriculosEnderecos')
+                            ->innerJoinWith('etapasItens')
+                            ->where([
+                                'classificado'=> [1,6], 
+                                'edital' => $model->processo->numeroEdital, 
+                                'cargo' => $model->etapasprocesso->etapa_cargo, 
+                            ])
+                            ->andWhere(['IN', 'cidade', $model->etapasprocesso->etapa_cidade])
+                            ->count();
+            if($countCurriculos == 0) {
                 Yii::$app->session->setFlash('warning', '<b>AVISO! </b>Não existem candidatos selecionados nas Etapas do Processos!</b>');
                 return $this->redirect(['index']);
             }
@@ -189,12 +190,15 @@ class GeracaoArquivosController extends Controller
                 WHERE `classificado`IN (1,6) 
                     AND `curriculos`.`edital` = "'.$model->processo->numeroEdital.'"
                     AND `curriculos`.`cargo` = "'.$model->etapasprocesso->etapa_cargo.'"
-                    AND `curriculos_endereco`.`cidade` = IN ("'.str_replace(',', '","', $model->etapasprocesso->etapa_cidade).'")
+                    AND `curriculos_endereco`.`cidade` IN ("'.str_replace(',', '","', $model->etapasprocesso->etapa_cidade).'")
                     AND `etapas_itens`.`itens_classificacao` NOT LIKE "%Desclassificado(a)%"
                     AND `etapas_itens`.`itens_classificacao` NOT LIKE ""
                 ORDER BY `etapas_itens`.`itens_pontuacaototal` DESC, `curriculos`.`nome` ASC
                 ';
             }
+
+                $model->save();
+
                 $candidatos = EtapasItens::findBySql($sqlCandidatos)->all();
 
                 foreach ($candidatos as $candidato) {
@@ -208,8 +212,8 @@ class GeracaoArquivosController extends Controller
                                      'gerarqitens_classificacao' => $candidato['itens_classificacao'],
                                      ])
                             ->execute();
+                $model->save();
             }
-            $model->save();
                   return $this->redirect(['update', 'id' => $model->gerarq_id]);
         } else {
             return $this->renderAjax('criar-geracao-arquivos', [
