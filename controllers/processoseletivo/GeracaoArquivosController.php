@@ -149,17 +149,21 @@ class GeracaoArquivosController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
+
+            $cidades = str_replace(',', '","', $model->etapasprocesso->etapa_cidade);
+
             //Verifica se existe algum candiadto selecionado para o cargo, edital e cidade
-            $countCurriculos = CurriculosAdmin::find()
-                            ->innerJoinWith('curriculosEnderecos')
-                            ->innerJoinWith('etapasItens')
-                            ->where([
-                                'classificado'=> [1,6], 
-                                'edital' => $model->processo->numeroEdital, 
-                                'cargo' => $model->etapasprocesso->etapa_cargo, 
-                            ])
-                            ->andWhere(['IN', 'cidade', $model->etapasprocesso->etapa_cidade])
-                            ->count();
+            $sqlCurriculos = 'SELECT `curriculos`.`id` 
+            FROM curriculos 
+            INNER JOIN curriculos_endereco ON `curriculos`.`id` = `curriculos_endereco`.`curriculos_id`
+            INNER JOIN etapas_itens ON `curriculos`.`id` = `etapas_itens`.`curriculos_id`
+            WHERE classificado IN (1,6)
+            AND edital = "'.$model->processo->numeroEdital.'"
+            AND cargo = "'.$model->etapasprocesso->etapa_cargo.'"
+            AND `curriculos_endereco`.`cidade` IN ("'.str_replace(',', '","', $model->etapasprocesso->etapa_cidade).'")';
+
+            $countCurriculos = CurriculosAdmin::findBySql($sqlCurriculos)->count();
+
             if($countCurriculos == 0) {
                 Yii::$app->session->setFlash('warning', '<b>AVISO! </b>Não existem candidatos selecionados nas Etapas do Processos!</b>');
                 return $this->redirect(['index']);
