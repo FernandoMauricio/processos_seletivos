@@ -89,6 +89,12 @@ $this->params['breadcrumbs'][] =  $this->title;
                             'displayOnly'=>true,
                             'labelColOptions'=>['style'=>'width:0%'],
                         ],
+
+                        [
+                            'attribute' => 'estado_civil',
+                            'displayOnly'=>true,
+                            'labelColOptions'=>['style'=>'width:0%'],
+                        ],
                         
                         [
                             'attribute'=>'sexo', 

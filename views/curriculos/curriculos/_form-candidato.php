@@ -49,6 +49,16 @@ use kartik\datecontrol\DateControl;
                     ?>
 
                     <?php
+                                echo $form->field($model, 'estado_civil')->widget(Select2::classname(), [
+                                    'data' => ['Solteiro(a)' => 'Solteiro(a)', 'Casado(a)' => 'Casado(a)', 'Separado(a)' => 'Separado(a)', 'Divorciado(a)' => 'Divorciado(a)', 'Viúvo(a)' => 'Viúvo(a)', 'União Estável ' => 'União Estável '],
+                                    'options' => ['placeholder' => 'Estado Civil...'],
+                                    'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                                ]);
+                     ?>
+
+                    <?php
                             echo Form::widget([
                                 'model'=>$model,
                                 'form'=>$form,

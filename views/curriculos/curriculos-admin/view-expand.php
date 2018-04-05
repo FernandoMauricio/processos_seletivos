@@ -78,6 +78,12 @@ $this->title = $model->numeroInscricao;
                             'displayOnly'=>true,
                             'labelColOptions'=>['style'=>'width:0%'],
                         ],
+
+                        [
+                            'attribute' => 'estado_civil',
+                            'displayOnly'=>true,
+                            'labelColOptions'=>['style'=>'width:0%'],
+                        ],
                         
                         [
                             'attribute'=>'sexo', 
