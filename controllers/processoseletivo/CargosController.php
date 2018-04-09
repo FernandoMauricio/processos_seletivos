@@ -96,7 +96,7 @@ class CargosController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
             if($model->calculos == 1) { // Realiza os cálculos de Planejamento e Produtividade caso seja marcado a opção
-            $model->salario               = $model->salario_valorhora * ($model->ch_semana * 5); //Salário * (CH Semanal * 5)
+            $model->salario               = $model->salario_valorhora * $model->ch_semana; //Salário * (CH Semanal * 5) // Agora é CH Mensal
             $model->salario_1sexto        = $model->salario / 6;
             $model->salario_produtividade = (($model->salario_valorhora * 0) / 100) * $model->ch_semana * 5;
             $model->salario_6horasfixas   = 16.20; //Valor fixo para todos os docentes
@@ -158,12 +158,13 @@ class CargosController extends Controller
         if ($model->load(Yii::$app->request->post()) ) {
 
             if($model->calculos == 1) { // Realiza os cálculos de Planejamento e Produtividade caso seja marcado a opção
-            $model->salario               = $model->salario_valorhora * ($model->ch_semana * 5); //Salário * (CH Semanal * 5)
+            $model->salario               = $model->salario_valorhora * $model->ch_semana; //Salário * (CH Semanal * 5) // Agora é CH Mensal
             $model->salario_1sexto        = $model->salario / 6;
             $model->salario_produtividade = (($model->salario_valorhora * 0) / 100) * $model->ch_semana * 5;
             $model->salario_6horasfixas   = 16.20; //Valor fixo para todos os docentes
             $model->salario_1sextofixas   = $model->salario_6horasfixas / 6;
-            $model->salario_bruto         = $model->salario + $model->salario_1sexto + $model->salario_produtividade + $model->salario_6horasfixas + $model->salario_1sextofixas;
+            //$model->salario_bruto         = $model->salario + $model->salario_1sexto + $model->salario_produtividade + $model->salario_6horasfixas + $model->salario_1sextofixas;
+            $model->salario_bruto         = $model->salario + $model->salario_1sexto + $model->salario_produtividade;
             $model->encargos              = ($model->salario_bruto * 32.7) / 100;
             $model->valor_total           = $model->salario_bruto + $model->encargos;
             $model->homologacao           = null;

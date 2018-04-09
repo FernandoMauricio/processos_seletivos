@@ -66,7 +66,7 @@ class Cargos extends \yii\db\ActiveRecord
             'idcargo' => 'Cod.',
             'descricao' => 'Cargo',
             'descricao_cargo' => 'Descrição do Cargo',
-            'ch_semana' => 'CH Semanal',
+            'ch_semana' => 'CH Mensal',
             'salario_valorhora' => 'V.H',
             'salario' => 'S. Base',
             'salario_1sexto' => '1/6 RSR',
