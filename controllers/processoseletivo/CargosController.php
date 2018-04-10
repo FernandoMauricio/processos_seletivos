@@ -58,6 +58,22 @@ class CargosController extends Controller
         ]);
     }
 
+    public function actionInativarCargo($id)
+    {
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
+
+        //HOMOLOGA O CARGO (Acesso somente para o Gerente do GGP)
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`cargos` SET `status` = 0 WHERE `idcargo` = '".$model->idcargo."'");
+        $command->execute();
+        
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Cargo <b> '.$model->descricao.'</b> foi INATIVADO!</b>');
+
+        return $this->redirect(['index']);
+    }
+
     public function actionHomologar($id)
     {
         $session = Yii::$app->session;

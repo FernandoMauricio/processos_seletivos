@@ -107,7 +107,7 @@ $gridColumns = [
             ], 
                         
             ['class' => 'yii\grid\ActionColumn',
-                        'template' => '{update} {homologar}',
+                        'template' => '{update} {inativar-cargo} {homologar}',
                         'contentOptions' => ['style' => 'width: 7%;'],
                         'buttons' => [
 
@@ -116,6 +116,15 @@ $gridColumns = [
                             return Html::a('<span class="glyphicon glyphicon-pencil"></span> ', $url, [
                                         'class'=>'btn btn-default btn-xs',
                                         'title' => Yii::t('app', 'Atualizar'),
+                       
+                            ]);
+                        },
+
+                        //INATIVAR CADASTRO
+                        'inativar-cargo' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-remove"></span> ', $url, [
+                                        'class'=>'btn btn-danger btn-xs',
+                                        'title' => Yii::t('app', 'Inativar Cargo'),
                        
                             ]);
                         },
