@@ -43,8 +43,9 @@ class CurriculosFormacao extends \yii\db\ActiveRecord
         return [
             [['fundamental_comp', 'medio_comp', 'superior_comp', 'tecnico', 'pos', 'mestrado', 'doutorado', 'estuda_atualmente', 'estuda_turno_mat', 'estuda_turno_vesp', 'estuda_turno_not', 'curriculos_id'], 'integer'],
             [['curriculos_id'], 'required'],
-            [['tecnico_area','superior_area', 'pos_area', 'mestrado_area', 'doutorado_area'], 'string', 'max' => 45],
-            [['estuda_curso'], 'string', 'max' => 100]
+            [['tecnico_area','superior_area', 'pos_area', 'mestrado_area', 'doutorado_area', 'pos_anoconclusao', 'mestrado_anoconclusao', 'superior_anoconclusao', 'tecnico_anoconclusao'], 'string', 'max' => 45],
+            [['estuda_curso'], 'string', 'max' => 100],
+            [['pos_local', 'mestrado_local', 'superior_local', 'tecnico_local'], 'string', 'max' => 255],
         ];
     }
 
@@ -71,8 +72,19 @@ class CurriculosFormacao extends \yii\db\ActiveRecord
             'estuda_turno_mat' => 'Matutino',
             'estuda_turno_vesp' => 'Vespertino',
             'estuda_turno_not' => 'Noturno',
-            'estuda_curso' => 'Estuda Curso',
+            'estuda_curso' => 'Curso',
             'curriculos_id' => 'Curriculos ID',
+            'tecnico_local' => 'Local',
+            'superior_local' => 'Local',
+            'pos_local' => 'Local',
+            'mestrado_local' => 'Local',
+            'doutorado_local' => 'Local',
+            'tecnico_anoconclusao' => 'Ano de Conclusão',
+            'superior_anoconclusao' => 'Ano de Conclusão',
+            'pos_anoconclusao' => 'Ano de Conclusão',
+            'mestrado_anoconclusao' => 'Ano de Conclusão',
+            'doutorado_anoconclusao' => 'Ano de Conclusão',
+
         ];
     }
 

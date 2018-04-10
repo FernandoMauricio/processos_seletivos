@@ -190,7 +190,7 @@ $gridColumns = [
                         //CLASSIFICAR CANDIDATO
                         'aguardando-envio-gerencia-imediata' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-ok"></span> ', $url, [
-                                        'class'=>'btn btn-success btn-xs',
+                                        'class'=>'btn btn-warning btn-xs',
                                         'title' => Yii::t('app', 'Pré-Selecionar Candidato'),
                                          'data' => [
                                                    'method' => 'post',

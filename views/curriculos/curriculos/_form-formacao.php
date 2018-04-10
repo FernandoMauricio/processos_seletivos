@@ -1,93 +1,62 @@
-      <?php
+<?php
 
 use kartik\builder\Form;
 
+?>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-3"><?= $form->field($curriculosFormacao, 'fundamental_comp')->radioList([1 =>'Completo', 0 =>'Incompleto'], ['inline'=>true]) ?> </div>
+        </div>
 
-      ?>
+        <div class="row">
+            <div class="col-md-3"><?= $form->field($curriculosFormacao, 'medio_comp')->radioList([1 =>'Completo', 0 =>'Incompleto'], ['inline'=>true]) ?> </div>
+        </div>
 
-        <?= $form->field($curriculosFormacao, 'fundamental_comp')->radioList([1 =>'Completo', 0 =>'Incompleto'], ['inline'=>true]) ?>
+        <div class="row">
+            <div class="col-md-3"><?= $form->field($curriculosFormacao, 'tecnico')->radioList([1 =>'Completo', 0 =>'Incompleto'], ['inline'=>true]) ?> </div>
+            <div class="col-md-4"><?= $form->field($curriculosFormacao, 'tecnico_area')->textInput(['placeholder'=>'Informe o seu curso Técnico...']) ?></div>
+            <div class="col-md-3"><?= $form->field($curriculosFormacao, 'tecnico_local')->textInput(['placeholder'=>'Informe a Instituição...']) ?></div>
+            <div class="col-md-2"><?= $form->field($curriculosFormacao, 'tecnico_anoconclusao')->textInput(['placeholder'=>'Ano de Conclusão...']) ?></div>
+        </div>
 
-        <?= $form->field($curriculosFormacao, 'medio_comp')->radioList([1 =>'Completo', 0 =>'Incompleto'], ['inline'=>true]) ?>
+        <div class="row">
+            <div class="col-md-3"><?= $form->field($curriculosFormacao, 'superior_comp')->radioList([1 =>'Completo', 0 =>'Incompleto'], ['inline'=>true]) ?> </div>
+            <div class="col-md-4"><?= $form->field($curriculosFormacao, 'superior_area')->textInput(['placeholder'=>'Informe a sua Graduação...']) ?></div>
+            <div class="col-md-3"><?= $form->field($curriculosFormacao, 'superior_local')->textInput(['placeholder'=>'Informe a Instituição...']) ?></div>
+            <div class="col-md-2"><?= $form->field($curriculosFormacao, 'superior_anoconclusao')->textInput(['placeholder'=>'Ano de Conclusão...']) ?></div>
+        </div>
 
+        <div class="row">
+            <div class="col-md-3"><?= $form->field($curriculosFormacao, 'pos')->radioList([1 =>'Completo', 0 =>'Incompleto'], ['inline'=>true]) ?> </div>
+            <div class="col-md-4"><?= $form->field($curriculosFormacao, 'pos_area')->textInput(['placeholder'=>'Informe seu curso de Pós-graduação...']) ?></div>
+            <div class="col-md-3"><?= $form->field($curriculosFormacao, 'pos_local')->textInput(['placeholder'=>'Informe a Instituição...']) ?></div>
+            <div class="col-md-2"><?= $form->field($curriculosFormacao, 'pos_anoconclusao')->textInput(['placeholder'=>'Ano de Conclusão...']) ?></div>
+        </div>
 
-                        <?php
-                            echo Form::widget([
-                                'model'=>$curriculosFormacao,
-                                'form'=>$form,
-                                'columns'=>4,
-                                'attributes'=>[       
-                                    'tecnico'=>['type'=>Form::INPUT_RADIO_LIST,'items'=>[1=>'Completo', 0=>'Incompleto'], 'options'=>['inline'=>true]],
-                                    'tecnico_area'=>['type'=>Form::INPUT_TEXT,'options'=>['placeholder'=>'Informe o seu curso técnico...'],'columnOptions'=>['colspan'=>2]],
-                                            ],
-                            ]);
-                        ?>
+        <div class="row">
+            <div class="col-md-3"><?= $form->field($curriculosFormacao, 'mestrado')->radioList([1 =>'Completo', 0 =>'Incompleto'], ['inline'=>true]) ?> </div>
+            <div class="col-md-4"><?= $form->field($curriculosFormacao, 'mestrado_area')->textInput(['placeholder'=>'Informe seu curso de Mestrado...']) ?></div>
+            <div class="col-md-3"><?= $form->field($curriculosFormacao, 'mestrado_local')->textInput(['placeholder'=>'Informe a Instituição...']) ?></div>
+            <div class="col-md-2"><?= $form->field($curriculosFormacao, 'mestrado_anoconclusao')->textInput(['placeholder'=>'Ano de Conclusão...']) ?></div>
+        </div>
 
-                        <?php
-                            echo Form::widget([
-                                'model'=>$curriculosFormacao,
-                                'form'=>$form,
-                                'columns'=>4,
-                                'attributes'=>[       
-                                    'superior_comp'=>['type'=>Form::INPUT_RADIO_LIST,'items'=>[1=>'Completo', 0=>'Incompleto'], 'options'=>['inline'=>true]],
-                                    'superior_area'=>['type'=>Form::INPUT_TEXT,'options'=>['placeholder'=>'Informe a sua graduação...'],'columnOptions'=>['colspan'=>2]],
-                                            ],
-                            ]);
-                        ?>
+        <div class="row">
+            <div class="col-md-3"><?= $form->field($curriculosFormacao, 'doutorado')->radioList([1 =>'Completo', 0 =>'Incompleto'], ['inline'=>true]) ?> </div>
+            <div class="col-md-4"><?= $form->field($curriculosFormacao, 'doutorado_area')->textInput(['placeholder'=>'Informe seu curso de Doutorado...']) ?></div>
+            <div class="col-md-3"><?= $form->field($curriculosFormacao, 'doutorado_local')->textInput(['placeholder'=>'Informe a Instituição...']) ?></div>
+            <div class="col-md-2"><?= $form->field($curriculosFormacao, 'doutorado_anoconclusao')->textInput(['placeholder'=>'Ano de Conclusão...']) ?></div>
+        </div>
 
-                        <?php
-                            echo Form::widget([
-                                'model'=>$curriculosFormacao,
-                                'form'=>$form,
-                                'columns'=>4,
-                                'attributes'=>[       
-                                    'pos'=>['type'=>Form::INPUT_RADIO_LIST,'items'=>[1=>'Completo', 0=>'Incompleto'], 'options'=>['inline'=>true]],
-                                    'pos_area'=>['type'=>Form::INPUT_TEXT,'options'=>['placeholder'=>'Informe seu curso de Pós-graduação...'],'columnOptions'=>['colspan'=>2]],
-                                    
-                                            ],
-                            ]);
-                        ?>
-
-                        <?php
-                            echo Form::widget([
-                                'model'=>$curriculosFormacao,
-                                'form'=>$form,
-                                'columns'=>4,
-                                'attributes'=>[       
-                                    'mestrado'=>['type'=>Form::INPUT_RADIO_LIST,'items'=>[1=>'Completo', 0=>'Incompleto'], 'options'=>['inline'=>true]],
-                                    'mestrado_area'=>['type'=>Form::INPUT_TEXT,'options'=>['placeholder'=>'Informe seu curso de mestrado...'],'columnOptions'=>['colspan'=>2]],
-                                    
-                                            ],
-                            ]);
-                        ?>
-
-                        <?php
-                            echo Form::widget([
-                                'model'=>$curriculosFormacao,
-                                'form'=>$form,
-                                'columns'=>4,
-                                'attributes'=>[       
-                                    'doutorado'=>['type'=>Form::INPUT_RADIO_LIST,'items'=>[1=>'Completo', 0=>'Incompleto'], 'options'=>['inline'=>true]],
-                                    'doutorado_area'=>['type'=>Form::INPUT_TEXT,'options'=>['placeholder'=>'Informe seu curso de Pós-graduação...'],'columnOptions'=>['colspan'=>2]],
-                                    
-                                            ],
-                            ]);
-                        ?>
-
-                        <?php
-                            echo Form::widget([
-                                'model'=>$curriculosFormacao,
-                                'form'=>$form,
-                                'columns'=>4,
-                                'attributes'=>[       
-                                    'estuda_atualmente'=>['type'=>Form::INPUT_RADIO_LIST,'items'=>[1=>'Sim', 0=>'Não'], 'options'=>['inline'=>true]],
-                                    'estuda_curso'=>['type'=>Form::INPUT_TEXT,'options'=>['placeholder'=>'Informe seu curso...'],'columnOptions'=>['colspan'=>2]],
-                                    
-                                            ],
-                            ]);
-                        ?>
-
-        <?= $form->field($curriculosFormacao, 'estuda_turno_mat')->checkbox() ?>
+        <div class="row">
+            <div class="col-md-3"><?= $form->field($curriculosFormacao, 'estuda_atualmente')->radioList([1 =>'Completo', 0 =>'Incompleto'], ['inline'=>true]) ?> </div>
+            <div class="col-md-4"><?= $form->field($curriculosFormacao, 'estuda_curso')->textInput(['placeholder'=>'Informe seu Curso...']) ?></div>
+            <div class="col-md-1"><?= $form->field($curriculosFormacao, 'estuda_turno_mat')->checkbox() ?></div>
+            <div class="col-md-1"><?= $form->field($curriculosFormacao, 'estuda_turno_vesp')->checkbox() ?></div>
+            <div class="col-md-1"><?= $form->field($curriculosFormacao, 'estuda_turno_not')->checkbox() ?></div>
+        </div>
+    </div>
         
-        <?= $form->field($curriculosFormacao, 'estuda_turno_vesp')->checkbox() ?>
         
-        <?= $form->field($curriculosFormacao, 'estuda_turno_not')->checkbox() ?>
+        
+        
+        
