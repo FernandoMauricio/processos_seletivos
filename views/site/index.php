@@ -42,39 +42,42 @@ $nome_user    = $session['sess_nomeusuario'];
                 </div>
             </div>
         <div class="panel panel-primary">
-            <div class="panel-heading"><i class="glyphicon glyphicon-star-empty"></i> O que há de novo? - Versão 2.1 - Publicado em 24/11/2017</div>
+            <div class="panel-heading"><i class="glyphicon glyphicon-star-empty"></i> O que há de novo? - Versão 2.2 - Publicado em 11/04/2018</div>
             <div class="panel-body">
               <h4><b style="color: #337ab7;">Implementações</b></h4>
-                <h5><i class="glyphicon glyphicon-tag"></i><b> Geração de Arquivos</b></h5>
-                        <h5>- Retirada dos segundos na listagem de candidatos da tela de Geração de Arquivos.</h5>
-                        <h5>- Campo "Responsável" na geração de arquivos está editável (municípios os usuários colocam os nomes dos gerentes ou supervisoras). </h5>
-                        <h5>- Perfis de formulários administrativos terão horários individuais.</h5>
+                <h5><i class="glyphicon glyphicon-tag"></i><b> Curriculos</b></h5>
+                        <h5>- Incluído o campo "Estado Civil" e sua obrigatoriedade no cadastro do currículo.</h5>
+                        <h5>- Incluído os campos de locais e data de conclusão para as formações: técnico, superior, pós-graduação, mestrado e doutorado.</h5>
+                        <h5>- Incluído validações de obrigatoriedade caso o candidato marque como concluído as formações de técnico, superior, pós-graduação, mestrado e doutorado.</h5>
+                        <h5>- Incluído os campos de local e carga horária na área de cadastro dos cursos complementares.</h5>
+                        <h5>- Incluido validações de obrigatoriedade dos campos da área de empregos anteriores, caso o candidato escolha inserir essas informações.</h5>
 
-                <h5><i class="glyphicon glyphicon-tag"></i><b> Listagem de Candidatos</b></h5>
-                        <h5>- Alterado para ordem crescente a listagem dos candidatos.</h5>
-                        <h5>- Contagem de classificados quando o gerente for aprovando os curriculos.</h5>
-                        <h5>- Ensino Médio inserido na busca avançada.</h5>
-                        <h5>- Coluna com informações sobre "PCD" incluída na listagem dos candidatos.</h5>
+                <h5><i class="glyphicon glyphicon-tag"></i><b> Cargos</b></h5>
+                        <h5>- Alterado o cálculo dos Cargos: CH Semanal passou a ser CH Mensal.</h5>
+                        <h5>- Botão para inativação do cargo foi inserido na área de ações da listagem de cargos.</h5>
+                        <h5>- Ocultado alguns campos na listagem de cargo: valor hora/aula, produtividade, 06 horas fixas, 1/6 fixas.</h5>
 
-                <h5><i class="glyphicon glyphicon-tag"></i><b> Contratações</b></h5>
-                        <h5>- Ao executar a ação "Iniciar Processo" na tela de Contratações Pendentes fará com que a solicitação de contratação fique com o status de "Pedido Recebido".</h5>
-
-                <h5><i class="glyphicon glyphicon-tag"></i><b> Pedido de Custo</b></h5>
-                        <h5>- Apareceção somente Solicitações que ainda não foram criadas o Pedido de Custo.</h5>
+                <h5><i class="glyphicon glyphicon-tag"></i><b> Etapas do Processo</b></h5>
+                        <h5>- Permitido a escolha de várias cidades ao gerar as Etapas do Processo.</h5>
+                        <h5>- Adicionado um botão que atualizará todos os candidatos selecionados após a criação das etapas do processo</h5>
 
                 <h5><i class="glyphicon glyphicon-tag"></i><b> Pedido de Homologação</b></h5>
-                        <h5>- Incluido o campo Nivel nos Itens do Pedido de Homologacao.</h5>
+                        <h5>- Data de expiração do cadastro de reserva será atualizada ao atualizar a data da homologação pela listagem dos Pedidos de Homologação. </h5><br />
 
-                <h5><i class="glyphicon glyphicon-tag"></i><b> Pedido de Contratação</b></h5>
-                        <h5>- Incluido a possibilidade de criar Pedidos de Contratação Especiais.</h5><br />
 
               <h4><b style="color: #337ab7;">Correções</b></h4>
-                <h5><i class="glyphicon glyphicon-tag"></i><b> Geração de Arquivos</b></h5>
-                        <h5>- Corrigido o nome do dia da semana que estava saindo em inglês.</h5>
-                        <h5>- Os horários específicos para cada candidato não estavam aparecendo no arquivo.</h5>
+                <h5><i class="glyphicon glyphicon-tag"></i><b> Etapas do Processo</b></h5>
+                        <h5>- Pequena correção na busca por código da contratação e pelo código do Pedido de Custo.</h5>
 
-                <h5><i class="glyphicon glyphicon-tag"></i><b> Notificações</b></h5>
-                        <h5>- Corrigido o link das notificações de Aprovação dos Pedidos de Custo, Homologação e Contratação.</h5><br />
+                <h5><i class="glyphicon glyphicon-tag"></i><b> Pedido de Homologação</b></h5>
+                        <h5>- Resolvido o problema na limitação de caracteres(255) do campo "motivo" do Pedido de Homologações.</h5>
+                        <h5>- Data de expiração do cadastro de reserva será atualizada ao atualizar a data da homologação pelo index. </h5>
+
+                <h5><i class="glyphicon glyphicon-tag"></i><b> Etapas do Processo</b></h5>
+                        <h5>- Pequena correção na busca por código da contratação e pelo código do Pedido de Custo.</h5>
+
+                <h5><i class="glyphicon glyphicon-tag"></i><b> Contratações</b></h5>
+                        <h5>- Retirado a duplicação do capo "motivo" na visualização da contratação.</h5><br />
 
                         <p><a href="index.php?r=site/versao" class="btn btn-warning" role="button">Histórico de Versões</a></p>
             </div>
