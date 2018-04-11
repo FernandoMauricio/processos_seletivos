@@ -43,9 +43,14 @@ class CurriculosFormacao extends \yii\db\ActiveRecord
         return [
             [['fundamental_comp', 'medio_comp', 'superior_comp', 'tecnico', 'pos', 'mestrado', 'doutorado', 'estuda_atualmente', 'estuda_turno_mat', 'estuda_turno_vesp', 'estuda_turno_not', 'curriculos_id'], 'integer'],
             [['curriculos_id'], 'required'],
-            [['tecnico_area','superior_area', 'pos_area', 'mestrado_area', 'doutorado_area', 'pos_anoconclusao', 'mestrado_anoconclusao', 'superior_anoconclusao', 'tecnico_anoconclusao'], 'string', 'max' => 45],
+            [['tecnico_area','superior_area', 'pos_area', 'mestrado_area', 'doutorado_area', 'pos_anoconclusao', 'mestrado_anoconclusao', 'superior_anoconclusao', 'tecnico_anoconclusao', 'doutorado_anoconclusao'], 'string', 'max' => 45],
             [['estuda_curso'], 'string', 'max' => 100],
-            [['pos_local', 'mestrado_local', 'superior_local', 'tecnico_local'], 'string', 'max' => 255],
+            [['tecnico_local', 'superior_local', 'pos_local', 'mestrado_local', 'doutorado_local' ], 'string', 'max' => 255],
+            [['tecnico_area', 'tecnico_local', 'tecnico_anoconclusao'], 'required', 'when' => function ($model) { return $model->tecnico == 1; }, 'whenClient' => "function (attribute, value) { return $('#curriculosformacao-tecnico input:checked').val() == '1'; }"],
+            [['superior_area', 'superior_local', 'superior_anoconclusao'], 'required', 'when' => function ($model) { return $model->superior_comp == 1; }, 'whenClient' => "function (attribute, value) { return $('#curriculosformacao-superior_comp input:checked').val() == '1'; }"],
+            [['pos_area', 'pos_local', 'pos_anoconclusao'], 'required', 'when' => function ($model) { return $model->pos == 1; }, 'whenClient' => "function (attribute, value) { return $('#curriculosformacao-pos input:checked').val() == '1'; }"],
+            [['mestrado_area', 'mestrado_local' ,'mestrado_anoconclusao'], 'required', 'when' => function ($model) { return $model->mestrado == 1; }, 'whenClient' => "function (attribute, value) { return $('#curriculosformacao-mestrado input:checked').val() == '1'; }"],
+            [['doutorado_area', 'doutorado_local', 'doutorado_anoconclusao'], 'required', 'when' => function ($model) { return $model->doutorado == 1; }, 'whenClient' => "function (attribute, value) { return $('#curriculosformacao-doutorado input:checked').val() == '1'; }"],
         ];
     }
 
@@ -73,7 +78,7 @@ class CurriculosFormacao extends \yii\db\ActiveRecord
             'estuda_turno_vesp' => 'Vespertino',
             'estuda_turno_not' => 'Noturno',
             'estuda_curso' => 'Qual curso?',
-            'estuda_local' => 'Onde?',
+            'estuda_local' => 'Local',
             'curriculos_id' => 'Curriculos ID',
             'tecnico_local' => 'Local',
             'superior_local' => 'Local',

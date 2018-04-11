@@ -35,11 +35,12 @@ class CurriculosEmpregos extends \yii\db\ActiveRecord
     {
         return [
             [['atividades'], 'string'],
-            //[['inicio', 'termino'], 'safe'],
+            [['inicio', 'termino'], 'safe'],
             [['ultimo_salario'], 'number'],
             [['curriculos_id'], 'integer'],
             [['inicio', 'termino'], 'string', 'max' => 14],
-            [['empresa', 'cidade', 'cargo'], 'string', 'max' => 100]
+            [['empresa', 'cidade', 'cargo'], 'string', 'max' => 100],
+            [['ultimo_salario', 'cidade', 'cargo', 'inicio', 'termino' ,'atividades'], 'required', 'when' => function ($model) { return isset($model->empresa); }, 'whenClient' => "function (attribute, value) { return $('#curriculosempregos-0-empresa').val() != ''; }"],
         ];
     }
 

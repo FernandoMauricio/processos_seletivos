@@ -31,8 +31,9 @@ class CurriculosComplementos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['certificado', 'curriculos_id'], 'integer'],
-            [['cursos'], 'string', 'max' => 100]
+            [['certificado', 'carga_horaria', 'curriculos_id'], 'integer'],
+            [['cursos'], 'string', 'max' => 100],
+            [['local'], 'string', 'max' => 255],
         ];
     }
 
@@ -45,6 +46,8 @@ class CurriculosComplementos extends \yii\db\ActiveRecord
             'id' => 'ID',
             'cursos' => 'Curso',
             'certificado' => 'Tem certificado?',
+            'local' => 'Onde?',
+            'carga_horaria' => 'Qual carga horária?',
             'curriculos_id' => 'Curriculos ID',
         ];
     }
