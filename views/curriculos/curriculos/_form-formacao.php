@@ -48,11 +48,13 @@ use kartik\builder\Form;
         </div>
 
         <div class="row">
+            
             <div class="col-md-3"><?= $form->field($curriculosFormacao, 'estuda_atualmente')->radioList([1 =>'Completo', 0 =>'Incompleto'], ['inline'=>true]) ?> </div>
-            <div class="col-md-4"><?= $form->field($curriculosFormacao, 'estuda_curso')->textInput(['placeholder'=>'Informe seu Curso...']) ?></div>
-            <div class="col-md-1"><?= $form->field($curriculosFormacao, 'estuda_turno_mat')->checkbox() ?></div>
-            <div class="col-md-1"><?= $form->field($curriculosFormacao, 'estuda_turno_vesp')->checkbox() ?></div>
-            <div class="col-md-1"><?= $form->field($curriculosFormacao, 'estuda_turno_not')->checkbox() ?></div>
+            <div class="col-md-3"><?= $form->field($curriculosFormacao, 'estuda_curso')->textInput(['placeholder'=>'Informe seu Curso...']) ?></div>
+            <div class="col-md-3"><?= $form->field($curriculosFormacao, 'estuda_local')->textInput(['placeholder'=>'Informe o local...']) ?></div>
+            <div class="col-md-1"><?= $form->field($curriculosFormacao, 'estuda_turno_mat')->checkbox()->label('Turno?') ?></div>
+            <div class="col-md-1" style="margin-top: 5px;"><?= $form->field($curriculosFormacao, 'estuda_turno_vesp')->checkbox()->label('') ?></div>
+            <div class="col-md-1" style="margin-top: 5px;"><?= $form->field($curriculosFormacao, 'estuda_turno_not')->checkbox()->label('') ?></div>
         </div>
     </div>
         
