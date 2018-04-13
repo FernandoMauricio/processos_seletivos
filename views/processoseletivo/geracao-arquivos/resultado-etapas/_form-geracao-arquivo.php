@@ -19,9 +19,9 @@ use faryshta\widgets\JqueryTagsInput;
 <div class="geracao-arquivos-form">
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-2"><?= $form->field($model, 'processoSeletivo')->textInput(['value' => $model->processo->numeroEdital,'readonly' => true]) ?></div>
+                <div class="col-md-3"><?= $form->field($model, 'processoSeletivo')->textInput(['value' => $model->processo->numeroEdital,'readonly' => true]) ?></div>
 
-                <div class="col-md-3"><?= $form->field($model, 'cargoLabel')->textInput(['value' => $model->etapasprocesso->etapa_cargo,'readonly' => true]) ?></div>
+                <div class="col-md-4"><?= $form->field($model, 'cargoLabel')->textInput(['value' => $model->etapasprocesso->etapa_cargo,'readonly' => true]) ?></div>
 
                 <div class="col-md-2">
                     <?= $form->field($model, 'gerarq_datarealizacao')->widget(DateControl::classname(), [

@@ -39,17 +39,23 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                 <div class="clearfix"></div>
                             </div>
                             <div class="panel-body">
-                                <?php
-                                    // necessary for update action.
-                                    if (!$modelItens->isNewRecord) {
-                                        echo Html::activeHiddenInput($modelItens, "[{$i}]id");
-                                    }
-                                ?>
+                                <div class="row">
+                                    <?php
+                                        // necessary for update action.
+                                        if (!$modelItens->isNewRecord) {
+                                            echo Html::activeHiddenInput($modelItens, "[{$i}]id");
+                                        }
+                                    ?>
                                     <div class="col-sm-4"><?= $form->field($modelItens, "[{$i}]gerarqitens_candidato")->textInput(['readonly' => true, 'style' => 'text-transform: uppercase']) ?></div>
 
                                     <div class="col-sm-2"><?= $form->field($modelItens, "[{$i}]gerarqitens_horario")->widget(TimePicker::classname(), [ 'pluginOptions' => ['showSeconds' => false,'showMeridian' => false]]) ?></div> 
 
                                     <?= $model->gerarq_perfil == 1 ? '<div class="col-sm-6">'.$form->field($modelItens, "[{$i}]gerarqitens_tema")->textInput() .'</div>' : ''; ?>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12"><?= $form->field($modelItens, "[{$i}]gerarqitens_observacao")->textInput(['maxlength' => true]) ?></div>
+                                </div>
                             </div>
                         </div>
                     <?php endforeach; ?>
