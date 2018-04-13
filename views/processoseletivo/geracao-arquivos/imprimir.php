@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <tr><td width="1%"><b>Fase:</b></td><td width="99%"><?= $model->gerarq_fase ?></td></tr>
     <?= $model->gerarq_perfil == 1 ? '<tr><td width="1%"><b>Tempo:</b></td><td width="99%">'.$model->gerarq_tempo.'</td></tr>' : ''; ?>
     <tr><td width="1%"><b>Responsável:</b></td><td width="99%" class="text-capitalize"><?= $model->gerarq_responsavel ?></td></tr>
+    <tr><td width="1%"><b>Observação:</b></td><td width="99%" class="text-capitalize"><?= $model->gerarq_observacao ?></td></tr>
 </table>
 
 <div><b color="red"><u>OBRIGATÓRIO:</u></b>
@@ -55,7 +56,6 @@ $this->params['breadcrumbs'][] = $this->title;
       <th><font size="2">#</font></th>
       <th><font size="2">Nome Completo</font></th>
       <th><font size="2">Horario</font></th>
-      <th><font size="2">Observação</font></th>
       <?php echo $model->gerarq_perfil == 1 ? '<th><font size="2"> Tema da Aula</font></th>' : ''; ?>
     </tr>
   </thead>
@@ -65,7 +65,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <td><font size="2"><?= $i+=1;?></font></td>
         <td><font size="2" class="text-uppercase"><?= $candidato->gerarqitens_candidato; ?></font></td>
         <td><font size="2"><?= date('H:i', strtotime($candidato->gerarqitens_horario)) ?></font></td>
-        <td><font size="2"><?= $candidato->gerarqitens_observacao ?></font></td>
         <?php echo $model->gerarq_perfil == 1 ? '<td><font size="2"> '.$candidato->gerarqitens_tema.' </font></td>' : ''; ?>
   </tr>
     <?php endforeach; ?>

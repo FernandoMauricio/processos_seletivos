@@ -76,7 +76,9 @@ echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
                 'attribute'=>'gerarq_tempo', 
                 'visible' => $model->gerarq_perfil == 1 ? true : false,
             ],
+            
             'gerarq_responsavel',
+            'gerarq_observacao',
         ],
     ]) ?>
 
@@ -87,7 +89,6 @@ echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
                 <th>#</th>
                 <th>Nome Completo</th>
                 <th>Horario</th>
-                <th>Observação</th>
                 <?php echo $model->gerarq_perfil == 1 ? '<th>Tema da Aula</th>' : ''; ?>
               </tr>
             </thead>
@@ -98,7 +99,6 @@ echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
                   <td><?= $i+=1;?></td>
                   <td><span class="text-uppercase"><?= $candidato->gerarqitens_candidato; ?></span></td>
                   <td><?= $candidato->gerarqitens_horario; ?> </td>
-                  <td><?= $candidato->gerarqitens_observacao; ?> </td>
                   <?php echo $model->gerarq_perfil == 1 ? '<td> '.$candidato->gerarqitens_tema.' </td>' : ''; ?>
             </tr>
               <?php endforeach; ?>

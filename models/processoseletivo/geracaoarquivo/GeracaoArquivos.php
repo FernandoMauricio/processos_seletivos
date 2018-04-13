@@ -51,7 +51,7 @@ class GeracaoArquivos extends \yii\db\ActiveRecord
             //[['gerarq_datarealizacao', 'gerarq_horarealizacao', 'gerarq_titulo', 'gerarq_documentos', 'gerarq_emailconfirmacao', 'gerarq_datarealizacao', 'gerarq_horarealizacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_fase', 'gerarq_tempo'], 'required', 'on' => 'update'],
             [['processo_id', 'etapasprocesso_id', 'gerarq_perfil', 'gerarq_tipo'], 'integer'],
             [['gerarq_datarealizacao', 'gerarq_horarealizacao', 'processoSeletivo', 'cargoLabel', 'gerarq_documentos', 'gerarq_cidade'], 'safe'],
-            [['gerarq_titulo', 'gerarq_emailconfirmacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_tempo', 'gerarq_responsavel', 'gerarq_fase'], 'string', 'max' => 255],
+            [['gerarq_titulo', 'gerarq_emailconfirmacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_tempo', 'gerarq_responsavel', 'gerarq_fase', 'gerarq_observacao'], 'string', 'max' => 255],
             [['etapasprocesso_id'], 'exist', 'skipOnError' => true, 'targetClass' => EtapasProcesso::className(), 'targetAttribute' => ['etapasprocesso_id' => 'etapa_id']],
             [['processo_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProcessoSeletivo::className(), 'targetAttribute' => ['processo_id' => 'id']],
         ];
@@ -60,7 +60,7 @@ class GeracaoArquivos extends \yii\db\ActiveRecord
     public function scenarios()
     {
         $scenarios = parent::scenarios();
-        $scenarios['update'] = ['gerarq_datarealizacao', 'gerarq_horarealizacao','gerarq_titulo', 'gerarq_documentos', 'gerarq_emailconfirmacao', 'gerarq_datarealizacao', 'gerarq_horarealizacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_fase', 'gerarq_tempo', 'gerarq_responsavel'];//Scenario Values Only Accepted
+        $scenarios['update'] = ['gerarq_datarealizacao', 'gerarq_horarealizacao','gerarq_titulo', 'gerarq_documentos', 'gerarq_emailconfirmacao', 'gerarq_datarealizacao', 'gerarq_horarealizacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_fase', 'gerarq_tempo', 'gerarq_responsavel', 'gerarq_observacao'];//Scenario Values Only Accepted
         return $scenarios;
     }
 
@@ -88,6 +88,7 @@ class GeracaoArquivos extends \yii\db\ActiveRecord
             'gerarq_perfil' => 'Perfil do Formulário',
             'gerarq_tipo' => 'Tipo de Resultado',
             'gerarq_cidade' => 'Cidade',
+            'gerarq_observacao' => 'Observação',
         ];
     }
 
