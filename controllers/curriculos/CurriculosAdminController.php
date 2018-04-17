@@ -96,7 +96,7 @@ class CurriculosAdminController extends Controller
     public function actionAnaliseGerencialAdministrador()
     {
         $this->layout = 'main-full';
-
+        $session = Yii::$app->session;
         $searchModel = new AnaliseGerencialAdministradorSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->sort = ['defaultOrder' => ['id'=>SORT_ASC]];
@@ -473,7 +473,7 @@ class CurriculosAdminController extends Controller
         //Informação do quantitativo de curriculos aguardando início das etapas do processo
         Yii::$app->session->setFlash('info', 'SUCESSO! <strong>' .$countCurriculos.' Curriculos</strong> Classificados do edital <strong>'.$model->edital.'</strong> aguardando início das Etapas do Processo!</strong>');
 
-    return $this->redirect(['analise-gerencial-administrador']);
+    return $this->redirect(Yii::$app->request->baseUrl. '/index.php?' . $session['query']);
 
     }
 
@@ -509,7 +509,7 @@ class CurriculosAdminController extends Controller
 
         Yii::$app->session->setFlash('success', '<strong>SUCESSO!</strong> Candidato(a) <strong> '.$model->nome.' </strong> foi Desclassificado!</strong>');
      
-    return $this->redirect(['analise-gerencial-administrador']);
+    return $this->redirect(Yii::$app->request->baseUrl. '/index.php?' . $session['query']);
 
     }
     public function actionDesclassificarggp($id)
