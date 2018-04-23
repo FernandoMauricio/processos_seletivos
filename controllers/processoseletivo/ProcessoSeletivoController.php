@@ -133,9 +133,7 @@ class ProcessoSeletivoController extends Controller
         return $this->render('/site/acesso_negado');
 
     }else
-    
         $model = $this->findModel($id);
-
         //CARGOS
         $cargos = Cargos::find()->orderBy(['descricao' => SORT_ASC])->where(['status' => 1])->all();
         //Retrieve the stored checkboxes
@@ -157,10 +155,8 @@ class ProcessoSeletivoController extends Controller
         }
     }
 
-
     public function actionEdital($id) 
     {
-
         $model = ProcessoSeletivo::findOne($id);
         $session = Yii::$app->session;
         $session->set('sess_processo', $model->id);

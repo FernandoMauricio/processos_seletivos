@@ -69,7 +69,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                            'format' => 'raw',
                            'value' => function ($data) {
                                          return Html::a($data->contratacao_id, ['/contratacao/contratacao/view', 'id' => $data->contratacao_id], ['target'=>'_blank', 'data-pjax'=>"0"]);
-                                     },
+                                    },
                     ],
                     'homolog_unidade',
                     'homolog_cargo',
