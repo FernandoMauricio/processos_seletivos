@@ -261,6 +261,8 @@ $this->params['breadcrumbs'][] =  $this->title;
             <td>Ensino Técnico</td>
             <td><?= $curriculosFormacao->tecnico ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
             <td><?= $curriculosFormacao->tecnico_area; ?></td>
+            <td><?= $curriculosFormacao->tecnico_local; ?></td>
+            <td><?= $curriculosFormacao->tecnico_anoconclusao; ?></td>
             <td></td>
           </tr>
           <tr>

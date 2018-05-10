@@ -51,6 +51,7 @@ class CurriculosFormacao extends \yii\db\ActiveRecord
             [['pos_area', 'pos_local', 'pos_anoconclusao'], 'required', 'when' => function ($model) { return $model->pos == 1; }, 'whenClient' => "function (attribute, value) { return $('#curriculosformacao-pos input:checked').val() == '1'; }"],
             [['mestrado_area', 'mestrado_local' ,'mestrado_anoconclusao'], 'required', 'when' => function ($model) { return $model->mestrado == 1; }, 'whenClient' => "function (attribute, value) { return $('#curriculosformacao-mestrado input:checked').val() == '1'; }"],
             [['doutorado_area', 'doutorado_local', 'doutorado_anoconclusao'], 'required', 'when' => function ($model) { return $model->doutorado == 1; }, 'whenClient' => "function (attribute, value) { return $('#curriculosformacao-doutorado input:checked').val() == '1'; }"],
+            [['estuda_curso', 'estuda_local'], 'required', 'when' => function ($model) { return $model->estuda_atualmente == 1; }, 'whenClient' => "function (attribute, value) { return $('#curriculosformacao-estuda_atualmente input:checked').val() == '1'; }"],
         ];
     }
 

@@ -255,10 +255,12 @@ $this->title = $model->numeroInscricao;
             <td><?= $curriculosFormacao->fundamental_comp ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
             <td></td>
             <td></td>
+            <td></td>
           </tr>
           <tr>
             <td>Ensino Médio</td>
             <td><?= $curriculosFormacao->medio_comp ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
+            <td></td>
             <td></td>
             <td></td>
           </tr>
@@ -266,41 +268,48 @@ $this->title = $model->numeroInscricao;
             <td>Ensino Técnico</td>
             <td><?= $curriculosFormacao->tecnico ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
             <td><?= $curriculosFormacao->tecnico_area; ?></td>
+            <td><?= $curriculosFormacao->tecnico_local; ?></td>
+            <td><?= $curriculosFormacao->tecnico_anoconclusao; ?></td>
             <td></td>
           </tr>
           <tr>
             <td>Ensino Superior</td>
             <td><?= $curriculosFormacao->superior_comp ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
             <td><?= $curriculosFormacao->superior_area; ?></td>
-            <td></td>
+            <td><?= $curriculosFormacao->superior_local; ?></td>
+            <td><?= $curriculosFormacao->superior_anoconclusao; ?></td>
           </tr>
           <tr>
             <td>Pós-Graduação</td>
             <td><?= $curriculosFormacao->pos ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
             <td><?= $curriculosFormacao->pos_area; ?></td>
-            <td></td>
+            <td><?= $curriculosFormacao->pos_local; ?></td>
+            <td><?= $curriculosFormacao->pos_anoconclusao; ?></td>
           </tr>
           <tr>
             <td>Mestrado</td>
             <td><?= $curriculosFormacao->mestrado ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
             <td><?= $curriculosFormacao->mestrado_area; ?></td>
-            <td></td>
+            <td><?= $curriculosFormacao->mestrado_local; ?></td>
+            <td><?= $curriculosFormacao->mestrado_anoconclusao; ?></td>
           </tr>
           <tr>
             <td>Doutorado</td>
             <td><?= $curriculosFormacao->doutorado ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
             <td><?= $curriculosFormacao->doutorado_area; ?></td>
-            <td></td>
+            <td><?= $curriculosFormacao->doutorado_local; ?></td>
+            <td><?= $curriculosFormacao->doutorado_anoconclusao; ?></td>
           </tr>
           <tr>
             <td>Estuda Atualmente?</td>
             <td><?= $curriculosFormacao->estuda_curso ? 'Sim' : 'Não'; ?></td>
+            <td><?= $curriculosFormacao->estuda_local ?></td>
             <td></td>
             <td><?php echo $curriculosFormacao->estuda_turno_mat ? '[X] Matutino' : '' ?>
                 <?php echo $curriculosFormacao->estuda_turno_vesp ? '[X] Vespertino' : '' ?>
                 <?php echo $curriculosFormacao->estuda_turno_not ? '[X] Noturno' : '' ?>
           </tr>
-<?php endforeach; ?>
+        <?php endforeach; ?>
       </tbody>
   </table>
                         <!--    CURSOS COMPLEMENTARES  -->
@@ -309,14 +318,18 @@ $this->title = $model->numeroInscricao;
     <thead>
     <tr class="info"><th colspan="13">SEÇÃO 4: Cursos Complementares</th></tr>
       <tr>
-        <th>Curso Complementar</th>
         <th>Tem Certificado?</th>
+        <th>Curso Complementar</th>
+        <th>Local</th>
+        <th>Carga Horária</th>
       </tr>
     </thead>
     <tbody>
     <?php foreach ($curriculosComplementos as $curriculosComplemento): ?>
-       <td><?= $curriculosComplemento->cursos ?></td>
-       <td><?= $curriculosComplemento->certificado ? 'Sim' : 'Não'; ?></td>
+      <td><?= $curriculosComplemento->certificado ? 'Sim' : 'Não'; ?></td>
+      <td><?= $curriculosComplemento->cursos ?></td>
+      <td><?= $curriculosComplemento->local ?></td>
+      <td><?= $curriculosComplemento->carga_horaria ?></td>
     <?php endforeach; ?>
     </tbody>
   </table>
@@ -329,6 +342,7 @@ $this->title = $model->numeroInscricao;
         <th>Empresa</th>
         <th>Cidade</th>
         <th>Cargo</th>
+        <th>Salário</th>
         <th>Início</th>
         <th>Término</th>
         <th>Atividades Desenvolvidas</th>
@@ -340,6 +354,7 @@ $this->title = $model->numeroInscricao;
        <td><?= $curriculosEmprego->empresa; ?></td>
        <td><?= $curriculosEmprego->cidade; ?></td>
        <td><?= $curriculosEmprego->cargo; ?></td>
+       <td><?= $curriculosEmprego->ultimo_salario; ?></td>
        <td><?= $curriculosEmprego->inicio; ?></td>
        <td><?= $curriculosEmprego->termino; ?></td>
        <td><?= $curriculosEmprego->atividades; ?></td>

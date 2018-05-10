@@ -49,7 +49,7 @@ use kartik\builder\Form;
 
         <div class="row">
             
-            <div class="col-md-3"><?= $form->field($curriculosFormacao, 'estuda_atualmente')->radioList([1 =>'Completo', 0 =>'Incompleto'], ['inline'=>true]) ?> </div>
+            <div class="col-md-3"><?= $form->field($curriculosFormacao, 'estuda_atualmente')->radioList([1 =>'Sim', 0 =>'Não'], ['inline'=>true]) ?> </div>
             <div class="col-md-3"><?= $form->field($curriculosFormacao, 'estuda_curso')->textInput(['placeholder'=>'Informe seu Curso...']) ?></div>
             <div class="col-md-3"><?= $form->field($curriculosFormacao, 'estuda_local')->textInput(['placeholder'=>'Informe o local...']) ?></div>
             <div class="col-md-1"><?= $form->field($curriculosFormacao, 'estuda_turno_mat')->checkbox()->label('Turno?') ?></div>
