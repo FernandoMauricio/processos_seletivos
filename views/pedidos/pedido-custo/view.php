@@ -5,15 +5,22 @@ use kartik\detail\DetailView;
 
 
 ?>
-<div class="pedido-custo-view">
+<style>
+body {
+    height: 100%;
+    font-size:  10px;
+}
+</style>
+
+<div class="pedido-custo-view" style="margin-left: -160px;margin-right: -160px;">
 
 <table width="100%" border="0">
   <tr> 
-    <td width="20%"><img src="css/img/logo.png"></td>
-    <td width="60%"><h4>SERVIÇO NACIONAL DE APRENDIZAGEM COMERCIAL - SENAC<br /><br />
-                         DEPARTAMENTO REGIONAL NO AMAZONAS<br /><br />
-                         GERÊNCIA DE GESTÃO DE PESSOAS<br /><br />
-                         PLANILHA DE COMPOSIÇÃO DE CUSTO POR SOLICITAÇÃO</h4>
+    <td width="10%"><img style="width: 60%;" src="css/img/logo.png"></td>
+    <td width="60%"><h7>SERVIÇO NACIONAL DE APRENDIZAGEM COMERCIAL - SENAC</h7><br / >
+                    <h7>DEPARTAMENTO REGIONAL NO AMAZONAS</h7><br / >
+                    <h7>GERÊNCIA DE GESTÃO DE PESSOAS</h7><br / >
+                    <h7>PLANILHA DE COMPOSIÇÃO DE CUSTO POR SOLICITAÇÃO</h7>
     </td>
     <td width="20%"><b>CC/RS/GGP  Nº </b> <?= $model->custo_id . '/' . date('Y', strtotime($model->custo_data)) ?><br /><br />
     <?=  date('d/m/Y', strtotime($model->custo_data)); ?></td>
@@ -48,7 +55,7 @@ use kartik\detail\DetailView;
           <table class="table table-condensed table-hover">
             <thead>
             <tr class="info"><th colspan="12">SEÇÃO 2: Itens do Pedido</th></tr>
-               <caption><b>Sr.(a) Gerente</b><br />                    
+               <caption style="padding-top: 0px"><b>Sr.(a) Gerente</b><br />                    
                   Segue para aprovação a planilha de custos visando Documento de Abertura para posterior contratação de pessoal, solicitados pelas unidades/setores acima em substituições de colaboradores, demandas administrativas e/ou de docência das unidades.
               </caption>
               <tr>
@@ -105,12 +112,12 @@ use kartik\detail\DetailView;
           </table><br /><br /><br />
                                     <!-- ÁREA DE APROVAÇÕES -->
 
-  <table class="table table-condensed table-hover">
+  <table class="table table-condensed table-hover" style="margin-top: -50px">
      <tbody>
         <?php if($model->custo_situacaoggp == 1){ ?>
-          <td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-lock" aria-hidden="true"> </span> <?= $model->custoSituacaoggp->situacao_descricao ?><br /><br /></td>
+          <td style="font-size: 10px; border-top: 0px solid"><b><span class="glyphicon glyphicon-lock" aria-hidden="true"> </span> <?= $model->custoSituacaoggp->situacao_descricao ?><br /><br /></td>
           <?php }else{?>
-          <?php echo $model->custo_situacaoggp == 3 ? '<td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-remove" aria-hidden="true"> </span>' : '<td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-ok" aria-hidden="true"> </span>'; ?>
+          <?php echo $model->custo_situacaoggp == 3 ? '<td style="font-size: 10px; border-top: 0px solid"><b><span class="glyphicon glyphicon-remove" aria-hidden="true"> </span>' : '<td style="font-size: 10px; border-top: 0px solid"><b><span class="glyphicon glyphicon-ok" aria-hidden="true"> </span>'; ?>
             <?= $model->custoSituacaoggp->situacao_descricao ?></b><br /><br /><br /><br /><br />
             Assinado eletrônicamente por:<br />
 
@@ -123,9 +130,9 @@ use kartik\detail\DetailView;
           <?php }?>
 
         <?php if($model->custo_situacaodad == 1){ ?>
-          <td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-lock" aria-hidden="true"> </span> <?= $model->custoSituacaodad->situacao_descricao ?><br /><br /></td>
+          <td style="font-size: 10px; border-top: 0px solid"><b><span class="glyphicon glyphicon-lock" aria-hidden="true"> </span> <?= $model->custoSituacaodad->situacao_descricao ?><br /><br /></td>
           <?php }else{?>
-          <?php echo $model->custo_situacaodad == 3 ? '<td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-remove" aria-hidden="true"> </span>' : '<td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-ok" aria-hidden="true"> </span>'; ?>
+          <?php echo $model->custo_situacaodad == 3 ? '<td style="font-size: 10px; border-top: 0px solid"><b><span class="glyphicon glyphicon-remove" aria-hidden="true"> </span>' : '<td style="font-size: 10px; border-top: 0px solid"><b><span class="glyphicon glyphicon-ok" aria-hidden="true"> </span>'; ?>
             <?= $model->custoSituacaodad->situacao_descricao ?></b><br /><br /><br /><br /><br />
             Assinado eletrônicamente por:<br />
             
@@ -137,7 +144,7 @@ use kartik\detail\DetailView;
           </td>
           <?php }?>
 
-          <td style="font-size: 12px; border-top: 0px solid">
+          <td style="font-size: 10px; border-top: 0px solid">
             (&nbsp;&nbsp;&nbsp;) Aprovo a solicitação<br />
             (&nbsp;&nbsp;&nbsp;) Não aprovo a solicitação<br />
             (&nbsp;&nbsp;&nbsp;)  Ao Sr. Presidente do C.R para autorização<br /><br /><br /><br />
@@ -149,7 +156,7 @@ use kartik\detail\DetailView;
              ___/___/_____<br />
           </td>
 
-          <td style="font-size: 12px; border-top: 0px solid">
+          <td style="font-size: 10px; border-top: 0px solid">
            (&nbsp;&nbsp;&nbsp;) Autorizo<br />
            (&nbsp;&nbsp;&nbsp;) Não Autorizo<br /><br /><br /><br /><br />
 
