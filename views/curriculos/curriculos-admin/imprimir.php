@@ -9,11 +9,21 @@ use kartik\detail\DetailView;
 $this->title = $model->numeroInscricao;
 ?>
 
-    <h1>Número de Inscrição: <?= Html::encode($this->title) ?></h1>
+<style>
+html,
+body {
+    height: 100%;
+    font-size: 10px;
+    
+}
+.table {
+  margin-bottom: 0px;
+}
+</style>
 
 <div class="panel panel-primary">
   <div class="panel-heading">
-    <h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Ficha de Inscrição: <span class="text-uppercase"> <?= $model->nome ?></span></h3>
+    <h5 class="panel-title"><i class="glyphicon glyphicon-book"></i> Ficha de Inscrição: <span class="text-uppercase"> <?= $model->nome ?></span> - <?= Html::encode($this->title) ?> </h5>
   </div>
 
   <div class="panel-body">
@@ -202,7 +212,6 @@ $this->title = $model->numeroInscricao;
     ]);
 ?>
                         <!--    ENDEREÇO  -->
-
   <table class="table table-condensed table-hover">
     <thead>
     <tr class="info"><th colspan="12">SEÇÃO 2: Endereço</th></tr>
@@ -229,7 +238,6 @@ $this->title = $model->numeroInscricao;
     </tbody>
   </table>
                         <!--   FORMAÇÃO ESCOLAR  -->
-
   <table class="table table-condensed table-hover">
     <thead>
     <tr class="info"><th colspan="13">SEÇÃO 3: Formação Escolar</th></tr>
@@ -243,70 +251,82 @@ $this->title = $model->numeroInscricao;
     </thead>
     <tbody>
         <?php foreach ($curriculosFormacao as $curriculoFormacao): ?>
-          <tr>
-            <td>Ensino Fundamental</td>
-            <td><?= $curriculoFormacao->fundamental_comp ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Ensino Médio</td>
-            <td><?= $curriculoFormacao->medio_comp ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Ensino Técnico</td>
-            <td><?= $curriculoFormacao->tecnico ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
-            <td><?= $curriculoFormacao->tecnico_area; ?></td>
-            <td><?= $curriculoFormacao->tecnico_local; ?></td>
-            <td><?= $curriculoFormacao->tecnico_anoconclusao; ?></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Ensino Superior</td>
-            <td><?= $curriculoFormacao->superior_comp ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
-            <td><?= $curriculoFormacao->superior_area; ?></td>
-            <td><?= $curriculoFormacao->superior_local; ?></td>
-            <td><?= $curriculoFormacao->superior_anoconclusao; ?></td>
-          </tr>
-          <tr>
-            <td>Pós-Graduação</td>
-            <td><?= $curriculoFormacao->pos ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
-            <td><?= $curriculoFormacao->pos_area; ?></td>
-            <td><?= $curriculoFormacao->pos_local; ?></td>
-            <td><?= $curriculoFormacao->pos_anoconclusao; ?></td>
-          </tr>
-          <tr>
-            <td>Mestrado</td>
-            <td><?= $curriculoFormacao->mestrado ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
-            <td><?= $curriculoFormacao->mestrado_area; ?></td>
-            <td><?= $curriculoFormacao->mestrado_local; ?></td>
-            <td><?= $curriculoFormacao->mestrado_anoconclusao; ?></td>
-          </tr>
-          <tr>
-            <td>Doutorado</td>
-            <td><?= $curriculoFormacao->doutorado ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
-            <td><?= $curriculoFormacao->doutorado_area; ?></td>
-            <td><?= $curriculoFormacao->doutorado_local; ?></td>
-            <td><?= $curriculoFormacao->doutorado_anoconclusao; ?></td>
-          </tr>
-          <tr>
-            <td>Estuda Atualmente?</td>
-            <td><?= $curriculoFormacao->estuda_curso ? 'Sim' : 'Não'; ?></td>
-            <td><?= $curriculoFormacao->estuda_local ?></td>
-            <td></td>
-            <td><?php echo $curriculoFormacao->estuda_turno_mat ? '[X] Matutino' : '' ?>
-                <?php echo $curriculoFormacao->estuda_turno_vesp ? '[X] Vespertino' : '' ?>
-                <?php echo $curriculoFormacao->estuda_turno_not ? '[X] Noturno' : '' ?>
-          </tr>
-        <?php endforeach; ?>
-      </tbody>
-  </table>
-                        <!--    CURSOS COMPLEMENTARES  -->
+          <?php if($curriculoFormacao->fundamental_comp == 1): ?>
+            <tr>
+              <td>Ensino Fundamental</td>
+              <td><?= $curriculoFormacao->fundamental_comp ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          <?php endif; ?>
+          <?php if($curriculoFormacao->medio_comp == 1): ?>
+            <tr>
+              <td>Ensino Médio</td>
+              <td><?= $curriculoFormacao->medio_comp ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          <?php endif; ?>
+          <?php if($curriculoFormacao->tecnico == 1): ?>
+            <tr>
+              <td>Ensino Técnico</td>
+              <td><?= $curriculoFormacao->tecnico ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
+              <td><?= $curriculoFormacao->tecnico_area; ?></td>
+              <td><?= $curriculoFormacao->tecnico_local; ?></td>
+              <td><?= $curriculoFormacao->tecnico_anoconclusao; ?></td>
+              <td></td>
+            </tr>
+          <?php endif; ?>
+          <?php if($curriculoFormacao->superior_comp == 1): ?>
+            <tr>
+              <td>Ensino Superior</td>
+              <td><?= $curriculoFormacao->superior_comp ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
+              <td><?= $curriculoFormacao->superior_area; ?></td>
+              <td><?= $curriculoFormacao->superior_local; ?></td>
+              <td><?= $curriculoFormacao->superior_anoconclusao; ?></td>
+            </tr>
+          <?php endif; ?>
+          <?php if($curriculoFormacao->pos == 1): ?>
+            <tr>
+              <td>Pós-Graduação</td>
+              <td><?= $curriculoFormacao->pos ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
+              <td><?= $curriculoFormacao->pos_area; ?></td>
+              <td><?= $curriculoFormacao->pos_local; ?></td>
+              <td><?= $curriculoFormacao->pos_anoconclusao; ?></td>
+            </tr>
+          <?php endif; ?>
+          <?php if($curriculoFormacao->mestrado == 1): ?>
+            <tr>
+              <td>Mestrado</td>
+              <td><?= $curriculoFormacao->mestrado ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
+              <td><?= $curriculoFormacao->mestrado_area; ?></td>
+              <td><?= $curriculoFormacao->mestrado_local; ?></td>
+              <td><?= $curriculoFormacao->mestrado_anoconclusao; ?></td>
+            </tr>
+          <?php endif; ?>
+          <?php if($curriculoFormacao->doutorado == 1): ?>
+            <tr>
+              <td>Doutorado</td>
+              <td><?= $curriculoFormacao->doutorado ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
+              <td><?= $curriculoFormacao->doutorado_area; ?></td>
+              <td><?= $curriculoFormacao->doutorado_local; ?></td>
+              <td><?= $curriculoFormacao->doutorado_anoconclusao; ?></td>
+            </tr>
+          <?php endif; ?>
+                </tbody>
+  </table><br />
 
+<p>&nbsp;&nbsp;Estuda Atualmente? <?= $curriculoFormacao->estuda_curso ? '<span style="color:#27cc27"><b>Sim</b></span>' : '<span style="color:#ff2b2b"><b>Não</b></span>'; ?></p>
+<p>&nbsp;&nbsp;Local: <b><?= $curriculoFormacao->estuda_local ?></b></p>
+<p>&nbsp;&nbsp;Turno:  
+  <?= $curriculoFormacao->estuda_turno_mat ? '<b>Matutino</b>' : '' ?>
+  <?= $curriculoFormacao->estuda_turno_vesp ? '<b>Vespertino</b>' : '' ?>
+  <?= $curriculoFormacao->estuda_turno_not ? '<b>Noturno</b>' : '' ?></p>
+        <?php endforeach; ?>
+
+                        <!--    CURSOS COMPLEMENTARES  -->
   <table class="table table-condensed table-hover">
     <thead>
     <tr class="info"><th colspan="13">SEÇÃO 4: Cursos Complementares</th></tr>
@@ -319,15 +339,17 @@ $this->title = $model->numeroInscricao;
     </thead>
     <tbody>
     <?php foreach ($curriculosComplementos as $curriculosComplemento): ?>
-      <td><?= $curriculosComplemento->certificado ? 'Sim' : 'Não'; ?></td>
-      <td><?= $curriculosComplemento->cursos ?></td>
-      <td><?= $curriculosComplemento->local ?></td>
-      <td><?= $curriculosComplemento->carga_horaria ?></td>
+      <tr>
+        <td><?= $curriculosComplemento->certificado ? 'Sim' : 'Não'; ?></td>
+        <td><?= $curriculosComplemento->cursos ?></td>
+        <td><?= $curriculosComplemento->local ?></td>
+        <td><?= $curriculosComplemento->carga_horaria ?></td>
+      </tr>
     <?php endforeach; ?>
     </tbody>
   </table>
+
                         <!--    EMPREGOS ANTERIORES  -->
-                        
   <table class="table table-condensed table-hover">
     <thead>
     <tr class="info"><th colspan="13">SEÇÃO 5: Empregos Anteriores</th></tr>
@@ -355,8 +377,8 @@ $this->title = $model->numeroInscricao;
     <?php endforeach; ?>
     </tbody>
   </table>
-                        <!--   APROVAÇÕES  -->
 
+                        <!--   APROVAÇÕES  -->
   <table class="table table-condensed table-hover">
     <thead>
     <tr class="info"><th colspan="12">SEÇÃO 6: Aprovações/Reprovações</th></tr>
