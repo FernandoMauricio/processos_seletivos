@@ -93,10 +93,8 @@ use yii\widgets\DetailView;
                   <td><?= $etapa->itens_localcontratacao; ?></td>
             </tr>
               <?php endforeach; ?>
-
             </tbody>
            </table>
-
     </div>
   </div>
 </div>

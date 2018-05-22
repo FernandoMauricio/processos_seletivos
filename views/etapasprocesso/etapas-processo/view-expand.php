@@ -71,16 +71,16 @@ use yii\widgets\DetailView;
                   <td><span class="text-uppercase"><?= $etapa->curriculos->nome; ?></span></td>
                   <td style="width: 80px;"><?= $etapa->itens_escrita; ?></td>
                   <td style="width: 80px;"><?= $etapa->itens_comportamental; ?></td>
+                  <?php echo $model->etapa_perfil == 1 ? '<td style="width: 80px;"> '.$etapa->itens_didatica.' </td>' : ''; ?>
                   <td style="width: 80px;"><?= $etapa->itens_entrevista; ?></td>
+                  <?php echo $model->etapa_perfil == 1 ? '<td style="width: 80px;"> '.$etapa->itens_pratica.' </td>' : ''; ?>
                   <td style="width: 80px;"><?= $etapa->itens_pontuacaototal; ?></td>
                   <td><?= $etapa->itens_classificacao; ?></td>
                   <td><?= $etapa->itens_localcontratacao; ?></td>
             </tr>
               <?php endforeach; ?>
-
             </tbody>
            </table>
-
     </div>
   </div>
 </div>

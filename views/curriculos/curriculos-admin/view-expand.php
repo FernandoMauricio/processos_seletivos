@@ -250,7 +250,6 @@ $this->title = $model->numeroInscricao;
     </thead>
     <tbody>
         <?php foreach ($curriculosFormacaos as $curriculoFormacao): ?>
-          <?php if($curriculoFormacao->fundamental_comp == 1): ?>
             <tr>
               <td>Ensino Fundamental</td>
               <td><?= $curriculoFormacao->fundamental_comp ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
@@ -258,8 +257,6 @@ $this->title = $model->numeroInscricao;
               <td></td>
               <td></td>
             </tr>
-          <?php endif; ?>
-          <?php if($curriculoFormacao->medio_comp == 1): ?>
             <tr>
               <td>Ensino Médio</td>
               <td><?= $curriculoFormacao->medio_comp ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
@@ -267,8 +264,6 @@ $this->title = $model->numeroInscricao;
               <td></td>
               <td></td>
             </tr>
-          <?php endif; ?>
-          <?php if($curriculoFormacao->tecnico == 1): ?>
             <tr>
               <td>Ensino Técnico</td>
               <td><?= $curriculoFormacao->tecnico ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
@@ -277,8 +272,6 @@ $this->title = $model->numeroInscricao;
               <td><?= $curriculoFormacao->tecnico_anoconclusao; ?></td>
               <td></td>
             </tr>
-          <?php endif; ?>
-          <?php if($curriculoFormacao->superior_comp == 1): ?>
             <tr>
               <td>Ensino Superior</td>
               <td><?= $curriculoFormacao->superior_comp ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
@@ -286,8 +279,6 @@ $this->title = $model->numeroInscricao;
               <td><?= $curriculoFormacao->superior_local; ?></td>
               <td><?= $curriculoFormacao->superior_anoconclusao; ?></td>
             </tr>
-          <?php endif; ?>
-          <?php if($curriculoFormacao->pos == 1): ?>
             <tr>
               <td>Pós-Graduação</td>
               <td><?= $curriculoFormacao->pos ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
@@ -295,8 +286,6 @@ $this->title = $model->numeroInscricao;
               <td><?= $curriculoFormacao->pos_local; ?></td>
               <td><?= $curriculoFormacao->pos_anoconclusao; ?></td>
             </tr>
-          <?php endif; ?>
-          <?php if($curriculoFormacao->mestrado == 1): ?>
             <tr>
               <td>Mestrado</td>
               <td><?= $curriculoFormacao->mestrado ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
@@ -304,8 +293,6 @@ $this->title = $model->numeroInscricao;
               <td><?= $curriculoFormacao->mestrado_local; ?></td>
               <td><?= $curriculoFormacao->mestrado_anoconclusao; ?></td>
             </tr>
-          <?php endif; ?>
-          <?php if($curriculoFormacao->doutorado == 1): ?>
             <tr>
               <td>Doutorado</td>
               <td><?= $curriculoFormacao->doutorado ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
@@ -313,8 +300,7 @@ $this->title = $model->numeroInscricao;
               <td><?= $curriculoFormacao->doutorado_local; ?></td>
               <td><?= $curriculoFormacao->doutorado_anoconclusao; ?></td>
             </tr>
-          <?php endif; ?>
-                </tbody>
+    </tbody>
   </table><br />
 
 <p>&nbsp;&nbsp;Estuda Atualmente? <?= $curriculoFormacao->estuda_curso ? '<span style="color:#27cc27"><b>Sim</b></span>' : '<span style="color:#ff2b2b"><b>Não</b></span>'; ?></p>
