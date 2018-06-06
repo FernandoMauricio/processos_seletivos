@@ -25,7 +25,6 @@ use faryshta\widgets\JqueryTagsInput;
                     $data_contratacao = ArrayHelper::map($processo, 'numeroEdital', 'numeroEdital');
                     echo $form->field($model, 'edital')->widget(Select2::classname(), [
                             'data' =>  $data_contratacao,
-                            'hideSearch' => true,
                             'options' => ['id'=>'edital-id', 'placeholder' => 'Selecione o Documento de Abertura...'],
                             'pluginOptions' => [
                                     'allowClear' => true,
@@ -38,7 +37,6 @@ use faryshta\widgets\JqueryTagsInput;
                    $data_contratacoes = ArrayHelper::map($contratacoes, 'id', 'id');
                    echo $form->field($model, 'contratacao_id')->widget(Select2::classname(), [
                            'data' =>  $data_contratacoes,
-                           'hideSearch' => true,
                            'options' => ['placeholder' => 'Selecione a Solicitação...']
                        ]);
                 ?>

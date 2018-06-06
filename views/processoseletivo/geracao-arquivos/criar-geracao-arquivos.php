@@ -26,7 +26,6 @@ use yii\helpers\Json;
                     $data_contratacao = ArrayHelper::map($processo, 'id', 'numeroEdital');
                     echo $form->field($model, 'processo_id')->widget(Select2::classname(), [
                             'data' =>  $data_contratacao,
-                            'hideSearch' => true,
                             'options' => ['id'=>'edital-id', 'placeholder' => 'Selecione o Documento de Abertura...'],
                             'pluginOptions' => [
                                     'allowClear' => true,
@@ -52,7 +51,6 @@ use yii\helpers\Json;
                 <?php
                     echo $form->field($model, 'gerarq_cidade')->widget(Select2::classname(), [
                             'data' =>  ['Manaus' => 'Manaus', 'Manacapuru' => 'Manacapuru', 'Itacoatiara' => 'Itacoatiara', 'Tefé' => 'Tefé', 'Parintins' => 'Parintins', 'Coari' => 'Coari', 'Beruri' => 'Beruri'],
-                            'hideSearch' => true,
                             'options' => ['placeholder' => 'Selecione a cidade...', 'multiple' => true],
                             'pluginOptions' => [
                                     'allowClear' => true,
@@ -66,7 +64,6 @@ use yii\helpers\Json;
                 <?php
                     echo $form->field($model, 'gerarq_perfil')->widget(Select2::classname(), [
                             'data' =>  ['0' => 'Administrativo', '1' => 'Docente'],
-                            'hideSearch' => true,
                             'options' => ['placeholder' => 'Selecione o Perfil...'],
                             'pluginOptions' => [
                                     'allowClear' => true,
@@ -78,7 +75,6 @@ use yii\helpers\Json;
                 <?php
                     echo $form->field($model, 'gerarq_tipo')->widget(Select2::classname(), [
                             'data' =>  ['0' => 'Resultado das Etapas', '1' => 'Resultado Final'],
-                            'hideSearch' => true,
                             'options' => ['placeholder' => 'Selecione o Perfil...'],
                             'pluginOptions' => [
                                     'allowClear' => true,

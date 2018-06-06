@@ -20,7 +20,6 @@ use yii\helpers\Json;
                     $data_contratacao = ArrayHelper::map($processo, 'id', 'numeroEdital');
                     echo $form->field($model, 'edital')->widget(Select2::classname(), [
                             'data' =>  $data_contratacao,
-                            'hideSearch' => true,
                             'options' => ['id'=>'edital-id', 'placeholder' => 'Selecione o Documento de Abertura...'],
                             'pluginOptions' => [
                                     'allowClear' => true,
@@ -50,7 +49,6 @@ use yii\helpers\Json;
                     $data_unidades = ArrayHelper::map($unidades, 'uni_codunidade', 'uni_nomeabreviado');
                     echo $form->field($model, 'unidade_aprovador')->widget(Select2::classname(), [
                             'data' =>  $data_unidades,
-                            'hideSearch' => true,
                             'options' => ['placeholder' => 'Selecione a Unidade...'],
                             'pluginOptions' => [
                                     'allowClear' => true,

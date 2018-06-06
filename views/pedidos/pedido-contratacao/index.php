@@ -34,6 +34,8 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
     <?php
         Modal::begin([
+            'options' => ['tabindex' => false ], // important for Select2 to work properly
+            'clientOptions' => ['backdrop' => 'static', 'keyboard' => true],
             'header' => '<h4>Geração do Pedido de Contratação</h4>',
             'id' => 'modal',
             'size' => 'modal-lg',

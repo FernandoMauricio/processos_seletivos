@@ -25,7 +25,6 @@ use faryshta\widgets\JqueryTagsInput;
               <?php
                   echo $form->field($model, 'pedcontratacao_tipo')->widget(Select2::classname(), [
                           'data' =>  ['0' => 'Normal', '1' => 'Especial'],
-                          'hideSearch' => true,
                           'options' => ['placeholder' => 'Selecione o Tipo de Contratação...'],
                           'pluginOptions' => [
                                   'allowClear' => true,

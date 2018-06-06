@@ -24,7 +24,6 @@ use yii\helpers\Json;
                     $data_contratacao = ArrayHelper::map($processo, 'id', 'numeroEdital');
                     echo $form->field($model, 'processo_id')->widget(Select2::classname(), [
                             'data' =>  $data_contratacao,
-                            'hideSearch' => true,
                             'options' => ['id'=>'edital-id', 'placeholder' => 'Selecione o Documento de Abertura...'],
                             'pluginOptions' => [
                                     'allowClear' => true,
@@ -37,7 +36,6 @@ use yii\helpers\Json;
                     $data_pedidocusto = ArrayHelper::map($pedidoCusto, 'custo_id', 'custo_assunto');
                     echo $form->field($model, 'pedidocusto_id')->widget(Select2::classname(), [
                             'data' =>  $data_pedidocusto,
-                            'hideSearch' => true,
                             'options' => ['placeholder' => 'Selecione o Pedido de Custo...'],
                             'pluginOptions' => [
                                     'allowClear' => true,
@@ -49,7 +47,6 @@ use yii\helpers\Json;
                 <?php
                     echo $form->field($model, 'etapa_cidade')->widget(Select2::classname(), [
                             'data' =>  ['Manaus' => 'Manaus', 'Manacapuru' => 'Manacapuru', 'Itacoatiara' => 'Itacoatiara', 'Tefé' => 'Tefé', 'Parintins' => 'Parintins', 'Coari' => 'Coari', 'Beruri' => 'Beruri'],
-                            'hideSearch' => true,
                             'options' => ['placeholder' => 'Selecione a cidade...', 'multiple' => true],
                             'pluginOptions' => [
                                     'allowClear' => true,
@@ -78,7 +75,6 @@ use yii\helpers\Json;
                 <?php
                     echo $form->field($model, 'etapa_perfil')->widget(Select2::classname(), [
                             'data' =>  ['0' => 'Administrativo', '1' => 'Docente/Motorista/Cozinha'],
-                            'hideSearch' => true,
                             'options' => ['placeholder' => 'Selecione o Perfil...'],
                             'pluginOptions' => [
                                     'allowClear' => true,
