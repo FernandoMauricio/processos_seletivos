@@ -140,6 +140,21 @@ $this->params['breadcrumbs'][] =  $this->title;
 
             [
               'columns' => [
+
+                        [
+                        'attribute' => 'profile_facebook',
+                        'displayOnly'=>true,
+                        ],
+
+                        [
+                        'attribute' => 'profile_linkedin',
+                        'displayOnly'=>true,
+                        ],
+                    ],
+            ],
+            
+            [
+              'columns' => [
                         [
                         'attribute' => 'telefone',
                         'displayOnly'=>true,

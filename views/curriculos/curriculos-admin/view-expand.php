@@ -130,6 +130,22 @@ $this->title = $model->numeroInscricao;
             [
               'columns' => [
                         [
+                            'attribute'=>'profile_facebook',
+                            'format'=>'raw',
+                            'value'=>Html::a($model->profile_facebook, $model->profile_facebook, ['target'=>'_blank']),
+                        ],
+
+                        [
+                            'attribute'=>'profile_linkedin',
+                            'format'=>'raw',
+                            'value'=>Html::a($model->profile_linkedin, $model->profile_linkedin, ['target'=>'_blank']),
+                        ],
+                    ],
+            ],
+            
+            [
+              'columns' => [
+                        [
                         'attribute' => 'telefone',
                         'displayOnly'=>true,
                         ],

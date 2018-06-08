@@ -82,7 +82,7 @@ class Curriculos extends \yii\db\ActiveRecord
             [['datanascimento', 'data', 'idadeModel', 'classificado', 'dataaprovador_ggp', 'dataaprovador_solicitante', 'bairroLabel', 'cidadeLabel', 'medioLabel', 'posLabel', 'tecnicoLabel', 'graduacaoLabel','mestradoLabel','marketing'], 'safe'],
             [['edital', 'numeroInscricao', 'identidade', 'orgao_exped', 'estado_civil'], 'string', 'max' => 45],
             [['nome', 'cargo', 'email', 'emailAlt', 'aprovador_ggp', 'aprovador_solicitante'], 'string', 'max' => 100],
-            [['curriculo_lattes'], 'string', 'max' => 255],
+            [['curriculo_lattes', 'profile_facebook', 'profile_linkedin'], 'string', 'max' => 255],
             [['email', 'emailAlt'], 'email'],
             [['cpf', 'sexo', 'telefone', 'telefoneAlt'], 'string', 'max' => 20],
             [['deficiencia_cid'], 'string', 'max' => 10],
@@ -125,6 +125,8 @@ class Curriculos extends \yii\db\ActiveRecord
             'parentesco' => 'Declaração',
             'termoAceite2' => 'Declaração',
             'marketing' => 'Como ficou sabendo da vaga?',
+            'profile_facebook' => 'Facebook',
+            'profile_linkedin' => 'Linkedin',
 
             'bairroLabel' => 'Bairro',
             'cidadeLabel' => 'Cidade',

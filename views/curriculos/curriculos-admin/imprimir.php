@@ -116,7 +116,6 @@ body {
 
             [
               'columns' => [
-
                         [
                         'attribute' => 'email',
                         'displayOnly'=>true,
@@ -125,6 +124,22 @@ body {
                         [
                         'attribute' => 'emailAlt',
                         'displayOnly'=>true,
+                        ],
+                    ],
+            ],
+
+            [
+              'columns' => [
+                        [
+                            'attribute'=>'profile_facebook',
+                            'format'=>'raw',
+                            'value'=>Html::a($model->profile_facebook, $model->profile_facebook, ['target'=>'_blank']),
+                        ],
+
+                        [
+                            'attribute'=>'profile_linkedin',
+                            'format'=>'raw',
+                            'value'=>Html::a($model->profile_linkedin, $model->profile_linkedin, ['target'=>'_blank']),
                         ],
                     ],
             ],
@@ -173,7 +188,6 @@ body {
 
             [
               'columns' => [
-
                         [
                         'attribute' => 'deficiencia',
                         'label'=>'Pessoa com Deficiência?',
@@ -191,7 +205,6 @@ body {
             
             [
               'columns' => [
-
                         [
                         'attribute' => 'marketing',
                         'label'=>'Como ficou sabendo da vaga?',
