@@ -56,7 +56,9 @@ use yii\widgets\DetailView;
                 <th>Nome Completo</th>
                 <th>Escrita</th>
                 <th>Comportamental</th>
+                <?php echo $model->etapa_perfil == 1 ? '<th>Didática</th>' : ''; ?>
                 <th>Entrevista</th>
+                <?php echo $model->etapa_perfil == 1 ? '<th>Prática</th>' : ''; ?>
                 <th>Pontuação Total</th>
                 <th>Classificação</th>
                 <th>Destino</th>
