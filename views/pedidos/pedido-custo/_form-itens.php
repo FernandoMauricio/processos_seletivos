@@ -189,7 +189,7 @@ jQuery(".dynamicform_pedidocusto").on("afterDelete", function(e) {
 
 ';
 
-$this->registerJs($js);
+$this->registerJs($js,yii\web\View::POS_LOAD);
 
 ?>
 

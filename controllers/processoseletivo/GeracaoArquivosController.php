@@ -184,11 +184,10 @@ class GeracaoArquivosController extends Controller
                     AND `curriculos`.`cargo` = "'.$model->etapasprocesso->etapa_cargo.'"
                     AND `curriculos_endereco`.`cidade` IN ("'.str_replace(',', '","', $model->etapasprocesso->etapa_cidade).'")
                     AND `etapas_itens`.`itens_classificacao` NOT LIKE "%Desclassificado(a)%"
-                    AND `etapas_itens`.`itens_classificacao` LIKE ""
                 OR `curriculos`.`edital` = "'.$model->processo->numeroEdital.'"
                     AND `curriculos`.`cargo` = "'.$model->etapasprocesso->etapa_cargo.'"
                     AND `curriculos_endereco`.`cidade` IN ("'.str_replace(',', '","', $model->etapasprocesso->etapa_cidade).'")
-                    AND `etapas_itens`.`itens_classificacao` IS NULL
+                    AND `etapas_itens`.`itens_classificacao` LIKE ""
                 ORDER BY `curriculos`.`nome` ASC
                 ';
             }else{//Localiza os candidatos para listagem do Resultado Final
