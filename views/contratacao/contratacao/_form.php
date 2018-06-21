@@ -56,12 +56,14 @@ use yii\bootstrap\Modal;
                                 var $inputSalario   = $divPanelBody.find("input:eq(3)");
                                 var $inputEncargos  = $divPanelBody.find("input:eq(4)");
                                 var $inputTotal     = $divPanelBody.find("input:eq(5)");
+                                var $docente     = $divPanelBody.find("input:eq(6)");
 
                                 $descricao.val(data.descricao_cargo);
                                 $inputCHSemanal.val(data.ch_semana);
                                 $inputSalario.val(data.salario_bruto);
                                 $inputEncargos.val(data.encargos);
                                 $inputTotal.val(data.valor_total);
+                                $docente.val(data.salario_1sexto);
 
                                }
                            );
@@ -105,6 +107,9 @@ use yii\bootstrap\Modal;
         <div class="col-md-2">
             <?= $form->field($model, 'cargo_valortotal')->textInput(['readonly'=>true]) ?>
         </div>
+
+    <?= $form->field($model, 'docente')->hiddenInput()->label(false) ?>
+
     </div>
 
     <?= $form->field($model, 'quant_pessoa')->textInput() ?>
