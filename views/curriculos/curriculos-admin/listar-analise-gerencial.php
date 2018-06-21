@@ -103,10 +103,10 @@ $gridColumns = [
                     'filterInputOptions'=>['placeholder'=>'Selecione o sexo'],
             ],
  
-            [
-                'attribute' => 'classificado',
-                'value' => 'situacaoCandidato.sitcan_descricao'
-            ],
+            // [
+            //     'attribute' => 'classificado',
+            //     'value' => 'situacaoCandidato.sitcan_descricao'
+            // ],
             ['class' => 'yii\grid\ActionColumn',
                         'template' => '{imprimir} {classificar} {desclassificar}',
                         'contentOptions' => ['style' => 'width: 10%;'],

@@ -1,14 +1,12 @@
 <?php
-
 use yii\helpers\Html;
 use kartik\detail\DetailView;
-
-
 ?>
+
 <style>
 body {
     height: 100%;
-    font-size:  10px;
+    font-size: 10px;
 }
 </style>
 

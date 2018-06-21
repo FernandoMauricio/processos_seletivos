@@ -122,19 +122,19 @@ $gridColumns = [
                     'filterInputOptions'=>['placeholder'=>'Selecione o sexo'],
             ],
  
-            [
-                'attribute'=>'classificado', 
-                'width'=>'3%',
-                'value'=>function ($model, $key, $index, $widget) { 
-                    return $model->situacaoCandidato->sitcan_descricao;
-                },
-                'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>ArrayHelper::map(SituacaoCandidato::find()->orderBy('sitcan_descricao')->asArray()->all(), 'sitcan_id', 'sitcan_descricao'), 
-                'filterWidgetOptions'=>[
-                    'pluginOptions'=>['allowClear'=>true],
-                ],
-                    'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
-            ],
+            // [
+            //     'attribute'=>'classificado', 
+            //     'width'=>'3%',
+            //     'value'=>function ($model, $key, $index, $widget) { 
+            //         return $model->situacaoCandidato->sitcan_descricao;
+            //     },
+            //     'filterType'=>GridView::FILTER_SELECT2,
+            //     'filter'=>ArrayHelper::map(SituacaoCandidato::find()->orderBy('sitcan_descricao')->asArray()->all(), 'sitcan_id', 'sitcan_descricao'), 
+            //     'filterWidgetOptions'=>[
+            //         'pluginOptions'=>['allowClear'=>true],
+            //     ],
+            //         'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
+            // ],
 
             ['class' => 'yii\grid\ActionColumn',
                         'template' => '{imprimir} {classificar-admin} {desclassificar-admin}',
@@ -214,7 +214,7 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes de Curriculos Pré-Aprovados', 'options'=>['colspan'=>14, 'class'=>'text-center warning']],
+                ['content'=>'Detalhes de Curriculos Pré-Aprovados', 'options'=>['colspan'=>13, 'class'=>'text-center warning']],
                 ['content'=>'Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']],
             ],
         ]
