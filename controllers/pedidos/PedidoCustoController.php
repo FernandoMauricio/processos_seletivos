@@ -84,6 +84,27 @@ class PedidoCustoController extends Controller
         ]);
     }
 
+    public function actionHomologarCusto($id)
+    {
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
+
+        //Se não existir as aprovações da GGP e DAD, não será possível homologar o processo
+        if($model->custo_situacaoggp != 4 || $model->custo_situacaodad != 4) {
+            Yii::$app->session->setFlash('danger', '<b>ERRO! </b>Solicitação sem aprovações!</b>');
+            return $this->redirect(['index']);
+        }
+        //Homologa o Pedido de Custo
+        $connection = Yii::$app->db;
+        $connection->createCommand()
+            ->update('pedido_custo', ['custo_homologador' => $session['sess_nomeusuario'], 'custo_datahomologacao' => date('Y-m-d')], ['custo_id' => $model->custo_id])
+            ->execute();
+
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Custo <b> '.$model->custo_id.' </b> foi Homologado!</b>');
+
+        return $this->redirect(['index']);
+    }
+
     public function actionGgpIndex()
     {
         $this->layout = 'main-full';
@@ -327,6 +348,12 @@ class PedidoCustoController extends Controller
         $model->custo_situacaodad = 1; //Aguardando Autorização DAD
         $model->custo_data = date('Y-m-d');
         $model->custo_responsavel = $session['sess_nomeusuario'];
+
+        //Verifica se o Pedido de Custo já foi homologado
+        if(isset($model->custo_homologador) || isset($model->custo_datahomologacao)) {
+            Yii::$app->session->setFlash('danger', '<b>ERRO!</b> Pedido de Custo já Homologado. Não é possível executar esta ação!');
+            return $this->redirect(['index']);
+        }
 
         //[4,7,8,9,10,11,12,13,14] -> Situações EM ANDAMENTO
         $contratacoes = Contratacao::find()->where(['IN','situacao_id', [4,7,8,9,10,11,12,13,14,15,16,17]])->orderBy('id')->all();

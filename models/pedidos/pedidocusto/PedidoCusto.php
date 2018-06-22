@@ -10,21 +10,26 @@ use app\models\processoseletivo\Situacao;
 /**
  * This is the model class for table "pedido_custo".
  *
- * @property integer $custo_id
+ * @property int $custo_id
  * @property string $custo_assunto
  * @property string $custo_recursos
  * @property double $custo_valortotal
  * @property string $custo_data
  * @property string $custo_aprovadorggp
- * @property integer $custo_situacaoggp
+ * @property int $custo_situacaoggp
  * @property string $custo_dataaprovacaoggp
  * @property string $custo_aprovadordad
- * @property integer $custo_situacaodad
+ * @property int $custo_situacaodad
  * @property string $custo_dataaprovacaodad
  * @property string $custo_responsavel
+ * @property int $custo_situacao
+ * @property string $custo_homologador
+ * @property string $custo_datahomologacao
  *
+ * @property EtapasProcesso[] $etapasProcessos
  * @property PedidocustoSituacao $custoSituacaoggp
  * @property PedidocustoSituacao $custoSituacaodad
+ * @property Situacao $custoSituacao
  * @property PedidocustoItens[] $pedidocustoItens
  */
 class PedidoCusto extends \yii\db\ActiveRecord
@@ -75,6 +80,8 @@ class PedidoCusto extends \yii\db\ActiveRecord
             'custo_dataaprovacaodad' => 'Custo Dataaprovacaodad',
             'custo_situacao' => 'Situação Custo',
             'custo_responsavel' => 'Responsável',
+            'custo_homologador' => 'Homologado Por',
+            'custo_datahomologacao' => 'Data Homologação',
         ];
     }
 

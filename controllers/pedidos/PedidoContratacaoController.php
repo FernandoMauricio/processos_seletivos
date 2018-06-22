@@ -378,7 +378,7 @@ class PedidoContratacaoController extends Controller
 
         //Verifica se o Pedido de Contratação já foi homologado
         if(isset($model->pedcontratacao_homologador) || isset($model->pedcontratacao_datahomologacao)) {
-            Yii::$app->session->setFlash('danger', '<b>ERRO!</b> Pedido já Homologado. Não é possível executar esta ação!');
+            Yii::$app->session->setFlash('danger', '<b>ERRO!</b> Pedido de Contratação já Homologado. Não é possível executar esta ação!');
             return $this->redirect(['index']);
         }
 

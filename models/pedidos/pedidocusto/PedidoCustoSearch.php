@@ -19,7 +19,8 @@ class PedidoCustoSearch extends PedidoCusto
     {
         return [
             [['custo_id'], 'integer'],
-            [['custo_assunto', 'custo_recursos', 'custo_data', 'custo_aprovadorggp', 'custo_situacaoggp', 'custo_situacaodad', 'custo_dataaprovacaoggp', 'custo_aprovadordad', 'custo_dataaprovacaodad', 'custo_responsavel', 'custo_valortotal', 'custo_situacao'], 'safe'],
+            [['custo_assunto', 'custo_recursos', 'custo_data', 'custo_aprovadorggp', 'custo_situacaoggp', 'custo_situacaodad', 'custo_dataaprovacaoggp', 'custo_aprovadordad', 'custo_dataaprovacaodad', 'custo_responsavel', 'custo_valortotal', 'custo_situacao', 'custo_homologador',
+            'custo_datahomologacao'], 'safe'],
         ];
     }
 
@@ -77,7 +78,9 @@ class PedidoCustoSearch extends PedidoCusto
             ->andFilterWhere(['like', 'custo_aprovadorggp', $this->custo_aprovadorggp])
             ->andFilterWhere(['like', 'custo_aprovadordad', $this->custo_aprovadordad])
             ->andFilterWhere(['like', 'situacao.descricao', $this->custo_situacao])
-            ->andFilterWhere(['like', 'custo_responsavel', $this->custo_responsavel]);
+            ->andFilterWhere(['like', 'custo_responsavel', $this->custo_responsavel])
+            ->andFilterWhere(['like', 'custo_homologador', $this->custo_homologador])
+            ->andFilterWhere(['like', 'custo_datahomologacao', $this->custo_datahomologacao]);
 
         return $dataProvider;
     }

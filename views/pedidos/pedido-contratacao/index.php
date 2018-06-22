@@ -122,7 +122,7 @@ $gridColumns = [
             'pedcontratacao_homologador',
             [
                 'attribute' => 'pedcontratacao_datahomologacao',
-                'format' => ['datetime', 'php:d/m/Y'],
+                'format' => ['date', 'php:d/m/Y'],
                 'width' => '190px',
                 'hAlign' => 'center',
                 'filter'=> DatePicker::widget([
@@ -164,7 +164,7 @@ $gridColumns = [
                         'homologar-contratacao' => function ($url, $model) {
                             return !isset($model->pedcontratacao_homologador) || !isset($model->pedcontratacao_datahomologacao) ? Html::a('<span class="glyphicon glyphicon-ok"></span> ', $url, [
                                         'class'=>'btn btn-success btn-xs',
-                                        'title' => Yii::t('app', 'Homologar Processo'),
+                                        'title' => Yii::t('app', 'Homologar Contratação'),
                                         'data' =>  [
                                                         'confirm' => '<b>Você tem CERTEZA que deseja HOMOLOGAR ESSE PEDIDO DE CONTRATAÇÃO</b>?
                                                         <br>Ao realizar esta ação, o sistema modificará o status do 1º colocado no processo para <span style="color:#27cc27"><b>CONTRATADO</b></span> e para os demais, com excessão dos que estão no cadastro de reserva, ficarão como <span style="color:#ff2b2b"><b>DESCLASSIFICADOS</b></span> automaticamente.',

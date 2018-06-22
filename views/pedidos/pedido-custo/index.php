@@ -5,6 +5,7 @@ use kartik\grid\GridView;
 use kartik\editable\Editable;
 use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
+use kartik\widgets\DatePicker;
 
 use app\models\pedidos\pedidocusto\PedidocustoSituacao;
 use app\models\processoseletivo\Situacao;
@@ -35,32 +36,45 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
 $gridColumns = [
             
-             [
-             'class'=>'kartik\grid\ExpandRowColumn',
-             'width'=>'50px',
-             'format' => 'raw',
-             'value'=>function ($model, $key, $index, $column) {
-                 return GridView::ROW_COLLAPSED;
-             },
-             'detail'=>function ($model, $key, $index, $column) {
-                 return Yii::$app->controller->renderPartial('view-expand', ['model'=>$model, 'modelsItens' => $model->pedidocustoItens]);
-             },
-             'headerOptions'=>['class'=>'kartik-sheet-style'], 
-             'expandOneOnly'=>true
-             ],
+            [
+                'class'=>'kartik\grid\ExpandRowColumn',
+                'width'=>'1%',
+                'format' => 'raw',
+                'value'=>function ($model, $key, $index, $column) {
+                    return GridView::ROW_COLLAPSED;
+                },
+                'detail'=>function ($model, $key, $index, $column) {
+                    return Yii::$app->controller->renderPartial('view-expand', ['model'=>$model, 'modelsItens' => $model->pedidocustoItens]);
+                },
+                'headerOptions'=>['class'=>'kartik-sheet-style'], 
+                'expandOneOnly'=>true
+            ],
 
-            'custo_id',
-            'custo_assunto',
-            'custo_recursos',
+            [
+                'attribute' => 'custo_id',
+                'width'=>'2%',
+            ],
+
+            [
+                'attribute' => 'custo_recursos',
+                'width'=>'5%',
+            ],
+
+            [
+                'attribute' => 'custo_assunto',
+                'width'=>'5%',
+            ],
+
             [
                'attribute' => 'custo_valortotal',
+               'width'=>'5%',
                'contentOptions' => ['class' => 'col-lg-1'],
                'format' => ['decimal',2],
             ],
 
             [
                 'attribute'=>'custo_situacaoggp', 
-                'width'=>'310px',
+                'width'=>'5%',
                 'value'=>function ($model, $key, $index, $widget) { 
                     return $model->custoSituacaoggp->situacao_descricao;
                 },
@@ -74,7 +88,7 @@ $gridColumns = [
 
             [
                 'attribute'=>'custo_situacaodad', 
-                'width'=>'310px',
+                'width'=>'5%',
                 'value'=>function ($model, $key, $index, $widget) { 
                     return $model->custoSituacaodad->situacao_descricao;
                 },
@@ -89,6 +103,7 @@ $gridColumns = [
             [
                 'class' => 'kartik\grid\EditableColumn',
                 'attribute' => 'custo_situacao',
+                'width'=>'5%',
                 'value'=>function ($model, $key, $index, $widget) { 
                     return $model->custoSituacao->descricao;
                 },
@@ -112,10 +127,32 @@ $gridColumns = [
                 ],          
             ],
 
-            'custo_responsavel',
+            [
+                'attribute' => 'custo_responsavel',
+                'width'=>'7%',
+            ],
 
+            [
+                'attribute' => 'custo_homologador',
+                'width'=>'7%',
+            ],
+
+            [
+                'attribute' => 'custo_datahomologacao',
+                'format' => ['date', 'php:d/m/Y'],
+                'width' => '7%',
+                'hAlign' => 'center',
+                'filter'=> DatePicker::widget([
+                'model' => $searchModel, 
+                'attribute' => 'custo_datahomologacao',
+                'pluginOptions' => [
+                     'autoclose'=>true,
+                     'format' => 'yyyy-mm-dd',
+                    ]
+                ])
+            ],
             ['class' => 'yii\grid\ActionColumn',
-                        'template' => '{view} {update} {delete}',
+                        'template' => '{view} {update} {homologar-custo} {delete}',
                         'contentOptions' => ['style' => 'width: 7%;'],
                         'buttons' => [
 
@@ -139,7 +176,19 @@ $gridColumns = [
                             ]);
                         },
 
-                         //DELETAR
+                        //HOMOLOGAÇÃO DO PEDIDO DE CUSTO
+                        'homologar-custo' => function ($url, $model) {
+                            return !isset($model->custo_homologador) || !isset($model->custo_datahomologacao) ? Html::a('<span class="glyphicon glyphicon-ok"></span> ', $url, [
+                                        'class'=>'btn btn-success btn-xs',
+                                        'title' => Yii::t('app', 'Homologar Custo'),
+                                        'data' =>  [
+                                                        'confirm' => 'Você tem CERTEZA que deseja HOMOLOGAR ESSE <b>PEDIDO DE CUSTO</b>?',
+                                                        'method' => 'post',
+                                                   ],
+                            ]): '';
+                        },
+
+                        //DELETAR
                         'delete' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-trash"></span> ', $url, [
                                         'class'=>'btn btn-danger btn-xs',
@@ -168,7 +217,7 @@ $gridColumns = [
     'filterRowOptions'=>['class'=>'kartik-sheet-style'],
     'pjax'=>false, // pjax is set to always true for this demo
     'rowOptions' =>function($model){
-                if($model->custo_situacaoggp == 4 && $model->custo_situacaodad == 4)
+                if(isset($model->custo_homologador))
                 {
                     return['class'=>'success'];                        
                 }
@@ -176,7 +225,7 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes do Pedido de Custo', 'options'=>['colspan'=>9, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes do Pedido de Custo', 'options'=>['colspan'=>11, 'class'=>'text-center warning']], 
                 ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]
