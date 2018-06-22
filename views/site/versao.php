@@ -13,9 +13,9 @@ $this->title = 'Processo Seletivo - Senac AM';
 <div class="site-index">
     <h1 class="text-center"> Histórico de Versões</h1>
         <div class="body-content">
-            <div class="panel panel-primary">
-                <div class="panel-heading"><i class="glyphicon glyphicon-star-empty"></i> O que há de novo? - Versão 2.2 - Publicado em 11/04/2018</div>
-                <div class="panel-body">
+            <div class="panel panel-danger">
+                <div class="panel-heading"><i class="glyphicon glyphicon-star-empty"></i> Versão 2.2 - Publicado em 11/04/2018</div>
+                 <div class="panel-body">
                   <h4><b style="color: #337ab7;">Implementações</b></h4>
                     <h5><i class="glyphicon glyphicon-tag"></i><b> Curriculos</b></h5>
                             <h5>- Incluído o campo "Estado Civil" e sua obrigatoriedade no cadastro do currículo.</h5>
@@ -49,9 +49,7 @@ $this->title = 'Processo Seletivo - Senac AM';
                             <h5>- Pequena correção na busca por código da contratação e pelo código do Pedido de Custo.</h5>
 
                     <h5><i class="glyphicon glyphicon-tag"></i><b> Contratações</b></h5>
-                            <h5>- Retirado a duplicação do capo "motivo" na visualização da contratação.</h5><br />
-
-                            <p><a href="index.php?r=site/versao" class="btn btn-warning" role="button">Histórico de Versões</a></p>
+                            <h5>- Retirado a duplicação do capo "motivo" na visualização da contratação.</h5>
                 </div>
             </div>
 

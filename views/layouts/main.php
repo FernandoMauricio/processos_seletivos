@@ -38,7 +38,7 @@ AppAsset::register($this);
     <footer class="footer">
         <div class="container">
             <p class="pull-left">&copy; Gerência de Informática Corporativa <?= date('Y') ?></p>
-            <p class="pull-right">Versão 2.2</p>
+            <p class="pull-right">Versão 2.3</p>
         </div>
     </footer>
 
