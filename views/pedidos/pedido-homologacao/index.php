@@ -53,7 +53,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                     
                      [
                      'class'=>'kartik\grid\ExpandRowColumn',
-                     'width'=>'50px',
+                     'width'=>'1%',
                      'format' => 'raw',
                      'value'=>function ($model, $key, $index, $column) {
                          return GridView::ROW_COLLAPSED;
@@ -65,25 +65,40 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                      'expandOneOnly'=>true
                      ],
 
-                    'homolog_id',
+                    [
+                        'attribute' => 'homolog_id',
+                        'width'=>'4%',
+                    ],
+
                     [
                            'attribute' => 'contratacao_id',
+                           'width'=>'4%',
                            'format' => 'raw',
                            'value' => function ($data) {
                                          return Html::a($data->contratacao_id, ['/contratacao/contratacao/view', 'id' => $data->contratacao_id], ['target'=>'_blank', 'data-pjax'=>"0"]);
                                     },
                     ],
-                    'homolog_unidade',
-                    'homolog_cargo',
+
+                    [
+                        'attribute' => 'homolog_unidade',
+                        'width'=>'15%',
+                    ],
+
+                    [
+                        'attribute' => 'homolog_cargo',
+                        'width'=>'10%',
+                    ],
+
                     [
                        'attribute' => 'homolog_total',
+                       'width'=>'5%',
                        'contentOptions' => ['class' => 'col-lg-1'],
                        'format' => ['decimal',2],
                     ],
 
                     [
                         'attribute'=>'homolog_situacaoggp', 
-                        'width'=>'310px',
+                        'width'=>'8%',
                         'value'=>function ($model, $key, $index, $widget) { 
                             return $model->homologSituacaoggp->situacao_descricao;
                         },
@@ -97,7 +112,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
                     [
                         'attribute'=>'homolog_situacaodad', 
-                        'width'=>'310px',
+                        'width'=>'8%',
                         'value'=>function ($model, $key, $index, $widget) { 
                             return $model->homologSituacaodad->situacao_descricao;
                         },
@@ -109,7 +124,16 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                             'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
                     ],
 
-                    'homolog_responsavel',
+                    [
+                        'attribute' => 'homolog_responsavel',
+                        'width'=>'7%',
+                    ],
+
+                    [
+                        'attribute' => 'homolog_homologador',
+                        'width'=>'7%',
+                    ],
+
                     [
                         'class'=>'kartik\grid\EditableColumn',
                         'attribute'=>'homolog_datahomologacao',    
@@ -139,44 +163,53 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                     ],
 
                     ['class' => 'yii\grid\ActionColumn',
-                                'template' => '{view} {update} {delete}',
-                                'contentOptions' => ['style' => 'width: 7%;'],
-                                'buttons' => [
+                        'template' => '{view} {update} {homologar-pedido} {delete}',
+                        'contentOptions' => ['style' => 'width: 7%;'],
+                        'buttons' => [
 
-                                //VISUALIZAR/IMPRIMIR
-                                'view' => function ($url, $model) {
-                                    return Html::a('<span class="glyphicon glyphicon-print"></span> ', $url, [
-                                                'target'=>'_blank', 
-                                                'data-pjax'=>"0",
-                                                'class'=>'btn btn-info btn-xs',
-                                                'title' => Yii::t('app', 'Imprimir'),
-                               
-                                    ]);
-                                },
+                        //VISUALIZAR/IMPRIMIR
+                        'view' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-print"></span> ', $url, [
+                                        'target'=>'_blank', 
+                                        'data-pjax'=>"0",
+                                        'class'=>'btn btn-info btn-xs',
+                                        'title' => Yii::t('app', 'Imprimir'),
+                            ]);
+                        },
 
-                                //VISUALIZAR/IMPRIMIR
-                                'update' => function ($url, $model) {
-                                    return Html::a('<span class="glyphicon glyphicon-pencil"></span> ', $url, [
-                                                'class'=>'btn btn-default btn-xs',
-                                                'title' => Yii::t('app', 'Atualizar'),
-                               
-                                    ]);
-                                },
+                        //VISUALIZAR/IMPRIMIR
+                        'update' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-pencil"></span> ', $url, [
+                                        'class'=>'btn btn-default btn-xs',
+                                        'title' => Yii::t('app', 'Atualizar'),
+                            ]);
+                        },
 
-                                 //DELETAR
-                                'delete' => function ($url, $model) {
-                                    return Html::a('<span class="glyphicon glyphicon-trash"></span> ', $url, [
-                                                'class'=>'btn btn-danger btn-xs',
-                                                'title' => Yii::t('app', 'Deletar'),
-                                                'data' =>  [
-                                                                'confirm' => 'Você tem CERTEZA que deseja EXCLUIR esse item?',
-                                                                'method' => 'post',
-                                                           ],
-                               
-                                    ]);
-                                },
+                        //HOMOLOGAÇÃO DO PEDIDO DE CUSTO
+                        'homologar-pedido' => function ($url, $model) {
+                            return !isset($model->homolog_homologador) || !isset($model->homolog_datahomologacao) ? Html::a('<span class="glyphicon glyphicon-ok"></span> ', $url, [
+                                        'class'=>'btn btn-success btn-xs',
+                                        'title' => Yii::t('app', 'Homologar Pedido'),
+                                        'data' =>  [
+                                                        'confirm' => 'Você tem CERTEZA que deseja HOMOLOGAR ESSE <b>PEDIDO?</b>?',
+                                                        'method' => 'post',
+                                                   ],
+                            ]): '';
+                        },
+
+                         //DELETAR
+                        'delete' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-trash"></span> ', $url, [
+                                        'class'=>'btn btn-danger btn-xs',
+                                        'title' => Yii::t('app', 'Deletar'),
+                                        'data' =>  [
+                                                        'confirm' => 'Você tem CERTEZA que deseja EXCLUIR esse item?',
+                                                        'method' => 'post',
+                                                   ],
+                            ]);
+                        },
                         ],
-                   ],
+                    ],
             ];
     ?>
 
@@ -192,15 +225,15 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
         'filterRowOptions'=>['class'=>'kartik-sheet-style'],
         'pjax'=>true, // pjax is set to always true for this demo
         'rowOptions' =>function($model){
-                    if($model->homolog_situacaoggp == 4 && $model->homolog_situacaodad == 4)
-                    {
-                        return['class'=>'success'];                        
-                    }
+            if(isset($model->homolog_homologador))
+            {
+                return['class'=>'success'];                        
+            }
         },
         'beforeHeader'=>[
             [
                 'columns'=>[
-                    ['content'=>'Detalhes do Pedido de Homologação', 'options'=>['colspan'=>10, 'class'=>'text-center warning']], 
+                    ['content'=>'Detalhes do Pedido de Homologação', 'options'=>['colspan'=>11, 'class'=>'text-center warning']], 
                     ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
                 ],
             ]

@@ -96,6 +96,27 @@ class PedidoHomologacaoController extends Controller
         ]);
     }
 
+    public function actionHomologarPedido($id)
+    {
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
+
+        //Se não existir as aprovações da GGP e DAD, não será possível homologar o processo
+        if($model->homolog_situacaoggp != 4 || $model->homolog_situacaodad != 4) {
+            Yii::$app->session->setFlash('danger', '<b>ERRO! </b>Solicitação sem aprovações!</b>');
+            return $this->redirect(['index']);
+        }
+        //Homologa o Pedido de Homologacão
+        $connection = Yii::$app->db;
+        $connection->createCommand()
+            ->update('pedido_homologacao', ['homolog_homologador' => $session['sess_nomeusuario']], ['homolog_id' => $model->homolog_id])
+            ->execute();
+
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Homologacão <b> '.$model->homolog_id.' </b> foi Homologado!</b>');
+
+        return $this->redirect(['index']);
+    }
+
     public function actionGgpIndex()
     {
         $this->layout = 'main-full';
@@ -143,7 +164,7 @@ class PedidoHomologacaoController extends Controller
         $session = Yii::$app->session;
         $model = $this->findModel($id);
 
-        //Aprovado o Pedido de Custo
+        //Aprovado o Pedido de Homologação
         $connection = Yii::$app->db;
         $command = $connection->createCommand(
         "UPDATE `db_processos`.`pedido_homologacao` SET `homolog_aprovadordad` = '".$session['sess_nomeusuario']."', `homolog_situacaodad` = '4', `homolog_dataaprovacaodad` = ".date('"Y-m-d"')." WHERE `homolog_id` = '".$model->homolog_id."'");
@@ -153,7 +174,6 @@ class PedidoHomologacaoController extends Controller
 
         return $this->redirect(['dad-index']);
     }
-
 
     public function actionReprovarGgp($id)
     {
@@ -343,6 +363,12 @@ class PedidoHomologacaoController extends Controller
         $model->homolog_situacaodad = 1; //Aguardando Autorização DAD
         $model->homolog_responsavel = $session['sess_nomeusuario'];
 
+        //Verifica se o Pedido de Homologação já foi homologado
+        if(isset($model->homolog_homologador)) {
+            Yii::$app->session->setFlash('danger', '<b>ERRO!</b> Pedido já Homologado. Não é possível executar esta ação!');
+            return $this->redirect(['index']);
+        }
+
         //[4,7,8,9,10,11,12,13,14] -> Situações EM ANDAMENTO
         $contratacoes = Contratacao::find()->where(['IN','situacao_id', [4,7,8,9,10,11,12,13,14,15,16,17]])->orderBy('id')->all();
 
@@ -391,9 +417,13 @@ class PedidoHomologacaoController extends Controller
         if(isset($model->pedidocontratacaoItens->contratacao_id)) {
             Yii::$app->session->setFlash('danger', '<b>ERRO! </b> Não é possível <b>EXCLUIR</b> pois já existe <b>Pedido de Contratação</b> criado para esse Pedido de Homologação.');
             return $this->redirect(['index']);
+        //Verifica se o Pedido de Homologação já foi homologado
+        }else if(isset($model->homolog_homologador)){
+            Yii::$app->session->setFlash('danger', '<b>ERRO!</b> Pedido já Homologado. Não é possível executar esta ação!');
+            return $this->redirect(['index']);
         }else{
             PedidohomologacaoItens::deleteAll('pedidohomologacao_id = "'.$id.'"');
-            $model->delete(); //Exclui o pedido de custo
+            $model->delete(); //Exclui o pedido de Homologação
             Yii::$app->session->setFlash('success', '<b>SUCESSO! </b> Pedido de Homologação excluido!</b>');
             return $this->redirect(['index']);
         }

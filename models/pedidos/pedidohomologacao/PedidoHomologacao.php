@@ -59,7 +59,7 @@ class PedidoHomologacao extends \yii\db\ActiveRecord
             [['homolog_sintese', 'candidato', 'edital', 'homolog_motivo'], 'string'],
             [['homolog_dataaprovacaoggp', 'homolog_dataaprovacaodad', 'homolog_data', 'homolog_datahomologacao', 'homolog_tipo'], 'safe'],
             [['homolog_cargo', 'homolog_unidade', 'homolog_validade', 'homolog_fases'], 'string', 'max' => 255],
-            [['homolog_aprovadorggp', 'homolog_aprovadordad', 'homolog_responsavel'], 'string', 'max' => 45],
+            [['homolog_aprovadorggp', 'homolog_aprovadordad', 'homolog_responsavel', 'homolog_homologador'], 'string', 'max' => 45],
             [['contratacao_id'], 'exist', 'skipOnError' => true, 'targetClass' => Contratacao::className(), 'targetAttribute' => ['contratacao_id' => 'id']],
             [['homolog_situacaoggp'], 'exist', 'skipOnError' => true, 'targetClass' => PedidocustoSituacao::className(), 'targetAttribute' => ['homolog_situacaoggp' => 'situacao_id']],
             [['homolog_situacaodad'], 'exist', 'skipOnError' => true, 'targetClass' => PedidocustoSituacao::className(), 'targetAttribute' => ['homolog_situacaodad' => 'situacao_id']],
@@ -72,7 +72,7 @@ class PedidoHomologacao extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'homolog_id' => 'Cód. Homologação',
+            'homolog_id' => 'Homologação',
             'contratacao_id' => 'Solicitação',
             'homolog_fases' => 'Fases Realizadas no Processo',
             'homolog_cargo' => 'Cargo',
@@ -92,6 +92,7 @@ class PedidoHomologacao extends \yii\db\ActiveRecord
             'homolog_dataaprovacaodad' => 'Dataaprovacaodad',
             'homolog_responsavel' => 'Responsavel',
             'homolog_data' => 'Data',
+            'homolog_homologador' => 'Homolgoado Por',
             'homolog_datahomologacao' => 'Data da Homologação',
         ];
     }
