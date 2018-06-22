@@ -67,6 +67,7 @@ use yii\widgets\DetailView;
                 <th>Inscrição</th>
                 <th>Nome Completo</th>
                 <th>Escrita</th>
+                <?php echo $model->etapa_perfil == 0 ? '<th>Prática</th>' : ''; ?>
                 <th>Comportamental</th>
                 <?php echo $model->etapa_perfil == 1 ? '<th>Didática</th>' : ''; ?>
                 <th>Entrevista</th>
@@ -84,6 +85,7 @@ use yii\widgets\DetailView;
                   <td><?= $etapa->curriculos->numeroInscricao; ?></td>
                   <td><span class="text-uppercase"><?= $etapa->curriculos->nome; ?></span></td>
                   <td style="width: 80px;"><?= $etapa->itens_escrita; ?></td>
+                  <?php echo $model->etapa_perfil == 0 ? '<td style="width: 80px;"> '.$etapa->itens_pratica.' </td>' : ''; ?>
                   <td style="width: 80px;"><?= $etapa->itens_comportamental; ?></td>
                   <?php echo $model->etapa_perfil == 1 ? '<td style="width: 80px;"> '.$etapa->itens_didatica.' </td>' : ''; ?>
                   <td style="width: 80px;"><?= $etapa->itens_entrevista; ?></td>

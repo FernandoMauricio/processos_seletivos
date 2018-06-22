@@ -9,6 +9,7 @@ use kartik\select2\Select2;
                             <th>Contato Confirmado?</th>
                             <th>Nome Completo</th>
                             <th>Escrita</th>
+                            <?php echo $model->etapa_perfil == 0 ? '<th>Prática</th>' : '<th></th>'; ?>
                             <th>Comportamental</th>
                             <?php echo $model->etapa_perfil == 1 ? '<th>Didática</th>' : '<th></th>'; ?>
                             <th>Entrevista</th>
@@ -28,6 +29,8 @@ use kartik\select2\Select2;
                             <td><?= yii\helpers\Html::a($etapa->curriculos->nome, ['curriculos/curriculos-admin/imprimir', 'id' => $etapa->curriculos->id], ['class' => 'profile-link', 'target' => '_blank', 'style' => 'text-transform: uppercase']) ?></td>
 
                             <td style="width: 50px;"><?= $form->field($etapa, "[{$i}]itens_escrita")->textInput()->label(false); ?></td>
+
+                            <?= $model->etapa_perfil == 0 ? '<td style="width: 50px;"> '.$form->field($etapa, "[{$i}]itens_pratica")->textInput()->label(false).'' : '<td style="width: 50px;"> '.$form->field($etapa, "[{$i}]itens_pratica")->hiddenInput()->label(false).''; ?></td>
 
                             <td style="width: 50px;"><?= $form->field($etapa, "[{$i}]itens_comportamental")->textInput()->label(false); ?></td>
 
