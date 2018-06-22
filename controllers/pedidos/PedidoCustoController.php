@@ -437,6 +437,10 @@ class PedidoCustoController extends Controller
         if(isset($model->etapasProcesso->pedidocusto_id)) {
             Yii::$app->session->setFlash('danger', '<b>ERRO! </b> Não é possível <b>EXCLUIR</b> pois já existem <b>Etapas do Processo</b> criadas para esse Pedido de Custo.');
             return $this->redirect(['index']);
+        //Verifica se já existe alguma etapa de processo criada
+        }else if(isset($model->custo_homologador) || isset($model->custo_datahomologacao)){
+            Yii::$app->session->setFlash('danger', '<b>ERRO!</b> Pedido de Custo já Homologado. Não é possível executar esta ação!');
+            return $this->redirect(['index']);
         }else{
             PedidocustoItens::deleteAll('pedidocusto_id = "'.$id.'"');
             $model->delete(); //Exclui o pedido de custo
