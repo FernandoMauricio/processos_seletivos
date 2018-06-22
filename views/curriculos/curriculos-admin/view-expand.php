@@ -268,21 +268,21 @@ $this->title = $model->numeroInscricao;
         <?php foreach ($curriculosFormacaos as $curriculoFormacao): ?>
             <tr>
               <td>Ensino Fundamental</td>
-              <td><?= $curriculoFormacao->fundamental_comp ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
+              <td><?= $curriculoFormacao->fundamental_comp ? '<span style="color:#27ae60"><b>Completo</b></span>' : '<span style="color:#c0392b"><b>Incompleto</b></span>'; ?></td>
               <td></td>
               <td></td>
               <td></td>
             </tr>
             <tr>
               <td>Ensino Médio</td>
-              <td><?= $curriculoFormacao->medio_comp ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
+              <td><?= $curriculoFormacao->medio_comp ? '<span style="color:#27ae60"><b>Completo</b></span>' : '<span style="color:#c0392b"><b>Incompleto</b></span>'; ?></td>
               <td></td>
               <td></td>
               <td></td>
             </tr>
             <tr>
               <td>Ensino Técnico</td>
-              <td><?= $curriculoFormacao->tecnico ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
+              <td><?= $curriculoFormacao->tecnico ? '<span style="color:#27ae60"><b>Completo</b></span>' : '<span style="color:#c0392b"><b>Incompleto</b></span>'; ?></td>
               <td><?= $curriculoFormacao->tecnico_area; ?></td>
               <td><?= $curriculoFormacao->tecnico_local; ?></td>
               <td><?= $curriculoFormacao->tecnico_anoconclusao; ?></td>
@@ -290,28 +290,28 @@ $this->title = $model->numeroInscricao;
             </tr>
             <tr>
               <td>Ensino Superior</td>
-              <td><?= $curriculoFormacao->superior_comp ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
+              <td><?= $curriculoFormacao->superior_comp ? '<span style="color:#27ae60"><b>Completo</b></span>' : '<span style="color:#c0392b"><b>Incompleto</b></span>'; ?></td>
               <td><?= $curriculoFormacao->superior_area; ?></td>
               <td><?= $curriculoFormacao->superior_local; ?></td>
               <td><?= $curriculoFormacao->superior_anoconclusao; ?></td>
             </tr>
             <tr>
               <td>Pós-Graduação</td>
-              <td><?= $curriculoFormacao->pos ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
+              <td><?= $curriculoFormacao->pos ? '<span style="color:#27ae60"><b>Completo</b></span>' : '<span style="color:#c0392b"><b>Incompleto</b></span>'; ?></td>
               <td><?= $curriculoFormacao->pos_area; ?></td>
               <td><?= $curriculoFormacao->pos_local; ?></td>
               <td><?= $curriculoFormacao->pos_anoconclusao; ?></td>
             </tr>
             <tr>
               <td>Mestrado</td>
-              <td><?= $curriculoFormacao->mestrado ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
+              <td><?= $curriculoFormacao->mestrado ? '<span style="color:#27ae60"><b>Completo</b></span>' : '<span style="color:#c0392b"><b>Incompleto</b></span>'; ?></td>
               <td><?= $curriculoFormacao->mestrado_area; ?></td>
               <td><?= $curriculoFormacao->mestrado_local; ?></td>
               <td><?= $curriculoFormacao->mestrado_anoconclusao; ?></td>
             </tr>
             <tr>
               <td>Doutorado</td>
-              <td><?= $curriculoFormacao->doutorado ? '<span style="color:#27cc27"><b>Completo</b></span>' : '<span style="color:#ff2b2b"><b>Incompleto</b></span>'; ?></td>
+              <td><?= $curriculoFormacao->doutorado ? '<span style="color:#27ae60"><b>Completo</b></span>' : '<span style="color:#c0392b"><b>Incompleto</b></span>'; ?></td>
               <td><?= $curriculoFormacao->doutorado_area; ?></td>
               <td><?= $curriculoFormacao->doutorado_local; ?></td>
               <td><?= $curriculoFormacao->doutorado_anoconclusao; ?></td>
@@ -319,7 +319,7 @@ $this->title = $model->numeroInscricao;
     </tbody>
   </table><br />
 
-<p>&nbsp;&nbsp;Estuda Atualmente? <?= $curriculoFormacao->estuda_curso ? '<span style="color:#27cc27"><b>Sim</b></span>' : '<span style="color:#ff2b2b"><b>Não</b></span>'; ?></p>
+<p>&nbsp;&nbsp;Estuda Atualmente? <?= $curriculoFormacao->estuda_curso ? '<span style="color:#27ae60"><b>Sim</b></span>' : '<span style="color:#c0392b"><b>Não</b></span>'; ?></p>
 <p>&nbsp;&nbsp;Local: <b><?= $curriculoFormacao->estuda_local ?></b></p>
 <p>&nbsp;&nbsp;Turno:  
   <?= $curriculoFormacao->estuda_turno_mat ? '<b>Matutino</b>' : '' ?>
@@ -405,7 +405,7 @@ $this->title = $model->numeroInscricao;
   <P style="text-align: center;"><b>DECLARAÇÃO</b></P>
   <p style="margin: 0px 30px 10px"><i class="glyphicon glyphicon-ok"></i> Li o Documento de Abertura e concordo em participar do processo de seleção desta instituição de acordo com o que foi estabelecido e proposto pelo mesmo.</p>
 
-  <p style="margin: 0px 30px 10px"><i class="glyphicon glyphicon-ok"></i> Declaro para os devidos fins, que <?= $model->parentesco ? '<span style="color:#ff2b2b"><b>SIM</b></span>' : '<span style="color:#27cc27"><b>NÃO</b></span>'; ?> tenho parentes que sejam servidores do SESC ou do SENAC, que sejam membros, efetivos ou suplentes, dos Conselhos Nacional, Fiscal e do Conselho Regional neste Estado, bem como que sejam dirigentes de entidades sindicais ou civis, do comércio, patronais ou de empregados.</p>
+  <p style="margin: 0px 30px 10px"><i class="glyphicon glyphicon-ok"></i> Declaro para os devidos fins, que <?= $model->parentesco ? '<span style="color:#c0392b"><b>SIM</b></span>' : '<span style="color:#27ae60"><b>NÃO</b></span>'; ?> tenho parentes que sejam servidores do SESC ou do SENAC, que sejam membros, efetivos ou suplentes, dos Conselhos Nacional, Fiscal e do Conselho Regional neste Estado, bem como que sejam dirigentes de entidades sindicais ou civis, do comércio, patronais ou de empregados.</p>
 
   <p style="margin: 0px 30px 10px"><i class="glyphicon glyphicon-ok"></i> Declaro que todas as informações contidas nesse formulário e no meu currículo constituem a expressão da verdade, e sobre as quais assumo total responsabilidade. Ficando V.S.ª autorizada a efetuar qualquer confirmação que achar necessária, e que a inexatidão das informações ou irregularidades nos documentos, verificadas a qualquer tempo, acarretará a nulidade da Contratação, com todas as suas decorrências, sem prejuízo das demais medidas de ordem administrativa, civil ou criminal.</p><br><br>
 
