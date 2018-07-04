@@ -32,7 +32,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 $gridColumns = [
                         [
                         'class'=>'kartik\grid\ExpandRowColumn',
-                        'width'=>'50px',
+                        'width'=>'1%',
                         'format' => 'raw',
                         'value'=>function ($model, $key, $index, $column) {
                             return GridView::ROW_COLLAPSED;
@@ -44,23 +44,31 @@ $gridColumns = [
                         'expandOneOnly'=>true
                         ],
 
-                        'id',
+                        [
+                            'attribute' => 'id',
+                            'width'=>'3%',
+                        ],
 
                         [
                             'attribute' => 'cargo_id',
                             'value' => 'cargo0.descricao',
+                            'width'=>'8%',
                         ],
             
                         [
                             'attribute' => 'data_solicitacao',
                             'format' => ['date', 'php:d/m/Y'],
+                            'width'=>'5%',
                         ],
 
-                        'colaborador',
+                        [
+                            'attribute' => 'colaborador',
+                            'width'=>'8%',
+                        ],
 
                         [
                             'attribute'=>'unidade', 
-                            'width'=>'310px',
+                            'width'=>'15%',
                             'value'=>function ($model, $key, $index, $widget) { 
                                 return $model->unidade;
                             },
@@ -75,6 +83,7 @@ $gridColumns = [
                         [
                             'class' => 'kartik\grid\EditableColumn',
                             'attribute' => 'situacao_id',
+                            'width'=>'10%',
                             'value'=>function ($model, $key, $index, $widget) { 
                                 return $model->situacao->descricao;
                             },
@@ -95,11 +104,11 @@ $gridColumns = [
                                             8 => 'Aguardando Autorização de Custo', 
                                             9 => 'Elaboração de Edital', 
                                             10 => 'Período de Inscrição', 
-                                            // 11 => 'Análise de Currículo',
-                                            // 12 => 'Avaliação Escrita', 
-                                            // 13 => 'Avaliação Comportamental', 
-                                            // 14 => 'Avaliação Didática', 
-                                            // 15 => 'Entrevista', 
+                                            11 => 'Análise de Currículo',
+                                            12 => 'Avaliação Escrita', 
+                                            13 => 'Avaliação Comportamental', 
+                                            14 => 'Avaliação Didática', 
+                                            15 => 'Entrevista', 
                                             16 => 'Homologação',
                                             17 => 'Pedido de Contratação',
                                         ],
@@ -109,7 +118,7 @@ $gridColumns = [
 
                         ['class' => 'yii\grid\ActionColumn',
                         'template' => '{view} {encerrar} {correcao} {cancelar}',
-                        'contentOptions' => ['style' => 'width: 35%'],
+                        'contentOptions' => ['style' => 'width: 10%'],
                         'buttons' => [
 
                         //VISUALIZAR
