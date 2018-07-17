@@ -20,7 +20,7 @@ class CadastroDeReservaSearch extends PedidohomologacaoItens
     {
         return [
             [['pedhomolog_id', 'pedidohomologacao_id', 'curriculos_id'], 'integer'],
-            [['pedhomolog_docabertura', 'pedhomolog_numeroInscricao', 'pedhomolog_candidato', 'pedhomolog_classificacao', 'pedhomolog_localcontratacao', 'pedhomolog_cargo', 'pedhomolog_data', 'pedhomolog_expiracao'], 'safe'],
+            [['pedhomolog_docabertura', 'pedhomolog_numeroInscricao', 'pedhomolog_candidato', 'pedhomolog_classificacao', 'pedhomolog_localcontratacao', 'pedhomolog_cargo', 'pedhomolog_data', 'pedhomolog_expiracao', 'unidade'], 'safe'],
         ];
     }
 
@@ -53,6 +53,13 @@ class CadastroDeReservaSearch extends PedidohomologacaoItens
             'query' => $query,
         ]);
 
+        $query->joinWith('pedidohomologacao.contratacao');
+
+        $dataProvider->sort->attributes['unidade'] = [
+        'asc' => ['unidade' => SORT_ASC],
+        'desc' => ['unidade' => SORT_DESC],
+        ];
+        
         $this->load($params);
 
         if (!$this->validate()) {
@@ -75,6 +82,7 @@ class CadastroDeReservaSearch extends PedidohomologacaoItens
             ->andFilterWhere(['like', 'pedhomolog_classificacao', $this->pedhomolog_classificacao])
             ->andFilterWhere(['like', 'pedhomolog_localcontratacao', $this->pedhomolog_localcontratacao])
             ->andFilterWhere(['like', 'pedhomolog_cargo', $this->pedhomolog_cargo])
+            ->andFilterWhere(['like', 'contratacao.unidade', $this->unidade])
             ->andFilterWhere(['<=', 'pedhomolog_expiracao', $this->pedhomolog_expiracao]);
 
         return $dataProvider;

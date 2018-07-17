@@ -33,11 +33,17 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
 $gridColumns = [
 
-            'pedidohomologacao_id', 
+            'pedidohomologacao_id',
             'pedhomolog_docabertura', 
             'pedhomolog_numeroInscricao', 
             'pedhomolog_candidato', 
-            'pedhomolog_classificacao', 
+            'pedhomolog_classificacao',
+            [
+                'attribute' => 'unidade',
+                'value' => function($model) { 
+                    return $model->pedidohomologacao->contratacao->unidade; 
+                }
+            ],
             'pedhomolog_localcontratacao', 
             'pedhomolog_cargo', 
             [
