@@ -44,7 +44,7 @@ $gridColumns = [
                 }
             ],
             [
-                'attribute' => 'email',
+                'attribute' => 'telefone',
                 'value' => function($model) { 
                     return $model->curriculos->telefone; 
                 }
