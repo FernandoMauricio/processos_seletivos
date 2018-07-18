@@ -39,6 +39,8 @@ class CadastroDeReservaController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = 'main-full';
+        
         $searchModel = new CadastroDeReservaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

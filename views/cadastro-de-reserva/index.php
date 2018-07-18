@@ -36,7 +36,19 @@ $gridColumns = [
             'pedidohomologacao_id',
             'pedhomolog_docabertura', 
             'pedhomolog_numeroInscricao', 
-            'pedhomolog_candidato', 
+            'pedhomolog_candidato',
+            [
+                'attribute' => 'email',
+                'value' => function($model) { 
+                    return $model->curriculos->email; 
+                }
+            ],
+            [
+                'attribute' => 'email',
+                'value' => function($model) { 
+                    return $model->curriculos->telefone; 
+                }
+            ],
             'pedhomolog_classificacao',
             [
                 'attribute' => 'unidade',
@@ -49,7 +61,7 @@ $gridColumns = [
             [
                 'attribute' => 'pedhomolog_expiracao',
                 'format' => ['datetime', 'php:d/m/Y'],
-                'width' => '190px',
+                'width' => '10%',
                 'hAlign' => 'center',
                 'filter'=> DatePicker::widget([
                 'model' => $searchModel, 
@@ -100,7 +112,7 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes do Cadastro de Reserva', 'options'=>['colspan'=>8, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes do Cadastro de Reserva', 'options'=>['colspan'=>11, 'class'=>'text-center warning']], 
                 ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]

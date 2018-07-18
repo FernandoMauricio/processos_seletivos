@@ -93,10 +93,9 @@ class Contratacao extends \yii\db\ActiveRecord
             [['data_ingresso_prevista', 'data_ingresso'], 'string', 'max' => 15],
             [['tecnico_area', 'cargo','superior_area', 'pos_area', 'experiencia_tempo', 'experiencia_atividade', 'selec_teste'], 'string', 'max' => 45],
             [['cargo_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cargos::className(), 'targetAttribute' => ['cargo_id' => 'idcargo']],
-            [['cargo_area'], 'required', 'when' => function ($model) { return $model->docente > 0; }, 'whenClient' => "function (attribute, value) { return $('#contratacao-docente').val() > 0; }"],
+            [['cargo_area'], 'required', 'when' => function ($model) { if($model->cargo_id != 89) { return $model->docente > 0; } }, 'whenClient' => "function (attribute, value) { if($('#cargo-id').val() != 89) { return $('#contratacao-docente').val() > 0; }}"],
         ];
     }
-
 
     /**
      * @inheritdoc

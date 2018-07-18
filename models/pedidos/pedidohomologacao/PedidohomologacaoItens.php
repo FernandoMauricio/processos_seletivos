@@ -4,6 +4,8 @@ namespace app\models\pedidos\pedidohomologacao;
 
 use Yii;
 
+use app\models\curriculos\Curriculos;
+
 /**
  * This is the model class for table "pedidohomologacao_itens".
  *
@@ -17,6 +19,9 @@ use Yii;
 class PedidohomologacaoItens extends \yii\db\ActiveRecord
 {
     public $unidade;
+    public $email;
+    public $telefone;
+
     /**
      * @inheritdoc
      */
@@ -53,7 +58,7 @@ class PedidohomologacaoItens extends \yii\db\ActiveRecord
             'pedhomolog_docabertura' => 'Doc. Abertura',
             'pedhomolog_numeroInscricao' => 'Inscrição',
             'pedhomolog_candidato' => 'Candidato',
-            'pedhomolog_classificacao' => 'Classificacao',
+            'pedhomolog_classificacao' => 'Classificação',
             'pedhomolog_cargo' => 'Cargo',
             'pedhomolog_nivel' => 'Nível',
             'pedhomolog_localcontratacao' => 'Destino',
@@ -69,4 +74,13 @@ class PedidohomologacaoItens extends \yii\db\ActiveRecord
     {
         return $this->hasOne(PedidoHomologacao::className(), ['homolog_id' => 'pedidohomologacao_id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCurriculos()
+    {
+        return $this->hasOne(Curriculos::className(), ['id' => 'curriculos_id']);
+    }
+
 }
