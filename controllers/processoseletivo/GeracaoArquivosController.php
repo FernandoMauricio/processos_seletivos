@@ -56,7 +56,7 @@ class GeracaoArquivosController extends Controller
 
     public function actionImprimir($id) {
 
-    setlocale(LC_ALL, "pt_BR", "pt_BR.ISO-8859-1", "pt_BR.UTF-8", "portuguese");
+    //setlocale(LC_ALL, "pt_BR", "pt_BR.ISO-8859-1", "pt_BR.UTF-8", "portuguese");
 
         $model = $this->findModel($id);
         $modelsItens = $model->geracaoarquivosItens;
@@ -187,7 +187,7 @@ class GeracaoArquivosController extends Controller
                 OR `curriculos`.`edital` = "'.$model->processo->numeroEdital.'"
                     AND `curriculos`.`cargo` = "'.$model->etapasprocesso->etapa_cargo.'"
                     AND `curriculos_endereco`.`cidade` IN ("'.str_replace(',', '","', $model->etapasprocesso->etapa_cidade).'")
-                    AND `etapas_itens`.`itens_classificacao` LIKE ""
+                    AND `etapas_itens`.`itens_classificacao` IS NULL
                 ORDER BY `curriculos`.`nome` ASC
                 ';
             }else{//Localiza os candidatos para listagem do Resultado Final

@@ -75,7 +75,7 @@ class Curriculos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['edital', 'numeroInscricao','cargo', 'nome', 'cpf', 'deficiencia', 'datanascimento', 'estado_civil', 'sexo', 'email', 'telefone', 'data', 'termoAceite', 'parentesco', 'termoAceite2', 'marketing'], 'required'],
+            [['edital', 'numeroInscricao','cargo', 'nome', 'cpf', 'datanascimento', 'deficiencia', 'estado_civil', 'sexo', 'email', 'telefone', 'data', 'termoAceite', 'parentesco', 'termoAceite2', 'marketing'], 'required'],
             ['cpf', 'unique', 'targetAttribute' => ['edital', 'cpf', 'cargo'],'message' => '"{value} Já utilizado para o edital e cargo selecionado"'],
             ['cpf', CpfValidator::className()],
             [['idade', 'deficiencia', 'unidade_aprovador', 'parentesco', 'situacao_ggp', 'situacao_aprovadorsolicitante', 'idadeInicial', 'idadeFinal'], 'integer'],

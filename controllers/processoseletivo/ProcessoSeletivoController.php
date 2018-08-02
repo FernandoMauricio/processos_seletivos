@@ -161,9 +161,7 @@ class ProcessoSeletivoController extends Controller
         $session = Yii::$app->session;
         $session->set('sess_processo', $model->id);
 
-        return $this->redirect(Yii::$app->request->BaseUrl . '/index.php?r=processoseletivo/edital/index', [
-             'model' => $model,
-         ]);
+        return $this->redirect(Yii::$app->request->BaseUrl . '/index.php?r=processoseletivo/edital/index');
     }
 
     public function actionAnexos($id) 
@@ -173,9 +171,7 @@ class ProcessoSeletivoController extends Controller
         $session = Yii::$app->session;
         $session->set('sess_processo', $model->id);
 
-        return $this->redirect(Yii::$app->request->BaseUrl . '/index.php?r=processoseletivo/anexos/index', [
-             'model' => $model,
-         ]);
+        return $this->redirect(Yii::$app->request->BaseUrl . '/index.php?r=processoseletivo/anexos/index');
     }
 
     public function actionAdendos($id) 
@@ -185,9 +181,7 @@ class ProcessoSeletivoController extends Controller
         $session = Yii::$app->session;
         $session->set('sess_processo', $model->id);
 
-        return $this->redirect(Yii::$app->request->BaseUrl . '/index.php?r=processoseletivo/adendos/index', [
-             'model' => $model,
-         ]);
+        return $this->redirect(Yii::$app->request->BaseUrl . '/index.php?r=processoseletivo/adendos/index');
     }
 
     public function actionResultados($id) 
@@ -197,9 +191,7 @@ class ProcessoSeletivoController extends Controller
         $session = Yii::$app->session;
         $session->set('sess_processo', $model->id);
 
-        return $this->redirect(Yii::$app->request->BaseUrl . '/index.php?r=processoseletivo/resultados/index', [
-             'model' => $model,
-         ]);
+        return $this->redirect(Yii::$app->request->BaseUrl . '/index.php?r=processoseletivo/resultados/index');
     }
 
     public function actionAtualizaProcessoSeletivoAutomaticamente() 

@@ -41,14 +41,14 @@ use kartik\datecontrol\DateControl;
 
         <div class="col-md-4">
             <?= $form->field($model, 'datanascimento')->widget(DateControl::classname(), [
-                'type'=>DateControl::FORMAT_DATETIME,
-                    'displayFormat' => 'dd/MM/yyyy',
-                    'autoWidget' => false,
-                    'widgetClass' => 'yii\widgets\MaskedInput',
+                    'type'=>DateControl::FORMAT_DATE,
+                    'ajaxConversion'=>false,
                     'widgetOptions' => [
-                        'mask' => '99/99/9999',
-                        'options' => ['class'=>'form-control', 'placeholder' => 'Data nascimento...'],
-                    ],
+                        'removeButton' => false,
+                        'pluginOptions' => [
+                            'autoclose' => true
+                        ]
+                    ]
                 ]);
             ?>
         </div>

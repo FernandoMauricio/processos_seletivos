@@ -9,6 +9,7 @@ use yii\widgets\DetailView;
 $this->title = $model->gerarq_id;
 $this->params['breadcrumbs'][] = ['label' => 'Geracao Arquivos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
 ?>
 <div class="geracao-arquivos-view">
 
