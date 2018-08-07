@@ -6,6 +6,7 @@ use Yii;
 
 use app\models\contratacao\Contratacao;
 use app\models\etapasprocesso\EtapasProcesso;
+use app\models\pedidos\pedidocusto\PedidocustoItens;
 
 /**
  * This is the model class for table "pedidocontratacao_itens".
@@ -104,6 +105,6 @@ class PedidocontratacaoItens extends \yii\db\ActiveRecord
      */
     public function getPedidocustoItens()
     {
-        return $this->hasOne(PedidocustoItens::className(), ['id' => 'pedidocusto_itens_id']);
+        return $this->hasOne(PedidocustoItens::className(), ['contratacao_id' => 'contratacao_id']);
     }
 }
