@@ -14,6 +14,15 @@ $this->params['breadcrumbs'][] = 'Atualizar';
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+	<p>        
+		<?= Html::a('<span class="glyphicon glyphicon-refresh"></span> Atualizar Candidatos', ['atualizar-candidatos', 'id' => $model->homolog_id],[
+                'class' => 'btn btn-success',
+                'data' =>[
+                            'confirm' => 'Você tem <b>certeza</b> que deseja <b>atualizar</b> as informações dos candidatos?',
+                            'method' => 'post',
+                        ]
+            ]) ?>
+	</p>
     <?= $this->render('_form', [
         'model' => $model,
         'contratacoes' => $contratacoes,

@@ -38,6 +38,68 @@ class PedidoHomologacaoController extends Controller
         ];
     }
 
+    public function actionAtualizarCandidatos($id) {
+
+        $connection = \Yii::$app->db;
+        $model = $this->findModel($id);
+
+        //Deleta a lista de candidatos existentes no pedido de homologação
+        PedidohomologacaoItens::deleteAll('pedidohomologacao_id = "'.$id.'"');
+
+        //Localiza somente os candidatos classificados nas etapas do processo
+        $sqlCandidatos = '
+            SELECT
+            `curriculos`.`edital`,
+            `curriculos`.`numeroInscricao`,
+            `curriculos`.`nome`,
+            `etapas_itens`.`itens_classificacao`,
+            `etapas_itens`.`curriculos_id`,
+            `etapas_itens`.`itens_localcontratacao`,
+            `etapas_itens`.`etapasprocesso_id`,
+            `etapas_processo`.`etapa_cargo`
+            FROM
+            `etapas_itens`
+            INNER JOIN `etapas_processo` ON `etapas_itens`.`etapasprocesso_id` = `etapas_processo`.`etapa_id`
+            INNER JOIN `curriculos` ON `etapas_itens`.`curriculos_id` = `curriculos`.`id`
+            INNER JOIN `pedido_custo` ON `etapas_processo`.`pedidocusto_id` = `pedido_custo`.`custo_id`
+            INNER JOIN `pedidocusto_itens` ON `etapas_processo`.`pedidocusto_id` = `pedidocusto_itens`.`pedidocusto_id`
+            INNER JOIN `contratacao` ON `pedidocusto_itens`.`contratacao_id` = `contratacao`.`id`
+            WHERE `etapas_itens`.`itens_classificacao` NOT LIKE "%Desclassificado(a)%"
+            AND `etapas_itens`.`itens_classificacao` NOT LIKE ""
+            AND `pedidocusto_itens`.`contratacao_id` = '.$model->contratacao_id.'
+            AND `curriculos`.`cargo` = "'.$model->homolog_cargo.'"
+            ORDER BY `etapas_itens`.`itens_classificacao` ASC';
+
+        $candidatos = EtapasItens::findBySql($sqlCandidatos)->all();
+
+        //Calcula a data de expiração para 1 ano depois
+        $data_expiracao = new Expression('DATE_ADD(NOW(), INTERVAL 1 YEAR)');
+
+        foreach ($candidatos as $candidato) {
+                //Inclui as informações dos candidatos classificados
+                Yii::$app->db->createCommand()
+                    ->insert('pedidohomologacao_itens', [
+                             'pedidohomologacao_id'        => $model->homolog_id,
+                             'curriculos_id'               => $candidato['curriculos_id'],
+                             'pedhomolog_docabertura'      => $candidato['curriculos']['edital'],
+                             'pedhomolog_numeroInscricao'  => $candidato['numeroInscricao'],
+                             'pedhomolog_candidato'        => $candidato['nome'],
+                             'pedhomolog_classificacao'    => $candidato['itens_classificacao'],
+                             'pedhomolog_localcontratacao' => $candidato['itens_localcontratacao'],
+                             'pedhomolog_cargo'            => $model->homolog_cargo,
+                             'pedhomolog_data'             => $model->homolog_data,
+                             'pedhomolog_expiracao'        => $data_expiracao,
+                             'etapa_id'                    => $candidato['etapasprocesso_id'],
+                            ])
+                    ->execute();
+            $model->save();
+        }
+
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Candidatos Atualizados!</b>');
+        return $this->redirect(['update', 'id' => $model->homolog_id]);
+
+    }
+
     /**
      * Lists all PedidoHomologacao models.
      * @return mixed
