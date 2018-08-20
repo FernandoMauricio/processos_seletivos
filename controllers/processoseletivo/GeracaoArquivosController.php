@@ -56,7 +56,7 @@ class GeracaoArquivosController extends Controller
 
     public function actionImprimir($id) {
 
-    //setlocale(LC_ALL, "pt_BR", "pt_BR.ISO-8859-1", "pt_BR.UTF-8", "portuguese");
+    setlocale(LC_ALL, "pt_BR", "pt_BR.ISO-8859-1", "pt_BR.UTF-8", "portuguese");
 
         $model = $this->findModel($id);
         $modelsItens = $model->geracaoarquivosItens;
