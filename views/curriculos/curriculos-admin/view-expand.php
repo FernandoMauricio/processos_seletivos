@@ -32,27 +32,27 @@ $this->title = $model->numeroInscricao;
             [
               'columns' => [
                         [
-                        'attribute' => 'id',
-                        'displayOnly'=>true,
-                        'labelColOptions'=>['style'=>'width:0%'],
+                          'attribute' => 'id',
+                          'displayOnly'=>true,
+                          'labelColOptions'=>['style'=>'width:0%'],
                         ],
 
                         [
-                        'attribute' => 'edital',
-                        'displayOnly'=>true,
-                        'labelColOptions'=>['style'=>'width:0%'],
+                          'attribute' => 'edital',
+                          'displayOnly'=>true,
+                          'labelColOptions'=>['style'=>'width:0%'],
                         ],
 
                         [
-                        'attribute' => 'numeroInscricao',
-                        'displayOnly'=>true,
-                        'labelColOptions'=>['style'=>'width:0%'],
+                          'attribute' => 'numeroInscricao',
+                          'displayOnly'=>true,
+                          'labelColOptions'=>['style'=>'width:0%'],
                         ],
 
                         [
-                        'attribute' => 'cargo',
-                        'displayOnly'=>true,
-                        'labelColOptions'=>['style'=>'width:0%'],
+                          'attribute' => 'cargo',
+                          'displayOnly'=>true,
+                          'labelColOptions'=>['style'=>'width:0%'],
                         ],
 
                     ],
@@ -61,36 +61,36 @@ $this->title = $model->numeroInscricao;
             [
               'columns' => [
                         [
-                        'attribute' => 'nome',
-                        'displayOnly'=>true,
-                        'labelColOptions'=>['style'=>'width:0%'],
+                          'attribute' => 'nome',
+                          'displayOnly'=>true,
+                          'labelColOptions'=>['style'=>'width:0%'],
                         ],
 
                         [
-                        'attribute' => 'idade',
-                        'displayOnly'=>true,
-                        'labelColOptions'=>['style'=>'width:0%'],
+                          'attribute' => 'idade',
+                          'displayOnly'=>true,
+                          'labelColOptions'=>['style'=>'width:0%'],
                         ],
 
                         [
-                            'attribute' => 'datanascimento',
-                            'format' => ['date', 'php:d/m/Y'],
-                            'displayOnly'=>true,
-                            'labelColOptions'=>['style'=>'width:0%'],
+                          'attribute' => 'datanascimento',
+                          'format' => ['date', 'php:d/m/Y'],
+                          'displayOnly'=>true,
+                          'labelColOptions'=>['style'=>'width:0%'],
                         ],
 
                         [
-                            'attribute' => 'estado_civil',
-                            'displayOnly'=>true,
-                            'labelColOptions'=>['style'=>'width:0%'],
+                          'attribute' => 'estado_civil',
+                          'displayOnly'=>true,
+                          'labelColOptions'=>['style'=>'width:0%'],
                         ],
                         
                         [
-                            'attribute'=>'sexo', 
-                            'label'=>'Sexo',
-                            'format'=>'raw',
-                            'value'=>$model->sexo ? 'Masculino' : 'Feminino',
-                            'displayOnly'=>true,
+                          'attribute'=>'sexo', 
+                          'label'=>'Sexo',
+                          'format'=>'raw',
+                          'value'=>$model->sexo ? 'Masculino' : 'Feminino',
+                          'displayOnly'=>true,
                         ],
                     ],
             ],
@@ -98,47 +98,45 @@ $this->title = $model->numeroInscricao;
             [
               'columns' => [
                         [
-                        'attribute' => 'cpf',
-                        'displayOnly'=>true,
+                          'attribute' => 'cpf',
+                          'displayOnly'=>true,
                         ],
                         [
-                        'attribute' => 'identidade',
-                        'displayOnly'=>true,
+                          'attribute' => 'identidade',
+                          'displayOnly'=>true,
                         ],
                         [
-                        'attribute' => 'orgao_exped',
-                        'displayOnly'=>true,
-                        ],
-                    ],
-            ],
-
-            [
-              'columns' => [
-
-                        [
-                        'attribute' => 'email',
-                        'displayOnly'=>true,
-                        ],
-
-                        [
-                        'attribute' => 'emailAlt',
-                        'displayOnly'=>true,
+                          'attribute' => 'orgao_exped',
+                          'displayOnly'=>true,
                         ],
                     ],
             ],
 
             [
               'columns' => [
+
                         [
-                            'attribute'=>'profile_facebook',
-                            'format'=>'raw',
-                            'value'=>Html::a($model->profile_facebook, $model->profile_facebook, ['target'=>'_blank']),
+                          'attribute' => 'email',
+                          'displayOnly'=>true,
                         ],
 
                         [
-                            'attribute'=>'profile_linkedin',
-                            'format'=>'raw',
-                            'value'=>Html::a($model->profile_linkedin, $model->profile_linkedin, ['target'=>'_blank']),
+                          'attribute' => 'emailAlt',
+                          'displayOnly'=>true,
+                        ],
+                    ],
+            ],
+
+            [
+              'columns' => [
+                        [
+                          'attribute' => 'profile_facebook',
+                          'displayOnly'=>true,
+                        ],
+
+                        [
+                          'attribute' => 'profile_linkedin',
+                          'displayOnly'=>true,
                         ],
                     ],
             ],
@@ -146,29 +144,13 @@ $this->title = $model->numeroInscricao;
             [
               'columns' => [
                         [
-                        'attribute' => 'telefone',
-                        'displayOnly'=>true,
+                          'attribute' => 'telefone',
+                          'displayOnly'=>true,
                         ],
 
                         [
-                        'attribute' => 'telefoneAlt',
-                        'displayOnly'=>true,
-                        ],
-                    ],
-            ],
-
-            [
-              'columns' => [
-                        [
-                        'attribute' => 'classificado',
-                        'value' => $model->situacaoCandidato->sitcan_descricao,
-                        'displayOnly'=>true,
-                        ],
-
-                        [
-                            'attribute' => 'data',
-                            //'format'=>['datetime', 'php:d/m/Y H:i:s'],
-                            'displayOnly'=>true,
+                          'attribute' => 'telefoneAlt',
+                          'displayOnly'=>true,
                         ],
                     ],
             ],
@@ -176,29 +158,27 @@ $this->title = $model->numeroInscricao;
             [
               'columns' => [
                         [
-                            'attribute'=>'curriculo_lattes', 
-                            'label'=>'Link Lattes',
-                            'format'=>'raw',
-                            'value'=>Html::a($model->curriculo_lattes, $model->curriculo_lattes, ['class'=>'kv-author-link']),
-                            'displayOnly'=>true,
+                         'attribute' => 'classificado',
+                         'value' => $model->situacaoCandidato->sitcan_descricao,
+                         'displayOnly'=>true,
+                        ],
+
+                        [
+                          'attribute' => 'data',
+                          //'format'=>['datetime', 'php:d/m/Y H:i:s'],
+                          'displayOnly'=>true,
                         ],
                     ],
             ],
 
             [
               'columns' => [
-
                         [
-                        'attribute' => 'deficiencia',
-                        'label'=>'Pessoa com Deficiência?',
-                        'format'=>'raw',
-                        'value'=>$model->deficiencia_cid ? 'Sim' : 'Não',
-                        'displayOnly'=>true,
-                        ],
-
-                        [
-                        'attribute'=>'deficiencia_cid', 
-                        'displayOnly'=>true,
+                          'attribute'=>'curriculo_lattes', 
+                          'label'=>'Link Lattes',
+                          'format'=>'raw',
+                          'value'=>Html::a($model->curriculo_lattes, $model->curriculo_lattes, ['class'=>'kv-author-link']),
+                          'displayOnly'=>true,
                         ],
                     ],
             ],
@@ -207,11 +187,29 @@ $this->title = $model->numeroInscricao;
               'columns' => [
 
                         [
-                        'attribute' => 'marketing',
-                        'label'=>'Como ficou sabendo da vaga?',
-                        'format'=>'raw',
-                        'value'=>$model->marketing,
-                        'displayOnly'=>true,
+                          'attribute' => 'deficiencia',
+                          'label'=>'Pessoa com Deficiência?',
+                          'format'=>'raw',
+                          'value'=>$model->deficiencia_cid ? 'Sim' : 'Não',
+                          'displayOnly'=>true,
+                        ],
+
+                        [
+                          'attribute'=>'deficiencia_cid', 
+                          'displayOnly'=>true,
+                        ],
+                    ],
+            ],
+
+            [
+              'columns' => [
+
+                        [
+                          'attribute' => 'marketing',
+                          'label'=>'Como ficou sabendo da vaga?',
+                          'format'=>'raw',
+                          'value'=>$model->marketing,
+                          'displayOnly'=>true,
                         ],
                     ],
             ],

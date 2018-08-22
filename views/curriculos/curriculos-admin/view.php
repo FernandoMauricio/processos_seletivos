@@ -43,27 +43,27 @@ $this->params['breadcrumbs'][] =  $this->title;
             [
               'columns' => [
                         [
-                        'attribute' => 'id',
-                        'displayOnly'=>true,
-                        'labelColOptions'=>['style'=>'width:0%'],
+                          'attribute' => 'id',
+                          'displayOnly'=>true,
+                          'labelColOptions'=>['style'=>'width:0%'],
                         ],
 
                         [
-                        'attribute' => 'edital',
-                        'displayOnly'=>true,
-                        'labelColOptions'=>['style'=>'width:0%'],
+                          'attribute' => 'edital',
+                          'displayOnly'=>true,
+                          'labelColOptions'=>['style'=>'width:0%'],
                         ],
 
                         [
-                        'attribute' => 'numeroInscricao',
-                        'displayOnly'=>true,
-                        'labelColOptions'=>['style'=>'width:0%'],
+                          'attribute' => 'numeroInscricao',
+                          'displayOnly'=>true,
+                          'labelColOptions'=>['style'=>'width:0%'],
                         ],
 
                         [
-                        'attribute' => 'cargo',
-                        'displayOnly'=>true,
-                        'labelColOptions'=>['style'=>'width:0%'],
+                          'attribute' => 'cargo',
+                          'displayOnly'=>true,
+                          'labelColOptions'=>['style'=>'width:0%'],
                         ],
 
                     ],
@@ -72,36 +72,36 @@ $this->params['breadcrumbs'][] =  $this->title;
             [
               'columns' => [
                         [
-                        'attribute' => 'nome',
-                        'displayOnly'=>true,
-                        'labelColOptions'=>['style'=>'width:0%'],
+                          'attribute' => 'nome',
+                          'displayOnly'=>true,
+                          'labelColOptions'=>['style'=>'width:0%'],
                         ],
 
                         [
-                        'attribute' => 'idade',
-                        'displayOnly'=>true,
-                        'labelColOptions'=>['style'=>'width:0%'],
+                          'attribute' => 'idade',
+                          'displayOnly'=>true,
+                          'labelColOptions'=>['style'=>'width:0%'],
                         ],
 
                         [
-                            'attribute' => 'datanascimento',
-                            'format' => ['date', 'php:d/m/Y'],
-                            'displayOnly'=>true,
-                            'labelColOptions'=>['style'=>'width:0%'],
+                          'attribute' => 'datanascimento',
+                          'format' => ['date', 'php:d/m/Y'],
+                          'displayOnly'=>true,
+                          'labelColOptions'=>['style'=>'width:0%'],
                         ],
 
                         [
-                            'attribute' => 'estado_civil',
-                            'displayOnly'=>true,
-                            'labelColOptions'=>['style'=>'width:0%'],
+                          'attribute' => 'estado_civil',
+                          'displayOnly'=>true,
+                          'labelColOptions'=>['style'=>'width:0%'],
                         ],
                         
                         [
-                            'attribute'=>'sexo', 
-                            'label'=>'Sexo',
-                            'format'=>'raw',
-                            'value'=>$model->sexo ? 'Masculino' : 'Feminino',
-                            'displayOnly'=>true,
+                          'attribute'=>'sexo', 
+                          'label'=>'Sexo',
+                          'format'=>'raw',
+                          'value'=>$model->sexo ? 'Masculino' : 'Feminino',
+                          'displayOnly'=>true,
                         ],
                     ],
             ],
@@ -109,31 +109,16 @@ $this->params['breadcrumbs'][] =  $this->title;
             [
               'columns' => [
                         [
-                        'attribute' => 'cpf',
-                        'displayOnly'=>true,
+                          'attribute' => 'cpf',
+                          'displayOnly'=>true,
                         ],
                         [
-                        'attribute' => 'identidade',
-                        'displayOnly'=>true,
+                          'attribute' => 'identidade',
+                          'displayOnly'=>true,
                         ],
                         [
-                        'attribute' => 'orgao_exped',
-                        'displayOnly'=>true,
-                        ],
-                    ],
-            ],
-
-            [
-              'columns' => [
-
-                        [
-                        'attribute' => 'email',
-                        'displayOnly'=>true,
-                        ],
-
-                        [
-                        'attribute' => 'emailAlt',
-                        'displayOnly'=>true,
+                          'attribute' => 'orgao_exped',
+                          'displayOnly'=>true,
                         ],
                     ],
             ],
@@ -142,13 +127,28 @@ $this->params['breadcrumbs'][] =  $this->title;
               'columns' => [
 
                         [
-                        'attribute' => 'profile_facebook',
-                        'displayOnly'=>true,
+                          'attribute' => 'email',
+                          'displayOnly'=>true,
                         ],
 
                         [
-                        'attribute' => 'profile_linkedin',
-                        'displayOnly'=>true,
+                          'attribute' => 'emailAlt',
+                          'displayOnly'=>true,
+                        ],
+                    ],
+            ],
+
+            [
+              'columns' => [
+
+                        [
+                          'attribute' => 'profile_facebook',
+                          'displayOnly'=>true,
+                        ],
+
+                        [
+                          'attribute' => 'profile_linkedin',
+                          'displayOnly'=>true,
                         ],
                     ],
             ],
@@ -156,29 +156,13 @@ $this->params['breadcrumbs'][] =  $this->title;
             [
               'columns' => [
                         [
-                        'attribute' => 'telefone',
-                        'displayOnly'=>true,
+                          'attribute' => 'telefone',
+                          'displayOnly'=>true,
                         ],
 
                         [
-                        'attribute' => 'telefoneAlt',
-                        'displayOnly'=>true,
-                        ],
-                    ],
-            ],
-
-            [
-              'columns' => [
-                        [
-                        'attribute' => 'classificado',
-                        'value' => $model->situacaoCandidato->sitcan_descricao,
-                        'displayOnly'=>true,
-                        ],
-
-                        [
-                            'attribute' => 'data',
-                            'format'=>['date', 'php:d/m/Y H:i:s'],
-                            'displayOnly'=>true,
+                          'attribute' => 'telefoneAlt',
+                          'displayOnly'=>true,
                         ],
                     ],
             ],
@@ -186,11 +170,27 @@ $this->params['breadcrumbs'][] =  $this->title;
             [
               'columns' => [
                         [
-                            'attribute'=>'curriculo_lattes', 
-                            'label'=>'Link Lattes',
-                            'format'=>'raw',
-                            'value'=>Html::a($model->curriculo_lattes, $model->curriculo_lattes, ['class'=>'kv-author-link']),
-                            'displayOnly'=>true,
+                          'attribute' => 'classificado',
+                          'value' => $model->situacaoCandidato->sitcan_descricao,
+                          'displayOnly'=>true,
+                        ],
+
+                        [
+                          'attribute' => 'data',
+                          'format'=>['date', 'php:d/m/Y H:i:s'],
+                          'displayOnly'=>true,
+                        ],
+                    ],
+            ],
+
+            [
+              'columns' => [
+                        [
+                          'attribute'=>'curriculo_lattes', 
+                          'label'=>'Link Lattes',
+                          'format'=>'raw',
+                          'value'=>Html::a($model->curriculo_lattes, $model->curriculo_lattes, ['class'=>'kv-author-link']),
+                          'displayOnly'=>true,
                         ],
                     ],
             ],
@@ -199,16 +199,16 @@ $this->params['breadcrumbs'][] =  $this->title;
               'columns' => [
 
                         [
-                        'attribute' => 'deficiencia',
-                        'label'=>'Pessoa com Deficiência?',
-                        'format'=>'raw',
-                        'value'=>$model->deficiencia_cid ? 'Sim' : 'Não',
-                        'displayOnly'=>true,
+                          'attribute' => 'deficiencia',
+                          'label'=>'Pessoa com Deficiência?',
+                          'format'=>'raw',
+                          'value'=>$model->deficiencia_cid ? 'Sim' : 'Não',
+                          'displayOnly'=>true,
                         ],
 
                         [
-                        'attribute'=>'deficiencia_cid', 
-                        'displayOnly'=>true,
+                          'attribute'=>'deficiencia_cid', 
+                          'displayOnly'=>true,
                         ],
                     ],
             ],
