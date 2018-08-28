@@ -69,7 +69,7 @@ class GeracaoArquivosController extends Controller
                     //'subject' => 'Generating PDF files via yii2-mpdf extension has never been easy'
                 ],
                 'methods' => [
-                    'SetHeader' => ['RESULTADOS - SENAC AM|| Manaus, ' . strftime('%A, ') . strftime("%d de %B de %Y")],
+                    'SetHeader' => ['RESULTADOS - SENAC AM|| Manaus, ' . utf8_encode(strftime('%A, ')) . utf8_encode(strftime("%d de %B de %Y"))],
                     'SetFooter' => ['Recrutamento e Seleção - GGP||Página {PAGENO}'],
                 ]
             ]);
