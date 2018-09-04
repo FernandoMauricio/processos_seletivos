@@ -94,7 +94,7 @@ echo NavX::widget([
                     '<li class="dropdown-header">Área Usuário</li>',
                         //['label' => 'Alterar Senha', 'url' => ['usuario-usu/update', 'id' => $sess_codusuario]],
                         ['label' => 'Versões Anteriores', 'url' => ['/site/versao']],
-                        ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
+                        ['label' => 'Sair', 'url' => 'https://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
                ],
         ],
 
@@ -190,7 +190,7 @@ echo NavX::widget([
                          '<li class="dropdown-header">Área Usuário</li>',
                                 //['label' => 'Alterar Senha', 'url' => ['usuario-usu/update', 'id' => $sess_codusuario]],
                                 ['label' => 'Versões Anteriores', 'url' => ['/site/versao']],
-                                ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
+                                ['label' => 'Sair', 'url' => 'https://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
                         ],
         ],
 
@@ -226,7 +226,7 @@ echo NavX::widget([
                          '<li class="dropdown-header">Área Usuário</li>',
                                 //['label' => 'Alterar Senha', 'url' => ['usuario-usu/update', 'id' => $sess_codusuario]],
                                 ['label' => 'Versões Anteriores', 'url' => ['/site/versao']],
-                                ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
+                                ['label' => 'Sair', 'url' => 'https://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
                         ],
         ],
 
@@ -247,7 +247,7 @@ echo NavX::widget([
 
         ['label' => 'Cadastro de Reserva', 'url' => ['/curriculos/cadastro-de-reserva/index']],
         
-        ['label' => 'Sair', 'url' => 'http://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
+        ['label' => 'Sair', 'url' => 'https://portalsenac.am.senac.br/portal_senac/control_base_vermodulos/control_base_vermodulos.php'],
 
     ]
 ]); 

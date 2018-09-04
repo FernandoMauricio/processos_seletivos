@@ -161,69 +161,63 @@ class CurriculosController extends Controller
         $curriculosEndereco->save(false);
         $curriculosFormacao->save(false);
 
-        //ENVIA E-MAIL DA INSCRIÇÃO PARA O CANDIDATO
-                     Yii::$app->mailer->compose()
-                            ->setFrom(['contratacao@am.senac.br' => 'Processo Seletivo - Senac AM'])
-                            ->setTo($model->email)
-                            ->setSubject('Inscrição para o Edital: ' . $model->edital)
-                            ->setTextBody('Prezado Candidato, confirmamos o envio de seu currículo para concorrer a vaga de ' .$model->cargo. ' para o Edital ' .$model->edital.' ')
-                            ->setHtmlBody("Prezado Senhor(a), <strong>".$model->nome."</strong><br><br>".
-                     "Recebemos a sua inscrição em nosso processo de seleção com sucesso para o Edital: <strong>".$model->edital." </strong>e pedimos que acompanhe em nosso site o resultado das próximas etapas.<br><br>".    
-                     
-                         "<strong><font color='red'><center>NÃO RESPONDA A ESSE E-MAIL!!!!</center></font></strong><br><br>".
+        //Inserir vários cursos complementares
+        $modelsComplementos = Model::createMultiple(CurriculosComplementos::classname());
+        Model::loadMultiple($modelsComplementos, Yii::$app->request->post());
 
-                     "<strong>INFORMAÇÕES GERAIS</STRONG><br><br>".
-                     "<strong>Número de Inscrição: </strong><font color='red'>".$model->numeroInscricao ."</font><br><br>".
-                     "<strong>Data do envio: </strong> ".$model->data ."<br>".
-                     "<strong>Processo Seletivo: </strong> ".$model->edital ."<br>".
-                     "<strong>Cargo: </strong> ".$model->cargo ."<br><br>")
-                            ->send();
+         //Inserir vários emprgos anteriores
+        $modelsEmpregos = Model::createMultiple(CurriculosEmpregos::classname());
+        Model::loadMultiple($modelsEmpregos, Yii::$app->request->post());
 
-                    //Inserir vários cursos complementares
-                    $modelsComplementos = Model::createMultiple(CurriculosComplementos::classname());
-                    Model::loadMultiple($modelsComplementos, Yii::$app->request->post());
-
-                     //Inserir vários emprgos anteriores
-                    $modelsEmpregos = Model::createMultiple(CurriculosEmpregos::classname());
-                    Model::loadMultiple($modelsEmpregos, Yii::$app->request->post());
-
-
-                    // validate all models
-                    $valid = $model->validate();
-                    $valid = Model::validateMultiple($modelsComplementos) && $valid;
-
-                    $valid2 = $model->validate();
-                    $valid_empregos = Model::validateMultiple($modelsEmpregos) && $valid2;
-
-                    if ($valid && $valid_empregos) {
-                        $transaction = \Yii::$app->db->beginTransaction();
-                        try {
-                            if ($flag = $model->save(false)) {
-                                foreach ($modelsComplementos as $modelComplemento) {//cursos complementares
-                                    $modelComplemento->curriculos_id = $model->id;
-                                    if (! ($flag = $modelComplemento->save(false))) {
-                                        $transaction->rollBack();
-                                        break;
-                                    }
-                                }
-                                foreach ($modelsEmpregos as $modelEmpregos) {//empregos anteriores
-                                    $modelEmpregos->curriculos_id = $model->id;
-                                    if (! ($flag = $modelEmpregos->save(false))) {
-                                        $transaction->rollBack();
-                                        break;
-                                    }
-                                }
-
-                            }
-                            if ($flag) {
-                                $transaction->commit();
-                                return $this->redirect('http://www.am.senac.br/sucesso');
-                            }
-                        } catch (Exception $e) {
+        // validate all models
+        $valid = $model->validate();
+        // $valid = Model::validateMultiple($modelsComplementos) && $valid;
+        // $valid = Model::validateMultiple($modelsEmpregos) && $valid;
+        if ($valid) {
+            $transaction = \Yii::$app->db->beginTransaction();
+            try {
+                if ($flag = $model->save(false)) {
+                    foreach ($modelsComplementos as $modelComplemento) {//cursos complementares
+                        $modelComplemento->curriculos_id = $model->id;
+                        if (! ($flag = $modelComplemento->save(false))) {
                             $transaction->rollBack();
+                            break;
                         }
                     }
+                    foreach ($modelsEmpregos as $modelEmpregos) {//empregos anteriores
+                        $modelEmpregos->curriculos_id = $model->id;
+                        if (! ($flag = $modelEmpregos->save(false))) {
+                            $transaction->rollBack();
+                            break;
+                        }
+                    }
+                }
+                if ($flag) {
+                    $transaction->commit();
+                    return $this->redirect('http://www.am.senac.br/sucesso');
+                }
+            } catch (Exception $e) {
+                $transaction->rollBack();
+            }
+        }
 
+        //ENVIA E-MAIL DA INSCRIÇÃO PARA O CANDIDATO
+         Yii::$app->mailer->compose()
+                ->setFrom(['contratacao@am.senac.br' => 'Processo Seletivo - Senac AM'])
+                ->setTo($model->email)
+                ->setSubject('Inscrição para o Edital: ' . $model->edital)
+                ->setTextBody('Prezado Candidato, confirmamos o envio de seu currículo para concorrer a vaga de ' .$model->cargo. ' para o Edital ' .$model->edital.' ')
+                ->setHtmlBody("Prezado Senhor(a), <strong>".$model->nome."</strong><br><br>".
+         "Recebemos a sua inscrição em nosso processo de seleção com sucesso para o Edital: <strong>".$model->edital." </strong>e pedimos que acompanhe em nosso site o resultado das próximas etapas.<br><br>".    
+         
+             "<strong><font color='red'><center>NÃO RESPONDA A ESSE E-MAIL!!!!</center></font></strong><br><br>".
+
+         "<strong>INFORMAÇÕES GERAIS</STRONG><br><br>".
+         "<strong>Número de Inscrição: </strong><font color='red'>".$model->numeroInscricao ."</font><br><br>".
+         "<strong>Data do envio: </strong> ".$model->data ."<br>".
+         "<strong>Processo Seletivo: </strong> ".$model->edital ."<br>".
+         "<strong>Cargo: </strong> ".$model->cargo ."<br><br>")
+                ->send();
 
             return $this->redirect('http://www.am.senac.br/sucesso');
         } else {

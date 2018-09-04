@@ -128,7 +128,7 @@ class ContratacaoJustificativasPendentesController extends Controller
                                     ->setTo($email_gerente)
                                     ->setSubject('Solicitação de Contratação '.$contratacao->id.' - ' . $contratacao->situacao->descricao)
                                     ->setTextBody('A solicitação de contratação de código: '.$contratacao->id.' está com status de '.$contratacao->situacao->descricao.' ')
-                                    ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$contratacao->id.'</strong> com status de '.$contratacao->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                                    ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$contratacao->id.'</strong> com status de '.$contratacao->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse https://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
                                     ->send();
                  } 
         }
@@ -211,7 +211,7 @@ class ContratacaoJustificativasPendentesController extends Controller
             && !isset($session['sess_unidade']) 
             && !isset($session['sess_responsavelsetor'])) 
         {
-           return $this->redirect('http://portalsenac.am.senac.br');
+           return $this->redirect('https://portalsenac.am.senac.br');
         }
     }
 

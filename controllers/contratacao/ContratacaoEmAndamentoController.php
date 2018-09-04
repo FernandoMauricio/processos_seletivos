@@ -106,7 +106,7 @@ class ContratacaoEmAndamentoController extends Controller
                             ->setTo($email_gerente)
                             ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
                             ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
-                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse https://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
                             ->send();
                         } 
 
@@ -133,7 +133,7 @@ class ContratacaoEmAndamentoController extends Controller
                             ->setTo($email_gerente)
                             ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
                             ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
-                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse https://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
                             ->send();
                         } 
 
@@ -159,7 +159,7 @@ class ContratacaoEmAndamentoController extends Controller
                             ->setTo($email_gerente)
                             ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
                             ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
-                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse https://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
                             ->send();
                         } 
 
@@ -185,7 +185,7 @@ class ContratacaoEmAndamentoController extends Controller
                             ->setTo($email_gerente)
                             ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
                             ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
-                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse https://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
                             ->send();
                         } 
 
@@ -211,7 +211,7 @@ class ContratacaoEmAndamentoController extends Controller
                             ->setTo($email_gerente)
                             ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
                             ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
-                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse https://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
                             ->send();
                         } 
 
@@ -237,7 +237,7 @@ class ContratacaoEmAndamentoController extends Controller
                             ->setTo($email_gerente)
                             ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
                             ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
-                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse https://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
                             ->send();
                         } 
 
@@ -263,7 +263,7 @@ class ContratacaoEmAndamentoController extends Controller
                             ->setTo($email_gerente)
                             ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
                             ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
-                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse https://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
                             ->send();
                         } 
 
@@ -289,7 +289,7 @@ class ContratacaoEmAndamentoController extends Controller
                             ->setTo($email_gerente)
                             ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
                             ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
-                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse https://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
                             ->send();
                         } 
 
@@ -315,7 +315,7 @@ class ContratacaoEmAndamentoController extends Controller
                             ->setTo($email_gerente)
                             ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
                             ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
-                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse https://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
                             ->send();
                         } 
 
@@ -341,7 +341,7 @@ class ContratacaoEmAndamentoController extends Controller
                             ->setTo($email_gerente)
                             ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
                             ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
-                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse https://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
                             ->send();
                         } 
 
@@ -367,7 +367,7 @@ class ContratacaoEmAndamentoController extends Controller
                             ->setTo($email_gerente)
                             ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
                             ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
-                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse https://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
                             ->send();
                         } 
 
@@ -479,7 +479,7 @@ class ContratacaoEmAndamentoController extends Controller
                             ->setTo($email_gerente)
                             ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
                             ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
-                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse https://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
                             ->send();
                         } 
         }
@@ -531,7 +531,7 @@ class ContratacaoEmAndamentoController extends Controller
                             ->setTo($email_gerente)
                             ->setSubject('Solicitação de Contratação '.$model->id.' - ' . $model->situacao->descricao)
                             ->setTextBody('A solicitação de contratação de código: '.$model->id.' está com status de '.$model->situacao->descricao.' ')
-                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse http://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                            ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> com status de '.$model->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse https://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
                             ->send();
                         }
         } 
@@ -584,7 +584,7 @@ class ContratacaoEmAndamentoController extends Controller
             && !isset($session['sess_unidade']) 
             && !isset($session['sess_responsavelsetor'])) 
         {
-           return $this->redirect('http://portalsenac.am.senac.br');
+           return $this->redirect('https://portalsenac.am.senac.br');
         }
     }
 
