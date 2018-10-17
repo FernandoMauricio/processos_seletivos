@@ -60,6 +60,7 @@ class Curriculos extends \yii\db\ActiveRecord
     public $mestradoLabel;
     public $idadeInicial;
     public $idadeFinal;
+    public $cidade;
 
     /**
      * @inheritdoc

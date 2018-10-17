@@ -20,7 +20,7 @@ class CurriculosSearch extends Curriculos
         return [
             [['id','idade', 'classificado', 'idadeInicial','idadeFinal'], 'integer'],
             [['edital', 'nome','numeroInscricao', 'cargo', 'cpf', 'datanascimento', 'sexo', 'email', 'emailAlt', 'telefone', 'telefoneAlt', 'data', 'bairroLabel', 'cidadeLabel', 'medioLabel', 'posLabel', 'tecnicoLabel', 'graduacaoLabel',
-'mestradoLabel', 'deficiencia'], 'safe'],
+'mestradoLabel', 'deficiencia', 'cidade'], 'safe'],
         ];
     }
 
@@ -86,7 +86,8 @@ class CurriculosSearch extends Curriculos
             ->andFilterWhere(['like', 'telefoneAlt', $this->telefoneAlt])
             ->andFilterWhere(['>=', 'idade', $this->idadeInicial])
             ->andFilterWhere(['<=', 'idade', $this->idadeFinal])
-            ->andFilterWhere(['like', 'deficiencia', $this->deficiencia]);
+            ->andFilterWhere(['like', 'deficiencia', $this->deficiencia])
+            ->andFilterWhere(['like', 'cidade', $this->cidade]);
 
         return $dataProvider;
     }

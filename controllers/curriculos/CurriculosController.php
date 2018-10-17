@@ -133,12 +133,12 @@ class CurriculosController extends Controller
 
         //Caso não tenha puxado nenhum edital, será redirecionado para a página de processo seletivo
         if($model->edital == NULL){
-            return $this->redirect('http://www.am.senac.br/processo-seletivo');
+            return $this->redirect('https://www.am.senac.br/processo-seletivo');
         }
 
         //Caso o processo seletivo esteja em andamento, será redirecionado para a página de processo seletivo
         if($model->processoSeletivo->situacao_id == 2){
-            return $this->redirect('http://www.am.senac.br/processo-seletivo');
+            return $this->redirect('https://www.am.senac.br/processo-seletivo');
         }
 
         if ($model->load(Yii::$app->request->post()) && $curriculosEndereco->load(Yii::$app->request->post()) && $curriculosFormacao->load(Yii::$app->request->post()) && Model::validateMultiple([$model, $curriculosEndereco, $curriculosFormacao]) ) 
@@ -194,7 +194,7 @@ class CurriculosController extends Controller
                 }
                 if ($flag) {
                     $transaction->commit();
-                    return $this->redirect('http://www.am.senac.br/sucesso');
+                    return $this->redirect('https://www.am.senac.br/sucesso');
                 }
             } catch (Exception $e) {
                 $transaction->rollBack();
@@ -219,7 +219,7 @@ class CurriculosController extends Controller
          "<strong>Cargo: </strong> ".$model->cargo ."<br><br>")
                 ->send();
 
-            return $this->redirect('http://www.am.senac.br/sucesso');
+            return $this->redirect('https://www.am.senac.br/sucesso');
         } else {
             return $this->render('create', [
                 'model' => $model,

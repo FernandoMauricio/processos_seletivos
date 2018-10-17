@@ -72,7 +72,7 @@ use faryshta\widgets\JqueryTagsInput;
                                     'Identidade ou Carteira de Trabalho (original)' => 'Identidade ou Carteira de Trabalho (original)', 
                                     'Certificado de escolaridade e histórico (cópia)' => 'Certificado de escolaridade e histórico (cópia)',
                                     'Certificado dos cursos de capacitação (cópia)' => 'Certificado dos cursos de capacitação (cópia)',
-                                    'Currículo Atualizado' => 'Currículo Atualizado',
+                                    'Currículo Atualizado com Foto' => 'Currículo Atualizado com Foto',
                                     'Plano de aula impresso em 01 (uma) via' => 'Plano de aula impresso em 01 (uma) via',
                                 ],
                                 'options' => ['placeholder' => 'Informe os arquivos a serem apresentados...', 'multiple'=>true],

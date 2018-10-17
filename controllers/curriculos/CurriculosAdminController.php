@@ -243,7 +243,7 @@ class CurriculosAdminController extends Controller
 
         //Caso não tenha puxado nenhum edital, será redirecionado para a página de processo seletivo
         if($model->edital == NULL){
-            return $this->redirect('http://www.am.senac.br/trabsenac.php');
+            return $this->redirect('https://www.am.senac.br/trabsenac.php');
         }
 
         if ($model->load(Yii::$app->request->post()) && $curriculosEndereco->load(Yii::$app->request->post()) && $curriculosFormacao->load(Yii::$app->request->post()) && Model::validateMultiple([$model, $curriculosEndereco, $curriculosFormacao]) ) 
@@ -321,7 +321,7 @@ class CurriculosAdminController extends Controller
                             }
                             if ($flag) {
                                 $transaction->commit();
-                                return $this->redirect('http://www.am.senac.br/trabsenac_success.php');
+                                return $this->redirect('https://www.am.senac.br/trabsenac_success.php');
                             }
                         } catch (Exception $e) {
                             $transaction->rollBack();
@@ -329,7 +329,7 @@ class CurriculosAdminController extends Controller
                     }
 
 
-            return $this->redirect('http://www.am.senac.br/trabsenac_success.php');
+            return $this->redirect('https://www.am.senac.br/trabsenac_success.php');
         } else {
             return $this->render('create', [
                 'model' => $model,

@@ -116,9 +116,12 @@ $gridColumns = [
             'options' => ['width' => '300px'],
             ],
 
+
             [
-            'attribute'=>'emailAlt',
-            'options' => ['width' => '300px'],
+            'attribute'=>'cidade',
+            'value' => function($model) {
+                    return implode(\yii\helpers\ArrayHelper::map($model->curriculosEnderecos, 'id', 'cidade'));
+                },
             ],
 
             [
