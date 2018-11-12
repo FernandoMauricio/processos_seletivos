@@ -53,7 +53,7 @@ body {
                   <th scope="row">Total:</th>
                   <td><?= 'R$ ' . number_format($model->homolog_total, 2, ',', '.'); ?></td>
                   <th scope="row">Tipo de Contrato:</th>
-                  <td><?= $model->homolog_tipo == 0 ? 'Indeterminado' : 'Determinado';  ?></td>
+                  <td><?= $model->homolog_tipo == 1 ? 'Indeterminado' : 'Determinado';  ?></td>
                   <th scope="row">Solicitação:</th>
                   <td  colspan="5"><?= $model->contratacao_id ?></td>
             </tr>
