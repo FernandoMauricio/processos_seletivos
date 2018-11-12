@@ -49,7 +49,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             ?>
         </div>
 
-        <div class="col-md-2"><?= $form->field($model, 'homolog_tipo')->textInput(['value' => $model->homolog_tipo == 0 ?  'Inderterminado' : 'Determinado', 'maxlength' => true, 'readonly' => true]) ?></div>
+        <div class="col-md-2"><?= $form->field($model, 'homolog_tipo')->textInput(['value' => $model->homolog_tipo == 1 ?  'Inderterminado' : 'Determinado', 'maxlength' => true, 'readonly' => true]) ?></div>
 
     </div>
 
