@@ -9,6 +9,8 @@ use yii\helpers\ArrayHelper;
 use yii\bootstrap\Modal;
 use yii\helpers\Url;
 
+ini_set('memory_limit', '-1');
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CurriculosSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */

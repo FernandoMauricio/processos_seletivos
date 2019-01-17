@@ -65,7 +65,7 @@ class ContratacaoPendenteController extends Controller
     public function actionImprimir($id) {
 
             $pdf = new Pdf([
-                'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
+                'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
                 'content' => $this->renderPartial('imprimir'),
                 'options' => [
                     'title' => 'Recrutamento e Seleção - Senac AM',

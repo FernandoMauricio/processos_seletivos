@@ -96,7 +96,7 @@ class ContratacaoController extends Controller
             $model = $this->findModel($id);
 
             $pdf = new Pdf([
-                'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
+                'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
                 'content' => $this->renderPartial('imprimir', ['model' => $model]),
                 'options' => [
                     'title' => 'Recrutamento e Seleção - Senac AM',

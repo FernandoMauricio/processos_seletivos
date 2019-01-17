@@ -43,7 +43,7 @@ use yii\widgets\DetailView;
                 <th>Tipo Contrato</th>
                 <th>Área</th>
                 <th>CH. Semanal</th>
-                <th>Salário</th>
+                <th>Salário + DSR</th>
                 <th>Encargos</th>
                 <th>Total</th>
                 <th>Justificativa</th>
