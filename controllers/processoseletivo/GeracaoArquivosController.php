@@ -252,6 +252,7 @@ class GeracaoArquivosController extends Controller
 
         $processo = ProcessoSeletivo::find()->where(['situacao_id' => 1])->orWhere(['situacao_id' => 2])->all();
 
+        $model->gerarq_emailconfirmacao = explode(", ",$model->gerarq_emailconfirmacao);
         $model->gerarq_documentos = explode(", ",$model->gerarq_documentos);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -262,6 +263,7 @@ class GeracaoArquivosController extends Controller
             Model::loadMultiple($modelsItens, Yii::$app->request->post());
             $deletedIDsmodelsItens = array_diff($oldIDsmodelsItens, array_filter(ArrayHelper::map($modelsItens, 'id', 'id')));
 
+            $model->gerarq_emailconfirmacao = is_array($model->gerarq_emailconfirmacao) ? implode(", ", $model->gerarq_emailconfirmacao) : null;
             $model->gerarq_documentos = is_array($model->gerarq_documentos) ? implode(", ", $model->gerarq_documentos) : null;
             $model->save();
 

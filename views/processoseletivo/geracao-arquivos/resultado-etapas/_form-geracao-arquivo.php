@@ -42,7 +42,7 @@ use faryshta\widgets\JqueryTagsInput;
                                     'israel.galvao@am.senac.br' => 'israel.galvao@am.senac.br', 
                                     'leidiane.santos@am.senac.br' => 'leidiane.santos@am.senac.br'
                                 ],
-                                'options' => ['placeholder' => 'E-mail de confirmação...'],
+                                'options' => ['placeholder' => 'E-mail de confirmação...', 'multiple'=>true],
                                 'pluginOptions' => [
                                     'allowClear' => true
                                 ],

@@ -50,8 +50,8 @@ class GeracaoArquivos extends \yii\db\ActiveRecord
             [['processo_id', 'etapasprocesso_id', 'gerarq_perfil', 'gerarq_tipo'], 'required'],
             //[['gerarq_datarealizacao', 'gerarq_horarealizacao', 'gerarq_titulo', 'gerarq_documentos', 'gerarq_emailconfirmacao', 'gerarq_datarealizacao', 'gerarq_horarealizacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_fase', 'gerarq_tempo'], 'required', 'on' => 'update'],
             [['processo_id', 'etapasprocesso_id', 'gerarq_perfil', 'gerarq_tipo'], 'integer'],
-            [['gerarq_datarealizacao', 'gerarq_horarealizacao', 'processoSeletivo', 'cargoLabel', 'gerarq_documentos', 'gerarq_cidade'], 'safe'],
-            [['gerarq_titulo', 'gerarq_emailconfirmacao', 'gerarq_local', 'gerarq_endereco', 'gerarq_tempo', 'gerarq_responsavel', 'gerarq_fase', 'gerarq_observacao'], 'string', 'max' => 255],
+            [['gerarq_datarealizacao', 'gerarq_horarealizacao', 'processoSeletivo', 'cargoLabel', 'gerarq_documentos', 'gerarq_cidade', 'gerarq_emailconfirmacao'], 'safe'],
+            [['gerarq_titulo', 'gerarq_local', 'gerarq_endereco', 'gerarq_tempo', 'gerarq_responsavel', 'gerarq_fase', 'gerarq_observacao'], 'string', 'max' => 255],
             [['etapasprocesso_id'], 'exist', 'skipOnError' => true, 'targetClass' => EtapasProcesso::className(), 'targetAttribute' => ['etapasprocesso_id' => 'etapa_id']],
             [['processo_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProcessoSeletivo::className(), 'targetAttribute' => ['processo_id' => 'id']],
         ];
