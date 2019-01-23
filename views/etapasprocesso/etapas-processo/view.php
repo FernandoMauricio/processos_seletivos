@@ -15,7 +15,7 @@ use yii\widgets\DetailView;
                          DEPARTAMENTO REGIONAL NO AMAZONAS<br /><br />
                          GERÊNCIA DE GESTÃO DE PESSOAS<br /><br />
                          TABELA DE PONTUAÇÃO GERAL DAS AVALIAÇÕES<br /><br />
-                         PROCESSO SELETIVO PARA <span class="text-uppercase"><b><?= $model->etapa_cargo ?></span></b>
+                         PROCESSO SELETIVO <b><?= $model->processo->numeroEdital ?></b> PARA <span class="text-uppercase"><b><?= $model->etapa_cargo ?></span></b>
                     </h4>
     </td>
   </tr>

@@ -351,7 +351,7 @@ class CurriculosAdminController extends Controller
 
         $connection = Yii::$app->db;
         $command = $connection->createCommand(
-        "UPDATE `db_processos`.`curriculos` SET `classificado` = '3' WHERE `id` = '".$model->id."'");
+        "UPDATE `db_processos`.`curriculos` SET `classificado` = '3', `aprovador_ggp` = '".$session['sess_nomeusuario']."', `dataaprovador_ggp` = '".date('Y-m-d H:i:s')."', `situacao_ggp` = 1 WHERE `id` = '".$model->id."'");
         $command->execute();
 
         $countCurriculos = CurriculosAdmin::find()->where(['classificado' => 3, 'edital' => $model->edital])->count();
@@ -404,9 +404,6 @@ class CurriculosAdminController extends Controller
                     ->update('curriculos', [
                              'classificado'      => 4, //Enviado para Gerência Imediata
                              'unidade_aprovador' => $model->unidade_aprovador,
-                             'aprovador_ggp'     => $session['sess_nomeusuario'],
-                             'dataaprovador_ggp' => date('Y-m-d H:i:s'),
-                             'situacao_ggp'      => 1, //Classificado pelo GGP
                              ], [//------WHERE
                              'classificado' => 3,  //Aguardando envio para Gerência Imediata
                              'edital'       => $numeroEdital,
