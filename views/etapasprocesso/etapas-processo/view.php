@@ -15,7 +15,7 @@ use yii\widgets\DetailView;
                     <h7>DEPARTAMENTO REGIONAL NO AMAZONAS</h7><br />
                     <h7>GERÊNCIA DE GESTÃO DE PESSOAS</h7><br />
                     <h7>TABELA DE PONTUAÇÃO GERAL DAS AVALIAÇÕES</h7><br />
-                    <h7>PROCESSO SELETIVO <b><?= $model->etapa_id ?></b> PARA <span class="text-uppercase"><b><?= $model->etapa_cargo ?></span></b>
+                    <h7>PROCESSO SELETIVO <b><?= $model->etapa_id . '/' . date('Y', strtotime($model->etapa_data)) ?></b> PARA <span class="text-uppercase"><b><?= $model->etapa_cargo ?></span></b>
     </td>
   </tr>
 </table>
