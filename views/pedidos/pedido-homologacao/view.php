@@ -40,6 +40,8 @@ body {
             </thead>
             <tbody>
             <tr>
+                  <th scope="row">Doc. Abertura:</th>
+                  <td><?= $model->etapasProcesso->curriculos->edital ?></td>
                   <th scope="row">Cargo:</th>
                   <td><?= $model->homolog_cargo ?></td>
                   <th scope="row">Unidade:</th>
