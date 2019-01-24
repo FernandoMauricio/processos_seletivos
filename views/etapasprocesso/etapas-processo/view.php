@@ -9,14 +9,13 @@ use yii\widgets\DetailView;
 <div class="etapas-processo-view">
 
 <table width="100%" border="0">
-  <tr> 
-    <td width="5%"><img src="css/img/logo.png"></td>
-    <td width="90%"><h4 style="text-align: center;">SERVIÇO NACIONAL DE APRENDIZAGEM COMERCIAL - SENAC<br /><br />
-                         DEPARTAMENTO REGIONAL NO AMAZONAS<br /><br />
-                         GERÊNCIA DE GESTÃO DE PESSOAS<br /><br />
-                         TABELA DE PONTUAÇÃO GERAL DAS AVALIAÇÕES<br /><br />
-                         PROCESSO SELETIVO <b><?= $model->processo->numeroEdital ?></b> PARA <span class="text-uppercase"><b><?= $model->etapa_cargo ?></span></b>
-                    </h4>
+  <tr>
+    <td width="10%"><img src="css/img/logo.png"></td>
+    <td width="50%"><h7>SERVIÇO NACIONAL DE APRENDIZAGEM COMERCIAL - SENAC</h7><br />
+                    <h7>DEPARTAMENTO REGIONAL NO AMAZONAS</h7><br />
+                    <h7>GERÊNCIA DE GESTÃO DE PESSOAS</h7><br />
+                    <h7>TABELA DE PONTUAÇÃO GERAL DAS AVALIAÇÕES</h7><br />
+                    <h7>PROCESSO SELETIVO <b><?= $model->etapa_id ?></b> PARA <span class="text-uppercase"><b><?= $model->etapa_cargo ?></span></b>
     </td>
   </tr>
 </table>
