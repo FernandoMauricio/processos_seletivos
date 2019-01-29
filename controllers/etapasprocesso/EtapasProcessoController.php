@@ -149,7 +149,6 @@ class EtapasProcessoController extends Controller
             WHERE (`classificado`= 1) 
             AND `curriculos`.`edital` = "'.$model->processo->numeroEdital.'" 
             AND `curriculos`.`cargo` = "'.$model->etapa_cargo.'"
-            AND `curriculos_endereco`.`cidade` IN ("'.str_replace(',', '","', $model->etapa_cidade).'")
             ORDER BY  `curriculos`.`nome` ASC
         ';
 
@@ -278,7 +277,6 @@ class EtapasProcessoController extends Controller
                 WHERE (`classificado`= 1) 
                 AND `curriculos`.`edital` = "'.$model->processo->numeroEdital.'" 
                 AND `curriculos`.`cargo` = "'.$model->etapa_cargo.'"
-                AND `curriculos_endereco`.`cidade` IN ("'.str_replace(',', '","', $model->etapa_cidade).'")
                 ORDER BY  `curriculos`.`nome` ASC
             ';
         }else{
@@ -292,7 +290,6 @@ class EtapasProcessoController extends Controller
                     WHERE (`classificado`= 1) 
                     AND `curriculos`.`edital` = "'.$model->processo->numeroEdital.'" 
                     AND `curriculos`.`cargo` = "'.$model->etapa_cargo.'"
-                    AND `curriculos_endereco`.`cidade` IN ("'.str_replace(',', '","', $model->etapa_cidade).'")
                     AND `curriculos`.`id` NOT IN ('.$candidatosInseridos['curriculos_id'].')
                     ORDER BY  `curriculos`.`nome` ASC
                 ';
