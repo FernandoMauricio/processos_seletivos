@@ -162,7 +162,7 @@ class GeracaoArquivosController extends Controller
             WHERE classificado IN (1,6)
             AND edital = "'.$model->processo->numeroEdital.'"
             AND cargo = "'.$model->etapasprocesso->etapa_cargo.'"
-            AND `curriculos_endereco`.`cidade` IN ("'.str_replace(',', '","', $model->etapasprocesso->etapa_cidade).'")';
+            ';
 
             $countCurriculos = CurriculosAdmin::findBySql($sqlCurriculos)->count();
 
@@ -182,11 +182,9 @@ class GeracaoArquivosController extends Controller
                 WHERE `classificado`= 1
                     AND `curriculos`.`edital` = "'.$model->processo->numeroEdital.'"
                     AND `curriculos`.`cargo` = "'.$model->etapasprocesso->etapa_cargo.'"
-                    AND `curriculos_endereco`.`cidade` IN ("'.str_replace(',', '","', $model->etapasprocesso->etapa_cidade).'")
                     AND `etapas_itens`.`itens_classificacao` NOT LIKE "%Desclassificado(a)%"
                 OR `curriculos`.`edital` = "'.$model->processo->numeroEdital.'"
                     AND `curriculos`.`cargo` = "'.$model->etapasprocesso->etapa_cargo.'"
-                    AND `curriculos_endereco`.`cidade` IN ("'.str_replace(',', '","', $model->etapasprocesso->etapa_cidade).'")
                     AND `etapas_itens`.`itens_classificacao` IS NULL
                 ORDER BY `curriculos`.`nome` ASC
                 ';
@@ -200,7 +198,6 @@ class GeracaoArquivosController extends Controller
                 WHERE `classificado`IN (1,6) 
                     AND `curriculos`.`edital` = "'.$model->processo->numeroEdital.'"
                     AND `curriculos`.`cargo` = "'.$model->etapasprocesso->etapa_cargo.'"
-                    AND `curriculos_endereco`.`cidade` IN ("'.str_replace(',', '","', $model->etapasprocesso->etapa_cidade).'")
                     AND `etapas_itens`.`itens_classificacao` NOT LIKE "%Desclassificado(a)%"
                     AND `etapas_itens`.`itens_classificacao` NOT LIKE ""
                 ORDER BY `etapas_itens`.`itens_pontuacaototal` DESC, `curriculos`.`nome` ASC

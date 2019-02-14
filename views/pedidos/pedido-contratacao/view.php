@@ -23,7 +23,7 @@ body {
     <td width="60%"><h7>SERVIÇO NACIONAL DE APRENDIZAGEM COMERCIAL - SENAC<h7><br />
                     <h7>DEPARTAMENTO REGIONAL NO AMAZONAS<h7><br />
                     <h7>GERÊNCIA DE GESTÃO DE PESSOAS<h7><br />
-                    <h7>PEDIDO DE CONTRATAÇÃO</h7>
+                    <h7>PEDIDO DE CONTRATAÇÃO <?= $model->pedcontratacao_tipo == 1 ? 'ESPECIAL' : ''; ?></h7>
     </td>
     <td width="20%"><b>SC/RS/GGP  Nº </b> <?= $model->pedcontratacao_id . '/' . date('Y', strtotime($model->pedcontratacao_data)) ?><br /><br />
     <?=  date('d/m/Y', strtotime($model->pedcontratacao_data)); ?></td>
@@ -57,7 +57,7 @@ body {
             <thead>
             <tr class="info"><th colspan="12">SEÇÃO 2: Itens do Pedido</th></tr>
                <caption><b>Sr.(a) Gerente</b><br />                    
-                  Segue para aprovação o pedido de contratação de pessoal para atender as demandas da unidade de ensino e setor citados acima.
+                  Segue para aprovação o pedido de contratação de pessoal<?= $model->pedcontratacao_tipo == 1 ? ', fundamentado no art. 14, incisos II, III e IV, da Resolução SENAC 1.018/2015, ' : ''; ?> para atender as demandas da unidade de ensino e setor citados acima.
               </caption>
               <tr>
                 <th>Solicitação</th>

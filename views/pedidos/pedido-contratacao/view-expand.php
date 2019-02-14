@@ -33,7 +33,7 @@ use yii\widgets\DetailView;
             <thead>
             <tr class="info"><th colspan="12">SEÇÃO 2: Itens do Pedido</th></tr>
                <caption><b>Sr.(a) Gerente</b><br />                    
-                  Segue para aprovação o pedido de contratação de pessoal para atender as demandas da unidade de ensino e setor citados acima.
+                  Segue para aprovação o pedido de contratação de pessoal<?= $model->pedcontratacao_tipo == 1 ? ', fundamentado no art. 14, incisos II, III e IV, da Resolução SENAC 1.018/2015, ' : ''; ?> para atender as demandas da unidade de ensino e setor citados acima.
               </caption>
               <tr>
                 <th>Solicitação</th>
