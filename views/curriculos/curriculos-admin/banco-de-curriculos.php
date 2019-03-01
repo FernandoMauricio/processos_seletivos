@@ -185,6 +185,21 @@ $gridColumns = [
     'headerRowOptions'=>['class'=>'kartik-sheet-style'],
     'filterRowOptions'=>['class'=>'kartik-sheet-style'],
     'pjax'=>false, // pjax is set to always true for this demo
+    'rowOptions' =>function($model){
+                if($model->classificado == '0') //Desclassificado
+                {
+                    return['class'=>'danger'];                        
+                }elseif ($model->classificado == '1') {//Classificado
+                    return['class'=>'success']; 
+                }elseif ($model->classificado == '2') {//Pré-Selecionado pela Gerência Imediata
+                    return['class'=>'success']; 
+                }elseif ($model->classificado == '3') {//Aguardando Envio para Gerência Imediata
+                    return['class'=>'warning']; 
+                }elseif ($model->classificado == '4') {//Enviado para Gerência imediata
+                    return['class'=>'info']; 
+                }
+
+    },
     'export'=>[
             'showConfirmAlert'=>false,
             'target'=>GridView::TARGET_BLANK,

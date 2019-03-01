@@ -95,6 +95,8 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'jornada_obs') ?>
 
+    <?php // echo $form->field($model, 'turmas_ministradas') ?>
+
     <?php // echo $form->field($model, 'principais_atividades') ?>
 
     <?php // echo $form->field($model, 'recrutamento_id') ?>

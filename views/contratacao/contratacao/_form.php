@@ -265,6 +265,8 @@ use yii\bootstrap\Modal;
 
     <?= $form->field($model, 'jornada_obs')->textarea(['rows' => 3]) ?>
 
+    <?= $form->field($model, 'turmas_ministradas')->textarea(['rows' => 3]) ?>
+
     <?= $form->field($model, 'principais_atividades')->textarea(['rows' => 3]) ?>
 
     <?php

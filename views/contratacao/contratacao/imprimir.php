@@ -145,6 +145,10 @@ use app\models\processoseletivo\Cargos;
     </tr>
 
      <tr>
+        <td colspan="12"><strong>Turmas a serem ministradas (docentes): </strong><?php echo $model->turmas_ministradas; ?></td> 
+    </tr>
+    
+     <tr>
         <td colspan="12"><strong>Principais atividades a serem desenvolvidas: </strong><?php echo $model->principais_atividades; ?></td> 
     </tr>
 
