@@ -59,6 +59,8 @@ class EtapasProcessoSearch extends EtapasProcesso
 
         // $query->joinWith('processo');
         // $query->joinWith('pedidocusto.pedidocustoItens');
+
+        $dataProvider->sort = ['defaultOrder' => ['etapa_id'=>SORT_DESC]];
         
         $dataProvider->sort->attributes['contratacao_id'] = [
         'asc' => ['pedidocusto_itens.contratacao_id' => SORT_ASC],

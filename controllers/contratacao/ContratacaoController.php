@@ -201,7 +201,7 @@ class ContratacaoController extends Controller
 
 
          //ENVIANDO EMAIL PARA OS RESPONSÁVEL DO PROCESSO SELETIVO INFORMANDO SOBRE O RECEBIMENTO DE UMA NOVA SOLICITAÇÃO DE CONTRATAÇÃO
-          $sql_email = "SELECT emus_email FROM emailusuario_emus,colaborador_col,responsavelambiente_ream,responsaveldepartamento_rede WHERE ream_codunidade = '7' AND rede_coddepartamento = '82' AND rede_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
+          $sql_email = "SELECT emus_email FROM emailusuario_emus,colaborador_col,responsavelambiente_ream,responsaveldepartamento_rede WHERE ream_codunidade = '7' AND rede_coddepartamento = '82' AND rede_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario GROUP BY emus_email";
       
       $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
       foreach ($email_solicitacao as $email)
@@ -287,7 +287,7 @@ class ContratacaoController extends Controller
 
 
          //ENVIANDO EMAIL PARA OS RESPONSÁVEL DO PROCESSO SELETIVO INFORMANDO SOBRE O RECEBIMENTO DE UMA NOVA SOLICITAÇÃO DE CONTRATAÇÃO
-          $sql_email = "SELECT emus_email FROM emailusuario_emus,colaborador_col,responsavelambiente_ream,responsaveldepartamento_rede WHERE ream_codunidade = '7' AND rede_coddepartamento = '82' AND rede_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario";
+          $sql_email = "SELECT emus_email FROM emailusuario_emus,colaborador_col,responsavelambiente_ream,responsaveldepartamento_rede WHERE ream_codunidade = '7' AND rede_coddepartamento = '82' AND rede_codcolaborador = col_codcolaborador AND col_codusuario = emus_codusuario GROUP BY emus_email";
       
       $email_solicitacao = Emailusuario::findBySql($sql_email)->all(); 
       foreach ($email_solicitacao as $email)

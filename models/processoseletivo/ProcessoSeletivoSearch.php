@@ -41,12 +41,13 @@ class ProcessoSeletivoSearch extends ProcessoSeletivo
      */
     public function search($params)
     {
-        $query = ProcessoSeletivo::find()
-        ->orderBy(['id' => SORT_DESC]);
+        $query = ProcessoSeletivo::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        $dataProvider->sort = ['defaultOrder' => ['id'=>SORT_DESC]];
 
         $query->joinWith(['situacao']);
 

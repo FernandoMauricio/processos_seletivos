@@ -41,12 +41,13 @@ class ContratacaoPendenteSearch extends Contratacao
      */
     public function search($params)
     {
-        $query = Contratacao::find()
-        ->orderBy(['id' => SORT_DESC]);
+        $query = Contratacao::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        $dataProvider->sort = ['defaultOrder' => ['id'=>SORT_DESC]];
 
         $this->load($params);
 
@@ -94,7 +95,7 @@ class ContratacaoPendenteSearch extends Contratacao
             'selec_dinamica' => $this->selec_dinamica,
             'selec_prova' => $this->selec_prova,
             'selec_entrevista' => $this->selec_entrevista,
-            'situacao_id' => 3,
+            'situacao_id' => [2,3], //2 - Em correção para o setor / 3 - Recebido pelo GGP
         ]);
 
         $query->joinWith('cargo0');

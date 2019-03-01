@@ -49,6 +49,8 @@ class GeracaoArquivosSearch extends GeracaoArquivos
             'query' => $query,
         ]);
 
+        $dataProvider->sort = ['defaultOrder' => ['gerarq_id'=>SORT_DESC]];
+
         $this->load($params);
 
         if (!$this->validate()) {

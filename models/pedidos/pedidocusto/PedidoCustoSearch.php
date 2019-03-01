@@ -49,6 +49,8 @@ class PedidoCustoSearch extends PedidoCusto
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        
+        $dataProvider->sort = ['defaultOrder' => ['custo_id'=>SORT_DESC]];
 
         $query->joinWith('custoSituacaoggp');
         $query->joinWith('custoSituacaodad as b');

@@ -50,6 +50,8 @@ class PedidoHomologacaoSearch extends PedidoHomologacao
             'query' => $query,
         ]);
 
+        $dataProvider->sort = ['defaultOrder' => ['homolog_id'=>SORT_DESC]];
+
         $query->joinWith('homologSituacaoggp');
         $query->joinWith('homologSituacaodad as b');
 
