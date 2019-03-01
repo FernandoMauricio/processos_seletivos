@@ -17,8 +17,9 @@ class BancoDeCurriculosSearch extends Curriculos
     public function rules()
     {
         return [
-            [['id','idade', 'classificado'], 'integer'],
-            [['edital', 'nome','numeroInscricao', 'cargo', 'cpf', 'datanascimento', 'sexo', 'email', 'emailAlt', 'telefone', 'telefoneAlt', 'data'], 'safe'],
+            [['id','idade', 'classificado', 'idadeInicial','idadeFinal'], 'integer'],
+            [['edital', 'nome','numeroInscricao', 'cargo', 'cpf', 'datanascimento', 'sexo', 'email', 'emailAlt', 'telefone', 'telefoneAlt', 'data', 'bairroLabel', 'cidadeLabel', 'medioLabel', 'posLabel', 'tecnicoLabel', 'graduacaoLabel',
+'mestradoLabel', 'deficiencia', 'cidade'], 'safe'],
         ];
     }
 
@@ -46,6 +47,8 @@ class BancoDeCurriculosSearch extends Curriculos
             'query' => $query,
         ]);
 
+        $query->joinWith(['processoSeletivo', 'curriculosEnderecos', 'curriculosFormacaos']);
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -71,7 +74,18 @@ class BancoDeCurriculosSearch extends Curriculos
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'emailAlt', $this->emailAlt])
             ->andFilterWhere(['like', 'telefone', $this->telefone])
-            ->andFilterWhere(['like', 'telefoneAlt', $this->telefoneAlt]);
+            ->andFilterWhere(['like', 'curriculos_endereco.bairro', $this->bairroLabel])
+            ->andFilterWhere(['like', 'curriculos_endereco.cidade', $this->cidadeLabel])
+            ->andFilterWhere(['like', 'curriculos_formacao.medio_comp', $this->medioLabel])
+            ->andFilterWhere(['like', 'curriculos_formacao.tecnico', $this->tecnicoLabel])
+            ->andFilterWhere(['like', 'curriculos_formacao.superior_comp', $this->graduacaoLabel])
+            ->andFilterWhere(['like', 'curriculos_formacao.pos', $this->posLabel])
+            ->andFilterWhere(['like', 'curriculos_formacao.mestrado', $this->mestradoLabel])
+            ->andFilterWhere(['like', 'telefoneAlt', $this->telefoneAlt])
+            ->andFilterWhere(['>=', 'idade', $this->idadeInicial])
+            ->andFilterWhere(['<=', 'idade', $this->idadeFinal])
+            ->andFilterWhere(['like', 'deficiencia', $this->deficiencia])
+            ->andFilterWhere(['like', 'cidade', $this->cidade]);
 
         return $dataProvider;
     }

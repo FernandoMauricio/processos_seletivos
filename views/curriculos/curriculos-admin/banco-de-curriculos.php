@@ -8,6 +8,9 @@ use kartik\export\ExportMenu;
 use yii\helpers\ArrayHelper;
 use yii\bootstrap\Modal;
 use yii\helpers\Url;
+use yii\bootstrap\Collapse;
+
+use app\models\curriculos\SituacaoCandidato;
 
 ini_set('memory_limit', '-1');
 
@@ -31,12 +34,23 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 ?>
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php
+        echo Collapse::widget([
+                    'items' => [
+                        // equivalent to the above
+                        [
+                            'label' => 'Pesquisa Avançada',
+                            'content' => $this->render('_search', ['model' => $searchModel]),
+                            // open its content by default
+                            //'options' => ['class' => 'panel panel-primary']
+                        ],
+                    ]
+                ]);
+    ?>
 
 <?php
 
 $gridColumns = [
-
             [
                 'class'=>'kartik\grid\ExpandRowColumn',
                 'width'=>'50px',
@@ -88,9 +102,12 @@ $gridColumns = [
             'options' => ['width' => '300px'],
             ],
 
+
             [
-            'attribute'=>'emailAlt',
-            'options' => ['width' => '300px'],
+            'attribute'=>'cidade',
+            'value' => function($model) {
+                    return implode(\yii\helpers\ArrayHelper::map($model->curriculosEnderecos, 'id', 'cidade'));
+                },
             ],
 
             [
@@ -99,13 +116,41 @@ $gridColumns = [
             ],
 
             [
-                'attribute' => 'sexo',
-                'value' => function ($data) { return $data->sexo == 0 ? 'Feminino' :' Masculino'; },
+                'attribute'=>'sexo',
+                'width'=>'6%',
+                'value' => function ($data) { return $data->sexo == 0 ? 'Feminino' : 'Masculino'; },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=> ['0'=>'Feminino','1'=>'Masculino'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                    'filterInputOptions'=>['placeholder'=>'Sexo'],
             ],
- 
+
             [
-                'attribute' => 'classificado',
-                'value' => 'situacaoCandidato.sitcan_descricao'
+                'attribute' => 'deficiencia',
+                'label' => 'Deficiência',
+                'value' => function ($data) { return $data->deficiencia ? 'Sim' : 'Não'; },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=> ['0'=>'Não','1'=>'Sim'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                    'filterInputOptions'=>['placeholder'=>'Deficiência'],
+            ],
+
+            [
+                'attribute'=>'classificado', 
+                'width'=>'8%',
+                'value'=>function ($model, $key, $index, $widget) { 
+                    return $model->situacaoCandidato->sitcan_descricao;
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>ArrayHelper::map(SituacaoCandidato::find()->orderBy('sitcan_descricao')->asArray()->all(), 'sitcan_id', 'sitcan_descricao'), 
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                    'filterInputOptions'=>['placeholder'=>'Situação'],
             ],
 
             ['class' => 'yii\grid\ActionColumn',
@@ -125,7 +170,6 @@ $gridColumns = [
                         },
             ],
        ],
-
     ]; 
 
 ?>
@@ -160,7 +204,7 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes de Curriculos Cadastrados', 'options'=>['colspan'=>13, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes de Curriculos Cadastrados', 'options'=>['colspan'=>14, 'class'=>'text-center warning']], 
                 ['content'=>'Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']],
             ],
         ]
