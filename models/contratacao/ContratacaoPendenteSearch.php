@@ -95,7 +95,7 @@ class ContratacaoPendenteSearch extends Contratacao
             'selec_dinamica' => $this->selec_dinamica,
             'selec_prova' => $this->selec_prova,
             'selec_entrevista' => $this->selec_entrevista,
-            'situacao_id' => [2,3], //2 - Em correção para o setor / 3 - Recebido pelo GGP
+            'situacao_id' => 3, //2 - Em correção para o setor / 3 - Recebido pelo GGP
         ]);
 
         $query->joinWith('cargo0');

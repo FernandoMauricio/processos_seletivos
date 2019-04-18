@@ -38,6 +38,53 @@ class ProcessoSeletivoController extends Controller
         ];
     }
 
+    public function actionEncerrarProcessoAutomatico()
+    {
+    $session = Yii::$app->session;
+    //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
+    if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
+
+        $this->layout = 'main-acesso-negado';
+        return $this->render('/site/acesso_negado');
+
+    }else
+
+        $connection = Yii::$app->db;
+        $connection->createCommand()
+            ->update('processo', [
+                'situacao_id' => 2, //Situação Em Processo
+            ], 
+            [
+                'situacao_id' => 1,
+                'data_encer' => date('Y-m-d')
+            ])->execute();
+            
+    }
+
+    public function actionAberturaProcessoAutomatico()
+    {
+    $session = Yii::$app->session;
+    //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
+    if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
+
+        $this->layout = 'main-acesso-negado';
+        return $this->render('/site/acesso_negado');
+
+    }else
+
+        $connection = Yii::$app->db;
+        $connection->createCommand()
+            ->update('processo', [
+                'situacao_id' => 1, //Situação Processo Aberto
+                'status_id' => 1, //Situação Visualização site
+            ], 
+            [
+                'situacao_id' => 1,
+                'data' => date('Y-m-d')
+            ])->execute();
+            
+    }
+
     /**
      * Lists all ProcessoSeletivo models.
      * @return mixed

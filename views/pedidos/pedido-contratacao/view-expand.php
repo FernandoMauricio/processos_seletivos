@@ -41,7 +41,7 @@ use yii\widgets\DetailView;
                 <th>Cargo</th>
                 <th>Área</th>
                 <th>Nome</th>
-                <?php echo $model->pedcontratacao_tipo == 0 ?  '<th>Nº da Autorização de Custo</th>' : ''; ?>
+                <th>Nº da Autorização de Custo</th>
                 <th>Tipo Contrato</th>
                 <th>CH. Semanal</th>
                 <th>Remuneração com Encargos</th>
@@ -61,7 +61,7 @@ use yii\widgets\DetailView;
                   <td><?= $modelItens->itemcontratacao_cargo; ?></td>
                   <td><?= $modelItens->itemcontratacao_area; ?></td>
                   <td class="text-uppercase"><?= $modelItens->itemcontratacao_nome; ?></td>
-                  <?php echo $model->pedcontratacao_tipo == 0 ?  '<td>'. $modelItens->pedidocustoItens->pedidocusto_id . '/'.date('Y', strtotime($model->pedcontratacao_data)) . '</td>' : ''; ?>
+                  <td><?= $modelItens->pedidocustoItens->pedidocusto_id . '/'.date('Y', strtotime($model->pedcontratacao_data)) ?></td>
                   <td><?= $modelItens->itemcontratacao_tipocontrato; ?></td>
                   <td><?= $modelItens->itemcontratacao_chsemanal; ?></td>
                   <td style="width: 100px;"><?= 'R$ ' . number_format($modelItens->itemcontratacao_total, 2, ',', '.'); ?></td>
