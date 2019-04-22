@@ -40,15 +40,6 @@ class ProcessoSeletivoController extends Controller
 
     public function actionEncerrarProcessoAutomatico()
     {
-    $session = Yii::$app->session;
-    //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
-    if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
-
-        $this->layout = 'main-acesso-negado';
-        return $this->render('/site/acesso_negado');
-
-    }else
-
         $connection = Yii::$app->db;
         $connection->createCommand()
             ->update('processo', [
@@ -57,21 +48,11 @@ class ProcessoSeletivoController extends Controller
             [
                 'situacao_id' => 1,
                 'data_encer' => date('Y-m-d')
-            ])->execute();
-            
+            ])->execute(); 
     }
 
     public function actionAberturaProcessoAutomatico()
     {
-    $session = Yii::$app->session;
-    //VERIFICA SE O COLABORADOR FAZ PARTE DO SETOR GRH E DO DEPARTAMENTO DE PROCESSO SELETIVO
-    if($session['sess_codunidade'] != 7 || $session['sess_coddepartamento'] != 82){
-
-        $this->layout = 'main-acesso-negado';
-        return $this->render('/site/acesso_negado');
-
-    }else
-
         $connection = Yii::$app->db;
         $connection->createCommand()
             ->update('processo', [
@@ -81,8 +62,7 @@ class ProcessoSeletivoController extends Controller
             [
                 'situacao_id' => 1,
                 'data' => date('Y-m-d')
-            ])->execute();
-            
+            ])->execute();    
     }
 
     /**
