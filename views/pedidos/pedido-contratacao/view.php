@@ -85,7 +85,7 @@ body {
                   <td><?= $modelItens->itemcontratacao_cargo; ?></td>
                   <td><?= $modelItens->itemcontratacao_area; ?></td>
                   <td class="text-uppercase"><?= $modelItens->itemcontratacao_nome; ?></td>
-                  <td><?= $modelItens->pedidocustoItens->pedidocusto_id . '/'.date('Y', strtotime($model->pedcontratacao_data)) ?></td>
+                  <?php echo $model->pedcontratacao_tipo == 0 ?  '<td>'. $modelItens->pedidocustoItens->pedidocusto_id . '/'.date('Y', strtotime($model->pedcontratacao_data)) . '</td>' : ''; ?>
                   <td><?= $modelItens->itemcontratacao_tipocontrato; ?></td>
                   <td><?= $modelItens->itemcontratacao_chsemanal; ?></td>
                   <td style="width: 100px;"><?= 'R$ ' . number_format($modelItens->itemcontratacao_total, 2, ',', '.'); ?></td>
