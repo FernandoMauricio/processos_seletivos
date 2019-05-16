@@ -89,9 +89,9 @@ class Contratacao extends \yii\db\ActiveRecord
             [['motivo', 'obs_deficiencia', 'obs_aumento','dominio_atividade', 'jornada_obs', 'turmas_ministradas' ,'principais_atividades'], 'string'],
             [['recrutamento_id', 'situacao_id', 'permissions','cargo_id', 'cargo_chsemanal', 'cargo_salario', 'cargo_encargos', 'cargo_valortotal', 'quant_pessoa'], 'required'],
             [['cargo_salario', 'cargo_encargos', 'cargo_valortotal', 'docente'], 'number'],
-            [['colaborador', 'unidade', 'nome_substituicao', 'cargo_area'], 'string', 'max' => 100],
+            [['colaborador', 'unidade', 'nome_substituicao', 'cargo_area','superior_area', 'pos_area','tecnico_area'], 'string', 'max' => 100],
             [['data_ingresso_prevista', 'data_ingresso'], 'string', 'max' => 15],
-            [['tecnico_area', 'cargo','superior_area', 'pos_area', 'experiencia_tempo', 'experiencia_atividade', 'selec_teste'], 'string', 'max' => 45],
+            [['cargo', 'experiencia_tempo', 'experiencia_atividade', 'selec_teste'], 'string', 'max' => 45],
             [['cargo_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cargos::className(), 'targetAttribute' => ['cargo_id' => 'idcargo']],
             [['cargo_area'], 'required', 'when' => function ($model) { if($model->cargo_id != 89) { return $model->docente > 0; } }, 'whenClient' => "function (attribute, value) { if($('#cargo-id').val() != 89) { return $('#contratacao-docente').val() > 0; }}"],
         ];
