@@ -10,6 +10,7 @@ use app\models\pedidos\pedidohomologacao\PedidoHomologacao;
 use app\models\pedidos\pedidohomologacao\PedidoHomologacaoSearch;
 use app\models\pedidos\pedidohomologacao\PedidoHomologacaoAprovacaoGgpSearch;
 use app\models\pedidos\pedidohomologacao\PedidoHomologacaoAprovacaoDadSearch;
+use app\models\pedidos\pedidohomologacao\PedidoHomologacaoAprovacaoDrgSearch;
 use app\models\etapasprocesso\EtapasItens;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -164,7 +165,7 @@ class PedidoHomologacaoController extends Controller
         $model = $this->findModel($id);
 
         //Se não existir as aprovações da GGP e DAD, não será possível homologar o processo
-        if($model->homolog_situacaoggp != 4 || $model->homolog_situacaodad != 4) {
+        if($model->homolog_situacaoggp != 4 || $model->homolog_situacaodad != 4 || $model->homolog_situacaodrg != 4) {
             Yii::$app->session->setFlash('danger', '<b>ERRO! </b>Solicitação sem aprovações!</b>');
             return $this->redirect(['index']);
         }
@@ -205,6 +206,19 @@ class PedidoHomologacaoController extends Controller
         ]);
     }
 
+    public function actionDrgIndex()
+    {
+        $this->layout = 'main-full';
+
+        $searchModel = new PedidoHomologacaoAprovacaoDrgSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('drg-index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     public function actionAprovarGgp($id)
     {
         $session = Yii::$app->session;
@@ -215,7 +229,7 @@ class PedidoHomologacaoController extends Controller
         $command = $connection->createCommand(
         "UPDATE `db_processos`.`pedido_homologacao` SET `homolog_aprovadorggp` = '".$session['sess_nomeusuario']."', `homolog_situacaoggp` = '4', `homolog_dataaprovacaoggp` = ".date('"Y-m-d"')." WHERE `homolog_id` = '".$model->homolog_id."'");
         $command->execute();
-        
+
         Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Homologação <b> '.$model->homolog_id.' </b> foi Aprovado!</b>');
 
         return $this->redirect(['ggp-index']);
@@ -231,10 +245,26 @@ class PedidoHomologacaoController extends Controller
         $command = $connection->createCommand(
         "UPDATE `db_processos`.`pedido_homologacao` SET `homolog_aprovadordad` = '".$session['sess_nomeusuario']."', `homolog_situacaodad` = '4', `homolog_dataaprovacaodad` = ".date('"Y-m-d"')." WHERE `homolog_id` = '".$model->homolog_id."'");
         $command->execute();
-        
+
         Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Homologação <b> '.$model->homolog_id.' </b> foi Aprovado!</b>');
 
         return $this->redirect(['dad-index']);
+    }
+
+    public function actionAprovarDrg($id)
+    {
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
+
+        //Aprovado o Pedido de Homologação
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`pedido_homologacao` SET `homolog_aprovadordrg` = '".$session['sess_nomeusuario']."', `homolog_situacaodrg` = '4', `homolog_dataaprovacaodrg` = ".date('"Y-m-d"')." WHERE `homolog_id` = '".$model->homolog_id."'");
+        $command->execute();
+
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Homologação <b> '.$model->homolog_id.' </b> foi Aprovado!</b>');
+
+        return $this->redirect(['drg-index']);
     }
 
     public function actionReprovarGgp($id)
@@ -247,7 +277,7 @@ class PedidoHomologacaoController extends Controller
         $command = $connection->createCommand(
         "UPDATE `db_processos`.`pedido_homologacao` SET `homolog_aprovadorggp` = '".$session['sess_nomeusuario']."', `homolog_situacaoggp` = '3', `homolog_dataaprovacaoggp` = ".date('"Y-m-d"')." WHERE `homolog_id` = '".$model->homolog_id."'");
         $command->execute();
-        
+
         Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Homologação <b> '.$model->homolog_id.' </b> foi Reprovado!</b>');
 
         return $this->redirect(['ggp-index']);
@@ -263,12 +293,28 @@ class PedidoHomologacaoController extends Controller
         $command = $connection->createCommand(
         "UPDATE `db_processos`.`pedido_homologacao` SET `homolog_aprovadordad` = '".$session['sess_nomeusuario']."', `homolog_situacaodad` = '3', `homolog_dataaprovacaodad` = ".date('"Y-m-d"')." WHERE `homolog_id` = '".$model->homolog_id."'");
         $command->execute();
-        
+
         Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Homologação <b> '.$model->homolog_id.' </b> foi Reprovado!</b>');
 
         return $this->redirect(['dad-index']);
     }
-    
+
+    public function actionReprovarDrg($id)
+    {
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
+
+        //Reprova o Pedido de Homologação
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`pedido_homologacao` SET `homolog_aprovadordrg` = '".$session['sess_nomeusuario']."', `homolog_situacaodrg` = '3', `homolog_dataaprovacaodrg` = ".date('"Y-m-d"')." WHERE `homolog_id` = '".$model->homolog_id."'");
+        $command->execute();
+
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Homologação <b> '.$model->homolog_id.' </b> foi Reprovado!</b>');
+
+        return $this->redirect(['drg-index']);
+    }
+
     /**
      * Displays a single PedidoHomologacao model.
      * @param integer $id
@@ -322,7 +368,7 @@ class PedidoHomologacaoController extends Controller
         $model->homolog_data            = date('Y-m-d');
         $model->homolog_datahomologacao = date('Y-m-d');
         $model->homolog_responsavel     = $session['sess_nomeusuario'];
-        $model->homolog_validade        = 'O processo de seleção terá validade de 12 meses, podendo ser prorrogado por mais 12 meses, a valer da data de homologação.';
+        $model->homolog_validade        = 'O processo de seleção terá validade por 12 meses, a valer da data de homologação.';
         $model->homolog_sintese         = 'Finalizado o processo de recrutamento e seleção para o [CARGO], do(a) [UNIDADE/SETOR], [MOTIVO DA CONTRATAÇÃO], conforme pedido no portal nº [SOLICITAÇÃO], em anexo. Para este processo foram recebidos [000] inscrições, tendo sido selecionados [000] inscrições, conforme as exigências do perfil solicitado pelo gerente da unidade/setor. Ao finalizar o processo seletivo que teve a participação do(a) [CARGO/SETOR, NOME DOS PARTICIPANTES], o(a) candidato(a) classificado(a) com o melhor desempenho foi o(a) Sr.(ª) [CANDIDATO]. No total ficaram classificados no processo seletivo [00] candidatos, de acordo com a tabela abaixo. Com isso solicitamos homologação do processo de seleção para prosseguirmos os tramites de contratação dos candidatos.';
 
         //1 => Em elaboração / 2 => Em correção pelo setor / 3 => Recebido pelo GGP / 5 - Finalizado

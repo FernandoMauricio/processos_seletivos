@@ -10,6 +10,7 @@ use app\models\pedidos\pedidocusto\PedidocustoItens;
 use app\models\pedidos\pedidocusto\PedidoCustoSearch;
 use app\models\pedidos\pedidocusto\PedidoCustoAprovacaoGgpSearch;
 use app\models\pedidos\pedidocusto\PedidoCustoAprovacaoDadSearch;
+use app\models\pedidos\pedidocusto\PedidoCustoAprovacaoDrgSearch;
 use app\models\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -90,7 +91,7 @@ class PedidoCustoController extends Controller
         $model = $this->findModel($id);
 
         //Se não existir as aprovações da GGP e DAD, não será possível homologar o processo
-        if($model->custo_situacaoggp != 4 || $model->custo_situacaodad != 4) {
+        if($model->custo_situacaoggp != 4 || $model->custo_situacaodad != 4 || $model->custo_situacaodrg != 4) {
             Yii::$app->session->setFlash('danger', '<b>ERRO! </b>Solicitação sem aprovações!</b>');
             return $this->redirect(['index']);
         }
@@ -131,6 +132,19 @@ class PedidoCustoController extends Controller
         ]);
     }
 
+    public function actionDrgIndex()
+    {
+        $this->layout = 'main-full';
+
+        $searchModel = new PedidoCustoAprovacaoDrgSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('drg-index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     public function actionAprovarGgp($id)
     {
         $session = Yii::$app->session;
@@ -141,12 +155,12 @@ class PedidoCustoController extends Controller
         $command = $connection->createCommand(
         "UPDATE `db_processos`.`pedido_custo` SET `custo_aprovadorggp` = '".$session['sess_nomeusuario']."', `custo_situacaoggp` = '4', `custo_dataaprovacaoggp` = ".date('"Y-m-d"')." WHERE `custo_id` = '".$model->custo_id."'");
         $command->execute();
-        
+
         Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Custo <b> '.$model->custo_id.' </b> foi Aprovado!</b>');
 
         return $this->redirect(['ggp-index']);
     }
-    
+
     public function actionAprovarDad($id)
     {
         $session = Yii::$app->session;
@@ -157,10 +171,26 @@ class PedidoCustoController extends Controller
         $command = $connection->createCommand(
         "UPDATE `db_processos`.`pedido_custo` SET `custo_aprovadordad` = '".$session['sess_nomeusuario']."', `custo_situacaodad` = '4', `custo_dataaprovacaodad` = ".date('"Y-m-d"')." WHERE `custo_id` = '".$model->custo_id."'");
         $command->execute();
-        
+
         Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Custo <b> '.$model->custo_id.' </b> foi Aprovado!</b>');
 
         return $this->redirect(['dad-index']);
+    }
+
+    public function actionAprovarDrg($id)
+    {
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
+
+        //Aprovado o Pedido de Custo
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`pedido_custo` SET `custo_aprovadordrg` = '".$session['sess_nomeusuario']."', `custo_situacaodrg` = '4', `custo_dataaprovacaodrg` = ".date('"Y-m-d"')." WHERE `custo_id` = '".$model->custo_id."'");
+        $command->execute();
+
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Custo <b> '.$model->custo_id.' </b> foi Aprovado!</b>');
+
+        return $this->redirect(['drg-index']);
     }
 
     public function actionReprovarGgp($id)
@@ -193,6 +223,22 @@ class PedidoCustoController extends Controller
         Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Custo <b> '.$model->custo_id.' </b> foi Reprovado!</b>');
 
         return $this->redirect(['dad-index']);
+    }
+
+    public function actionReprovarDrg($id)
+    {
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
+
+        //Reprova o Pedido de Custo
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`pedido_custo` SET `custo_aprovadordrg` = '".$session['sess_nomeusuario']."', `custo_situacaodrg` = '3', `custo_dataaprovacaodrg` = ".date('"Y-m-d"')." WHERE `custo_id` = '".$model->custo_id."'");
+        $command->execute();
+        
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Custo <b> '.$model->custo_id.' </b> foi Reprovado!</b>');
+
+        return $this->redirect(['drg-index']);
     }
 
     /**
@@ -262,6 +308,7 @@ class PedidoCustoController extends Controller
 
         $model->custo_situacaoggp = 1; //Aguardando Autorização GPP
         $model->custo_situacaodad = 1; //Aguardando Autorização DAD
+        $model->custo_situacaodrg = 1; //Aguardando Autorização DRG
         $model->custo_situacao    = 2; //Em Processo
         $model->custo_data        = date('Y-m-d');
         $model->custo_responsavel = $session['sess_nomeusuario'];
@@ -346,6 +393,7 @@ class PedidoCustoController extends Controller
 
         $model->custo_situacaoggp = 1; //Aguardando Autorização GPP
         $model->custo_situacaodad = 1; //Aguardando Autorização DAD
+        $model->custo_situacaodrg = 1; //Aguardando Autorização DRG
         $model->custo_data = date('Y-m-d');
         $model->custo_responsavel = $session['sess_nomeusuario'];
 
@@ -402,7 +450,7 @@ class PedidoCustoController extends Controller
                                     }
                         $model->save();
                         $transaction->commit();
-                            
+
                         Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Custo Atualizado!</b>');
                        return $this->redirect(['index']);
                     }
@@ -464,20 +512,20 @@ class PedidoCustoController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    
+
     public function AccessAllow()
     {
         $session = Yii::$app->session;
-        if (!isset($session['sess_codusuario']) 
-            && !isset($session['sess_codcolaborador']) 
-            && !isset($session['sess_codunidade']) 
-            && !isset($session['sess_nomeusuario']) 
-            && !isset($session['sess_coddepartamento']) 
-            && !isset($session['sess_codcargo']) 
-            && !isset($session['sess_cargo']) 
-            && !isset($session['sess_setor']) 
-            && !isset($session['sess_unidade']) 
-            && !isset($session['sess_responsavelsetor'])) 
+        if (!isset($session['sess_codusuario'])
+            && !isset($session['sess_codcolaborador'])
+            && !isset($session['sess_codunidade'])
+            && !isset($session['sess_nomeusuario'])
+            && !isset($session['sess_coddepartamento'])
+            && !isset($session['sess_codcargo'])
+            && !isset($session['sess_cargo'])
+            && !isset($session['sess_setor'])
+            && !isset($session['sess_unidade'])
+            && !isset($session['sess_responsavelsetor']))
         {
            return $this->redirect('https://portalsenac.am.senac.br');
         }

@@ -10,7 +10,7 @@ use app\models\pedidos\pedidocusto\PedidoCusto;
 /**
  * PedidoCustoSearch represents the model behind the search form about `app\models\pedidos\PedidoCusto`.
  */
-class PedidoCustoSearch extends PedidoCusto
+class PedidoCustoAprovacaoDrgSearch extends PedidoCusto
 {
     /**
      * @inheritdoc
@@ -19,8 +19,7 @@ class PedidoCustoSearch extends PedidoCusto
     {
         return [
             [['custo_id'], 'integer'],
-            [['custo_assunto', 'custo_recursos', 'custo_data', 'custo_aprovadorggp', 'custo_situacaoggp', 'custo_situacaodad', 'custo_situacaodrg', 'custo_dataaprovacaoggp', 'custo_aprovadordad', 'custo_dataaprovacaodad', 'custo_aprovadordrg', 'custo_dataaprovacaodrg','custo_responsavel', 'custo_valortotal', 'custo_situacao', 'custo_homologador',
-            'custo_datahomologacao'], 'safe'],
+            [['custo_assunto', 'custo_recursos', 'custo_data', 'custo_aprovadorggp', 'custo_situacaoggp', 'custo_situacaodad', 'custo_situacaodrg', 'custo_dataaprovacaoggp', 'custo_aprovadordad', 'custo_dataaprovacaodad', 'custo_aprovadordrg', 'custo_dataaprovacaodrg','custo_responsavel', 'custo_valortotal'], 'safe'],
         ];
     }
 
@@ -50,12 +49,9 @@ class PedidoCustoSearch extends PedidoCusto
             'query' => $query,
         ]);
 
-        $dataProvider->sort = ['defaultOrder' => ['custo_id'=>SORT_DESC]];
-
         $query->joinWith('custoSituacaoggp');
         $query->joinWith('custoSituacaodad as b');
         $query->joinWith('custoSituacaodrg as c');
-        $query->joinWith('custoSituacao');
 
         $this->load($params);
 
@@ -71,7 +67,9 @@ class PedidoCustoSearch extends PedidoCusto
             'custo_data' => $this->custo_data,
             'custo_dataaprovacaoggp' => $this->custo_dataaprovacaoggp,
             'custo_dataaprovacaodad' => $this->custo_dataaprovacaodad,
-            'custo_dataaprovacaodrg' => $this->custo_dataaprovacaodrg,
+            'custo_situacaoggp' => 4, //Aprovado Pelo GGP
+            'custo_situacaodad' => 4, //Aprovado Pela DAD
+            'custo_situacaodrg' => 1, // Aguardando Aprovação
         ]);
 
         $query->andFilterWhere(['like', 'custo_assunto', $this->custo_assunto])
@@ -82,10 +80,7 @@ class PedidoCustoSearch extends PedidoCusto
             ->andFilterWhere(['like', 'c.situacao_descricao', $this->custo_situacaodrg])
             ->andFilterWhere(['like', 'custo_aprovadorggp', $this->custo_aprovadorggp])
             ->andFilterWhere(['like', 'custo_aprovadordad', $this->custo_aprovadordad])
-            ->andFilterWhere(['like', 'situacao.descricao', $this->custo_situacao])
-            ->andFilterWhere(['like', 'custo_responsavel', $this->custo_responsavel])
-            ->andFilterWhere(['like', 'custo_homologador', $this->custo_homologador])
-            ->andFilterWhere(['like', 'custo_datahomologacao', $this->custo_datahomologacao]);
+            ->andFilterWhere(['like', 'custo_responsavel', $this->custo_responsavel]);
 
         return $dataProvider;
     }

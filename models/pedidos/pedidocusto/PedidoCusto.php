@@ -57,6 +57,7 @@ class PedidoCusto extends \yii\db\ActiveRecord
             [['custo_aprovadorggp', 'custo_aprovadordad', 'custo_responsavel'], 'string', 'max' => 45],
             [['custo_situacaoggp'], 'exist', 'skipOnError' => true, 'targetClass' => PedidocustoSituacao::className(), 'targetAttribute' => ['custo_situacaoggp' => 'situacao_id']],
             [['custo_situacaodad'], 'exist', 'skipOnError' => true, 'targetClass' => PedidocustoSituacao::className(), 'targetAttribute' => ['custo_situacaodad' => 'situacao_id']],
+            [['custo_situacaodrg'], 'exist', 'skipOnError' => true, 'targetClass' => PedidocustoSituacao::className(), 'targetAttribute' => ['custo_situacaodrg' => 'situacao_id']],
             [['custo_situacao'], 'exist', 'skipOnError' => true, 'targetClass' => Situacao::className(), 'targetAttribute' => ['custo_situacao' => 'id']],
         ];
     }
@@ -77,6 +78,7 @@ class PedidoCusto extends \yii\db\ActiveRecord
             'custo_dataaprovacaoggp' => 'Custo Dataaprovacaoggp',
             'custo_aprovadordad' => 'Custo Aprovadordad',
             'custo_situacaodad' => 'Situação DAD',
+            'custo_situacaodrg' => 'Situação DRG',
             'custo_dataaprovacaodad' => 'Custo Dataaprovacaodad',
             'custo_situacao' => 'Situação Custo',
             'custo_responsavel' => 'Responsável',
@@ -107,6 +109,14 @@ class PedidoCusto extends \yii\db\ActiveRecord
     public function getCustoSituacaodad()
     {
         return $this->hasOne(PedidocustoSituacao::className(), ['situacao_id' => 'custo_situacaodad']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCustoSituacaodrg()
+    {
+        return $this->hasOne(PedidocustoSituacao::className(), ['situacao_id' => 'custo_situacaodrg']);
     }
 
     /**

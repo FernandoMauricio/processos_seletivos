@@ -11,6 +11,7 @@ use app\models\pedidos\pedidocontratacao\PedidoContratacao;
 use app\models\pedidos\pedidocontratacao\PedidoContratacaoSearch;
 use app\models\pedidos\pedidocontratacao\PedidoContratacaoAprovacaoGgpSearch;
 use app\models\pedidos\pedidocontratacao\PedidoContratacaoAprovacaoDadSearch;
+use app\models\pedidos\pedidocontratacao\PedidoContratacaoAprovacaoDrgSearch;
 use app\models\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -82,6 +83,19 @@ class PedidoContratacaoController extends Controller
         ]);
     }
 
+    public function actionDrgIndex()
+    {
+        $this->layout = 'main-full';
+
+        $searchModel = new PedidoContratacaoAprovacaoDrgSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('drg-index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     public function actionAprovarGgp($id)
     {
         $session = Yii::$app->session;
@@ -92,12 +106,12 @@ class PedidoContratacaoController extends Controller
         $command = $connection->createCommand(
         "UPDATE `db_processos`.`pedido_contratacao` SET `pedcontratacao_aprovadorggp` = '".$session['sess_nomeusuario']."', `pedcontratacao_situacaoggp` = '4', `pedcontratacao_dataaprovacaoggp` = ".date('"Y-m-d"')." WHERE `pedcontratacao_id` = '".$model->pedcontratacao_id."'");
         $command->execute();
-        
+
         Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Contratação <b> '.$model->pedcontratacao_id.' </b> foi Aprovado!</b>');
 
         return $this->redirect(['ggp-index']);
     }
-    
+
     public function actionAprovarDad($id)
     {
         $session = Yii::$app->session;
@@ -110,19 +124,43 @@ class PedidoContratacaoController extends Controller
         $command->execute();
 
         //Atualiza a data do ingresso na Solicitação de Contratação
-        $command = $connection->createCommand(
-        "UPDATE `db_processos`.`contratacao` 
-        INNER JOIN `pedidocontratacao_itens` ON `pedidocontratacao_itens`.`contratacao_id` = `contratacao`.`id`
-        INNER JOIN `pedido_contratacao` ON `pedido_contratacao`.`pedcontratacao_id` = `pedidocontratacao_itens`.`pedidocontratacao_id` 
-        SET `data_ingresso` = `pedidocontratacao_itens`.`itemcontratacao_dataingresso` 
-        WHERE `pedidocontratacao_itens`.`contratacao_id` = `contratacao`.`id` AND `pedido_contratacao`.`pedcontratacao_id` = ".$model->pedcontratacao_id." ");
-        $command->execute();
-        
+        // $command = $connection->createCommand(
+        // "UPDATE `db_processos`.`contratacao`
+        // INNER JOIN `pedidocontratacao_itens` ON `pedidocontratacao_itens`.`contratacao_id` = `contratacao`.`id`
+        // INNER JOIN `pedido_contratacao` ON `pedido_contratacao`.`pedcontratacao_id` = `pedidocontratacao_itens`.`pedidocontratacao_id` 
+        // SET `data_ingresso` = `pedidocontratacao_itens`.`itemcontratacao_dataingresso` 
+        // WHERE `pedidocontratacao_itens`.`contratacao_id` = `contratacao`.`id` AND `pedido_contratacao`.`pedcontratacao_id` = ".$model->pedcontratacao_id." ");
+        // $command->execute();
+
         Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Contratação <b> '.$model->pedcontratacao_id.' </b> foi Aprovado!</b>');
 
         return $this->redirect(['dad-index']);
     }
 
+    public function actionAprovarDrg($id)
+    {
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
+
+        //Aprova o Pedido de Contratação
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`pedido_contratacao` SET `pedcontratacao_aprovadordrg` = '".$session['sess_nomeusuario']."', `pedcontratacao_situacaodrg` = '4', `pedcontratacao_dataaprovacaodrg` = ".date('"Y-m-d"')." WHERE `pedcontratacao_id` = '".$model->pedcontratacao_id."'");
+        $command->execute();
+
+        //Atualiza a data do ingresso na Solicitação de Contratação
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`contratacao`
+        INNER JOIN `pedidocontratacao_itens` ON `pedidocontratacao_itens`.`contratacao_id` = `contratacao`.`id`
+        INNER JOIN `pedido_contratacao` ON `pedido_contratacao`.`pedcontratacao_id` = `pedidocontratacao_itens`.`pedidocontratacao_id`
+        SET `data_ingresso` = `pedidocontratacao_itens`.`itemcontratacao_dataingresso`
+        WHERE `pedidocontratacao_itens`.`contratacao_id` = `contratacao`.`id` AND `pedido_contratacao`.`pedcontratacao_id` = ".$model->pedcontratacao_id." ");
+        $command->execute();
+
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Contratação <b> '.$model->pedcontratacao_id.' </b> foi Aprovado!</b>');
+
+        return $this->redirect(['drg-index']);
+    }
     public function actionReprovarGgp($id)
     {
         $session = Yii::$app->session;
@@ -133,7 +171,7 @@ class PedidoContratacaoController extends Controller
         $command = $connection->createCommand(
         "UPDATE `db_processos`.`pedido_contratacao` SET `pedcontratacao_aprovadorggp` = '".$session['sess_nomeusuario']."', `pedcontratacao_situacaoggp` = '3', `pedcontratacao_dataaprovacaoggp` = ".date('"Y-m-d"')." WHERE `pedcontratacao_id` = '".$model->pedcontratacao_id."'");
         $command->execute();
-        
+
         Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Contratação <b> '.$model->pedcontratacao_id.' </b> foi Reprovado!</b>');
 
         return $this->redirect(['ggp-index']);
@@ -155,6 +193,22 @@ class PedidoContratacaoController extends Controller
         return $this->redirect(['dad-index']);
     }
 
+    public function actionReprovarDrg($id)
+    {
+        $session = Yii::$app->session;
+        $model = $this->findModel($id);
+
+        //Reprova o candidato
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand(
+        "UPDATE `db_processos`.`pedido_contratacao` SET `pedcontratacao_aprovadordrg` = '".$session['sess_nomeusuario']."', `pedcontratacao_situacaodrg` = '3', `pedcontratacao_dataaprovacaodrg` = ".date('"Y-m-d"')." WHERE `pedcontratacao_id` = '".$model->pedcontratacao_id."'");
+        $command->execute();
+
+        Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Contratação <b> '.$model->pedcontratacao_id.' </b> foi Reprovado!</b>');
+
+        return $this->redirect(['drg-index']);
+    }
+
     public function actionHomologarContratacao($id)
     {
         $session = Yii::$app->session;
@@ -162,7 +216,7 @@ class PedidoContratacaoController extends Controller
         $modelsItens = $model->pedidocontratacaoItens;
 
         //Se não existir as aprovações da GGP e DAD, não será possível homologar o processo
-        if($model->pedcontratacao_situacaoggp != 4 || $model->pedcontratacao_situacaodad != 4) {
+        if($model->pedcontratacao_situacaoggp != 4 || $model->pedcontratacao_situacaodad != 4 || $model->pedcontratacao_situacaodrg != 4) {
             Yii::$app->session->setFlash('danger', '<b>ERRO! </b>Solicitação sem aprovações!</b>');
             return $this->redirect(['index']);
             }
@@ -257,6 +311,7 @@ class PedidoContratacaoController extends Controller
         $model = new PedidoContratacao();
         $model->pedcontratacao_situacaoggp = 1; //Aguardando Autorização GPP
         $model->pedcontratacao_situacaodad = 1; //Aguardando Autorização DAD
+        $model->pedcontratacao_situacaodrg = 1; //Aguardando Autorização DRG
         $model->pedcontratacao_data        = date('Y-m-d');
         $model->pedcontratacao_responsavel = $session['sess_nomeusuario'];
         $model->pedcontratacao_recursos    = 'PRÓPRIOS';
@@ -287,6 +342,7 @@ class PedidoContratacaoController extends Controller
 
         $model->pedcontratacao_situacaoggp = 1; //Aguardando Autorização GPP
         $model->pedcontratacao_situacaodad = 1; //Aguardando Autorização DAD
+        $model->pedcontratacao_situacaodrg = 1; //Aguardando Autorização DRG
         $model->pedcontratacao_data        = date('Y-m-d');
         $model->pedcontratacao_responsavel = $session['sess_nomeusuario'];
         $model->pedcontratacao_recursos    = 'PRÓPRIOS';
@@ -373,6 +429,7 @@ class PedidoContratacaoController extends Controller
 
         $model->pedcontratacao_situacaoggp = 1; //Aguardando Autorização GPP
         $model->pedcontratacao_situacaodad = 1; //Aguardando Autorização DAD
+        $model->pedcontratacao_situacaodrg = 1; //Aguardando Autorização DRG
         $model->pedcontratacao_data = date('Y-m-d');
         $model->pedcontratacao_responsavel = $session['sess_nomeusuario'];
 

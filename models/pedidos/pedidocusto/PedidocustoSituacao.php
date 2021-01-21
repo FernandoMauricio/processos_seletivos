@@ -59,4 +59,12 @@ class PedidocustoSituacao extends \yii\db\ActiveRecord
     {
         return $this->hasMany(PedidoCusto::className(), ['custo_situacaodad' => 'situacao_id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPedidoCustos1()
+    {
+        return $this->hasMany(PedidoCusto::className(), ['custo_situacaodrg' => 'situacao_id']);
+    }
 }
