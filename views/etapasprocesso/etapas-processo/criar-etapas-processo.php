@@ -46,7 +46,7 @@ use yii\helpers\Json;
             <div class="col-md-3">
                 <?php
                     echo $form->field($model, 'etapa_cidade')->widget(Select2::classname(), [
-                            'data' =>  ['Manaus' => 'Manaus', 'Manacapuru' => 'Manacapuru', 'Itacoatiara' => 'Itacoatiara', 'Tefé' => 'Tefé', 'Parintins' => 'Parintins', 'Coari' => 'Coari', 'Beruri' => 'Beruri'],
+                            'data' =>  ['Manaus' => 'Manaus', 'Manacapuru' => 'Manacapuru', 'Itacoatiara' => 'Itacoatiara', 'Tefé' => 'Tefé','Rorainópolis' => 'Rorainópolis', 'Parintins' => 'Parintins', 'Coari' => 'Coari', 'Beruri' => 'Beruri'],
                             'options' => ['placeholder' => 'Selecione a cidade...', 'multiple' => true],
                             'pluginOptions' => [
                                     'allowClear' => true,

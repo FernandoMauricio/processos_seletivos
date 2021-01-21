@@ -7,6 +7,7 @@ use kartik\select2\Select2;
                     <thead> 
                         <tr>    
                             <th>Contato Confirmado?</th>
+                            <th>Nº</th>
                             <th>Nome Completo</th>
                             <th>Escrita</th>
                             <th>Comportamental</th>
@@ -20,10 +21,14 @@ use kartik\select2\Select2;
                     </thead>
                     <tbody>  
                           <td><p><label><input type="checkbox" id="checkAll"/> Marcar todos</label></p></td>
-                        <?php foreach ($itens as $i => $etapa): ?>
+                        <?php 
+                        $cont = 1;
+                        foreach ($itens as $i => $etapa): ?>
                         <tr class="default<?= "$i" ?>"> 
 
                             <td><?= $form->field($etapa, "[{$i}]itens_confirmacaocontato")->checkbox(['uncheck' => 0, 'label' => null]); ?></td>
+
+                             <td><?php echo $cont++ ?></td>
 
                             <td><?= yii\helpers\Html::a($etapa->curriculos->nome, ['curriculos/curriculos-admin/imprimir', 'id' => $etapa->curriculos->id], ['class' => 'profile-link', 'target' => '_blank', 'style' => 'text-transform: uppercase']) ?></td>
 
@@ -68,6 +73,17 @@ use kartik\select2\Select2;
                                         '7º colocado(a)' => '7º colocado(a)', 
                                         '8º colocado(a)' => '8º colocado(a)', 
                                         '9º colocado(a)' => '9º colocado(a)', 
+                                        '10º colocado(a)' => '10º colocado(a)', 
+                                        '11º colocado(a)' => '11º colocado(a)', 
+                                        '12º colocado(a)' => '12º colocado(a)', 
+                                        '13º colocado(a)' => '13º colocado(a)', 
+                                        '14º colocado(a)' => '14º colocado(a)', 
+                                        '15º colocado(a)' => '15º colocado(a)', 
+                                        '16º colocado(a)' => '16º colocado(a)', 
+                                        '17º colocado(a)' => '17º colocado(a)', 
+                                        '18º colocado(a)' => '18º colocado(a)', 
+                                        '19º colocado(a)' => '19º colocado(a)', 
+                                        '20º colocado(a)' => '20º colocado(a)', 
                                       ],
                                     ])->label(false);
                             ?>

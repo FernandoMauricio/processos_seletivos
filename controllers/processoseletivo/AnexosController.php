@@ -95,7 +95,7 @@ class AnexosController extends Controller
             $model->save();
 
             if($model->save()){
-            $model->file->saveAs('uploads/anexos/' . utf8_decode($model->file->baseName) . '.' . $model->file->extension);
+            $model->file->saveAs('uploads/anexos/' .($model->file->baseName) . '.' . $model->file->extension);
                 
                 Yii::$app->session->setFlash('success', 'Anexo inserido com sucesso! ');
             }
@@ -136,7 +136,7 @@ class AnexosController extends Controller
                 {
                     if (!empty($_POST)) 
                     {
-                          $model->file->saveAs('uploads/anexos/' . utf8_decode($model->file->baseName) . '.' . $model->file->extension);
+                          $model->file->saveAs('uploads/anexos/' .($model->file->baseName) . '.' . $model->file->extension);
                     }   
                                  
 

@@ -168,7 +168,7 @@ $gridColumns = [
             ],
 
             ['class' => 'yii\grid\ActionColumn',
-                        'template' => '{imprimir} {aguardando-envio-gerencia-imediata} {desclassificarggp}',
+                        'template' => '{imprimir} {aguardando-envio-gerencia-imediata} {desclassificarggp}  {delete}',
                         'contentOptions' => ['style' => 'width: 10%;'],
                         'buttons' => [
 
@@ -195,7 +195,7 @@ $gridColumns = [
                         //CLASSIFICAR CANDIDATO
                         'aguardando-envio-gerencia-imediata' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-ok"></span> ', $url, [
-                                        'class'=>'btn btn-warning btn-xs',
+                                        'class'=>'btn btn-success btn-xs',
                                         'title' => Yii::t('app', 'Pré-Selecionar Candidato'),
                                          'data' => [
                                                    'method' => 'post',
@@ -206,7 +206,7 @@ $gridColumns = [
                         //DESCLASSIFICAR CANDIDATO COMO GGP
                         'desclassificarggp' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-remove"></span> ', $url, [
-                                        'class'=>'btn btn-danger btn-xs',
+                                        'class'=>'btn btn-warning btn-xs',
                                         'title' => Yii::t('app', 'Desclassificar Candidato'),
                                          'data' => [
                                                    //'confirm' => 'Você tem certeza que deseja <b style="color: red;">DESCLASSIFICAR</b> esse candidato?',
@@ -219,7 +219,7 @@ $gridColumns = [
                         //DESCLASSIFICAR CANDIDATO
                         'desclassificarggp' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-remove"></span> ', $url, [
-                                        'class'=>'btn btn-danger btn-xs',
+                                        'class'=>'btn btn-warning btn-xs',
                                         'title' => Yii::t('app', 'Desclassificar Candidato'),
                                          'data' => [
                                                    //'confirm' => 'Você tem certeza que deseja <b style="color: red;">DESCLASSIFICAR</b> esse candidato?',
@@ -228,6 +228,18 @@ $gridColumns = [
                        
                             ]);
                         },
+
+                 //DELETAR A SOLICITAÇÃO
+                        'delete' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-trash"></span> ', $url, [
+                                        'class'=>'btn btn-danger btn-xs',
+                                        'title' => Yii::t('app', 'Deletar Curriculos'),
+                                        'data' =>  [
+                                                        'confirm' => 'Você tem CERTEZA que deseja EXCLUIR esse item?',
+                                                        'method' => 'post',
+                                                   ],
+                                    ]);
+                        },  
             ],
        ],
     ]; 

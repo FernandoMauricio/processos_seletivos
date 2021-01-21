@@ -39,9 +39,9 @@ use faryshta\widgets\JqueryTagsInput;
                 <div class="col-md-3">
                     <?= $form->field($model, 'gerarq_emailconfirmacao')->widget(Select2::classname(), [
                                 'data' =>  [
-                                    'israel.galvao@am.senac.br' => 'israel.galvao@am.senac.br', 
-                                    'leidiane.santos@am.senac.br' => 'leidiane.santos@am.senac.br',
-                                    'fabio.valente@am.senac.br' => 'fabio.valente@am.senac.br'
+                                    'alexandre.lopes@am.senac.br' => 'alexandre.lopes@am.senac.br',
+                                    'andrea.lima@am.senac.br' => 'andrea.lima@am.senac.br',
+                                    'leidiane.santos@am.senac.br' => 'leidiane.santos@am.senac.br'
                                 ],
                                 'options' => ['placeholder' => 'E-mail de confirmação...', 'multiple'=>true],
                                 'pluginOptions' => [
@@ -74,7 +74,9 @@ use faryshta\widgets\JqueryTagsInput;
                                     'Certificado de escolaridade e histórico (cópia)' => 'Certificado de escolaridade e histórico (cópia)',
                                     'Certificado dos cursos de capacitação (cópia)' => 'Certificado dos cursos de capacitação (cópia)',
                                     'Currículo Atualizado com Foto' => 'Currículo Atualizado com Foto',
-                                    'Plano de aula impresso em 01 (uma) via' => 'Plano de aula impresso em 01 (uma) via',
+                                    'Plano de aula impresso em 01 (uma) via conforme Modelo Pedagógico Senac (Informativo I no site).' => 'Plano de aula impresso em 01 (uma) via conforme Modelo Pedagógico Senac (Informativo I no site).',
+                                     'Plano de aula impresso em 01 (uma) via conforme Modelo Pedagógico Senac (Informativo I e II no site).' => 'Plano de aula impresso em 01 (uma) via conforme Modelo Pedagógico Senac (Informativo I e II no site).',
+
                                 ],
                                 'options' => ['placeholder' => 'Informe os arquivos a serem apresentados...', 'multiple'=>true],
                                 'pluginOptions' => [

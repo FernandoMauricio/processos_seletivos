@@ -94,7 +94,7 @@ class AdendosController extends Controller
             $model->save();
 
             if($model->save()){
-            $model->file->saveAs('uploads/adendos/' . utf8_decode($model->file->baseName) . '.' . $model->file->extension);
+            $model->file->saveAs('uploads/adendos/' . ($model->file->baseName) . '.' . $model->file->extension);
                 
                 Yii::$app->session->setFlash('success', 'Adendo inserido com sucesso! ');
             }
@@ -134,7 +134,7 @@ class AdendosController extends Controller
                 {
                     if (!empty($_POST)) 
                     {
-                          $model->file->saveAs('uploads/adendos/' . utf8_decode($model->file->baseName) . '.' . $model->file->extension);
+                          $model->file->saveAs('uploads/adendos/' . ($model->file->baseName) . '.' . $model->file->extension);
                     }   
                                  
 

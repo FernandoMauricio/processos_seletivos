@@ -128,7 +128,7 @@ class ContratacaoJustificativasPendentesController extends Controller
                                     ->setTo($email_gerente)
                                     ->setSubject('Solicitação de Contratação '.$contratacao->id.' - ' . $contratacao->situacao->descricao)
                                     ->setTextBody('A solicitação de contratação de código: '.$contratacao->id.' está com status de '.$contratacao->situacao->descricao.' ')
-                                    ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$contratacao->id.'</strong> com status de '.$contratacao->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse https://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                                    ->setHtmlBody('<h4>Prezado(a) Gerente, <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$contratacao->id.'</strong> com status de '.$contratacao->situacao->descricao.'. <br> Por favor, não responda esse e-mail. Acesse https://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Recrutamento e Seleção - R&S Gerência de Gestão de Pessoas.</h4>')
                                     ->send();
                  } 
         }

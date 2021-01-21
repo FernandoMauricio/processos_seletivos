@@ -18,7 +18,7 @@ body {
     <td width="60%"><h7>SERVIÇO NACIONAL DE APRENDIZAGEM COMERCIAL - SENAC</h7><br / >
                     <h7>DEPARTAMENTO REGIONAL NO AMAZONAS</h7><br / >
                     <h7>GERÊNCIA DE GESTÃO DE PESSOAS</h7><br / >
-                    <h7>PLANILHA DE COMPOSIÇÃO DE CUSTO POR SOLICITAÇÃO</h7>
+                    <h7>SOLICITAÇÃO DE APROVAÇÃO DOS CUSTOS PARA CONTRATAÇÃO DE COLABORADOR</h7>
     </td>
     <td width="20%"><b>CC/RS/GGP  Nº </b> <?= $model->custo_id . '/' . date('Y', strtotime($model->custo_data)) ?><br /><br />
     <?=  date('d/m/Y', strtotime($model->custo_data)); ?></td>
@@ -36,7 +36,7 @@ body {
                   <th scope="row">Pedido de Custo:</th>
                   <td><?= $model->custo_id ?></td>
                   <th scope="row">Unidade:</th>
-                  <td colspan="8">PLANILHA DE COMPOSIÇÃO DE CUSTO POR SOLICITAÇÃO: <b style="color: #0823f3;"><?= $model->custo_assunto ?></b></td>
+                  <td colspan="8"><b style="color: #0823f3;"><?= $model->custo_assunto ?></b></td>
             </tr>
             <tr>
                   <th scope="row">Recursos:</th>
@@ -133,7 +133,7 @@ body {
           <?php echo $model->custo_situacaodad == 3 ? '<td style="font-size: 10px; border-top: 0px solid"><b><span class="glyphicon glyphicon-remove" aria-hidden="true"> </span>' : '<td style="font-size: 10px; border-top: 0px solid"><b><span class="glyphicon glyphicon-ok" aria-hidden="true"> </span>'; ?>
             <?= $model->custoSituacaodad->situacao_descricao ?></b><br /><br /><br /><br /><br />
             Assinado eletrônicamente por:<br />
-            
+
             <?php $query = (new \yii\db\Query())->select('aprov_descricao, aprov_cargo, aprov_observacao')->from('db_processos.aprovacoes')->where(['aprov_area' => 'DAD'])->one(); ?>
             <b><?= $model->custo_aprovadordad; ?></b><br />
             <?= $query['aprov_cargo']; ?><br />
@@ -142,19 +142,23 @@ body {
           </td>
           <?php }?>
 
-          <td style="font-size: 10px; border-top: 0px solid">
-            (&nbsp;&nbsp;&nbsp;) Aprovo a solicitação<br />
-            (&nbsp;&nbsp;&nbsp;) Não aprovo a solicitação<br />
-            (&nbsp;&nbsp;&nbsp;)  Ao Sr. Presidente do C.R para autorização<br /><br /><br /><br />
+        <?php if($model->custo_situacaodrg == 5){ ?>
+          <td style="font-size: 10px; border-top: 0px solid"><b><span class="glyphicon glyphicon-lock" aria-hidden="true"> </span> <?= $model->custoSituacaodrg->situacao_descricao ?><br /><br /></td>
+          <?php }else{?>
+          <?php echo $model->custo_situacaodrg == 3 ? '<td style="font-size: 10px; border-top: 0px solid"><b><span class="glyphicon glyphicon-remove" aria-hidden="true"> </span>' : '<td style="font-size: 10px; border-top: 0px solid"><b><span class="glyphicon glyphicon-ok" aria-hidden="true"> </span>'; ?>
+            <?= $model->custoSituacaodrg->situacao_descricao ?></b><br /><br /><br /><br /><br />
+            Assinado eletrônicamente por:<br />
 
             <?php $query = (new \yii\db\Query())->select('aprov_descricao, aprov_cargo, aprov_observacao')->from('db_processos.aprovacoes')->where(['aprov_area' => 'DIRETORIA REGIONAL'])->one(); ?>
-            <b><?= $query['aprov_descricao']; ?></b><br />
+            <b><?= $model->custo_aprovadordrg; ?></b><br />
             <?= $query['aprov_cargo']; ?><br />
             <?= isset($query['aprov_observacao']) ? $query['aprov_observacao'] . '<br />' : ''; ?>
-             ___/___/_____<br />
+            <?php echo date('d/m/Y', strtotime( $model->custo_dataaprovacaodrg )) ?>&nbsp;&nbsp;&nbsp;<br />
           </td>
+          <?php }?>
 
-          <td style="font-size: 10px; border-top: 0px solid">
+          <!--
+           <td style="font-size: 10px; border-top: 0px solid">
            (&nbsp;&nbsp;&nbsp;) Autorizo<br />
            (&nbsp;&nbsp;&nbsp;) Não Autorizo<br /><br /><br /><br /><br />
 
@@ -162,8 +166,9 @@ body {
             <b><?= $query['aprov_descricao']; ?></b><br />
            <?= $query['aprov_cargo']; ?><br />
            <?= isset($query['aprov_observacao']) ? $query['aprov_observacao'] . '<br />' : ''; ?>
-             ___/___/_____<br />
+             ___/___/_____<br /> 
           </td>
+           -->
      </tbody>
  </table>
 

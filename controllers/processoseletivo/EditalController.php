@@ -116,7 +116,7 @@ class EditalController extends Controller
             $model->save();
 
             if($model->save()){
-            $model->file->saveAs('uploads/editais/' . utf8_decode($model->file->baseName) . '.' . $model->file->extension);
+            $model->file->saveAs('uploads/editais/' . ($model->file->baseName) . '.' . $model->file->extension);
                 
                 Yii::$app->session->setFlash('success', 'Edital inserido com sucesso! ');
             }
@@ -164,7 +164,7 @@ class EditalController extends Controller
                 {
                     if (!empty($_POST)) 
                     {
-                          $model->file->saveAs('uploads/editais/' . utf8_decode($model->file->baseName) . '.' . $model->file->extension);
+                          $model->file->saveAs('uploads/editais/' . ($model->file->baseName) . '.' . $model->file->extension);
                     }   
                                  
 

@@ -527,6 +527,19 @@ class CurriculosAdminController extends Controller
 
     }
 
+    public function actionDelete($id)
+    {
+        $model = $this->findModel($id);
+
+            CurriculosEndereco::deleteAll('curriculos_id = "'.$id.'"');
+            CurriculosFormacao::deleteAll('curriculos_id = "'.$id.'"');
+            CurriculosComplementos::deleteAll('curriculos_id = "'.$id.'"');
+            CurriculosEmpregos::deleteAll('curriculos_id = "'.$id.'"');
+            $model->delete(); //Exclui o pedido de custo
+            Yii::$app->session->setFlash('success', '<b>SUCESSO! </b> CV EXCLUIDO!</b>');
+            return $this->redirect(['index']);
+        }
+
     /**
      * Finds the Curriculos model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

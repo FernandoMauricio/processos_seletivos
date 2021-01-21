@@ -52,6 +52,7 @@ use yii\widgets\DetailView;
             <tr class="info"><th colspan="12">SEÇÃO 2: Classificados / Etapas do Processo</th></tr>
               <tr>
                 <th>Contato Confirmado?</th>
+                 <th>Nº</th>
                 <th>Inscrição</th>
                 <th>Nome Completo</th>
                 <th>Escrita</th>
@@ -67,8 +68,10 @@ use yii\widgets\DetailView;
             <tbody>
             <tr>
               <?php 
+                  $cont = 1;
                 foreach ($etapasItens as $i => $etapa): ?>
                   <td><?= $etapa->itens_confirmacaocontato == 1 ? ' <span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: #54c51b;"></span>' : '<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: #a94442;"></span>'; ?></td>
+                  <td><?php echo $cont++ ?></td>
                   <td><?= $etapa->curriculos->numeroInscricao; ?></td>
                   <td><span class="text-uppercase"><?= $etapa->curriculos->nome; ?></span></td>
                   <td style="width: 80px;"><?= $etapa->itens_escrita; ?></td>

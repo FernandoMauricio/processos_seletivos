@@ -6,9 +6,9 @@ $params = require(__DIR__ . '/params.php');
 $config = [
     'id' => 'basic',
     'language'=>'pt-BR',
+    'timeZone' => 'America/Manaus',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'timeZone' => 'America/Manaus', 
 
     'modules' => [
                    'datecontrol' =>  [
@@ -52,13 +52,13 @@ $config = [
                                     ]
                                 ]
                             ],
-                    ],
+                            ],
 
 
                     'gridview' =>  [
                     'class' => '\kartik\grid\Module'
                                    ],
-                ],
+                 ],
 
     'components' => [
         'request' => [
@@ -77,21 +77,22 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            'useFileTransport' => true,
-            // 'transport' => [
-            //     'class' => 'Swift_SmtpTransport',
-            //     'host' => '177.10.176.8',
-            //     'username' => 'contratacao@am.senac.br',
-            //     'password' => 'Fat@320',
-            //     'port' => 465,
-            //     'encryption' => 'ssl',
-            //     ],
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.office365.com',
+                'username' => 'contratacao@am.senac.br',
+                'password' => 'contratacao@2017',
+                'port' => 587,
+                'encryption' => 'tls',
+                ],
         ],
         'formatter' => [
-                    'class' => 'yii\i18n\formatter',
+                    'class' => 'yii\i18n\Formatter',
                     'thousandSeparator' => '.',
                     'decimalSeparator' => ',',
-                 ],
+                    //'currencyCode' => '$'
+                ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -110,7 +111,10 @@ $config = [
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
-    $config['modules']['debug'] = 'yii\debug\Module';
+    $config['modules']['debug'] = [
+        'class' => 'yii\debug\Module',
+        'allowedIPs' => ['*']
+    ];
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = 'yii\gii\Module';

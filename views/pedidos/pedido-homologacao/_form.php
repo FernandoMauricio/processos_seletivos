@@ -49,7 +49,12 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
             ?>
         </div>
 
-        <div class="col-md-2"><?= $form->field($model, 'homolog_tipo')->textInput(['value' => $model->homolog_tipo == 1 ?  'Inderterminado' : 'Determinado', 'maxlength' => true, 'readonly' => true]) ?></div>
+              
+        <div class="col-md-2">
+            <label class="control-label" for="pedidohomologacao-homolog_data">Tipo Contrato</label>
+            <input type="text"  class="form-control"  value="<?php echo $model->homolog_tipo == 1 ?  'Indeterminado' : 'Determinado' ?>" readonly="">
+        </div>
+            <?= $form->field($model, 'homolog_tipo')->hiddenInput(['value' => $model->homolog_tipo == 1 ?  '1' : '0'])->label(false); ?>
 
     </div>
 

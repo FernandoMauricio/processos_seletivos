@@ -32,7 +32,7 @@ class ContratacaoJustificativas extends \yii\db\ActiveRecord
         return [
             [['descricao', 'usuario', 'id_contratacao'], 'required'],
             [['id_contratacao'], 'integer'],
-            [['descricao'], 'string', 'max' => 255],
+            [['descricao'], 'string'],
             [['usuario'], 'string', 'max' => 100]
         ];
     }

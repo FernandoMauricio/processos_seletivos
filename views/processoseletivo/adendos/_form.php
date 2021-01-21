@@ -22,7 +22,7 @@ echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
         <?php
 
     echo $form->field($model, 'file')->widget(FileInput::classname(), [
-        'options' => ['accept' => '.pdf'],
+        'options' => ['accept' => '.pdf, .ppt'],
         'language' => 'pt',
         'pluginOptions' => [
         'showRemove'=> false,

@@ -338,10 +338,12 @@ $this->title = $model->numeroInscricao;
     </thead>
     <tbody>
     <?php foreach ($curriculosComplementos as $curriculosComplemento): ?>
-      <td><?= $curriculosComplemento->certificado ? 'Sim' : 'Não'; ?></td>
-      <td><?= $curriculosComplemento->cursos ?></td>
-      <td><?= $curriculosComplemento->local ?></td>
-      <td><?= $curriculosComplemento->carga_horaria ?></td>
+      <tr>
+        <td><?= $curriculosComplemento->certificado ? 'Sim' : 'Não'; ?></td>
+        <td><?= $curriculosComplemento->cursos ?></td>
+        <td><?= $curriculosComplemento->local ?></td>
+        <td><?= $curriculosComplemento->carga_horaria ?></td>
+      </tr>
     <?php endforeach; ?>
     </tbody>
   </table>

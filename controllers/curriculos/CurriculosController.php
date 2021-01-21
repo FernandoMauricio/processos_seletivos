@@ -137,9 +137,9 @@ class CurriculosController extends Controller
         }
 
         //Caso o processo seletivo esteja em andamento, será redirecionado para a página de processo seletivo
-        if($model->processoSeletivo->situacao_id == 2){
-            return $this->redirect('https://www.am.senac.br/processo-seletivo');
-        }
+        // if($model->processoSeletivo->situacao_id == 2){
+        //     return $this->redirect('https://www.am.senac.br/processo-seletivo');
+        // }
 
         if ($model->load(Yii::$app->request->post()) && $curriculosEndereco->load(Yii::$app->request->post()) && $curriculosFormacao->load(Yii::$app->request->post()) && Model::validateMultiple([$model, $curriculosEndereco, $curriculosFormacao]) ) 
         {

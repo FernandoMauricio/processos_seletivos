@@ -35,7 +35,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 <?php
 
 $gridColumns = [
-            
+
             [
                 'class'=>'kartik\grid\ExpandRowColumn',
                 'width'=>'1%',
@@ -73,13 +73,13 @@ $gridColumns = [
             ],
 
             [
-                'attribute'=>'custo_situacaoggp', 
+                'attribute'=>'custo_situacaoggp',
                 'width'=>'5%',
-                'value'=>function ($model, $key, $index, $widget) { 
+                'value'=>function ($model, $key, $index, $widget) {
                     return $model->custoSituacaoggp->situacao_descricao;
                 },
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>ArrayHelper::map(PedidocustoSituacao::find()->orderBy('situacao_descricao')->asArray()->all(), 'situacao_descricao', 'situacao_descricao'), 
+                'filter'=>ArrayHelper::map(PedidocustoSituacao::find()->orderBy('situacao_descricao')->asArray()->all(), 'situacao_descricao', 'situacao_descricao'),
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
@@ -87,13 +87,27 @@ $gridColumns = [
             ],
 
             [
-                'attribute'=>'custo_situacaodad', 
+                'attribute'=>'custo_situacaodad',
                 'width'=>'5%',
-                'value'=>function ($model, $key, $index, $widget) { 
+                'value'=>function ($model, $key, $index, $widget) {
                     return $model->custoSituacaodad->situacao_descricao;
                 },
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>ArrayHelper::map(PedidocustoSituacao::find()->orderBy('situacao_descricao')->asArray()->all(), 'situacao_descricao', 'situacao_descricao'), 
+                'filter'=>ArrayHelper::map(PedidocustoSituacao::find()->orderBy('situacao_descricao')->asArray()->all(), 'situacao_descricao', 'situacao_descricao'),
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                    'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
+            ],
+
+            [
+                'attribute'=>'custo_situacaodrg',
+                'width'=>'5%',
+                'value'=>function ($model, $key, $index, $widget) {
+                    return $model->custoSituacaodrg->situacao_descricao;
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>ArrayHelper::map(PedidocustoSituacao::find()->orderBy('situacao_descricao')->asArray()->all(), 'situacao_descricao', 'situacao_descricao'),
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
@@ -104,14 +118,14 @@ $gridColumns = [
                 'class' => 'kartik\grid\EditableColumn',
                 'attribute' => 'custo_situacao',
                 'width'=>'5%',
-                'value'=>function ($model, $key, $index, $widget) { 
+                'value'=>function ($model, $key, $index, $widget) {
                     return $model->custoSituacao->descricao;
                 },
                 'readonly'=>function($model, $key, $index, $widget) {
                     return (!$model->custo_situacao); // do not allow editing of inactive records
                 },
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>ArrayHelper::map(Situacao::find()->orderBy('descricao')->asArray()->all(), 'descricao', 'descricao'), 
+                'filter'=>ArrayHelper::map(Situacao::find()->orderBy('descricao')->asArray()->all(), 'descricao', 'descricao'),
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
@@ -124,7 +138,7 @@ $gridColumns = [
                                 3 => 'Encerrado',
                             ],
                     'inputType' => \kartik\editable\Editable::INPUT_DROPDOWN_LIST,
-                ],          
+                ],
             ],
 
             [
@@ -143,7 +157,7 @@ $gridColumns = [
                 'width' => '7%',
                 'hAlign' => 'center',
                 'filter'=> DatePicker::widget([
-                'model' => $searchModel, 
+                'model' => $searchModel,
                 'attribute' => 'custo_datahomologacao',
                 'pluginOptions' => [
                      'autoclose'=>true,
@@ -159,11 +173,11 @@ $gridColumns = [
                         //VISUALIZAR/IMPRIMIR
                         'view' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-print"></span> ', $url, [
-                                        'target'=>'_blank', 
+                                        'target'=>'_blank',
                                         'data-pjax'=>"0",
                                         'class'=>'btn btn-info btn-xs',
                                         'title' => Yii::t('app', 'Imprimir'),
-                       
+
                             ]);
                         },
 
@@ -172,7 +186,7 @@ $gridColumns = [
                             return Html::a('<span class="glyphicon glyphicon-pencil"></span> ', $url, [
                                         'class'=>'btn btn-default btn-xs',
                                         'title' => Yii::t('app', 'Atualizar'),
-                       
+
                             ]);
                         },
 
@@ -197,7 +211,7 @@ $gridColumns = [
                                                         'confirm' => 'Você tem CERTEZA que deseja EXCLUIR esse item?',
                                                         'method' => 'post',
                                                    ],
-                       
+
                             ]);
                         },
                 ],
@@ -207,7 +221,7 @@ $gridColumns = [
 
     <?php Pjax::begin(); ?>
 
-    <?php 
+    <?php
     echo GridView::widget([
     'dataProvider'=>$dataProvider,
     'filterModel'=>$searchModel,
@@ -219,14 +233,14 @@ $gridColumns = [
     'rowOptions' =>function($model){
                 if(isset($model->custo_homologador))
                 {
-                    return['class'=>'success'];                        
+                    return['class'=>'success'];
                 }
     },
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes do Pedido de Custo', 'options'=>['colspan'=>11, 'class'=>'text-center warning']], 
-                ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes do Pedido de Custo', 'options'=>['colspan'=>12, 'class'=>'text-center warning']],
+                ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']],
             ],
         ]
     ],

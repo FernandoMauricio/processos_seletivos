@@ -32,9 +32,9 @@ class GeracaoarquivosItens extends \yii\db\ActiveRecord
     {
         return [
             [['gerarqitens_candidato', 'geracaoarquivos_id'], 'required'],
-            [['gerarqitens_horario', 'gerarqitens_pontuacao'], 'safe'],
+            [['gerarqitens_horario', 'gerarqitens_pontuacao', 'gerarqitens_tema'], 'safe'],
             [['geracaoarquivos_id'], 'integer'],
-            [['gerarqitens_candidato', 'gerarqitens_tema', 'gerarqitens_classificacao'], 'string', 'max' => 255],
+            [['gerarqitens_candidato', 'gerarqitens_classificacao'], 'string', 'max' => 255],
             [['geracaoarquivos_id'], 'exist', 'skipOnError' => true, 'targetClass' => GeracaoArquivos::className(), 'targetAttribute' => ['geracaoarquivos_id' => 'gerarq_id']],
         ];
     }

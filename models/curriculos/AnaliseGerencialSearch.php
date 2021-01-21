@@ -68,7 +68,7 @@ class AnaliseGerencialSearch extends Curriculos
             ->andFilterWhere(['like', 'edital', $this->edital])
             ->andFilterWhere(['like', 'nome', $this->nome])
             ->andFilterWhere(['like', 'numeroInscricao', $this->numeroInscricao])
-            ->andFilterWhere(['like', 'cargo', $this->cargo])
+           ->andFilterWhere(['=', 'cargo',$this->cargo])
             ->andFilterWhere(['like', 'cpf', $this->cpf])
             ->andFilterWhere(['like', 'sexo', $this->sexo])
             ->andFilterWhere(['like', 'email', $this->email])

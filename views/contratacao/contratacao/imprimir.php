@@ -141,9 +141,12 @@ use app\models\processoseletivo\Cargos;
 
      <tr>
         <td colspan="5"><strong>Disponibilidade de Horário: </strong><?php echo $model->jornada_horas ? '<span class="label label-success">Sim</span>' : '<span class="label label-danger">Não</span>' ?></td>
-        <td colspan="7"><strong>Observações: </strong><?php echo $model->jornada_obs; ?></td> 
+      <!--   <td colspan="7"><strong>Observações: </strong><?php echo $model->jornada_obs; ?></td>  retirado -->
     </tr>
 
+     <tr>
+        <td colspan="12"><strong>Observações(inserir outras informações inerentes ao processo, como, dia e horário de trabalho do novo colaborador, se precisa ter disponibilidade em outros dias e horários eventualmente, entre outras necessárias).</strong><p/><?php echo $model->jornada_obs; ?></td> 
+    </tr>
      <tr>
         <td colspan="12"><strong>Turmas a serem ministradas (docentes): </strong><?php echo $model->turmas_ministradas; ?></td> 
     </tr>

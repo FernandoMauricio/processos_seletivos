@@ -20,7 +20,6 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use kartik\mpdf\Pdf;
 use yii\helpers\Json;
-
 use mPDF;
 
 /**
@@ -96,6 +95,10 @@ class ContratacaoController extends Controller
     public function actionImprimir($id) {
 
             $model = $this->findModel($id);
+
+            //Corrigir bug do CentOS
+            \yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+            \yii::$app->response->headers->add('Content-Type', 'application/pdf');
 
             $pdf = new Pdf([
                 'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
@@ -213,7 +216,7 @@ class ContratacaoController extends Controller
                             ->setTo($email_gerente)
                             ->setSubject('Solicitação de Contratação - ' . $model->unidade)
                             ->setTextBody('Existe uma solicitação de contratação de código: '.$model->id.' PENDENTE')
-                            ->setHtmlBody('<h4>Prezado(a) Senhor(a), <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> PENDENTE. <br> Por favor, não responda esse e-mail. Acesse https://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                            ->setHtmlBody('<h4>Prezado(a) Senhor(a), <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> PENDENTE. <br> Por favor, não responda esse e-mail. Acesse https://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Recrutamento e Seleção - R&S Gerência de Gestão de Pessoas.</h4>')
                             ->send();
                         } 
             //MENSAGEM DE CONFIRMAÇÃO DA SOLICITAÇÃO DE CONTRATAÇÃO CRIADA COM SUCESSO
@@ -299,7 +302,7 @@ class ContratacaoController extends Controller
                             ->setTo($email_gerente)
                             ->setSubject('Solicitação de Contratação - ' . $model->unidade)
                             ->setTextBody('Existe uma solicitação de contratação de código: '.$model->id.' PENDENTE')
-                            ->setHtmlBody('<h4>Prezado(a) Senhor(a), <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> PENDENTE. <br> Por favor, não responda esse e-mail. Acesse https://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Contratação de Pessoal - Senac AM.</h4>')
+                            ->setHtmlBody('<h4>Prezado(a) Senhor(a), <br><br>Existe uma solicitação de contratação de <strong style="color: #337ab7"">código: '.$model->id.'</strong> PENDENTE. <br> Por favor, não responda esse e-mail. Acesse https://portalsenac.am.senac.br para ANALISAR a solicitação de contratação. <br><br> Atenciosamente, <br> Recrutamento e Seleção - R&S Gerência de Gestão de Pessoas.</h4>')
                             ->send();
                         } 
 

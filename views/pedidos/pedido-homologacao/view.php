@@ -150,8 +150,8 @@ body {
           </td>
           <?php }?>
 
-          <td style="font-size: 10px; border-top: 0px solid">
-            (&nbsp;&nbsp;&nbsp;) Aprovo o processo. Ao Sr. Presidente do C.R. sugerindo a homologação.<br />
+<!--           <td style="font-size: 10px; border-top: 0px solid">
+            (&nbsp;&nbsp;&nbsp;) Aprovo o processo.<br />
             (&nbsp;&nbsp;&nbsp;) Não Aprovo o processo.<br /><br /><br /><br />
 
             <?php $query = (new \yii\db\Query())->select('aprov_descricao, aprov_cargo, aprov_observacao')->from('db_processos.aprovacoes')->where(['aprov_area' => 'DIRETORIA REGIONAL'])->one(); ?>
@@ -159,9 +159,9 @@ body {
             <?= $query['aprov_cargo']; ?><br />
             <?= isset($query['aprov_observacao']) ? $query['aprov_observacao'] . '<br />' : ''; ?>
              ___/___/_____<br />
-          </td>
+          </td> -->
 
-          <td style="font-size: 10px; border-top: 0px solid">
+<!--           <td style="font-size: 10px; border-top: 0px solid">
            (&nbsp;&nbsp;&nbsp;) Homologo o resultado deste processo de seleção de pessoal.<br />
            (&nbsp;&nbsp;&nbsp;) Não homologo.<br /><br /><br /><br />
 
@@ -169,7 +169,7 @@ body {
             <b><?= $query['aprov_descricao']; ?></b><br />
            <?= $query['aprov_cargo']; ?><br />
            <?= isset($query['aprov_observacao']) ? $query['aprov_observacao'] . '<br />' : ''; ?>
-             ___/___/_____<br />
+             ___/___/_____<br /> -->
           </td>
      </tbody>
  </table>

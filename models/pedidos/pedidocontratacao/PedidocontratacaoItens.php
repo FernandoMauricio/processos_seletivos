@@ -46,7 +46,7 @@ class PedidocontratacaoItens extends \yii\db\ActiveRecord
             [['itemcontratacao_unidade', 'itemcontratacao_cargo', 'itemcontratacao_nome', 'itemcontratacao_tipocontrato', 'itemcontratacao_chsemanal', 'itemcontratacao_total', 'itemcontratacao_justificativa'], 'required'],
             [['id', 'pedidocontratacao_id', 'contratacao_id', 'etapasprocesso_id'], 'integer'],
             [['itemcontratacao_chsemanal', 'itemcontratacao_total'], 'number'],
-            [[ 'itemcontratacao_cargo', 'itemcontratacao_area', 'itemcontratacao_tipocontrato', 'itemcontratacao_dataingresso'], 'string', 'max' => 45],
+            [['itemcontratacao_area', 'itemcontratacao_tipocontrato', 'itemcontratacao_dataingresso'], 'string', 'max' => 45],
             [['itemcontratacao_unidade','itemcontratacao_nome', 'itemcontratacao_justificativa'], 'string', 'max' => 255],
             [['contratacao_id'], 'exist', 'skipOnError' => true, 'targetClass' => Contratacao::className(), 'targetAttribute' => ['contratacao_id' => 'id']],
             [['pedidocontratacao_id'], 'exist', 'skipOnError' => true, 'targetClass' => PedidoContratacao::className(), 'targetAttribute' => ['pedidocontratacao_id' => 'pedcontratacao_id']],

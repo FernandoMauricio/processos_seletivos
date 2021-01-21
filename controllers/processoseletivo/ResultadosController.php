@@ -116,7 +116,7 @@ class ResultadosController extends Controller
             $model->save();
 
             if($model->save()){
-            $model->file->saveAs('uploads/resultados/' . utf8_decode($model->file->baseName) . '.' . $model->file->extension);
+            $model->file->saveAs('uploads/resultados/' .($model->file->baseName) . '.' . $model->file->extension);
                 
                 Yii::$app->session->setFlash('success', 'Resultado inserido com sucesso! ');
             }
@@ -163,7 +163,7 @@ class ResultadosController extends Controller
                 {
                     if (!empty($_POST)) 
                     {
-                          $model->file->saveAs('uploads/resultados/' . utf8_decode($model->file->baseName) . '.' . $model->file->extension);
+                          $model->file->saveAs('uploads/resultados/' .($model->file->baseName) . '.' . $model->file->extension);
                     }   
                                  
 

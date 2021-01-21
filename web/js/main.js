@@ -1,3 +1,12 @@
+//MODAL
+$(function(){
+            $('#modalButton').click(function(){
+                    $('#modal').modal('show')
+                        .find('#modalContent')
+                        .load($(this).attr('value'));
+    });
+});
+
 
 // --- Delete action (bootbox) ---
 yii.confirm = function (message, ok, cancel) {

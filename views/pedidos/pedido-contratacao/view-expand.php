@@ -61,7 +61,7 @@ use yii\widgets\DetailView;
                   <td><?= $modelItens->itemcontratacao_cargo; ?></td>
                   <td><?= $modelItens->itemcontratacao_area; ?></td>
                   <td class="text-uppercase"><?= $modelItens->itemcontratacao_nome; ?></td>
-                  <?php echo $model->pedcontratacao_tipo == 0 ?  '<td>'. $modelItens->pedidocustoItens->pedidocusto_id . '/'.date('Y', strtotime($model->pedcontratacao_data)) . '</td>' : ''; ?>
+                  <?php echo $model->pedcontratacao_tipo == 0 || isset($modelItens->pedidocustoItens->pedidocusto_id)  ?  '<td>'. $modelItens->pedidocustoItens->pedidocusto_id . '/'.date('Y', strtotime($model->pedcontratacao_data)) . '</td>' :  '<td>'.''.'</td>'; ?>
                   <td><?= $modelItens->itemcontratacao_tipocontrato; ?></td>
                   <td><?= $modelItens->itemcontratacao_chsemanal; ?></td>
                   <td style="width: 100px;"><?= 'R$ ' . number_format($modelItens->itemcontratacao_total, 2, ',', '.'); ?></td>
@@ -117,8 +117,7 @@ use yii\widgets\DetailView;
 
           <td style="font-size: 12px; border-top: 0px solid">
             (&nbsp;&nbsp;&nbsp;) Aprovo a solicitação<br />
-            (&nbsp;&nbsp;&nbsp;) Não aprovo a solicitação<br />
-            (&nbsp;&nbsp;&nbsp;)  Ao Sr. Presidente do C.R para autorização<br /><br /><br /><br />
+            (&nbsp;&nbsp;&nbsp;) Não aprovo a solicitação<br /><br /><br /><br />
 
             <?php $query = (new \yii\db\Query())->select('aprov_descricao, aprov_cargo, aprov_observacao')->from('db_processos.aprovacoes')->where(['aprov_area' => 'DIRETORIA REGIONAL'])->one(); ?>
             <b><?= $query['aprov_descricao']; ?></b><br />
@@ -126,8 +125,8 @@ use yii\widgets\DetailView;
             <?= isset($query['aprov_observacao']) ? $query['aprov_observacao'] . '<br />' : ''; ?>
              ___/___/_____<br />
           </td>
-
-          <td style="font-size: 12px; border-top: 0px solid">
+<!-- 
+         <td style="font-size: 12px; border-top: 0px solid">
            (&nbsp;&nbsp;&nbsp;) Autorizo<br />
            (&nbsp;&nbsp;&nbsp;) Não Autorizo<br /><br /><br /><br /><br />
 
@@ -136,7 +135,7 @@ use yii\widgets\DetailView;
            <?= $query['aprov_cargo']; ?><br />
            <?= isset($query['aprov_observacao']) ? $query['aprov_observacao'] . '<br />' : ''; ?>
              ___/___/_____<br />
-          </td>
+          </td>  -->
      </tbody>
  </table>
 

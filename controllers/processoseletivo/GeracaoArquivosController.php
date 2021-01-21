@@ -56,14 +56,17 @@ class GeracaoArquivosController extends Controller
 
     public function actionImprimir($id) {
 
-    setlocale(LC_ALL, "pt_BR", "pt_BR.ISO-8859-1", "pt_BR.UTF-8", "portuguese");
+         setlocale(LC_ALL, "pt_BR", "pt_BR.ISO-8859-1", "pt_BR.UTF-8", "portuguese");
 
         $model = $this->findModel($id);
         $modelsItens = $model->geracaoarquivosItens;
+        //Corrigir bug do CentOS
+        \yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+        \yii::$app->response->headers->add('Content-Type', 'application/pdf');
 
             $pdf = new Pdf([
                 'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
-                'content' => $model->gerarq_tipo == 0 ? $this->renderPartial('imprimir', ['model' => $model, 'modelsItens' => $modelsItens], 'UTF-8', 'ISO-8859-1') : $this->renderPartial('imprimir-resultado-final', ['model' => $model, 'modelsItens' => $modelsItens], 'UTF-8', 'ISO-8859-1'),
+                'content' => $model->gerarq_tipo == 0 ? $this->renderPartial('imprimir', ['model' => $model, 'modelsItens' => $modelsItens]) : $this->renderPartial('imprimir-resultado-final', ['model' => $model, 'modelsItens' => $modelsItens]),
                 'options' => [
                     'title' => 'Recrutamento e Seleção - Senac AM',
                     //'subject' => 'Generating PDF files via yii2-mpdf extension has never been easy'
