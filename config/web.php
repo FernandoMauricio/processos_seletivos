@@ -81,8 +81,8 @@ $config = [
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.office365.com',
-                'username' => 'contratacao@am.senac.br',
-                'password' => 'contratacao@2017',
+                'username' => '',
+                'password' => '',
                 'port' => 587,
                 'encryption' => 'tls',
                 ],
