@@ -142,7 +142,7 @@ body {
           </td>
           <?php }?>
 
-        <?php if($model->custo_situacaodrg == 5){ ?>
+        <?php if($model->custo_situacaodrg == 1 || $model->custo_situacaodrg == 5){ ?>
           <td style="font-size: 10px; border-top: 0px solid"><b><span class="glyphicon glyphicon-lock" aria-hidden="true"> </span> <?= $model->custoSituacaodrg->situacao_descricao ?><br /><br /></td>
           <?php }else{?>
           <?php echo $model->custo_situacaodrg == 3 ? '<td style="font-size: 10px; border-top: 0px solid"><b><span class="glyphicon glyphicon-remove" aria-hidden="true"> </span>' : '<td style="font-size: 10px; border-top: 0px solid"><b><span class="glyphicon glyphicon-ok" aria-hidden="true"> </span>'; ?>

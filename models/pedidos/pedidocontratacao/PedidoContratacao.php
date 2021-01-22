@@ -53,6 +53,7 @@ class PedidoContratacao extends \yii\db\ActiveRecord
             [['pedcontratacao_aprovadorggp', 'pedcontratacao_aprovadordad', 'pedcontratacao_responsavel','pedcontratacao_homologador'], 'string', 'max' => 45],
             [['pedcontratacao_situacaoggp'], 'exist', 'skipOnError' => true, 'targetClass' => PedidocustoSituacao::className(), 'targetAttribute' => ['pedcontratacao_situacaoggp' => 'situacao_id']],
             [['pedcontratacao_situacaodad'], 'exist', 'skipOnError' => true, 'targetClass' => PedidocustoSituacao::className(), 'targetAttribute' => ['pedcontratacao_situacaodad' => 'situacao_id']],
+            [['pedcontratacao_situacaodrg'], 'exist', 'skipOnError' => true, 'targetClass' => PedidocustoSituacao::className(), 'targetAttribute' => ['pedcontratacao_situacaodrg' => 'situacao_id']],
         ];
     }
 
@@ -72,6 +73,7 @@ class PedidoContratacao extends \yii\db\ActiveRecord
             'pedcontratacao_dataaprovacaoggp' => 'Dataaprovacaoggp',
             'pedcontratacao_aprovadordad' => 'Aprovadordad',
             'pedcontratacao_situacaodad' => 'Situação DAD',
+            'pedcontratacao_situacaodrg' => 'Situação DRG',
             'pedcontratacao_dataaprovacaodad' => 'Dataaprovacaodad',
             'pedcontratacao_responsavel' => 'Responsavel',
             'pedidocusto_id' => 'Pedido de Custo',
@@ -120,6 +122,14 @@ class PedidoContratacao extends \yii\db\ActiveRecord
     public function getPedcontratacaoSituacaodad()
     {
         return $this->hasOne(PedidocustoSituacao::className(), ['situacao_id' => 'pedcontratacao_situacaodad']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPedcontratacaoSituacaodrg()
+    {
+        return $this->hasOne(PedidocustoSituacao::className(), ['situacao_id' => 'pedcontratacao_situacaodrg']);
     }
 
     /**

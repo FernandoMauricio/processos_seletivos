@@ -54,10 +54,10 @@ $gridColumns = [
             ],
 
             [
-                'attribute'=>'homolog_situacaoggp',
+                'attribute'=>'homolog_situacaodrg',
                 'width'=>'310px',
                 'value'=>function ($model, $key, $index, $widget) {
-                    return $model->homologSituacaoggp->situacao_descricao;
+                    return $model->homologSituacaodrg->situacao_descricao;
                 },
                 'filterType'=>GridView::FILTER_SELECT2,
                 'filter'=>ArrayHelper::map(PedidocustoSituacao::find()->orderBy('situacao_descricao')->asArray()->all(), 'situacao_descricao', 'situacao_descricao'),
@@ -84,12 +84,12 @@ $gridColumns = [
             'homolog_responsavel',
 
             ['class' => 'yii\grid\ActionColumn',
-                        'template' => '{aprovar-ggp} {reprovar-ggp}',
+                        'template' => '{aprovar-drg} {reprovar-drg}',
                         'contentOptions' => ['style' => 'width: 7%;'],
                         'buttons' => [
 
                         //APROVAR
-                        'aprovar-ggp' => function ($url, $model) {
+                        'aprovar-drg' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-ok"></span> ', $url, [
                                         'class'=>'btn btn-success btn-xs',
                                         'title' => Yii::t('app', 'Aprovar'),
@@ -98,7 +98,7 @@ $gridColumns = [
                         },
 
                         //REPROVAR
-                        'reprovar-ggp' => function ($url, $model) {
+                        'reprovar-drg' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-remove"></span> ', $url, [
                                         'class'=>'btn btn-danger btn-xs',
                                         'title' => Yii::t('app', 'Reprovar'),
@@ -124,8 +124,8 @@ $gridColumns = [
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes do Pedido de Homologação', 'options'=>['colspan'=>8, 'class'=>'text-center warning']], 
-                ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes do Pedido de Homologação', 'options'=>['colspan'=>8, 'class'=>'text-center warning']],
+                ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']],
             ],
         ]
     ],

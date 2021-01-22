@@ -139,28 +139,20 @@ body {
           </td>
           <?php }?>
 
-          <td style="font-size: 10px; border-top: 0px solid">
-            (&nbsp;&nbsp;&nbsp;) Aprovo a solicitação<br />
-            (&nbsp;&nbsp;&nbsp;) Não aprovo a solicitação<br /><br /><br />
-           <!--  (&nbsp;&nbsp;&nbsp;) Ao Sr. Presidente do C.R para autorização<br /><br /> -->
+        <?php if($model->pedcontratacao_situacaodrg == 1 || $model->pedcontratacao_situacaodrg == 5){ ?>
+          <td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-lock" aria-hidden="true"> </span> <?= $model->pedcontratacaoSituacaodrg->situacao_descricao ?><br /><br /></td>
+          <?php }else{?>
+          <?php echo $model->pedcontratacao_situacaodrg == 3 ? '<td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-remove" aria-hidden="true"> </span>' : '<td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-ok" aria-hidden="true"> </span>'; ?>
+            <?= $model->pedcontratacaoSituacaodrg->situacao_descricao ?></b><br /><br /><br /><br /><br />
+            Assinado eletrônicamente por:<br />
 
             <?php $query = (new \yii\db\Query())->select('aprov_descricao, aprov_cargo, aprov_observacao')->from('db_processos.aprovacoes')->where(['aprov_area' => 'DIRETORIA REGIONAL'])->one(); ?>
-            <b><?= $query['aprov_descricao']; ?></b><br />
+            <b><?= $model->pedcontratacao_aprovadordrg; ?></b><br />
             <?= $query['aprov_cargo']; ?><br />
             <?= isset($query['aprov_observacao']) ? $query['aprov_observacao'] . '<br />' : ''; ?>
-             ___/___/_____<br />
+            <?php echo date('d/m/Y', strtotime( $model->pedcontratacao_dataaprovacaodrg )) ?>&nbsp;&nbsp;&nbsp;<br />
           </td>
-
-      <!--     <td style="font-size: 10px; border-top: 0px solid">
-           (&nbsp;&nbsp;&nbsp;) Autorizo<br />
-           (&nbsp;&nbsp;&nbsp;) Não Autorizo<br /><br /><br /><br />
-
-           <?php $query = (new \yii\db\Query())->select('aprov_descricao, aprov_cargo, aprov_observacao')->from('db_processos.aprovacoes')->where(['aprov_area' => 'PRESIDÊNCIA'])->one(); ?>
-            <b><?= $query['aprov_descricao']; ?></b><br />
-           <?= $query['aprov_cargo']; ?><br />
-           <?= isset($query['aprov_observacao']) ? $query['aprov_observacao'] . '<br />' : ''; ?>
-             ___/___/_____<br />
-          </td>  -->
+          <?php }?>
      </tbody>
  </table>
 

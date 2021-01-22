@@ -50,7 +50,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
     <?php
 
         $gridColumns = [
-                    
+
                      [
                      'class'=>'kartik\grid\ExpandRowColumn',
                      'width'=>'1%',
@@ -97,13 +97,13 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                     ],
 
                     [
-                        'attribute'=>'homolog_situacaoggp', 
+                        'attribute'=>'homolog_situacaoggp',
                         'width'=>'8%',
-                        'value'=>function ($model, $key, $index, $widget) { 
+                        'value'=>function ($model, $key, $index, $widget) {
                             return $model->homologSituacaoggp->situacao_descricao;
                         },
                         'filterType'=>GridView::FILTER_SELECT2,
-                        'filter'=>ArrayHelper::map(PedidocustoSituacao::find()->orderBy('situacao_descricao')->asArray()->all(), 'situacao_descricao', 'situacao_descricao'), 
+                        'filter'=>ArrayHelper::map(PedidocustoSituacao::find()->orderBy('situacao_descricao')->asArray()->all(), 'situacao_descricao', 'situacao_descricao'),
                         'filterWidgetOptions'=>[
                             'pluginOptions'=>['allowClear'=>true],
                         ],
@@ -111,18 +111,32 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
                     ],
 
                     [
-                        'attribute'=>'homolog_situacaodad', 
+                        'attribute'=>'homolog_situacaodad',
                         'width'=>'8%',
-                        'value'=>function ($model, $key, $index, $widget) { 
+                        'value'=>function ($model, $key, $index, $widget) {
                             return $model->homologSituacaodad->situacao_descricao;
                         },
                         'filterType'=>GridView::FILTER_SELECT2,
-                        'filter'=>ArrayHelper::map(PedidocustoSituacao::find()->orderBy('situacao_descricao')->asArray()->all(), 'situacao_descricao', 'situacao_descricao'), 
+                        'filter'=>ArrayHelper::map(PedidocustoSituacao::find()->orderBy('situacao_descricao')->asArray()->all(), 'situacao_descricao', 'situacao_descricao'),
                         'filterWidgetOptions'=>[
                             'pluginOptions'=>['allowClear'=>true],
                         ],
                             'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
                     ],
+
+                    // [
+                    //     'attribute'=>'homolog_situacaodrg',
+                    //     'width'=>'8%',
+                    //     'value'=>function ($model, $key, $index, $widget) {
+                    //         return $model->homologSituacaodrg->situacao_descricao;
+                    //     },
+                    //     'filterType'=>GridView::FILTER_SELECT2,
+                    //     'filter'=>ArrayHelper::map(PedidocustoSituacao::find()->orderBy('situacao_descricao')->asArray()->all(), 'situacao_descricao', 'situacao_descricao'),
+                    //     'filterWidgetOptions'=>[
+                    //         'pluginOptions'=>['allowClear'=>true],
+                    //     ],
+                    //         'filterInputOptions'=>['placeholder'=>'Selecione a Situação'],
+                    // ],
 
                     [
                         'attribute' => 'homolog_responsavel',
@@ -136,7 +150,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
                     [
                         'class'=>'kartik\grid\EditableColumn',
-                        'attribute'=>'homolog_datahomologacao',    
+                        'attribute'=>'homolog_datahomologacao',
                         'hAlign'=>'center',
                         'vAlign'=>'middle',
                         'width'=>'9%',
@@ -215,7 +229,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 
     <?php Pjax::begin(['id' => 'w0-pjax']); ?>
 
-    <?php 
+    <?php
         echo GridView::widget([
         'dataProvider'=>$dataProvider,
         'filterModel'=>$searchModel,
@@ -227,14 +241,14 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
         'rowOptions' =>function($model){
             if(isset($model->homolog_homologador))
             {
-                return['class'=>'success'];                        
+                return['class'=>'success'];
             }
         },
         'beforeHeader'=>[
             [
                 'columns'=>[
-                    ['content'=>'Detalhes do Pedido de Homologação', 'options'=>['colspan'=>11, 'class'=>'text-center warning']], 
-                    ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
+                    ['content'=>'Detalhes do Pedido de Homologação', 'options'=>['colspan'=>11, 'class'=>'text-center warning']],
+                    ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']],
                 ],
             ]
         ],

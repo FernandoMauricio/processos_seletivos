@@ -10,7 +10,7 @@ use app\models\pedidos\pedidohomologacao\PedidoHomologacao;
 /**
  * PedidoHomologacaoSearch represents the model behind the search form about `app\models\pedidos\pedidohomologacao\PedidoHomologacao`.
  */
-class PedidoHomologacaoSearch extends PedidoHomologacao
+class PedidoHomologacaoAprovacaoDrgSearch extends PedidoHomologacao
 {
     /**
      * @inheritdoc
@@ -19,7 +19,7 @@ class PedidoHomologacaoSearch extends PedidoHomologacao
     {
         return [
             [['homolog_id', 'contratacao_id'], 'integer'],
-            [['homolog_cargo', 'homolog_tipo', 'homolog_unidade', 'homolog_motivo', 'homolog_sintese', 'homolog_validade', 'homolog_aprovadorggp', 'homolog_dataaprovacaoggp', 'homolog_aprovadordad',  'homolog_dataaprovacaodad', 'homolog_aprovadordrg', 'homolog_dataaprovacaodrg', 'homolog_responsavel', 'homolog_situacaoggp', 'homolog_situacaodad', 'homolog_situacaodrg'], 'safe'],
+            [['homolog_cargo', 'homolog_tipo', 'homolog_unidade', 'homolog_motivo', 'homolog_sintese', 'homolog_validade', 'homolog_aprovadorggp', 'homolog_dataaprovacaoggp', 'homolog_aprovadordad', 'homolog_dataaprovacaodad', 'homolog_validade', 'homolog_aprovadordrg', 'homolog_dataaprovacaodrg', 'homolog_responsavel', 'homolog_situacaoggp', 'homolog_situacaodad', 'homolog_situacaodrg'], 'safe'],
             [['homolog_salario', 'homolog_encargos', 'homolog_total'], 'number'],
         ];
     }
@@ -50,9 +50,7 @@ class PedidoHomologacaoSearch extends PedidoHomologacao
             'query' => $query,
         ]);
 
-        $dataProvider->sort = ['defaultOrder' => ['homolog_id'=>SORT_DESC]];
-
-        $query->joinWith('homologSituacaoggp');
+        $query->joinWith('homologSituacaodrg');
         $query->joinWith('homologSituacaodad as b');
         $query->joinWith('homologSituacaodrg as c');
 
@@ -71,9 +69,11 @@ class PedidoHomologacaoSearch extends PedidoHomologacao
             'homolog_salario' => $this->homolog_salario,
             'homolog_encargos' => $this->homolog_encargos,
             'homolog_total' => $this->homolog_total,
-            'homolog_dataaprovacaoggp' => $this->homolog_dataaprovacaoggp,
+            'homolog_dataaprovacaodrg' => $this->homolog_dataaprovacaoggp,
             'homolog_dataaprovacaodad' => $this->homolog_dataaprovacaodad,
-            'homolog_dataaprovacaodrg' => $this->homolog_dataaprovacaodrg,
+            'homolog_situacaoggp' => 4, //Aprovado Pelo GGP
+            'homolog_situacaodad' => 4, //Aprovado Pela DRG
+            'homolog_situacaodrg' => 1, // Aguardando Aprovação
         ]);
 
         $query->andFilterWhere(['like', 'homolog_cargo', $this->homolog_cargo])

@@ -56,7 +56,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        
+
         $session = Yii::$app->session;
 
     //VERIFICA SE O COLABORADOR É GERENTE PARA REALIZAR A SOLICITAÇÃO
@@ -69,16 +69,20 @@ class SiteController extends Controller
 
         $countPedidoCustoGGP = PedidoCusto::find()->where(['custo_situacaoggp' => 1])->count();
         $countPedidoCustoDAD = PedidoCusto::find()->where(['custo_situacaoggp' => 4])->andWhere(['custo_situacaodad' => 1])->count();
+        $countPedidoCustoDRG = PedidoCusto::find()->where(['custo_situacaoggp' => 4])->andWhere(['custo_situacaodad' => 4])->andWhere(['custo_situacaodrg' => 1])->count();
 
         $countPedidoContratacaoGGP = PedidoContratacao::find()->where(['pedcontratacao_situacaoggp' => 1])->count();
         $countPedidoContratacaoDAD = PedidoContratacao::find()->where(['pedcontratacao_situacaoggp' => 4])->andWhere(['pedcontratacao_situacaodad' => 1])->count();
+        $countPedidoContratacaoDRG = PedidoContratacao::find()->where(['pedcontratacao_situacaoggp' => 4])->andWhere(['pedcontratacao_situacaodad' => 4])->andWhere(['pedcontratacao_situacaodrg' => 1])->count();
 
-        return $this->render('index', 
+        return $this->render('index',
         [
             'countPedidoCustoGGP' => $countPedidoCustoGGP,
             'countPedidoCustoDAD' => $countPedidoCustoDAD,
+            'countPedidoCustoDRG' => $countPedidoCustoDRG,
             'countPedidoContratacaoGGP' => $countPedidoContratacaoGGP,
             'countPedidoContratacaoDAD' => $countPedidoContratacaoDAD,
+            'countPedidoContratacaoDRG' => $countPedidoContratacaoDRG,
         ]);
     }
 
@@ -86,5 +90,5 @@ class SiteController extends Controller
     {
         return $this->render('versao');
     }
-    
+
 }

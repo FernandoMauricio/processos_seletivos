@@ -14,6 +14,33 @@ $this->title = 'Processo Seletivo - Senac AM';
     <h1 class="text-center"> Histórico de Versões</h1>
         <div class="body-content">
             <div class="panel panel-danger">
+                <div class="panel-heading"><i class="glyphicon glyphicon-star-empty"></i> Versão 2.4 - Publicado em 01/03/2019</div>
+                <div class="panel-body">
+                    <h4><b style="color: #337ab7;">Implementações</b></h4>
+                    <h5><i class="glyphicon glyphicon-tag"></i><b> Pedidos de Contratação, Homologação, Custo e Etapas do Processo</b></h5>
+                        <h5>- Ordenação decrescente dos pedidos de custo, homologação e contratacao e também das etapas do processo.</h5>
+                        <h5>- Tela de Contratações Pendentes irão aparecer solicitações com a situação: <b style="color: #2980b9;">Recebido pelo GGP</b> e <b style="color: #2980b9;">Em correção pelo setor</b>.</h5>
+                        <h5>- Tela de Contratações Encerradas irão aparecer também as <b style="color: #2980b9;">solicitações canceladas</b>.</h5>
+                        <h5>- Incluido a informação na impressão da tela de Pedido de Contratação para contratações especiais.</h5>
+                        <h5>- Incluído número do edital na tabela de pontuação geral das avaliação na tela de Etapas do Processo.</h5>
+
+                    <h5><i class="glyphicon glyphicon-tag"></i><b> Geração de Arquivos</b></h5>
+                    <h5>- Retirado o requisito de cidade na busca por candidatos na Geração de Arquivos.</h5>
+                    <h5>- Implementado a opção para inserção de múltiplos e-emails na Geração de Arquivos.</h5>
+
+                    <h5><i class="glyphicon glyphicon-tag"></i><b> Banco de Currículos</b></h5>
+                        <h5>- Melhorias na filtragem do banco de currículos. </h5>
+                    <br/ >
+                <h4><b style="color: #337ab7;">Correções</b></h4>
+                    <h5><i class="glyphicon glyphicon-tag"></i><b> Envio de Email</b></h5>
+                        <h5>- Corrigido o problema de duplicidade no envio de e-mails ao GGP.</h5>
+                    <h5><i class="glyphicon glyphicon-tag"></i><b> Etapas do Processo</b></h5>
+                        <h5>- Melhoria na consulta de informações onde é mostrado as Etapas do Processo para os Gerentes.</h5>
+                    <h5><i class="glyphicon glyphicon-tag"></i><b> Aprovações de Candidatos</b></h5>
+                    <h5>- As informação sobre a aprovação dos candidatos agora aparecerão antes de ser enviado para a gerência solicitante.</h5>
+                </div>
+            </div>
+            <div class="panel panel-danger">
                 <div class="panel-heading"><i class="glyphicon glyphicon-star-empty"></i> Versão 2.3 - Publicado em 22/06/2018</div>
                 <div class="panel-body">
                   <h4><b style="color: #337ab7;">Implementações</b></h4>

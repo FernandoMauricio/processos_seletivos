@@ -120,7 +120,7 @@ use yii\widgets\DetailView;
           <?php echo $model->homolog_situacaodad == 3 ? '<td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-remove" aria-hidden="true"> </span>' : '<td style="font-size: 12px; border-top: 0px solid"><b><span class="glyphicon glyphicon-ok" aria-hidden="true"> </span>'; ?>
             <?= $model->homologSituacaodad->situacao_descricao ?></b><br /><br /><br /><br /><br />
             Assinado eletrônicamente por:<br />
-            
+
             <?php $query = (new \yii\db\Query())->select('aprov_descricao, aprov_cargo, aprov_observacao')->from('db_processos.aprovacoes')->where(['aprov_area' => 'DAD'])->one(); ?>
             <b><?= $model->homolog_aprovadordad; ?></b><br />
             <?= $query['aprov_cargo']; ?><br />

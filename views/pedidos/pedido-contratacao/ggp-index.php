@@ -29,7 +29,7 @@ echo '<div class="alert alert-'.$key.'">'.$message.'</div>';
 <?php
 
 $gridColumns = [
-            
+
             [
             'class'=>'kartik\grid\ExpandRowColumn',
             'width'=>'50px',
@@ -55,13 +55,13 @@ $gridColumns = [
             ],
 
             [
-                'attribute'=>'pedcontratacao_situacaoggp', 
+                'attribute'=>'pedcontratacao_situacaoggp',
                 'width'=>'310px',
-                'value'=>function ($model, $key, $index, $widget) { 
+                'value'=>function ($model, $key, $index, $widget) {
                     return $model->pedcontratacaoSituacaoggp->situacao_descricao;
                 },
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>ArrayHelper::map(PedidocustoSituacao::find()->orderBy('situacao_descricao')->asArray()->all(), 'situacao_descricao', 'situacao_descricao'), 
+                'filter'=>ArrayHelper::map(PedidocustoSituacao::find()->orderBy('situacao_descricao')->asArray()->all(), 'situacao_descricao', 'situacao_descricao'),
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
@@ -69,9 +69,9 @@ $gridColumns = [
             ],
 
             [
-                'attribute'=>'pedcontratacao_situacaodad', 
+                'attribute'=>'pedcontratacao_situacaodad',
                 'width'=>'310px',
-                'value'=>function ($model, $key, $index, $widget) { 
+                'value'=>function ($model, $key, $index, $widget) {
                     return $model->pedcontratacaoSituacaodad->situacao_descricao;
                 },
                 'filterType'=>GridView::FILTER_SELECT2,
@@ -83,7 +83,7 @@ $gridColumns = [
             ],
 
             'pedcontratacao_responsavel',
-            
+
             ['class' => 'yii\grid\ActionColumn',
                         'template' => '{aprovar-ggp} {reprovar-ggp}',
                         'contentOptions' => ['style' => 'width: 7%;'],
@@ -94,7 +94,7 @@ $gridColumns = [
                             return Html::a('<span class="glyphicon glyphicon-ok"></span> ', $url, [
                                         'class'=>'btn btn-success btn-xs',
                                         'title' => Yii::t('app', 'Aprovar'),
-                       
+
                             ]);
                         },
 
@@ -103,7 +103,7 @@ $gridColumns = [
                             return Html::a('<span class="glyphicon glyphicon-remove"></span> ', $url, [
                                         'class'=>'btn btn-danger btn-xs',
                                         'title' => Yii::t('app', 'Reprovar'),
-                       
+
                             ]);
                         },
                 ],
@@ -113,7 +113,7 @@ $gridColumns = [
 
     <?php Pjax::begin(); ?>
 
-    <?php 
+    <?php
     echo GridView::widget([
     'dataProvider'=>$dataProvider,
     'filterModel'=>$searchModel,

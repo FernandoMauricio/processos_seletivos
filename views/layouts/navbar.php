@@ -74,6 +74,7 @@ echo NavX::widget([
             ]],
         ]
     ],
+
     ['label' => 'Aprovações GGP', 'items' => [
 
         '<li class="dropdown-header">Aprovações Pendentes GGP</li>',
@@ -83,30 +84,12 @@ echo NavX::widget([
 
         ],
     ],
-    // ['label' => 'Aprovações Pendentes DAD', 'items' => [
 
-    //     '<li class="dropdown-header">Aprovações Pendentes DAD</li>',
-    //     ['label' => 'Pedido de Custo', 'url' => ['/pedidos/pedido-custo/dad-index']],
-    //     ['label' => 'Pedido de Homologação', 'url' => ['/pedidos/pedido-homologacao/dad-index']],
-    //     ['label' => 'Pedido de Contratação', 'url' => ['/pedidos/pedido-contratacao/dad-index']],
+    ['label' => 'Solicitação de Contratação', 'url' => ['/contratacao/contratacao/index']],
 
-    //     ],
-    // ],
-    ['label' => 'Aprovações DRG', 'items' => [
+    ['label' => 'Cadastro de Reserva', 'url' => ['/curriculos/cadastro-de-reserva/index']],
 
-        '<li class="dropdown-header">Aprovações Pendentes DRG</li>',
-        ['label' => 'Pedido de Custo', 'url' => ['/pedidos/pedido-custo/drg-index']],
-        ['label' => 'Pedido de Homologação', 'url' => ['/pedidos/pedido-homologacao/drg-index']],
-        ['label' => 'Pedido de Contratação', 'url' => ['/pedidos/pedido-contratacao/drg-index']],
-
-        ],
-    ],
-
-     ['label' => 'Solicitação de Contratação', 'url' => ['/contratacao/contratacao/index']],
-
-     ['label' => 'Cadastro de Reserva', 'url' => ['/curriculos/cadastro-de-reserva/index']],
-
-     [
+    [
         'label' => 'Usuário (' . utf8_encode(ucwords(strtolower($session['sess_nomeusuario']))) . ')',
         'items' => [
                     '<li class="dropdown-header">Área Usuário</li>',
@@ -251,7 +234,7 @@ echo NavX::widget([
     ]
 ]);
 
-}elseif($session['sess_codunidade'] == 7 && $session['sess_coddepartamento'] == 82 && $session['sess_responsavelsetor'] == 1) { //ACESSOS GERENTE - DRG
+}elseif($session['sess_codunidade'] == 3 && $session['sess_coddepartamento'] == 5 && $session['sess_responsavelsetor'] == 1) { //ACESSOS GERENTE - DRG
     echo NavX::widget([
 
 'options' => ['class' => 'navbar-nav navbar-right'],
@@ -262,12 +245,13 @@ echo NavX::widget([
 
         ['label' => 'Análise de Curriculos', 'url' => ['/curriculos/curriculos-admin/analise-gerencial']],
 
-        ['label' => 'Aprovações Pendentes DAD', 'items' => [
 
-            '<li class="dropdown-header">Aprovações Pendentes DAD</li>',
-            ['label' => 'Pedido de Custo', 'url' => ['/pedidos/pedido-custo/dad-index']],
-            ['label' => 'Pedido de Homologação', 'url' => ['/pedidos/pedido-homologacao/dad-index']],
-            ['label' => 'Pedido de Contratação', 'url' => ['/pedidos/pedido-contratacao/dad-index']],
+        ['label' => 'Aprovações DRG', 'items' => [
+
+            '<li class="dropdown-header">Aprovações Pendentes DRG</li>',
+            ['label' => 'Pedido de Custo', 'url' => ['/pedidos/pedido-custo/drg-index']],
+            //['label' => 'Pedido de Homologação', 'url' => ['/pedidos/pedido-homologacao/drg-index']],
+            ['label' => 'Pedido de Contratação', 'url' => ['/pedidos/pedido-contratacao/drg-index']],
 
             ],
         ],

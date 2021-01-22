@@ -8,9 +8,9 @@ use yii\data\ActiveDataProvider;
 use app\models\pedidos\pedidocontratacao\PedidoContratacao;
 
 /**
- * PedidoContratacaoSearch represents the model behind the search form about `app\models\pedidos\pedidocontratacao\PedidoContratacao`.
+ * PedidoContratacaoAprovacaoDadSearch represents the model behind the search form about `app\models\pedidos\pedidocontratacao\PedidoContratacao`.
  */
-class PedidoContratacaoSearch extends PedidoContratacao
+class PedidoContratacaoAprovacaoDrgSearch extends PedidoContratacao
 {
     /**
      * @inheritdoc
@@ -19,7 +19,7 @@ class PedidoContratacaoSearch extends PedidoContratacao
     {
         return [
             [['pedcontratacao_id'], 'integer'],
-            [['pedcontratacao_assunto', 'pedcontratacao_recursos', 'pedcontratacao_data', 'pedcontratacao_aprovadorggp', 'pedcontratacao_dataaprovacaoggp', 'pedcontratacao_aprovadordad', 'pedcontratacao_dataaprovacaodad', 'pedcontratacao_aprovadordrg', 'pedcontratacao_dataaprovacaodrg', 'pedcontratacao_responsavel', 'pedidocusto_id', 'pedcontratacao_homologador', 'pedcontratacao_datahomologacao', 'pedcontratacao_tipo', 'pedcontratacao_situacaoggp', 'pedcontratacao_situacaodad', 'pedcontratacao_situacaodrg'], 'safe'],
+            [['pedcontratacao_assunto', 'pedcontratacao_recursos', 'pedcontratacao_data', 'pedcontratacao_aprovadorggp', 'pedcontratacao_dataaprovacaoggp', 'pedcontratacao_aprovadordad', 'pedcontratacao_dataaprovacaodad', 'pedcontratacao_aprovadordrg', 'pedcontratacao_dataaprovacaodrg', 'pedcontratacao_responsavel', 'pedcontratacao_situacaoggp', 'pedcontratacao_situacaodad', 'pedcontratacao_situacaodrg'], 'safe'],
             [['pedcontratacao_valortotal'], 'number'],
         ];
     }
@@ -50,20 +50,11 @@ class PedidoContratacaoSearch extends PedidoContratacao
             'query' => $query,
         ]);
 
-        $dataProvider->sort = ['defaultOrder' => ['pedcontratacao_id'=>SORT_DESC]];
+        $this->load($params);
 
         $query->joinWith('pedcontratacaoSituacaoggp');
         $query->joinWith('pedcontratacaoSituacaodad as b');
         $query->joinWith('pedcontratacaoSituacaodrg as c');
-
-        $query->joinWith(['pedidoCusto.etapasProcesso.pedidocusto']);
-
-        $dataProvider->sort->attributes['pedidocusto_id'] = [
-        'asc' => ['etapas_processo.pedidocusto_id' => SORT_ASC],
-        'desc' => ['etapas_processo.pedidocusto_id' => SORT_DESC],
-        ];
-
-        $this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
@@ -78,22 +69,19 @@ class PedidoContratacaoSearch extends PedidoContratacao
             'pedcontratacao_data' => $this->pedcontratacao_data,
             'pedcontratacao_dataaprovacaoggp' => $this->pedcontratacao_dataaprovacaoggp,
             'pedcontratacao_dataaprovacaodad' => $this->pedcontratacao_dataaprovacaodad,
-            'pedcontratacao_dataaprovacaodrg' => $this->pedcontratacao_dataaprovacaodrg,
-            'pedcontratacao_datahomologacao' => $this->pedcontratacao_datahomologacao,
+            'pedcontratacao_situacaoggp' => 4,//Aprovado Pelo GGP
+            'pedcontratacao_situacaodad' => 4,//Aprovado Pela DAD
+            'pedcontratacao_situacaodrg' => 1, // Aguardando Aprovação
         ]);
 
         $query->andFilterWhere(['like', 'pedcontratacao_assunto', $this->pedcontratacao_assunto])
             ->andFilterWhere(['like', 'pedcontratacao_recursos', $this->pedcontratacao_recursos])
-            ->andFilterWhere(['like', 'pedcontratacao_aprovadorggp', $this->pedcontratacao_aprovadorggp])
-            ->andFilterWhere(['like', 'pedcontratacao_aprovadordad', $this->pedcontratacao_aprovadordad])
-            ->andFilterWhere(['like', 'pedcontratacao_aprovadordrg', $this->pedcontratacao_aprovadordrg])
             ->andFilterWhere(['like', 'pedidocusto_situacao.situacao_descricao', $this->pedcontratacao_situacaoggp])
             ->andFilterWhere(['like', 'b.situacao_descricao', $this->pedcontratacao_situacaodad])
             ->andFilterWhere(['like', 'c.situacao_descricao', $this->pedcontratacao_situacaodrg])
-            ->andFilterWhere(['like', 'pedcontratacao_responsavel', $this->pedcontratacao_responsavel])
-            ->andFilterWhere(['like', 'pedidocusto_id', $this->pedidocusto_id])
-            ->andFilterWhere(['like', 'pedcontratacao_homologador', $this->pedcontratacao_homologador])
-            ->andFilterWhere(['like', 'pedcontratacao_tipo', $this->pedcontratacao_tipo]);
+            ->andFilterWhere(['like', 'pedcontratacao_aprovadorggp', $this->pedcontratacao_aprovadorggp])
+            ->andFilterWhere(['like', 'pedcontratacao_aprovadordad', $this->pedcontratacao_aprovadordad])
+            ->andFilterWhere(['like', 'pedcontratacao_responsavel', $this->pedcontratacao_responsavel]);
 
         return $dataProvider;
     }

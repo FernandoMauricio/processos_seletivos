@@ -63,6 +63,7 @@ class PedidoHomologacao extends \yii\db\ActiveRecord
             [['contratacao_id'], 'exist', 'skipOnError' => true, 'targetClass' => Contratacao::className(), 'targetAttribute' => ['contratacao_id' => 'id']],
             [['homolog_situacaoggp'], 'exist', 'skipOnError' => true, 'targetClass' => PedidocustoSituacao::className(), 'targetAttribute' => ['homolog_situacaoggp' => 'situacao_id']],
             [['homolog_situacaodad'], 'exist', 'skipOnError' => true, 'targetClass' => PedidocustoSituacao::className(), 'targetAttribute' => ['homolog_situacaodad' => 'situacao_id']],
+            [['homolog_situacaodrg'], 'exist', 'skipOnError' => true, 'targetClass' => PedidocustoSituacao::className(), 'targetAttribute' => ['homolog_situacaodrg' => 'situacao_id']],
         ];
     }
 
@@ -89,6 +90,7 @@ class PedidoHomologacao extends \yii\db\ActiveRecord
             'homolog_dataaprovacaoggp' => 'Dataaprovacaoggp',
             'homolog_aprovadordad' => 'Aprovadordad',
             'homolog_situacaodad' => 'Situação DAD',
+            'homolog_situacaodrg' => 'Situação DRG',
             'homolog_dataaprovacaodad' => 'Dataaprovacaodad',
             'homolog_responsavel' => 'Responsavel',
             'homolog_data' => 'Data',
@@ -120,7 +122,15 @@ class PedidoHomologacao extends \yii\db\ActiveRecord
     {
         return $this->hasOne(PedidocustoSituacao::className(), ['situacao_id' => 'homolog_situacaodad']);
     }
-    
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getHomologSituacaodrg()
+    {
+        return $this->hasOne(PedidocustoSituacao::className(), ['situacao_id' => 'homolog_situacaodrg']);
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */

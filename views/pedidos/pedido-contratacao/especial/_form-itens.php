@@ -66,6 +66,7 @@ use kartik\depdrop\DepDrop;
                    $data_contratacoes = ArrayHelper::map($contratacoes, 'id', 'id');
                    echo $form->field($modelItens, "[{$i}]contratacao_id")->widget(Select2::classname(), [
                            'data' =>  $data_contratacoes,
+                           'disabled' => !$model->isNewRecord ? true : false,
                            'options' => ['placeholder' => 'Selecione a Solicitação...',
                            'onchange'=>'
                                    var select = this;

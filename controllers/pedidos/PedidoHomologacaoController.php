@@ -365,6 +365,7 @@ class PedidoHomologacaoController extends Controller
 
         $model->homolog_situacaoggp = 1; //Aguardando Autorização GPP
         $model->homolog_situacaodad = 1; //Aguardando Autorização DAD
+        $model->homolog_situacaodrg = 1; //Aguardando Autorização DRG
         $model->homolog_data            = date('Y-m-d');
         $model->homolog_datahomologacao = date('Y-m-d');
         $model->homolog_responsavel     = $session['sess_nomeusuario'];
@@ -469,6 +470,7 @@ class PedidoHomologacaoController extends Controller
 
         $model->homolog_situacaoggp = 1; //Aguardando Autorização GPP
         $model->homolog_situacaodad = 1; //Aguardando Autorização DAD
+        $model->homolog_situacaodrg = 1; //Aguardando Autorização DRG
         $model->homolog_responsavel = $session['sess_nomeusuario'];
 
         //Verifica se o Pedido de Homologação já foi homologado
@@ -552,20 +554,20 @@ class PedidoHomologacaoController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    
+
     public function AccessAllow()
     {
         $session = Yii::$app->session;
-        if (!isset($session['sess_codusuario']) 
-            && !isset($session['sess_codcolaborador']) 
-            && !isset($session['sess_codunidade']) 
-            && !isset($session['sess_nomeusuario']) 
-            && !isset($session['sess_coddepartamento']) 
-            && !isset($session['sess_codcargo']) 
-            && !isset($session['sess_cargo']) 
-            && !isset($session['sess_setor']) 
-            && !isset($session['sess_unidade']) 
-            && !isset($session['sess_responsavelsetor'])) 
+        if (!isset($session['sess_codusuario'])
+            && !isset($session['sess_codcolaborador'])
+            && !isset($session['sess_codunidade'])
+            && !isset($session['sess_nomeusuario'])
+            && !isset($session['sess_coddepartamento'])
+            && !isset($session['sess_codcargo'])
+            && !isset($session['sess_cargo'])
+            && !isset($session['sess_setor'])
+            && !isset($session['sess_unidade'])
+            && !isset($session['sess_responsavelsetor']))
         {
            return $this->redirect('https://portalsenac.am.senac.br');
         }

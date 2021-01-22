@@ -258,7 +258,7 @@ class PedidoContratacaoController extends Controller
         //Homologa o Pedido de Contratação
         $connection = Yii::$app->db;
         $command = $connection->createCommand(
-         "UPDATE `db_processos`.`pedido_contratacao` 
+         "UPDATE `db_processos`.`pedido_contratacao`
           SET `pedcontratacao_homologador` = '".$session['sess_nomeusuario']."', `pedcontratacao_datahomologacao` = ".date('"Y-m-d"')." 
           WHERE `pedcontratacao_id` = '".$model->pedcontratacao_id."'");
         $command->execute();
@@ -375,7 +375,7 @@ class PedidoContratacaoController extends Controller
 
                     if ($flag) {
                             foreach ($modelsItens as $i => $modelItens) {
-                           //Verifica se é o mesmo cargo escolhido na solicitação de Contratação  
+                           //Verifica se é o mesmo cargo escolhido na solicitação de Contratação
                            // if($_POST['PedidocontratacaoItens'][$i]['itemcontratacao_cargo'] != $modelItens->etapasProcesso->etapa_cargo) {
                            //      Yii::$app->session->setFlash('danger', '<b>ERRO!</b> Cargo <b>'.$modelItens['etapasProcesso']['etapa_cargo'].'</b> diferente do informado na Solicitação <b>'.$_POST['PedidocontratacaoItens'][$i]['contratacao_id'].'</b>');
                            //      return $this->redirect(['update', 'id' => $model->pedcontratacao_id]);
@@ -388,7 +388,7 @@ class PedidoContratacaoController extends Controller
                                 $model->save();
                             }
                         $transaction->commit();
-                            
+
                         Yii::$app->session->setFlash('success', '<b>SUCESSO!</b> Pedido de Contratação Cadastrado!</b>');
                        return $this->redirect(['index']);
                     }
@@ -561,16 +561,16 @@ class PedidoContratacaoController extends Controller
     public function AccessAllow()
     {
         $session = Yii::$app->session;
-        if (!isset($session['sess_codusuario']) 
-            && !isset($session['sess_codcolaborador']) 
-            && !isset($session['sess_codunidade']) 
-            && !isset($session['sess_nomeusuario']) 
-            && !isset($session['sess_coddepartamento']) 
-            && !isset($session['sess_codcargo']) 
-            && !isset($session['sess_cargo']) 
-            && !isset($session['sess_setor']) 
-            && !isset($session['sess_unidade']) 
-            && !isset($session['sess_responsavelsetor'])) 
+        if (!isset($session['sess_codusuario'])
+            && !isset($session['sess_codcolaborador'])
+            && !isset($session['sess_codunidade'])
+            && !isset($session['sess_nomeusuario'])
+            && !isset($session['sess_coddepartamento'])
+            && !isset($session['sess_codcargo'])
+            && !isset($session['sess_cargo'])
+            && !isset($session['sess_setor'])
+            && !isset($session['sess_unidade'])
+            && !isset($session['sess_responsavelsetor']))
         {
            return $this->redirect('https://portalsenac.am.senac.br');
         }
